@@ -1,9 +1,9 @@
 {
-  "name": "hackathon-starter",
-  "version": "3.4.0",
+  "name": "brigadehub",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sahat/hackathon-starter.git"
+    "url": "https://github.com/therebelrobot/brigadehub.git"
   },
   "scripts": {
     "start": "node app.js",
@@ -67,5 +67,5 @@
     "multiline": "^1.0.2",
     "supertest": "^1.1.0"
   },
-  "license": "MIT"
+  "license": "ISC"
 }

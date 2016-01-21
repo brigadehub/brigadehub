@@ -124,6 +124,15 @@ exports.getAccount = function(req, res) {
 };
 
 /**
+ * GET /brigade/settings
+ * Profile page.
+ */
+exports.getBrigadeSettings = function(req, res) {
+  res.render('brigade/profile', {
+    title: 'Brigade Management'
+  });
+};
+/**
  * POST /account/profile
  * Update profile information.
  */
@@ -146,33 +155,26 @@ exports.postUpdateProfile = function(req, res, next) {
     });
   });
 };
-
 /**
- * POST /account/password
- * Update current password.
+ * POST /brigade/settings
+ * Update profile information.
  */
-exports.postUpdatePassword = function(req, res, next) {
-  req.assert('password', 'Password must be at least 4 characters long').len(4);
-  req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
-
-  var errors = req.validationErrors();
-
-  if (errors) {
-    req.flash('errors', errors);
-    return res.redirect('/account');
-  }
-
+exports.postUpdateBrigadeSettings = function(req, res, next) {
   User.findById(req.user.id, function(err, user) {
     if (err) {
       return next(err);
     }
-    user.password = req.body.password;
+    user.email = req.body.email || '';
+    user.profile.name = req.body.name || '';
+    user.profile.gender = req.body.gender || '';
+    user.profile.location = req.body.location || '';
+    user.profile.website = req.body.website || '';
     user.save(function(err) {
       if (err) {
         return next(err);
       }
-      req.flash('success', { msg: 'Password has been changed.' });
-      res.redirect('/account');
+      req.flash('success', { msg: 'Profile information updated.' });
+      res.redirect('/brigade');
     });
   });
 };

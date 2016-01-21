@@ -1,83 +1,37 @@
-![Alt](https://lh4.googleusercontent.com/-PVw-ZUM9vV8/UuWeH51os0I/AAAAAAAAD6M/0Ikg7viJftQ/w1286-h566-no/hackathon-starter-logo.jpg)
-Hackathon Starter [![Dependency Status](https://david-dm.org/sahat/hackathon-starter/status.svg?style=flat)](https://david-dm.org/sahat/hackathon-starter) [![Build Status](https://img.shields.io/travis/sahat/hackathon-starter.svg?style=flat)](https://travis-ci.org/sahat/hackathon-starter) [![Analytics](https://ga-beacon.appspot.com/UA-47447818-2/hackathon-starter?pixel)](https://github.com/igrigorik/ga-beacon)
-=======================
+# BrigadeHub
+=================
 
-[![Join the chat at https://gitter.im/sahat/hackathon-starter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sahat/hackathon-starter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Thinkful Pair on Node](https://tf-assets-staging.s3.amazonaws.com/badges/thinkful_repo_badge.svg)](http://start.thinkful.com/node/)
+A Work in Progress (WIP) of a Code for America Brigade Webiste/Portal CMS. This is more of a thought experiment to see if it's even feasible to build and maintain something like this.
 
-**Live Demo**: http://hackathonstarter.herokuapp.com
+BrigadeHub is designed to meet some very specific goals:
 
-Jump to [What's new in 3.4.0?](#changelog)
+- Be the external face for the brigade
+- List and organize active projects
+- Give new users a place to onboard
+- Show upcoming events and calendars
+- Show Leadership / Contact info
+- Brigade Blogging
 
-A boilerplate for **Node.js** web applications.
+This may be a pipe dream, I know that, but I wanted to give it a shot. It's originally based on [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter), but has been heavily modified to meet our needs. We're striving to match [feross/standard](https://github.com/feross/standard) javascript styling, though the original boilerplate didn't conform to that, so it's a wip.
 
-If you have attended any hackathons in the past, then you know how much time it takes to
-get a project started: decide on what to build, pick a programming language, pick a web framework,
-pick a CSS framework. A while later, you might have an initial project up on GitHub and only then
-can other team members start contributing. Or how about doing something as simple as *Sign in with Facebook*
-authentication? You can spend hours on it if you are not familiar with how OAuth 2.0 works.
+I want to eventually allow theming for the site, but for now I'm going to try and make it a similar clone to [Code for Atlanta's](http://www.codeforatlanta.org/) main site, since I really like that one.
 
-When I started this project, my primary focus was on **simplicity** and **ease of use**.
-I also tried to make it as **generic** and **reusable** as possible to cover most use cases of hackathon web apps,
-without being too specific. In the worst case you can use this as a learning guide for your projects,
-if for example you are only interested in **Sign in with Google** authentication and nothing else.
-
-<h4 align="center">Modern Theme</h4>
-
-![](https://lh6.googleusercontent.com/-KQTmCFNK6MM/U7OZpznjDuI/AAAAAAAAERc/h3jR27Uy1lE/w1366-h1006-no/Screenshot+2014-07-02+01.32.22.png)
-
-<h4 align="center">Flatly Bootstrap Theme</h4>
-
-![](https://lh5.googleusercontent.com/-oJ-7bSYisRY/U1a-WhK_LoI/AAAAAAAAECM/a04fVYgefzw/w1474-h1098-no/Screen+Shot+2014-04-22+at+3.08.33+PM.png)
-
-<h4 align="center">API Examples</h4>
-
-![](https://lh5.googleusercontent.com/-BJD2wK8CvC8/VLodBsyL-NI/AAAAAAAAEx0/SafE6o_qq_I/w1818-h1186-no/Screenshot%2B2015-01-17%2B00.25.49.png)
-
-Table of Contents
------------------
-
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-- [Generator](#generator)
-- [Obtaining API Keys](#obtaining-api-keys)
-- [Project Structure](#project-structure)
-- [List of Packages](#list-of-packages)
-- [Useful Tools and Resources](#useful-tools-and-resources)
-- [Recommended Design Resources](#recommended-design-resources)
-- [Recommended Node.js Libraries](#recommended-nodejs-libraries)
-- [Recommended Client-side Libraries](#recommended-client-side-libraries)
-- [Pro Tips](#pro-tips)
-- [FAQ](#faq)
-- [How It Works](#how-it-works-mini-guides)
-- [Mongoose Cheatsheet](#mongoose-cheatsheet)
-- [Deployment](#deployment)
-- [Changelog](#changelog)
-- [Contributing](#contributing)
-- [License](#license)
+This may die in a week. Be aware. It's very much a quick idea I wanted to play with. We'll see if it survives.
 
 Features
 --------
 
-- **Local Authentication** using Email and Password
-- **OAuth 1.0a Authentication** via Twitter
-- **OAuth 2.0 Authentication** via Facebook, Google, GitHub, LinkedIn, Instagram
+- **OAuth 2.0 Authentication** via GitHub (with the possibility of others)
 - Flash notifications
 - MVC Project Structure
-- Node.js clusters support
 - Sass stylesheets (auto-compiled via middleware)
-- Bootstrap 3 + Extra Themes
-- Contact Form (powered by Mailgun, Sendgrid or Mandrill)
+- Bootstrap 3
 - **Account Management**
  - Gravatar
  - Profile Details
- - Change Password
- - Forgot Password
- - Reset Password
  - Link multiple OAuth strategies to one account
  - Delete Account
 - CSRF protection
-- **API Examples**: Facebook, Foursquare, Last.fm, Tumblr, Twitter, Stripe, LinkedIn and more.
 
 Prerequisites
 -------------
@@ -99,11 +53,15 @@ here is another great tutorial for complete beginners - [Getting Started With No
 Getting Started
 ---------------
 
-The easiest way to get started is to clone the repository:
+The easiest way to get started is to mirror the repository:
+
+[![mirror this repo](http://mirror.therebelrobot.com/badge-large.svg)](http://mirror.therebelrobot.com/?source=therebelrobot/brigadehub)
+
+or clone it:
 
 ```bash
 # Get the latest snapshot
-git clone --depth=1 https://github.com/sahat/hackathon-starter.git myproject
+git clone --depth=1 https://github.com/therebelrobot/brigadehub.git myproject
 
 # Change directory
 cd myproject
@@ -121,21 +79,6 @@ save you a lot of time in the long run, because you won't need to manually
 restart the server each time you make a small change in code. To install, run
 `sudo npm install -g nodemon`.
 
-Generator
----------
-
-Hackathon Starter Generator is tightly coupled to the project code. As soon as you
-start changing and moving things around, it will probably no longer work as
-expected. That is why it's best to use when you first download the project.
-
-Currently it supports switching between SendGrid, Mailgun and Mandrill email
-services and adding a Node.js cluster support.
-
-To get started, run: `node setup.js`.
-
-**Note:** Generator has a "destructive" behavior, it will physically
-modify your code. *There is no undo action.* To be on a safe side, always commit
-your code to Git, so you could go back and revert the changes.
 
 Obtaining API Keys
 ------------------
@@ -145,52 +88,9 @@ to obtain appropriate credentials: Client ID, Client Secret, API Key, or
 Username & Password. You will need to go through each provider to generate new
 credentials.
 
-**Hackathon Starter 2.0 Update:** I have included dummy keys and passwords for
-all API examples to get you up and running even faster. But don't forget to update
-them with *your credentials* when you are ready to deploy an app.
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1000px-Google_2015_logo.svg.png" width="200">
-- Visit [Google Cloud Console](https://cloud.google.com/console/project)
-- Click on the **Create Project** button
-- Enter *Project Name*, then click on **Create** button
-- Then click on *APIs & auth* in the sidebar and select *API* tab
-- Click on **Google+ API** under *Social APIs*, then click **Enable API**
-- Next, under *APIs & auth* in the sidebar click on *Credentials* tab
-- Click on **Create new Client ID** button
-- Select *Web Application* and click on **Configure Consent Screen**
-- Fill out the required fields then click on **Save**
-- In the *Create Client ID* modal dialog:
- - **Application Type**: Web Application
- - **Authorized Javascript origins**: http://localhost:3000
- - **Authorized redirect URI**: http://localhost:3000/auth/google/callback
-- Click on **Create Client ID** button
-- Copy and paste *Client ID* and *Client secret* keys into `.env`
-
-**Note:** When you ready to deploy to production don't forget to
-add your new url to *Authorized Javascript origins* and *Authorized redirect URI*,
-e.g. `http://my-awesome-app.herokuapp.com` and
-`http://my-awesome-app.herokuapp.com/auth/google/callback` respectively.
-The same goes for other providers.
-
-<hr>
-
-<img src="http://www.doit.ba/img/facebook.jpg" width="200">
-- Visit [Facebook Developers](https://developers.facebook.com/)
-- Click **My Apps**, then select **Add a New App* from the dropdown menu
-- Select **Website** platform and enter a new name for your app
-- Click on the **Create New Facebook App ID** button
-- Choose a **Category** that best describes your app
-- Click on **Create App ID** button
-- In the upper right corner click on **Skip Quick Star**
-- Copy and paste *App ID* and *App Secret* keys into `.env`
- - **Note:** *App ID* is **clientID**, *App Secret* is **clientSecret**
-- Click on the *Settings* tab in the left nav, then click on **+ Add Platform**
-- Select **Website**
-- Enter `http://localhost:3000` under *Site URL*
-
-**Note:** After a successful sign in with Facebook, a user will be redirected back to home page with appended hash `#_=_` in the URL. It is *not* a bug. See this [Stack Overflow](https://stackoverflow.com/questions/7131909/facebook-callback-appends-to-return-url) discussion for ways to handle it.
-
-<hr>
+I have included dummy keys and passwords for Github  to get you up and running
+even faster. But don't forget to update them with *your credentials* when you
+are ready to deploy an app.
 
 <img src="https://github.global.ssl.fastly.net/images/modules/logos_page/GitHub-Logo.png" width="200">
 - Go to [Account Settings](https://github.com/settings/profile)
@@ -201,133 +101,14 @@ The same goes for other providers.
 - Click **Register application**
 - Now copy and paste *Client ID* and *Client Secret* keys into `.env` file
 
-<hr>
-
-<img src="https://cdn3.iconfinder.com/data/icons/social-icons-5/607/Twitterbird.png" width="90">
-- Sign in at [https://apps.twitter.com/](https://apps.twitter.com/)
-- Click **Create a new application**
-- Enter your application name, website and description
-- For **Callback URL**: http://127.0.0.1:3000/auth/twitter/callback
-- Go to **Settings** tab
-- Under *Application Type* select **Read and Write** access
-- Check the box **Allow this application to be used to Sign in with Twitter**
-- Click **Update this Twitter's applications settings**
-- Copy and paste *Consumer Key* and *Consumer Secret* keys into `.env` file
-
-<hr>
-
-<img src="http://www.danpontefract.com/wp-content/uploads/2014/02/logo-linkedin.png" width="200">
-- Sign in at [LinkedIn Developer Network](https://developer.linkedin.com/)
-- From the account name dropdown menu select **API Keys**
- - *It may ask you to sign in once again*
-- Click **+ Add New Application** button
-- Fill out all the *required* fields
- - **OAuth 2.0 Redirect URLs**: http://localhost:3000/auth/linkedin/callback
- - **JavaScript API Domains**: http://localhost:3000
-- For **Default Application Permissions** make sure at least the following is checked:
- - `r_basicprofile`
-- Finish by clicking **Add Application** button
-- Copy and paste *API Key* and *Secret Key* keys into `.env` file
- - *API Key* is your **clientID**
- - *Secret Key* is your **clientSecret**
-
-<hr>
-
-<img src="https://s3.amazonaws.com/venmo/venmo_logo_blue.png" width="200">
-- Visit the **Account** section of your Venmo profile after logging in
-- Click on the **Developers** tab
-- Then click on the [new](https://venmo.com/account/app/new) link next to **Your Applications (0)**
-- Fill in the required fields: *App Name* and *What Will The App Be Used For?*
-- For **Web Redirect URL** enter: http://localhost:3000/auth/venmo/callback
-- Hit **Create** button
-- Back on the **Developers** tab click on **view** link next to **Your Applications (1) new**
-- Copy and paste **ID** and **Secret** keys into `.env` file
-
-<hr>
-
-<img src="https://stripe.com/img/about/logos/logos/black@2x.png" width="200">
-- [Sign up](https://stripe.com/) or log into your [dashboard](https://manage.stripe.com)
-- Click on your profile and click on Account Settings
-- Then click on [API Keys](https://manage.stripe.com/account/apikeys)
-- Copy the **Secret Key**. and add this into `.env` file
-<hr>
-
-<img src="https://yenniferallulli.com/wp-content/uploads/2015/01/Paypal-Logo-Transparent-png-format-large-size.png" width="200">
-- Visit [PayPal Developer](https://developer.paypal.com/)
-- Log in to your PayPal account
-- Click **Applications > Create App** in the navigation bar
-- Enter *Application Name*, then click **Create app**
-- Copy and paste *Client ID* and *Secret* keys into `.env` file
-- *App ID* is **client_id**, *App Secret* is **client_secret**
-- Change **host** to api.paypal.com if you want to test against production and use the live credentials
-
-<hr>
-
-<img src="http://33.media.tumblr.com/ffaf0075be879b3ab0b87f0b8bcc6814/tumblr_inline_n965bkOymr1qzxhga.png" width="200">
-- Go to [foursquare for Developers](https://developer.foursquare.com/)
-- Click on **My Apps** in the top menu
-- Click the **Create A New App** button
-- Enter *App Name*, *Welcome page url*,
-- For **Redirect URI**: http://localhost:3000/auth/foursquare/callback
-- Click **Save Changes**
-- Copy and paste *Client ID* and *Client Secret* keys into `.env` file
-
-<hr>
-
-<img src="http://img4.wikia.nocookie.net/__cb20130520163346/logopedia/images/8/8d/Tumblr_logo_by_x_1337_x-d5ikwpp.png" width="200">
-- Go to http://www.tumblr.com/oauth/apps
-- Once signed in, click **+Register application**
-- Fill in all the details
-- For **Default Callback URL**: http://localhost:3000/auth/tumblr/callback
-- Click **✔Register**
-- Copy and paste *OAuth consumer key* and *OAuth consumer secret* keys into `.env` file
-
-<hr>
-
-<img src="http://www.technologytell.com/gaming/files/2012/01/steam_logo.jpg" width="200">
-- Go to http://steamcommunity.com/dev/apikey
-- Sign in with your existing Steam account
-- Enter your *Domain Name*, then and click **Register**
-- Copy and paste *Key* into `.env` file
-
-<hr>
-
-<img src="http://iandouglas.com/presentations/pyconca2012/logos/sendgrid_logo.png" width="200">
-- Go to https://sendgrid.com/user/signup
-- Sign up and **confirm** your account via the *activation email*
-- Then enter your SendGrid *Username* and *Password* into `.env` file
-
-<hr>
-
-<img src="https://raw.github.com/mailgun/media/master/Mailgun_Primary.png" width="200">
-- Go to http://www.mailgun.com
-- Sign up and add your *Domain Name*
-- From the domain overview, copy and paste the default SMTP *Login* and *Password* into `.env` file
-
-<hr>
-
-<img src="http://cdn.appstorm.net/web.appstorm.net/web/files/2013/12/mandrill-logo.png" width="100">
-- Go to http://mandrill.com
-- Sign up and add your *Domain Name*
-- From the dashboard, click on *Get SMTP credentials*
-- Copy and paste the default SMTP *Login* and *Password* into `.env` file
-
-<hr>
-
-<img src="https://www.bitgo.com/img/new_bitgo/logo_footer.png" width="200">
-- Go to https://test.bitgo.com/
-- Sign up for an account.
-- Once logged into the dashboard, go to the top right selector and click 'account settings'
-- Under the developers tab, create your access token and copy and paste it into `.env` file
-
 Project Structure
 -----------------
 
 | Name                               | Description                                                  |
 | ---------------------------------- | ------------------------------------------------------------ |
 | **config**/passport.js             | Passport Local and OAuth strategies, plus login middleware.  |
-| **controllers**/api.js             | Controller for /api route and all api examples.              |
-| **controllers**/contact.js         | Controller for contact form.                                 |
+| **controllers**/projects.js        | Controller for /projects route and all projects examples.              |
+| **controllers**/about.js           | Controller for about form.                                 |
 | **controllers**/home.js            | Controller for home page (index).                            |
 | **controllers**/user.js            | Controller for user account management.                      |
 | **models**/User.js                 | Mongoose schema and model for User.                          |
@@ -337,7 +118,7 @@ Project Structure
 | **public**/**css**/main.less       | Main stylesheet for your app.                                |
 | **public/css/themes**/default.less | Some Bootstrap overrides to make it look prettier.           |
 | **views/account**/                 | Templates for *login, password reset, signup, profile*.      |
-| **views/api**/                     | Templates for API Examples.                                  |
+| **views/projects**/                | Templates for Project Examples.                                  |
 | **views/partials**/flash.jade      | Error, info and success flash notifications.                 |
 | **views/partials**/header.jade     | Navbar partial template.                                     |
 | **views/partials**/footer.jade     | Footer partial template.                                     |
@@ -483,39 +264,6 @@ where 1st parameter is an array, and a 2nd parameter is an object to search for.
 FAQ
 ---
 
-### Why do I get `403 Error: Forbidden` when submitting a form?
-You need to add the following hidden input element to your form. This has been
-added in the [pull request #40](https://github.com/sahat/hackathon-starter/pull/40)
-as part of the CSRF protection.
-
-```
-input(type='hidden', name='_csrf', value=_csrf)
-```
-
-**Note:** It is now possible to whitelist certain URLs. In other words you can
-specify a list of routes that should bypass CSRF verification check.
-
-**Note 2:** To whitelist dynamic URLs use regular expression tests inside the
-CSRF middleware to see if `req.originalUrl` matches your desired pattern.
-
-### What is cluster_app.js?
-
-**Note**: It is now part of the generator as of **v2.1**.
-
-From the [Node.js Documentation](http://nodejs.org/api/cluster.html#cluster_how_it_works):
-> A single instance of Node runs in a single thread. To take advantage of multi-core systems
-> the user will sometimes want to launch a cluster of Node processes to handle the load.
-> The cluster module allows you to easily create child processes that all share server ports.
-
-Running `cluster_app.js` allows you to take advantage of this feature by forking
-a process of `app.js` for each detected CPU. For the majority of applications
-serving HTTP requests, this is a nice benefit. However, the cluster module is
-still in experimental stage, therefore it should only be used after understanding
-its purpose and behavior. To use it, simply run `node cluster_app.js`.
-**Its use is entirely optional and `app.js` is not tied in any way to it**.
-As a reminder, if you plan to use `cluster_app.js` instead of `app.js`,
-be sure to indicate that in `package.json` when you are ready to deploy your app.
-
 ### I am getting MongoDB Connection Error, how do I fix it?
 That's a custom error message defined in `app.js` to indicate that there was a
 problem connecting to MongoDB:
@@ -567,17 +315,6 @@ from **main.less**. Next, delete `#wrap` and `#footer` lines from **layout.jade*
 (By the way, if no element is specified before class or id, Jade assumes it is
 a `div` element). Don't forget to indent everything under `#wrap` to the left
 once, since this project uses two spaces per block indentation.
-
-### Why is there no Mozilla Persona as a sign-in option?
-If you would like to use **Persona** authentication strategy, use the
-[pull request #64](https://github.com/sahat/hackathon-starter/pull/64) as a
-reference guide. I have explained my reasons why it could not be merged in
-[issue #63](https://github.com/sahat/hackathon-starter/issues/63#issuecomment-34898290).
-
-### How do I switch SendGrid for another email delivery service?
-Run `node setup.js` bundled with Hackathon Starter, then select
-**Email Service** option. It will automatically replace appropriate strings in
-your code. Currently there are three options: SendGrid, Mandrill, and Mailgun.
 
 How It Works (mini guides)
 --------------------------
@@ -855,7 +592,7 @@ parsing websites using [Cheerio](https://github.com/cheeriojs/cheerio), and etc.
 
 <hr>
 
-### How do I use Socket.io with Hackathon Starter?
+### How do I use Socket.io with this?
 [Dan Stroot](https://github.com/dstroot) submitted an excellent [pull request](https://github.com/dstroot/hackathon-starter/commit/0a632def1ce8da446709d92812423d337c977d75) that adds a real-time dashboard with socket.io.
 And as  much as I'd like to add it to the project, I think it violates one of the main
 principles of the Hackathon Starter:
@@ -1136,216 +873,10 @@ Also, be sure to check out the [Jump-start your hackathon efforts with DevOps Se
 Changelog
 ---------
 
-### 3.4.0 (January 5, 2016)
-- Use `dontenv` package for managing API keys and secrets.
-- Removed *secrets.js* (replaced by *.env.example*).
-- Added .env to .gitignore.
-- Fixed broken Aviary API image.
-
-### 3.3.1 (December 25, 2015)
-- Use `connect-mongo` ES5 fallback for backward-compatibility with Node.js version `< 4.0`.
-
-### 3.3.0 (December 19, 2015)
-- Steam authorization via OpenID.
-- Code style update. (No longer use "one-liners" without braces)
-- Updated LinkedIn scope from `r_fullprofile` to `r_basicprofile` due to API changes.
-- Added LICENSE file.
-- Removed [Bitcore](https://bitcore.io/) example due to installation issues on Windows 10.
-
-
-### 3.2.0 (October 19, 2015)
-- Added Google Analytics script.
-- Split *api.js* `require` intro declaration and initialization for better performance. (See <a href="https://github.com/sahat/hackathon-starter/issues/247">#247</a>)
-- Removed [ionicons](http://ionicons.com).
-- Removed [connect-assets](https://github.com/adunkman/connect-assets). (Replaced by [node-sass-middleware](https://github.com/sass/node-sass-middleware))
-- Fixed alignment styling on /login, /profile and /account
-- Fixed Stripe API `POST` request.
-- Converted LESS to Sass stylesheets.
-- Set `node_js` version to "stable" in *.travis.yml*.
-- Removed `mocha.opts` file, pass options directly to package.json
-- README cleanup and fixes.
-- Updated Font Awesome to 4.4.0
-
-### 3.1.0 (August 25, 2015)
-- Added Bitcore example.
-- Added Bitgo example.
-- Lots of README fixes.
-- Fixed Google OAuth profile image url.
-- Fixed a bug where `connect-assets` served all JS assets twice.
-- Fixed missing `csrf` token in the Twilio API example form.
-- Removed `multer` middleware.
-- Removed Ordrx API. (Shutdown)
-
-### 3.0.3 (May 14, 2015)
-- Added favicon.
-- Fixed an email issue with Google login.
-
-### 3.0.2 (March 31, 2015)
-- Renamed `navbar.jade` to `header.jade`.
-- Fixed typos in README. Thanks @josephahn and @rstormsf.
-- Fix radio button alignment on small screens in Profile page.
-- Increased `bcrypt.genSalt()` from **5** to **10**.
-- Updated package dependencies.
-- Updated Font Awesome `4.3.0`.
-- Updated Bootstrap `3.3.4`.
-- Removed Ionicons.
-- Removed unused `User` variable in *controllers/api.js*.
-- Removed Nodejitsu instructions from README.
-
-### 3.0.1 (February 23, 2015)
-- Reverted Sass to LESS stylesheets. See <a href="https://github.com/sahat/hackathon-starter/issues/233">#233</a>.
-- Convert email to lower case in Passport's LocalStrategy during login.
-- New Lob API.
-- Updated Font Awesome to 4.3.0
-- Updated Bootstrap and Flatly theme to 3.3.2.
-
-### 3.0.0 (January 11, 2015)
-- New Ordr.in API example.
-- Brought back PayPal API example.
-- Added `xframe` and xssProtection` protection via **lusca** module.
-- No more CSRF route whitelisting, either enable or dsiable it globally.
-- Simplified "remember original destination" middleware.
- - Instead of excluding certain routes, you now have to "opt-in" for the routes you wish to remember for a redirect after successful authentication.
-- Converted LESS to Sass.
-- Updated Bootstrap to 3.3.1 and Font Awesome to 4.2.0.
-- Updated jQuery to 2.1.3 and Bootstrap to 3.3.1 JS files.
-- Updated Ionicons to 2.0.
-- Faster travis-ci builds using `sudo: false`.
-- Fixed YUI url on Yahoo API example.
-- Fixed `mongo-connect` deprecation warning.
-- Code cleanup throughout the project.
-- Updated `secrets.js` notice.
-- Simplified the generator (`setup.js`), no longer removes auth providers.
-- Added `git remote rm origin` to Getting Started instructions in README.
-
-### 2.4.0 (November 8, 2014)
-- Bootstrap 3.3.0.
-- Flatly 3.3.0 theme.
-- User model cleanup.
-- Removed `helperContext` from connect-assets middleware.
-
-### 2.3.4 (October 27, 2014)
-- Font Awesome 4.2.0 [01e7bd5c09926911ca856fe4990e6067d9148694](https://github.com/sahat/hackathon-starter/commit/01e7bd5c09926911ca856fe4990e6067d9148694)
-- Code cleanup in `app.js` and `controllers/api.js`. [8ce48f767c0146062296685cc101acf3d5d224d9](https://github.com/sahat/hackathon-starter/commit/8ce48f767c0146062296685cc101acf3d5d224d9) [cdbb9d1888a96bbba92d4d14deec99a8acba2618](https://github.com/sahat/hackathon-starter/commit/cdbb9d1888a96bbba92d4d14deec99a8acba2618)
-- Updated Stripe API example. [afef373cd57b6a44bf856eb093e8f2801fc2dbe2](https://github.com/sahat/hackathon-starter/commit/afef373cd57b6a44bf856eb093e8f2801fc2dbe2)
-- Added 1-step deployment process with Heroku and MongoLab add-on. [c5def7b7b3b98462e9a2e7896dc11aaec1a48b3f](https://github.com/sahat/hackathon-starter/commit/c5def7b7b3b98462e9a2e7896dc11aaec1a48b3f)
-- Updated Twitter apps dashboard url. [e378fbbc24e269de69494d326bc20fcb641c0697](https://github.com/sahat/hackathon-starter/commit/e378fbbc24e269de69494d326bc20fcb641c0697)
-- Fixed dead links in the README. [78fac5489c596e8bcef0ab11a96e654335573bb4](https://github.com/sahat/hackathon-starter/commit/78fac5489c596e8bcef0ab11a96e654335573bb4)
-
-### 2.3.3 (September 1, 2014)
-- Use *https* (instead of http) profile image URL with Twitter authentication
-
-### 2.3.2 (July 28, 2014)
-- Fixed an issue with connect-assets when running `app.js` from an outside folder
-- Temporarily disabled `setup.js` on Windows platform until [blessed](https://github.com/chjj/blessed) fixes its problems
-
-### 2.3.1 (July 15, 2014)
-- Migrated to Nodemailer 1.0
-
-### 2.3 (July 2, 2014)
-- Bootstrap 3.2
-- New default theme
-- Ionicons fonts
-- Fixed bodyParser deprecation warning
-- Minor visual updates
-- CSS cleanup via RECESS
-- Replaced `navbar-brand` image with a font icon
-
-### 2.2.1 (June 17, 2014)
-- Added IBM Codename: BlueMix deployment instructions
-
-### 2.2 (June 6, 2014)
-- Use Lodash instead of Underscore.js
-- Replaced all occurrences of `_.findWhere` with `_.find`
-- Added a flash message when user deletes an account
-- Updated and clarified some comments
-- Updated the Remove Auth message in `setup.js`
-- Cleaned up `styles.less`
-- Redesigned API Examples page
-- Updated Last.fm API example
-- Updated Steam API example
-- Updated Instagram API example
-- Updated Facebook API example
-- Updated jQuery to 2.1.1
-- Fixed a bug that didn't remove Instagram Auth properly
-- Fixed Foursquare secret token
-
-### 2.1.4 (June 5, 2014)
-- Fixed a bug related to `returnTo` url (#155)
-
-### 2.1.3 (June 3, 2014)
-- Font Awesome 4.1
-- Updated icons on some API examples
-- Use LESS files for *bootstrap-social* and *font-awesome*
-
-### 2.1.2 (June 2, 2014)
-- Improved Twilio API example
-- Updated dependencies
-
-### 2.1.1 (May 29, 2014)
-- Added **Compose new Tweet** to Twitter API example
-- Fixed email service indentation
-- Fixed Mailgun and Mandrill secret.js properties
-- Renamed `navigation.jade` to `navbar.jade`
-
-### 2.1 (May 13, 2014)
-- New and improved generator - **setup.js**
-- Added Yahoo API
-- CSS and templates cleanup
-- Minor improvement to the default theme
-- `cluster_app.js` has been moved into **setup.js**
-
-### 2.0.4 (April 26, 2014)
-- Added Mandrill e-mail service (via generator)
-
-### 2.0.3 (April 25, 2014)
-- LinkedIn API: Fixed an error if a user did not specify education on LinkedIn
-- Removed email constraint when linking OAuth accounts in order to be able to merge accounts that use the same email address
-- Check if email address is already taken when creating a new local account
- - Previously relied on Validation Error 11000, which doesn't always work
-- When creating a local account, checks if e-mail address is already taken
-- Flash notifications can now be dismissed by clicking on �?
-
-### 2.0.2 (April 22, 2014)
-- Added Instagram Authentication
-- Added Instagram API example
-- Updated Instagram Strategy to use a "fake" email address similar to Twitter Startegy
-
-### 2.0.1 (April 18, 2014)
-- Conditional CSRF support using [lusca](https://github.com/krakenjs/lusca)
-- Fixed EOL problem in `generator.js` for Windows users
-- Fixed outdated csrf token string on profile.jade
-- Code cleanup
-
-### 2.0.0 (April 15, 2014)
-There are have been over **500+** commits since the initial announcement in
-January 2014 and over a **120** issues and pull requests from **28** contributors.
-
-- Documentation grew **8x** in size since the announcement on Hacker News
-- Upgraded to Express 4.0
-- Generator for adding/removing authentication providers
-- New Instagram authentication that can be added via generator
-- Forgot password and password reset for Local authentication
-- Added LinkedIn authentication and API example
-- Added Stripe API example
-- Added Venmo API example
-- Added Clockwork SMS example
-- Nicer Facebook API example
-- Pre-populated secrets.js with API keys (not linked to my personal accounts)
-- Grid layout with company logos on API Examples page
-- Added tests (Mocha, Chai, Supertest)
-- Gravatar pictures in Navbar and Profile page
-- Tracks last visited URL before signing in to redirect back to original destination
-- CSRF protection
-- Gzip compression and static assets caching
-- Client-side JavaScript is automatically minified+concatenated in production
-- Navbar, flash messages, footer refactored into partial templates
-- Support for Node.js clusters
-- Support for Mailgun email service
-- Support for environment variables in secrets.js
-- Switched from less-middleware to connect-assets
-- Bug fixes related to multi-authentication login and account linking
-- Other small fixes and changes that are too many to list
+### 0.0.1 (January 20, 2016)
+- Initial fork from [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter)
+- Added initial routes
+- Updated User model
 
 Contributing
 ------------
@@ -1354,14 +885,35 @@ If something is unclear, confusing, or needs to be refactored, please let me kno
 Pull requests are always welcome, but due to the opinionated nature of this
 project, I cannot accept every pull request. Please open an issue before
 submitting a pull request. This project uses
-[Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript) with a
+[feross/standard](https://github.com/feross/standard) with a
 few minor exceptions. If you are submitting a pull request that involves
 Jade templates, please make sure you are using *spaces*, not tabs.
 
 License
 -------
 
-The MIT License (MIT)
+### BrigadeHub License
+
+[ISC License](https://tldrlegal.com/license/-isc-license#summary)
+
+Copyright (c) 2016, Trent Oswald
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
+OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
+CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+
+### Original [Hackathon Starter](https://github.com/sahat/hackathon-starter) License:
+
+[The MIT License (MIT)](https://tldrlegal.com/license/mit-license)
 
 Copyright (c) 2014-2016 Sahat Yalkabov
 

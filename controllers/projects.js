@@ -26,17 +26,17 @@ var querystring = require('querystring');
 
 /**
  * GET /api
- * List of API examples.
+ * List of Project examples.
  */
-exports.getApi = function(req, res) {
-  res.render('api/index', {
-    title: 'API Examples'
+exports.getProjects = function(req, res) {
+  res.render('projects/index', {
+    title: 'Projects'
   });
 };
 
 /**
  * GET /api/foursquare
- * Foursquare API example.
+ * Foursquare Project example.
  */
 exports.getFoursquare = function(req, res, next) {
   foursquare = require('node-foursquare')({
@@ -70,7 +70,7 @@ exports.getFoursquare = function(req, res, next) {
       return next(err);
     }
     res.render('api/foursquare', {
-      title: 'Foursquare API',
+      title: 'Foursquare Project',
       trendingVenues: results.trendingVenues,
       venueDetail: results.venueDetail,
       userCheckins: results.userCheckins
@@ -80,7 +80,7 @@ exports.getFoursquare = function(req, res, next) {
 
 /**
  * GET /api/tumblr
- * Tumblr API example.
+ * Tumblr Project example.
  */
 exports.getTumblr = function(req, res, next) {
   tumblr = require('tumblr.js');
@@ -97,7 +97,7 @@ exports.getTumblr = function(req, res, next) {
       return next(err);
     }
     res.render('api/tumblr', {
-      title: 'Tumblr API',
+      title: 'Tumblr Project',
       blog: data.blog,
       photoset: data.posts[0].photos
     });
@@ -106,7 +106,7 @@ exports.getTumblr = function(req, res, next) {
 
 /**
  * GET /api/facebook
- * Facebook API example.
+ * Facebook Project example.
  */
 exports.getFacebook = function(req, res, next) {
   graph = require('fbgraph');
@@ -130,7 +130,7 @@ exports.getFacebook = function(req, res, next) {
       return next(err);
     }
     res.render('api/facebook', {
-      title: 'Facebook API',
+      title: 'Facebook Project',
       me: results.getMe,
       friends: results.getMyFriends
     });
@@ -163,7 +163,7 @@ exports.getScraping = function(req, res, next) {
 
 /**
  * GET /api/github
- * GitHub API Example.
+ * GitHub Project Example.
  */
 exports.getGithub = function(req, res, next) {
   Github = require('github-api');
@@ -176,7 +176,7 @@ exports.getGithub = function(req, res, next) {
       return next(err);
     }
     res.render('api/github', {
-      title: 'GitHub API',
+      title: 'GitHub Project',
       repo: repo
     });
   });
@@ -189,13 +189,13 @@ exports.getGithub = function(req, res, next) {
  */
 exports.getAviary = function(req, res) {
   res.render('api/aviary', {
-    title: 'Aviary API'
+    title: 'Aviary Project'
   });
 };
 
 /**
  * GET /api/nyt
- * New York Times API example.
+ * New York Times Project example.
  */
 exports.getNewYorkTimes = function(req, res, next) {
   request = require('request');
@@ -211,11 +211,11 @@ exports.getNewYorkTimes = function(req, res, next) {
       return next(err);
     }
     if (request.statusCode === 403) {
-      return next(Error('Missing or Invalid New York Times API Key'));
+      return next(Error('Missing or Invalid New York Times Project Key'));
     }
     var bestsellers = JSON.parse(body);
     res.render('api/nyt', {
-      title: 'New York Times API',
+      title: 'New York Times Project',
       books: bestsellers.results
     });
   });
@@ -223,7 +223,7 @@ exports.getNewYorkTimes = function(req, res, next) {
 
 /**
  * GET /api/lastfm
- * Last.fm API example.
+ * Last.fm Project example.
  */
 exports.getLastfm = function(req, res, next) {
   request = require('request');
@@ -298,7 +298,7 @@ exports.getLastfm = function(req, res, next) {
       topTracks: results.artistTopTracks
     };
     res.render('api/lastfm', {
-      title: 'Last.fm API',
+      title: 'Last.fm Project',
       artist: artist
     });
   });
@@ -306,7 +306,7 @@ exports.getLastfm = function(req, res, next) {
 
 /**
  * GET /api/twitter
- * Twiter API example.
+ * Twiter Project example.
  */
 exports.getTwitter = function(req, res, next) {
   Twit = require('twit');
@@ -323,7 +323,7 @@ exports.getTwitter = function(req, res, next) {
       return next(err);
     }
     res.render('api/twitter', {
-      title: 'Twitter API',
+      title: 'Twitter Project',
       tweets: reply.statuses
     });
   });
@@ -361,7 +361,7 @@ exports.postTwitter = function(req, res, next) {
 
 /**
  * GET /api/steam
- * Steam API example.
+ * Steam Project example.
  */
 exports.getSteam = function(req, res, next) {
   request = require('request');
@@ -374,7 +374,7 @@ exports.getSteam = function(req, res, next) {
       var qs = querystring.stringify(query);
       request.get({ url: 'http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?' + qs, json: true }, function(error, request, body) {
         if (request.statusCode === 401) {
-          return done(new Error('Missing or Invalid Steam API Key'));
+          return done(new Error('Missing or Invalid Steam Project Key'));
         }
         done(error, body);
       });
@@ -384,7 +384,7 @@ exports.getSteam = function(req, res, next) {
       var qs = querystring.stringify(query);
       request.get({ url: 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?' + qs, json: true }, function(err, request, body) {
         if (request.statusCode === 401) {
-          return done(new Error('Missing or Invalid Steam API Key'));
+          return done(new Error('Missing or Invalid Steam Project Key'));
         }
         done(err, body);
       });
@@ -395,7 +395,7 @@ exports.getSteam = function(req, res, next) {
       var qs = querystring.stringify(query);
       request.get({ url: 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?' + qs, json: true }, function(err, request, body) {
         if (request.statusCode === 401) {
-          return done(new Error('Missing or Invalid Steam API Key'));
+          return done(new Error('Missing or Invalid Steam Project Key'));
         }
         done(err, body);
       });
@@ -406,7 +406,7 @@ exports.getSteam = function(req, res, next) {
       return next(err);
     }
     res.render('api/steam', {
-      title: 'Steam Web API',
+      title: 'Steam Web Project',
       ownedGames: results.ownedGames.response.games,
       playerAchievemments: results.playerAchievements.playerstats,
       playerSummary: results.playerSummaries.response.players[0]
@@ -416,13 +416,13 @@ exports.getSteam = function(req, res, next) {
 
 /**
  * GET /api/stripe
- * Stripe API example.
+ * Stripe Project example.
  */
 exports.getStripe = function(req, res) {
   stripe = require('stripe')(process.env.STRIPE_SKEY);
 
   res.render('api/stripe', {
-    title: 'Stripe API',
+    title: 'Stripe Project',
     publishableKey: process.env.STRIPE_PKEY
   });
 };
@@ -451,13 +451,13 @@ exports.postStripe = function(req, res, next) {
 
 /**
  * GET /api/twilio
- * Twilio API example.
+ * Twilio Project example.
  */
 exports.getTwilio = function(req, res) {
   twilio = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
   res.render('api/twilio', {
-    title: 'Twilio API'
+    title: 'Twilio Project'
   });
 };
 
@@ -492,13 +492,13 @@ exports.postTwilio = function(req, res, next) {
 
 /**
  * GET /api/clockwork
- * Clockwork SMS API example.
+ * Clockwork SMS Project example.
  */
 exports.getClockwork = function(req, res) {
   clockwork = require('clockwork')({ key: process.env.CLOCKWORK_KEY });
 
   res.render('api/clockwork', {
-    title: 'Clockwork SMS API'
+    title: 'Clockwork SMS Project'
   });
 };
 
@@ -523,7 +523,7 @@ exports.postClockwork = function(req, res, next) {
 
 /**
  * GET /api/venmo
- * Venmo API example.
+ * Venmo Project example.
  */
 exports.getVenmo = function(req, res, next) {
   request = require('request');
@@ -548,7 +548,7 @@ exports.getVenmo = function(req, res, next) {
       return next(err);
     }
     res.render('api/venmo', {
-      title: 'Venmo API',
+      title: 'Venmo Project',
       profile: results.getProfile.data,
       recentPayments: results.getRecentPayments.data
     });
@@ -601,7 +601,7 @@ exports.postVenmo = function(req, res, next) {
 
 /**
  * GET /api/linkedin
- * LinkedIn API example.
+ * LinkedIn Project example.
  */
 exports.getLinkedin = function(req, res, next) {
   Linkedin = require('node-linkedin')(process.env.LINKEDIN_ID, process.env.LINKEDIN_SECRET, process.env.LINKEDIN_CALLBACK_URL);
@@ -613,7 +613,7 @@ exports.getLinkedin = function(req, res, next) {
       return next(err);
     }
     res.render('api/linkedin', {
-      title: 'LinkedIn API',
+      title: 'LinkedIn Project',
       profile: $in
     });
   });
@@ -621,7 +621,7 @@ exports.getLinkedin = function(req, res, next) {
 
 /**
  * GET /api/instagram
- * Instagram API example.
+ * Instagram Project example.
  */
 exports.getInstagram = function(req, res, next) {
   ig = require('instagram-node').instagram();
@@ -655,7 +655,7 @@ exports.getInstagram = function(req, res, next) {
       return next(err);
     }
     res.render('api/instagram', {
-      title: 'Instagram API',
+      title: 'Instagram Project',
       usernames: results.searchByUsername,
       userById: results.searchByUserId,
       popularImages: results.popularImages,
@@ -666,7 +666,7 @@ exports.getInstagram = function(req, res, next) {
 
 /**
  * GET /api/yahoo
- * Yahoo API example.
+ * Yahoo Project example.
  */
 exports.getYahoo = function(req, res) {
   Y = require('yui/yql');
@@ -675,7 +675,7 @@ exports.getYahoo = function(req, res) {
     var location = response.query.results.channel.location;
     var condition = response.query.results.channel.item.condition;
     res.render('api/yahoo', {
-      title: 'Yahoo API',
+      title: 'Yahoo Project',
       location: location,
       condition: condition
     });
@@ -765,7 +765,7 @@ exports.getPayPalCancel = function(req, res) {
 
 /**
  * GET /api/lob
- * Lob API example.
+ * Lob Project example.
  */
 exports.getLob = function(req, res, next) {
   lob = require('lob')(process.env.LOB_KEY);
@@ -777,7 +777,7 @@ exports.getLob = function(req, res, next) {
       return next(err);
     }
     res.render('api/lob', {
-      title: 'Lob API',
+      title: 'Lob Project',
       routes: routes.data[0].routes
     });
   });
@@ -798,7 +798,7 @@ exports.getBitGo = function(req, res, next) {
       walletResponse.createAddress({}, function(err, addressResponse) {
         walletResponse.transactions({}, function(err, transactionsResponse) {
           res.render('api/bitgo', {
-            title: 'BitGo API',
+            title: 'BitGo Project',
             wallet: walletResponse.wallet,
             address: addressResponse.address,
             transactions: transactionsResponse.transactions
