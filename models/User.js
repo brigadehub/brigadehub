@@ -5,7 +5,6 @@ var mongoose = require('mongoose')
 var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true },
   password: String,
-
   facebook: String,
   twitter: String,
   google: String,
@@ -14,9 +13,19 @@ var userSchema = new mongoose.Schema({
   linkedin: String,
   steam: String,
   tokens: Array,
-  roles: { type: Array, default: ['read'] }, // ['read', 'write', 'project', 'lead', 'core', 'core-lead', 'superadmin']
-  teams: { type: Array, default: [] },
-
+  roles: {
+    read: {type: Boolean, default: true},
+    blog: {type: Boolean, default: false},
+    project: {type: Boolean, default: false},
+    lead: {type: Boolean, default: false},
+    core: {type: Boolean, default: false},
+    coreLead: {type: Boolean, default: false},
+    superAdmin: {type: Boolean, default: false}
+  },
+  teams: {
+    project: { type: Array, default: [] },
+    core: { type: Array, default: [] }
+  },
   profile: {
     name: { type: String, default: '' },
     gender: { type: String, default: '' },
@@ -24,7 +33,6 @@ var userSchema = new mongoose.Schema({
     website: { type: String, default: '' },
     picture: { type: String, default: '' }
   },
-
   resetPasswordToken: String,
   resetPasswordExpires: Date
 })

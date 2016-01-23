@@ -188,8 +188,17 @@ passport.use(new GitHubStrategy({
           user.profile.website = user.profile.website || profile._json.blog
           User.count({}, function (err, count) {
             if (!count) {
-              user.roles = ['read', 'write', 'project', 'lead', 'core', 'core-lead', 'superadmin']
-              user.teams = ['executive']
+              user.roles = {
+                read: true,
+                blog: true,
+                project: true,
+                lead: true,
+                core: true,
+                coreLead: true,
+                superAdmin: true
+              }
+              user.teams.core = ['executive']
+              user.teams.projects = ['website']
             }
             user.save(function (err) {
               req.flash('info', { msg: 'GitHub account has been linked.' })
@@ -219,8 +228,17 @@ passport.use(new GitHubStrategy({
           user.profile.website = profile._json.blog
           User.count({}, function (err, count) {
             if (!count) {
-              user.roles = ['read', 'write', 'project', 'lead', 'core', 'core-lead', 'superadmin']
-              user.teams = ['executive']
+              user.roles = {
+                read: true,
+                blog: true,
+                project: true,
+                lead: true,
+                core: true,
+                coreLead: true,
+                superAdmin: true
+              }
+              user.teams.core = ['executive']
+              user.teams.projects = ['website']
             }
             user.save(function (err) {
               done(err, user)

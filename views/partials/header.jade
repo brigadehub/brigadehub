@@ -8,33 +8,55 @@
         span.icon-bar
       a.navbar-brand(href='/')
         i.fa.fa-cube
-        | Code For Example
+        = brigade.name
     .collapse.navbar-collapse
       ul.nav.navbar-nav
-        li(class=title=='Events'?'active':undefined)
-          a(href='/events') Events
-        li(class=title=='Projects'?'active':undefined)
-          a(href='/projects') Projects
-        li(class=title=='Blog'?'active':undefined)
-          a(href='/blog') Blog
-        li(class=title=='About'?'active':undefined)
-          a(href='/about') About Us
+        if brigade.theme.show.events
+          li(class=title=='Events'?'active':undefined)
+            a(href='/events') Events
+        if brigade.theme.show.projects
+          li(class=title=='Projects'?'active':undefined)
+            a(href='/projects') Projects
+        if brigade.theme.show.blog
+          li(class=title=='Blog'?'active':undefined)
+            a(href='/blog') Blog
+        if brigade.theme.show.about
+          li(class=title=='About'?'active':undefined)
+            a(href='/about') About Us
       ul.nav.navbar-nav.navbar-right
-        if !user
-          li(class=title=='Login'?'active':undefined)
-            a(href='/login') Login
-        else
-          li.dropdown(class=title=='Account Management'?'active':undefined)
-            a.dropdown-toggle(href='#', data-toggle='dropdown')
-              if user.profile.picture
-                img(src='#{user.profile.picture}')
-              else
-                img(src='#{user.gravatar(60)}')
-              | #{user.profile.name || user.email || user.id}&nbsp;
-              i.caret
-            ul.dropdown-menu
-              li
-                a(href='/account') My Account
-              li.divider
-              li
-                a(href='/logout') Logout
+        if brigade.theme.show.login
+          if !user
+            li(class=title=='Login'?'active':undefined)
+              a(href='/login') Login
+          else
+            li.dropdown(class=title=='Account Management'?'active':undefined)
+              a.dropdown-toggle(href='#', data-toggle='dropdown')
+                if user.profile.picture
+                  img(src='#{user.profile.picture}')
+                else
+                  img(src='#{user.gravatar(60)}')
+                | #{user.profile.name || user.email || user.id}&nbsp;
+                i.caret
+              ul.dropdown-menu
+                li
+                  a(href='/account') My Account
+                if user.roles.blog
+                  li
+                    a(href='/account') Manage Blog Posts
+                if user.roles.core
+                  li
+                    a(href='/account') Manage Events
+                  li
+                    a(href='/account') Manage Projects
+                if user.roles.superAdmin
+                  li
+                    a(href='/account') Manage Brigade
+                if user.roles.project
+                  li.divider
+                  li.header Projects
+                  each project in user.teams.project
+                    li
+                      a(href='/projects/'+project)=project
+                li.divider
+                li
+                  a(href='/logout') Logout

@@ -1,57 +1,100 @@
-var nodemailer = require("nodemailer");
-var transporter = nodemailer.createTransport({
-  service: 'SendGrid',
-  auth: {
-    user: process.env.SENDGRID_USER,
-    pass: process.env.SENDGRID_PASSWORD
-  }
-});
-
 /**
- * GET /blog
- * Blog form page.
+ * Split into declaration and initialization for better startup performance.
  */
-exports.getBlog = function(req, res) {
-  res.render('blog', {
-    title: 'Blog'
-  });
-};
 
-/**
- * POST /blog
- * Send a blog form via Nodemailer.
- */
-exports.postBlog = function(req, res) {
-  req.assert('name', 'Name cannot be blank').notEmpty();
-  req.assert('email', 'Email is not valid').isEmail();
-  req.assert('message', 'Message cannot be blank').notEmpty();
+var request
 
-  var errors = req.validationErrors();
+var _ = require('lodash')
+var async = require('async')
+var querystring = require('querystring')
 
-  if (errors) {
-    req.flash('errors', errors);
-    return res.redirect('/blog');
+module.exports = {
+  /**
+   * GET /blog
+   * List of Blog examples.
+   */
+  getBlog: function (req, res) {
+    res.render('blog/index', {
+      title: 'Blog',
+      brigade: req.locals.brigade
+    })
+  },
+  /**
+   * GET /blog/manage
+   * Manage Blog.
+   */
+  getBlogManage: function (req, res) {
+    res.render('blog/manage', {
+      title: 'Manage Blog',
+      brigade: req.locals.brigade
+    })
+  },
+  /**
+   * POST /blog/manage
+   * Update all Blog.
+   */
+  postBlogManage: function (req, res) {
+    res.redirect('blog/manage')
+  },
+  /**
+   * GET /blog/new
+   * New Blog.
+   */
+  getBlogNew: function (req, res) {
+    res.render('blog/new', {
+      title: 'New Blog',
+      brigade: req.locals.brigade
+    })
+  },
+  /**
+   * POST /blog/new
+   * Submit New Blog.
+   */
+  postBlogNew: function (req, res) {
+    res.redirect('blog/new')
+  },
+
+  /**
+   * GET /blog/:blogID
+   * Display Blog by ID.
+   */
+  getBlogID: function (req, res) {
+    res.render('blog/post', {
+      blogId: req.params.blogID,
+      title: 'Blog',
+      brigade: req.locals.brigade
+    })
+  },
+  /**
+   * GET /blog/:blogID/edit
+   * IDEdit Blog.
+   */
+  getBlogIDEdit: function (req, res) {
+    res.render('blog/edit', {
+      blogId: req.params.blogID,
+      title: 'IDEdit Blog',
+      brigade: req.locals.brigade
+    })
+  },
+  /**
+   * POST /blog/:blogID/edit
+   * Submit IDEdit Blog.
+   */
+  postBlogIDEdit: function (req, res) {
+    res.redirect('Blog/' + req.params.blogID + '/edit')
+  },
+  /**
+   * POST /blog/sync
+   * Sync Blog.
+   */
+  postBlogSync: function (req, res) {
+    res.redirect('blog/manage')
+  },
+  /**
+   * POST /blog/:blogID/edit
+   * Submit IDEdit Blog.
+   */
+  postBlogIDSync: function (req, res) {
+    res.redirect('blog/' + req.params.blogID + '/edit')
   }
-
-  var from = req.body.email;
-  var name = req.body.name;
-  var body = req.body.message;
-  var to = 'your@email.com';
-  var subject = 'Blog Form | Hackathon Starter';
-
-  var mailOptions = {
-    to: to,
-    from: from,
-    subject: subject,
-    text: body
-  };
-
-  transporter.sendMail(mailOptions, function(err) {
-    if (err) {
-      req.flash('errors', { msg: err.message });
-      return res.redirect('/blog');
-    }
-    req.flash('success', { msg: 'Email has been sent successfully!' });
-    res.redirect('/blog');
-  });
-};
+}

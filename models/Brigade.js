@@ -1,0 +1,50 @@
+var mongoose = require('mongoose')
+
+var brigadeSchema = new mongoose.Schema({
+  name: String,
+  slug: String,
+  admin: String,
+  recoveryEmail: String,
+  location: {
+    general: String,
+    specific: String,
+    geo: String
+  },
+  url: String,
+  theme: {
+    logo: String,
+    show:{
+      title: Boolean,
+      events: Boolean,
+      projects: Boolean,
+      blog: Boolean,
+      about: Boolean,
+      login: Boolean
+    }
+  },
+  copy: {
+    tagline: String,
+    description: String
+  },
+  auth: {
+    github: {
+      clientId: String,
+      clientSecret: String
+    },
+    slack: {
+      clientId: String,
+      clientSecret: String
+    },
+    meetup: {
+      clientId: String,
+      clientSecret: String
+    },
+    google: {
+      clientId: String,
+      clientSecret: String
+    }
+  },
+  auditLog: Array
+})
+
+module.exports = mongoose.model('Brigade', brigadeSchema)
