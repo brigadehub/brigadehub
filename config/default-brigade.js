@@ -13,7 +13,9 @@ module.exports = function () {
       geo: ''
     },
     url: 'http://codeforexample.org',
+    github: 'codeforexample',
     theme: {
+      slug: 'atl',
       logo: '',
       show:{
         title: true,

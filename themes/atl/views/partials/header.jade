@@ -40,17 +40,19 @@
               ul.dropdown-menu
                 li
                   a(href='/account') My Account
+                if user.roles.blog || user.roles.core || user.roles.superAdmin
+                  li.header Management
                 if user.roles.blog
                   li
-                    a(href='/account') Manage Blog Posts
+                    a(href='/blog/manage') Manage Blog Posts
                 if user.roles.core
                   li
-                    a(href='/account') Manage Events
+                    a(href='/events/manage') Manage Events
                   li
-                    a(href='/account') Manage Projects
+                    a(href='/projects/manage') Manage Projects
                 if user.roles.superAdmin
                   li
-                    a(href='/account') Manage Brigade
+                    a(href='/brigade') Manage Brigade
                 if user.roles.project
                   li.divider
                   li.header Projects

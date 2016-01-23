@@ -1,8 +1,8 @@
-extends ../layout
+extends layout
 
 block content
   .page-header
-    h3 Profile Information
+    h3 Brigade Information
 
   form.form-horizontal(action='/account/profile', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)

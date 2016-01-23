@@ -14,7 +14,7 @@ module.exports = {
    * List of Event examples.
    */
   getEvents: function (req, res) {
-    res.render('events/index', {
+    res.render(req.locals.brigade.theme.slug+'/views/events/index', {
       title: 'Events',
       brigade: req.locals.brigade
     })
@@ -24,7 +24,7 @@ module.exports = {
    * Manage Events.
    */
   getEventsManage: function (req, res) {
-    res.render('events/manage', {
+    res.render(req.locals.brigade.theme.slug+'/views/events/manage', {
       title: 'Manage Events',
       brigade: req.locals.brigade
     })
@@ -41,7 +41,7 @@ module.exports = {
    * New Events.
    */
   getEventsNew: function (req, res) {
-    res.render('events/new', {
+    res.render(req.locals.brigade.theme.slug+'/views/events/new', {
       title: 'New Events',
       brigade: req.locals.brigade
     })
@@ -59,7 +59,7 @@ module.exports = {
    * Display Event by ID.
    */
   getEventsID: function (req, res) {
-    res.render('events/event', {
+    res.render(req.locals.brigade.theme.slug+'/views/events/event', {
       eventID: req.params.eventID,
       title: 'Events',
       brigade: req.locals.brigade
@@ -70,7 +70,7 @@ module.exports = {
    * IDSettings Events.
    */
   getEventsIDSettings: function (req, res) {
-    res.render('events/settings', {
+    res.render(req.locals.brigade.theme.slug+'/views/events/settings', {
       eventID: req.params.eventID,
       title: 'IDSettings Events',
       brigade: req.locals.brigade

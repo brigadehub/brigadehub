@@ -10,44 +10,44 @@ var querystring = require('querystring')
 
 module.exports = {
   /**
-   * GET /Projects
+   * GET /projects
    * List of Project examples.
    */
   getProjects: function (req, res) {
-    res.render('projects/index', {
+    res.render(req.locals.brigade.theme.slug+'/views/projects/index', {
       title: 'Projects',
       brigade: req.locals.brigade
     })
   },
   /**
-   * GET /Projects/manage
+   * GET /projects/manage
    * Manage Projects.
    */
   getProjectsManage: function (req, res) {
-    res.render('projects/manage', {
+    res.render(req.locals.brigade.theme.slug+'/views/projects/manage', {
       title: 'Manage Projects',
       brigade: req.locals.brigade
     })
   },
   /**
-   * POST /Projects/manage
+   * POST /projects/manage
    * Update all Projects.
    */
   postProjectsManage: function (req, res) {
     res.redirect('projects/manage')
   },
   /**
-   * GET /Projects/new
+   * GET /projects/new
    * New Projects.
    */
   getProjectsNew: function (req, res) {
-    res.render('projects/new', {
+    res.render(req.locals.brigade.theme.slug+'/views/projects/new', {
       title: 'New Projects',
       brigade: req.locals.brigade
     })
   },
   /**
-   * POST /Projects/new
+   * POST /projects/new
    * Submit New Projects.
    */
   postProjectsNew: function (req, res) {
@@ -55,43 +55,43 @@ module.exports = {
   },
 
   /**
-   * GET /Projects/:projectID
+   * GET /projects/:projectID
    * Display Project by ID.
    */
   getProjectsID: function (req, res) {
-    res.render('projects/project', {
+    res.render(req.locals.brigade.theme.slug+'/views/projects/project', {
       projectId: req.params.projectId,
       title: 'Projects',
       brigade: req.locals.brigade
     })
   },
   /**
-   * GET /Projects/:projectID/settings
+   * GET /projects/:projectID/settings
    * IDSettings Projects.
    */
   getProjectsIDSettings: function (req, res) {
-    res.render('projects/settings', {
+    res.render(req.locals.brigade.theme.slug+'/views/projects/settings', {
       projectId: req.params.projectId,
       title: 'IDSettings Projects',
       brigade: req.locals.brigade
     })
   },
   /**
-   * POST /Projects/:projectID/settings
+   * POST /projects/:projectID/settings
    * Submit IDSettings Projects.
    */
   postProjectsIDSettings: function (req, res) {
     res.redirect('projects/:projectID/settings')
   },
   /**
-   * POST /Projects/sync
+   * POST /projects/sync
    * Sync Projects.
    */
   postProjectsSync: function (req, res) {
     res.redirect('projects/manage')
   },
   /**
-   * POST /Projects/:projectID/settings
+   * POST /projects/:projectID/settings
    * Submit IDSettings Projects.
    */
   postProjectsIDSync: function (req, res) {

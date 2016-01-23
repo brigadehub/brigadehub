@@ -11733,4 +11733,15 @@ textarea {
   margin-right: 6px;
 }
 
+.dropdown-menu li.header {
+  background: none;
+  color: #b7bbbd;
+  padding: 8px 10px 3px 10px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  min-height: 0;
+  text-transform: uppercase;
+}
+
 /*# sourceMappingURL=main.css.map */

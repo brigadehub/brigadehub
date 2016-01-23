@@ -39,6 +39,8 @@ var aboutCtrl = require('./controllers/about')
 var userCtrl = require('./controllers/user')
 var brigadeCtrl = require('./controllers/brigade')
 
+var brigadeDetails
+
 /**
  * API keys and Passport configuration.
  */
@@ -67,18 +69,11 @@ var Brigade = require('./models/Brigade')
  * Express configuration.
  */
 app.set('port', process.env.PORT || 5465)
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, 'themes'))
 app.set('view engine', 'jade')
 app.use(compress())
-app.use(sass({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  debug: true,
-  sourceMap: true,
-  outputStyle: 'expanded'
-}))
+
 app.use(logger('dev'))
-app.use(favicon(path.join(__dirname, 'public', 'favicon.png')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(expressValidator())
@@ -120,7 +115,6 @@ app.use(function (req, res, next) {
   }
   next()
 })
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 
 /**
  * Primary app routes.
@@ -143,8 +137,8 @@ app.get('/account', passportConf.isAuthenticated, userCtrl.getAccount)
 app.post('/account/profile', passportConf.isAuthenticated, userCtrl.postUpdateProfile)
 app.post('/account/delete', passportConf.isAuthenticated, userCtrl.postDeleteAccount)
 
-app.get('/admin/brigade', passportConf.isAuthenticated, brigadeCtrl.getBrigade)
-app.post('/admin/brigade', passportConf.isAuthenticated, brigadeCtrl.postBrigade)
+app.get('/brigade', passportConf.isAuthenticated, brigadeCtrl.getBrigade)
+app.post('/brigade', passportConf.isAuthenticated, brigadeCtrl.postBrigade)
 
 /**
  * Project routes.
@@ -249,6 +243,7 @@ Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
   if (!results.length) {
     console.log('No brigade with the slug ' + process.env.BRIGADE + ' found in database. Populating with default values.')
     var defaultBrigadeData = require('./config/default-brigade')()
+    brigadeDetails = defaultBrigadeData
     var defaultBrigade = new Brigade(defaultBrigadeData)
     defaultBrigade.save(function (err) {
       if (err) return handleError(err)
@@ -256,10 +251,21 @@ Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
       startServer()
     })
   } else {
+    brigadeDetails = results[0]
     startServer()
   }
 })
 function startServer () {
+  app.use(sass({
+    src: path.join(__dirname, 'themes/'+brigadeDetails.theme.slug+'/public'),
+    dest: path.join(__dirname, 'themes/'+brigadeDetails.theme.slug+'/public'),
+    debug: true,
+    sourceMap: true,
+    outputStyle: 'expanded'
+  }))
+  app.use(favicon(path.join(__dirname, 'themes/'+brigadeDetails.theme.slug+'/public', 'favicon.png')))
+  app.use(express.static(path.join(__dirname, 'themes/'+brigadeDetails.theme.slug+'/public'), { maxAge: 31557600000 }))
+
   app.listen(app.get('port'), function () {
     console.log('Express server listening on port %d in %s mode', app.get('port'), app.get('env'))
   })

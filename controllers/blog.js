@@ -14,7 +14,7 @@ module.exports = {
    * List of Blog examples.
    */
   getBlog: function (req, res) {
-    res.render('blog/index', {
+    res.render(req.locals.brigade.theme.slug+'/views/blog/index', {
       title: 'Blog',
       brigade: req.locals.brigade
     })
@@ -24,7 +24,7 @@ module.exports = {
    * Manage Blog.
    */
   getBlogManage: function (req, res) {
-    res.render('blog/manage', {
+    res.render(req.locals.brigade.theme.slug+'/views/blog/manage', {
       title: 'Manage Blog',
       brigade: req.locals.brigade
     })
@@ -41,7 +41,7 @@ module.exports = {
    * New Blog.
    */
   getBlogNew: function (req, res) {
-    res.render('blog/new', {
+    res.render(req.locals.brigade.theme.slug+'/views/blog/new', {
       title: 'New Blog',
       brigade: req.locals.brigade
     })
@@ -59,7 +59,7 @@ module.exports = {
    * Display Blog by ID.
    */
   getBlogID: function (req, res) {
-    res.render('blog/post', {
+    res.render(req.locals.brigade.theme.slug+'/views/blog/post', {
       blogId: req.params.blogID,
       title: 'Blog',
       brigade: req.locals.brigade
@@ -70,7 +70,7 @@ module.exports = {
    * IDEdit Blog.
    */
   getBlogIDEdit: function (req, res) {
-    res.render('blog/edit', {
+    res.render(req.locals.brigade.theme.slug+'/views/blog/edit', {
       blogId: req.params.blogID,
       title: 'IDEdit Blog',
       brigade: req.locals.brigade

@@ -7,10 +7,7 @@ var Brigade = require('../models/Brigade');
  * Brigade page.
  */
 exports.getBrigade = function(req, res) {
-  if (req.user) {
-    return res.redirect('/');
-  }
-  res.render('account/brigade', {
+  res.render(req.locals.brigade.theme.slug+'/views/brigade', {
     title: 'Brigade',
     brigade: req.locals.brigade
   });
