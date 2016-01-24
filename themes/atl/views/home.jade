@@ -1,27 +1,26 @@
 extends layout
 
 block content
-  h1= brigade.name
-  p.lead= brigade.copy.tagline
+  //- h1= brigade.name
+  p.lead= brigade.copy.description
+  p
+    | Join us on 
+    a(href='http://www.meetup.com/codeforatlanta/', target='_blank') Meetup
+    |  and sign up to our mailing list:
+    div
+      .pull-left
+        form#mc-embedded-subscribe-form.form-inline(action='//codeforsanfrancisco.us10.list-manage.com/subscribe/post?u=13e30524fec23783d4f80e3b5&id=9ea07180fe', method='post', name='mc-embedded-subscribe-form', novalidate='novalidate', role='form', target='_blank')
+          input#mce-EMAIL.form-control(name='EMAIL', placeholder='Your email address', style='width:250px;', type='email', value='')
+          input#mc-embedded-subscribe.btn.btn-primary(name='subscribe', type='submit', value='Get Email Updates')
+      .pull-right.brigade-logo
+        img(alt='Brigade', src='/assets/brigade-80a87b0db6b6bafa21fd2f9478932353.png')
+    .clearfix
+    p.slack
+      | Join the discussion on Slack: 
+      iframe.__slackin(src='https://codeforsanfrancisco-slackin.herokuapp.com/iframe?large', style='border-width: 0px; width: 154px; height: 30px; visibility: visible;')
   hr
   .row
-    .col-sm-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
-    .col-sm-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
-    .col-sm-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
-    .col-sm-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
+    .col-sm-4
+      h2 next event here
+    .col-sm-8
+      h2 Search Projects

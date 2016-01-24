@@ -42,10 +42,10 @@
                   a(href='/account') My Account
                 if user.roles.blog || user.roles.core || user.roles.superAdmin
                   li.header Management
-                if user.roles.blog
+                if user.roles.blog || user.roles.superAdmin
                   li
                     a(href='/blog/manage') Manage Blog Posts
-                if user.roles.core
+                if user.roles.core || user.roles.superAdmin
                   li
                     a(href='/events/manage') Manage Events
                   li

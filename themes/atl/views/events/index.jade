@@ -1,5 +1,13 @@
 extends ../layout
 
+//- http://fullcalendar.io/docs/usage/
+
 block content
-  .page-header
+  .row.page-header
     h3 All Events
+  .row
+    p
+      #events-calendar
+  script.
+    // make this object available to frontend js for rendering in calendar
+    window._events = !{JSON.stringify(events).replace(/<\//g, "<\\/")}

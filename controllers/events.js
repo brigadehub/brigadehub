@@ -14,7 +14,24 @@ module.exports = {
    * List of Event examples.
    */
   getEvents: function (req, res) {
+    var events =  [
+        {
+            title  : 'event1',
+            start  : '2016-01-01'
+        },
+        {
+            title  : 'event2',
+            start  : '2016-01-05',
+            end    : '2016-01-07'
+        },
+        {
+            title  : 'event3',
+            start  : '2016-01-09T12:30:00',
+            allDay : false // will make the time show
+        }
+    ]
     res.render(req.locals.brigade.theme.slug+'/views/events/index', {
+      events: events,
       title: 'Events',
       brigade: req.locals.brigade
     })

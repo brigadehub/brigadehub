@@ -5,7 +5,6 @@ module.exports = function () {
   return {
     name: 'Code for Example',
     slug: 'code-for-example',
-    admin: '',
     recoveryEmail: 'admin@codeforexample.org',
     location: {
       general: '',
@@ -28,7 +27,7 @@ module.exports = function () {
     },
     copy: {
       tagline: 'An awesome brigade',
-      description: 'An awesome brigade that makes awesome stuff'
+      description: "We're a bunch of civic-minded technologists, designers, and topic experts using our skills to improve Example and the world."
     },
     auth: {
       github: {

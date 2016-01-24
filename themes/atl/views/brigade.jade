@@ -4,51 +4,59 @@ block content
   .page-header
     h3 Brigade Information
 
-  form.form-horizontal(action='/account/profile', method='POST')
+  form.form-horizontal(action='/brigade', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
-      label.col-sm-3.control-label(for='email') Email
+      label.col-sm-3.control-label(for='name') Brigade Name
       .col-sm-7
-        input.form-control(type='email', name='email', id='email', value='#{user.email}')
+        input.form-control(type='name', name='name', id='name', value='#{brigade.name}')
     .form-group
-      label.col-sm-3.control-label(for='name') Name
+      label.col-sm-3.control-label(for='slug') Slug
       .col-sm-7
-        input.form-control(type='text', name='name', id='name', value='#{user.profile.name}')
-    .form-group
-      label.col-sm-3.control-label(for='gender') Gender
-      .col-sm-4
-        label.radio.col-sm-4
-          input(type='radio', checked=user.profile.gender=='male', name='gender', value='male', data-toggle='radio')
-          span Male
-        label.radio.col-sm-4
-          input(type='radio', checked=user.profile.gender=='female', name='gender', value='female', data-toggle='radio')
-          span Female
+        input.form-control(type='text', name='slug', id='slug', value='#{brigade.slug}')
     .form-group
       label.col-sm-3.control-label(for='location') Location
       .col-sm-7
-        input.form-control(type='text', name='location', id='location', value='#{user.profile.location}')
+        input.form-control(type='text', name='location', id='location', value='#{brigade.location.general}')
     .form-group
-      label.col-sm-3.control-label(for='website') Website
+      label.col-sm-3.control-label(for='url') Site Url
       .col-sm-7
-        input.form-control(type='text', name='website', id='website', value='#{user.profile.website}')
+        input.form-control(type='text', name='url', id='url', value='#{brigade.url}')
     .form-group
-      label.col-sm-3.control-label(for='gravatar') Gravatar
-      .col-sm-4
+      label.col-sm-3.control-label(for='github') Github Group
+      .col-sm-7
+        input.form-control(type='text', name='github', id='github', value='#{brigade.github}')
+    .form-group
+      label.col-sm-3.control-label(for='logo') Logo
+      .col-sm-7
+        input.form-control(type='text', name='logo', id='logo', value='#{brigade.theme.logo}')
+      .col-sm-offset-3.col-sm-4
         img(src="#{user.gravatar()}", class='profile', width='100', height='100')
+    .form-group
+      label.col-sm-3.control-label(for='theme-slug') Theme
+      .col-sm-7
+        input.form-control(type='text', name='theme-slug', id='theme-slug', value='#{brigade.theme.slug}')
     .form-group
       .col-sm-offset-3.col-sm-4
         button.btn.btn.btn-primary(type='submit')
-          i.fa.fa-pencilr
-          | Update Profile
+          i.fa.fa-pencil
+          | Update Brigade
 
   .page-header
-    h3 Delete Account
+    h3 Social Media Sign-in and Links
 
-  form.form-horizontal(action='/account/delete', method='POST')
+  form.form-horizontal(action='/brigade', method='POST')
+    h4 Github Oauth keys
     .form-group
-      p.col-sm-offset-3.col-sm-4 You can delete your account, but keep in mind this action is irreversible.
-      input(type='hidden', name='_csrf', value=_csrf)
+      label.col-sm-3.control-label(for='github-client-id') Client ID
+      .col-sm-7
+        input.form-control(type='github-client-id', name='github-client-id', id='github-client-id', value='#{brigade.auth.github.clientId}')
+    .form-group
+      label.col-sm-3.control-label(for='github-client-secret') Client Secret
+      .col-sm-7
+        input.form-control(type='github-client-secret', name='github-client-secret', secret='github-client-secret', value='#{brigade.auth.github.clientSecret}')
+    .form-group
       .col-sm-offset-3.col-sm-4
-        button.btn.btn-danger(type='submit')
-          i.fa.fa-trash
-          | Delete my account
+        button.btn.btn.btn-primary(type='submit')
+          i.fa.fa-pencil
+          | Update Social Media

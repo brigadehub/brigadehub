@@ -265,7 +265,6 @@ function startServer () {
   }))
   app.use(favicon(path.join(__dirname, 'themes/'+brigadeDetails.theme.slug+'/public', 'favicon.png')))
   app.use(express.static(path.join(__dirname, 'themes/'+brigadeDetails.theme.slug+'/public'), { maxAge: 31557600000 }))
-
   app.listen(app.get('port'), function () {
     console.log('Express server listening on port %d in %s mode', app.get('port'), app.get('env'))
   })
