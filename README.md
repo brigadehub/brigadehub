@@ -55,13 +55,13 @@ Getting Started
 
 The easiest way to get started is to mirror the repository:
 
-[![mirror this repo](http://mirror.therebelrobot.com/badge-large.svg)](http://mirror.therebelrobot.com/?source=therebelrobot/brigadehub)
+[![mirror this repo](http://mirror.therebelrobot.com/badge-large.svg)](http://mirror.therebelrobot.com/?source=sfbrigade/brigadehub)
 
 or clone it:
 
 ```bash
 # Get the latest snapshot
-git clone --depth=1 https://github.com/therebelrobot/brigadehub.git myproject
+git clone --depth=1 https://github.com/sfbrigade/brigadehub.git myproject
 
 # Change directory
 cd myproject
