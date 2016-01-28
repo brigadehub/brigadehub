@@ -28,7 +28,7 @@ var fs = require('fs')
  * Default path: .env
  */
 try {
-  stats = fs.lstatSync(__dirname+'/.env')
+  stats = fs.lstatSync(__dirname + '/.env')
   if (stats.isFile()) {
     dotenv.load({ path: '.env' })
   } else {
