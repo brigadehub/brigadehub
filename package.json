@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/therebelrobot/brigadehub.git"
+    "url": "https://github.com/sfbrigade/brigadehub.git"
   },
   "scripts": {
     "start": "node app.js",
