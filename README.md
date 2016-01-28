@@ -1,7 +1,7 @@
 # BrigadeHub
 =================
 
-A Work in Progress (WIP) of a Code for America Brigade Webiste/Portal CMS. This is more of a thought experiment to see if it's even feasible to build and maintain something like this.
+A Work in Progress (WIP) of a Code for America Brigade Website/Portal CMS. This is more of a thought experiment to see if it's even feasible to build and maintain something like this.
 
 BrigadeHub is designed to meet some very specific goals:
 
