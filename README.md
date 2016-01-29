@@ -120,15 +120,15 @@ Project Structure
 | **models**/Events.js                 | Mongoose schema and model for Events.                          |
 | **models**/Posts.js                 | Mongoose schema and model for blog Posts.                          |
 | **models**/User.js                 | Mongoose schema and model for User.                          |
-| **test/**/                        | Tests for routes and models.                         |
+| **test/**                        | Tests for routes and models.                         |
 | **themes/atl/public**/                        | Static assets (fonts, css, js, img).                         |
 | **themes/atl/public**/**js**/main.js          | Place your client-side JavaScript here.                      |
 | **themes/atl/public**/**css**/main.css       | Main stylesheet for your app.                                |
 | **themes/atl/public/css/themes**/default.scss | Some Bootstrap overrides to make it look prettier.           |
-| **themes/atl/views/about**/                 | Templates for about page*.      |
+| **themes/atl/views/about**/                 | Templates for about page.      |
 | **themes/atl/views/account**/                 | Templates for *login, password reset, signup, profile*.      |
-| **themes/atl/views/blog**/                 | Templates for Blog pages*.      |
-| **themes/atl/views/events**/                 | Templates for Event pages*.      |
+| **themes/atl/views/blog**/                 | Templates for Blog pages.      |
+| **themes/atl/views/events**/                 | Templates for Event pages.      |
 | **themes/atl/views/projects**/                | Templates for Project Examples.                                  |
 | **themes/atl/views/partials**/flash.jade      | Error, info and success flash notifications.                 |
 | **themes/atl/views/partials**/header.jade     | Navbar partial template.                                     |
