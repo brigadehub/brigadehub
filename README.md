@@ -106,24 +106,38 @@ Project Structure
 
 | Name                               | Description                                                  |
 | ---------------------------------- | ------------------------------------------------------------ |
+| **config**/default-brigade.js             | Default brigade profile.  |
 | **config**/passport.js             | Passport Local and OAuth strategies, plus login middleware.  |
-| **controllers**/projects.js        | Controller for /projects route and all projects examples.              |
 | **controllers**/about.js           | Controller for about form.                                 |
+| **controllers**/blog.js           | Controller for editing/creating/displaying blog posts.                                 |
+| **controllers**/brigade.js           | Controller for brigade login and page management.
+                           |
+| **controllers**/events.js            | Controller for events calendar and individual event pages.                            |
+
 | **controllers**/home.js            | Controller for home page (index).                            |
+| **controllers**/projects.js        | Controller for /projects route and all projects examples.              |
 | **controllers**/user.js            | Controller for user account management.                      |
+| **models**/Brigade.js                 | Mongoose schema and model for Brigade.                          |
+| **models**/Content.js                 | Mongoose schema and model for site content.                          |
+| **models**/Events.js                 | Mongoose schema and model for Events.                          |
+| **models**/Posts.js                 | Mongoose schema and model for blog Posts.                          |
 | **models**/User.js                 | Mongoose schema and model for User.                          |
-| **public**/                        | Static assets (fonts, css, js, img).                         |
-| **public**/**js**/application.js   | Specify client-side JavaScript dependencies.                 |
-| **public**/**js**/main.js          | Place your client-side JavaScript here.                      |
-| **public**/**css**/main.less       | Main stylesheet for your app.                                |
-| **public/css/themes**/default.less | Some Bootstrap overrides to make it look prettier.           |
-| **views/account**/                 | Templates for *login, password reset, signup, profile*.      |
-| **views/projects**/                | Templates for Project Examples.                                  |
-| **views/partials**/flash.jade      | Error, info and success flash notifications.                 |
-| **views/partials**/header.jade     | Navbar partial template.                                     |
-| **views/partials**/footer.jade     | Footer partial template.                                     |
-| **views**/layout.jade              | Base template.                                               |
-| **views**/home.jade                | Home page template.                                          |
+| **themes/atl/public**/                        | Static assets (fonts, css, js, img).                         |
+| **themes/atl/public**/**js**/main.js          | Place your client-side JavaScript here.                      |
+| **themes/atl/public**/**css**/main.css       | Main stylesheet for your app.                                |
+| **themes/atl/public/css/themes**/default.scss | Some Bootstrap overrides to make it look prettier.           |
+| **themes/atl/views/about**/                 | Templates for about page*.      |
+| **themes/atl/views/account**/                 | Templates for *login, password reset, signup, profile*.      |
+| **themes/atl/views/blog**/                 | Templates for Blog pages*.      |
+| **themes/atl/views/events**/                 | Templates for Event pages*.      |
+| **themes/atl/views/projects**/                | Templates for Project Examples.                                  |
+| **themes/atl/views/partials**/flash.jade      | Error, info and success flash notifications.                 |
+| **themes/atl/views/partials**/header.jade     | Navbar partial template.                                     |
+| **themes/atl/views/partials**/footer.jade     | Footer partial template.                                     |
+| **themes/atl/views**/brigade.jade                | Brigade page template.                                          |
+| **themes/atl/views**/home.jade                | Home page template.                                          |
+| **themes/atl/views**/layout.jade              | Base template.                                               |
+
 | .travis.yml                        | [Travis CI](https://travis-ci.org/) integration.             |
 | .env.example                       | Your API keys, tokens, passwords and database URI.           |
 | app.js                             | Main application file.                                       |
