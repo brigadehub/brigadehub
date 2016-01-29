@@ -109,11 +109,9 @@ Project Structure
 | **config**/default-brigade.js             | Default brigade profile.  |
 | **config**/passport.js             | Passport Local and OAuth strategies, plus login middleware.  |
 | **controllers**/about.js           | Controller for about form.                                 |
-| **controllers**/blog.js           | Controller for editing/creating/displaying blog posts.                                 |
-| **controllers**/brigade.js           | Controller for brigade login and page management.
-                           |
+| **controllers**/blog.js           | Controller for editing/creating/displaying blog posts. |
+| **controllers**/brigade.js           | Controller for brigade login and page management.|
 | **controllers**/events.js            | Controller for events calendar and individual event pages.                            |
-
 | **controllers**/home.js            | Controller for home page (index).                            |
 | **controllers**/projects.js        | Controller for /projects route and all projects examples.              |
 | **controllers**/user.js            | Controller for user account management.                      |
