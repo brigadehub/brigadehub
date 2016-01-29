@@ -135,7 +135,6 @@ Project Structure
 | **themes/atl/views**/brigade.jade                | Brigade page template.                                          |
 | **themes/atl/views**/home.jade                | Home page template.                                          |
 | **themes/atl/views**/layout.jade              | Base template.                                               |
-
 | .travis.yml                        | [Travis CI](https://travis-ci.org/) integration.             |
 | .env.example                       | Your API keys, tokens, passwords and database URI.           |
 | app.js                             | Main application file.                                       |
