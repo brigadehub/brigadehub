@@ -120,6 +120,7 @@ Project Structure
 | **models**/Events.js                 | Mongoose schema and model for Events.                          |
 | **models**/Posts.js                 | Mongoose schema and model for blog Posts.                          |
 | **models**/User.js                 | Mongoose schema and model for User.                          |
+| **test/**/                        | Tests for routes and models.                         |
 | **themes/atl/public**/                        | Static assets (fonts, css, js, img).                         |
 | **themes/atl/public**/**js**/main.js          | Place your client-side JavaScript here.                      |
 | **themes/atl/public**/**css**/main.css       | Main stylesheet for your app.                                |
