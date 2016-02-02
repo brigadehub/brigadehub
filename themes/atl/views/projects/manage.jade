@@ -3,3 +3,19 @@ extends ../layout
 block content
   .page-header
     h3 Manage Projects
+    form.pull-right.col-sm-4(method='POST', action='/projects/sync')
+      input(type='hidden', name='_csrf', value=_csrf)
+      button.col-sm-12.btn.btn-primary(type='submit')
+        i.fa.fa-refresh
+        | Fetch Projects with Github
+    .row
+      .col-sm-6
+        each project in projects
+          .project-card
+            span.title= project.name
+            br
+            span.description= project.description
+            br
+            span.link= project.homepage
+            br
+            br

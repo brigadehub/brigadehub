@@ -20,14 +20,25 @@ var passport = require('passport')
 var expressValidator = require('express-validator')
 var sass = require('node-sass-middleware')
 var _ = require('lodash')
+var fs = require('fs')
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  *
  * Default path: .env
  */
-dotenv.load({ path: '.env.example' })
-
+try {
+  stats = fs.lstatSync(__dirname + '/.env')
+  if (stats.isFile()) {
+    dotenv.load({ path: '.env' })
+  } else {
+    throw new Error('.env is not a file!')
+  }
+} catch (e) {
+  console.warn(e)
+  console.warn('.env file not found. Defaulting to sample. Please copy .env.example to .env and populate with your own credentials.')
+  dotenv.load({ path: '.env.example' })
+}
 /**
  * Controllers (route handlers).
  */
@@ -182,7 +193,6 @@ app.post('/blog/:blogId', passportConf.isAuthenticated, blogCtrl.postBlogIDEdit)
 app.get('/blog/:blogId/edit', passportConf.isAuthenticated, blogCtrl.getBlogIDEdit)
 app.post('/blog/:blogId/sync', passportConf.isAuthenticated, blogCtrl.postBlogIDSync)
 
-
 /**
  * OAuth authentication routes. (Sign in)
  */
@@ -257,14 +267,14 @@ Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
 })
 function startServer () {
   app.use(sass({
-    src: path.join(__dirname, 'themes/'+brigadeDetails.theme.slug+'/public'),
-    dest: path.join(__dirname, 'themes/'+brigadeDetails.theme.slug+'/public'),
+    src: path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'),
+    dest: path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'),
     debug: true,
     sourceMap: true,
     outputStyle: 'expanded'
   }))
-  app.use(favicon(path.join(__dirname, 'themes/'+brigadeDetails.theme.slug+'/public', 'favicon.png')))
-  app.use(express.static(path.join(__dirname, 'themes/'+brigadeDetails.theme.slug+'/public'), { maxAge: 31557600000 }))
+  app.use(favicon(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public', 'favicon.png')))
+  app.use(express.static(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'), { maxAge: 31557600000 }))
   app.listen(app.get('port'), function () {
     console.log('Express server listening on port %d in %s mode', app.get('port'), app.get('env'))
   })
