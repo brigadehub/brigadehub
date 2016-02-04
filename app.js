@@ -102,6 +102,7 @@ app.use(session({
 /* Attach brigade info to req */
 app.use(function (req, res, next) {
   Brigade.find({}, function (err, results) {
+    console.log(results)
     if (!results.length) throw new Error('BRIGADE NOT IN DATABASE')
     req.locals = req.locals || {}
     req.locals.brigade = results[0]
