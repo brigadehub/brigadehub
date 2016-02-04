@@ -99,9 +99,11 @@ app.use(session({
     autoReconnect: true
   })
 }))
+
 /* Attach brigade info to req */
 app.use(function (req, res, next) {
   Brigade.find({}, function (err, results) {
+    console.log(results)
     if (!results.length) throw new Error('BRIGADE NOT IN DATABASE')
     req.locals = req.locals || {}
     req.locals.brigade = results[0]
@@ -249,22 +251,29 @@ app.use(errorHandler())
 /**
  * Check if brigade exists before starting Express server.
  */
-Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
-  if (!results.length) {
-    console.log('No brigade with the slug ' + process.env.BRIGADE + ' found in database. Populating with default values.')
-    var defaultBrigadeData = require('./config/default-brigade')()
-    brigadeDetails = defaultBrigadeData
-    var defaultBrigade = new Brigade(defaultBrigadeData)
-    defaultBrigade.save(function (err) {
-      if (err) return handleError(err)
-      console.log('Default Brigade populated into database.')
-      startServer()
-    })
-  } else {
-    brigadeDetails = results[0]
-    startServer()
-  }
-})
+
+ Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
+   if (!results.length) {
+     console.log('No brigade with the slug ' + process.env.BRIGADE + ' found in database. Populating with default values.')
+     var defaultBrigadeData = require('./config/default-brigade')()
+     console.log('grabbing default-brigade')
+     brigadeDetails = defaultBrigadeData
+     var defaultBrigade = new Brigade(defaultBrigadeData)
+
+     defaultBrigade.save(function (err) {
+       if (err) return handleError(err)
+       console.log('Default Brigade populated into database.')
+       setTimeout(function(){ console.log("Hello"); startServer() }, 3000);
+
+     })
+     console.log('ending if')
+   } else {
+     brigadeDetails = results[0]
+     console.log("don't enter!!!")
+     startServer()
+   }
+ })
+ 
 function startServer () {
   app.use(sass({
     src: path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'),
