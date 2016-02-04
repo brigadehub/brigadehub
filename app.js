@@ -99,6 +99,26 @@ app.use(session({
     autoReconnect: true
   })
 }))
+
+Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
+  if (!results.length) {
+    console.log('No brigade with the slug ' + process.env.BRIGADE + ' found in database. Populating with default values.')
+    var defaultBrigadeData = require('./config/default-brigade')()
+    console.log('grabbing default-brigade')
+    brigadeDetails = defaultBrigadeData
+    var defaultBrigade = new Brigade(defaultBrigadeData)
+    setTimeout(function(){ console.log("Hello"); }, 3000);
+    defaultBrigade.save(function (err) {
+      if (err) return handleError(err)
+      console.log('Default Brigade populated into database.')
+      startServer()
+    })
+    console.log('ending if')
+  } else {
+    brigadeDetails = results[0]
+    startServer()
+  }
+})
 /* Attach brigade info to req */
 app.use(function (req, res, next) {
   Brigade.find({}, function (err, results) {
@@ -250,25 +270,7 @@ app.use(errorHandler())
 /**
  * Check if brigade exists before starting Express server.
  */
-Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
-  if (!results.length) {
-    console.log('No brigade with the slug ' + process.env.BRIGADE + ' found in database. Populating with default values.')
-    var defaultBrigadeData = require('./config/default-brigade')()
-    console.log('grabbing default-brigade')
-    brigadeDetails = defaultBrigadeData
-    var defaultBrigade = new Brigade(defaultBrigadeData)
-    setTimeout(function(){ console.log("Hello"); }, 3000);
-    defaultBrigade.save(function (err) {
-      if (err) return handleError(err)
-      console.log('Default Brigade populated into database.')
-      startServer()
-    })
-    console.log('ending if')
-  } else {
-    brigadeDetails = results[0]
-    startServer()
-  }
-})
+
 function startServer () {
   app.use(sass({
     src: path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'),
