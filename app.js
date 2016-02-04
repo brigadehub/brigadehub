@@ -107,11 +107,12 @@ Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
     console.log('grabbing default-brigade')
     brigadeDetails = defaultBrigadeData
     var defaultBrigade = new Brigade(defaultBrigadeData)
-    setTimeout(function(){ console.log("Hello"); }, 3000);
+
     defaultBrigade.save(function (err) {
       if (err) return handleError(err)
       console.log('Default Brigade populated into database.')
-      startServer()
+      setTimeout(function(){ console.log("Hello"); startServer() }, 3000);
+
     })
     console.log('ending if')
   } else {
