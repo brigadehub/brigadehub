@@ -117,6 +117,7 @@ Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
     console.log('ending if')
   } else {
     brigadeDetails = results[0]
+    console.log("don't enter!!!")
     startServer()
   }
 })
