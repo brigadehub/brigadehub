@@ -253,6 +253,7 @@ Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
   if (!results.length) {
     console.log('No brigade with the slug ' + process.env.BRIGADE + ' found in database. Populating with default values.')
     var defaultBrigadeData = require('./config/default-brigade')()
+    console.log('grabbing default-brigade')
     brigadeDetails = defaultBrigadeData
     var defaultBrigade = new Brigade(defaultBrigadeData)
     defaultBrigade.save(function (err) {
@@ -260,6 +261,7 @@ Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
       console.log('Default Brigade populated into database.')
       startServer()
     })
+    console.log('ending if')
   } else {
     brigadeDetails = results[0]
     startServer()
