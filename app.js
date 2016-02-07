@@ -49,7 +49,7 @@ var eventsCtrl = require('./controllers/events')
 var blogCtrl = require('./controllers/blog')
 var projectsCtrl = require('./controllers/projects')
 var aboutCtrl = require('./controllers/about')
-var userCtrl = require('./controllers/user')
+var usersCtrl = require('./controllers/user')
 var brigadeCtrl = require('./controllers/brigade')
 
 var brigadeDetails
@@ -143,11 +143,11 @@ app.use(function (req, res, next) {
  * Primary app routes.
  */
 app.get('/', homeCtrl.index)
-app.get('/login', userCtrl.getLogin)
-app.post('/login', userCtrl.postLogin)
-app.get('/login/edit', passportConf.isAuthenticated, userCtrl.getLoginEdit)
-app.post('/login/edit', passportConf.isAuthenticated, userCtrl.postLoginEdit)
-app.get('/logout', userCtrl.getLogout)
+app.get('/login', usersCtrl.getLogin)
+app.post('/login', usersCtrl.postLogin)
+app.get('/login/edit', passportConf.isAuthenticated, usersCtrl.getLoginEdit)
+app.post('/login/edit', passportConf.isAuthenticated, usersCtrl.postLoginEdit)
+app.get('/logout', usersCtrl.getLogout)
 app.get('/about', aboutCtrl.getAbout)
 app.get('/about/edit', passportConf.isAuthenticated, aboutCtrl.getAboutEdit)
 app.post('/about', passportConf.isAuthenticated, aboutCtrl.postAbout)
@@ -156,9 +156,9 @@ app.post('/about', passportConf.isAuthenticated, aboutCtrl.postAbout)
  * Meta Routes
  */
 
-app.get('/account', passportConf.isAuthenticated, userCtrl.getAccount)
-app.post('/account/profile', passportConf.isAuthenticated, userCtrl.postUpdateProfile)
-app.post('/account/delete', passportConf.isAuthenticated, userCtrl.postDeleteAccount)
+app.get('/account', passportConf.isAuthenticated, usersCtrl.getAccount)
+app.post('/account/profile', passportConf.isAuthenticated, usersCtrl.postUpdateProfile)
+app.post('/account/delete', passportConf.isAuthenticated, usersCtrl.postDeleteAccount)
 
 app.get('/brigade', passportConf.isAuthenticated, brigadeCtrl.getBrigade)
 app.post('/brigade', passportConf.isAuthenticated, brigadeCtrl.postBrigade)
@@ -206,6 +206,20 @@ app.get('/blog/:blogId/edit', passportConf.isAuthenticated, blogCtrl.getBlogIDEd
 app.post('/blog/:blogId/sync', passportConf.isAuthenticated, blogCtrl.postBlogIDSync)
 
 /**
+ * Users routes.
+ */
+app.get('/users', usersCtrl.getUsers)
+app.get('/users/manage', passportConf.isAuthenticated, usersCtrl.getUsersManage)
+app.post('/users/manage', passportConf.isAuthenticated, usersCtrl.postUsersManage)
+app.post('/users/sync', passportConf.isAuthenticated, usersCtrl.postUsersSync)
+app.get('/users/new', passportConf.isAuthenticated, usersCtrl.getUsersNew)
+app.post('/users/new', passportConf.isAuthenticated, usersCtrl.postUsersNew)
+app.get('/users/:userId', usersCtrl.getUsersID)
+app.post('/users/:userId', passportConf.isAuthenticated, usersCtrl.postUsersIDSettings)
+app.get('/users/:userId/settings', passportConf.isAuthenticated, usersCtrl.getUsersIDSettings)
+app.post('/users/:userId/sync', passportConf.isAuthenticated, usersCtrl.postUsersIDSync)
+
+/**
  * OAuth authentication routes. (Sign in)
  */
 app.get('/auth/instagram', passport.authenticate('instagram'))
@@ -216,7 +230,19 @@ app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', '
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), function (req, res) {
   res.redirect(req.session.returnTo || '/')
 })
-app.get('/auth/github', passport.authenticate('github'))
+app.get('/auth/github', passport.authenticate('github', {
+  scope: [
+    'user',
+    'repo',
+    'repo_deployment',
+    'repo:status',
+    'admin:repo_hook',
+    'admin:org_hook',
+    'read:org',
+    'write:org',
+    'admin:org'
+  ]
+}))
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function (req, res) {
   res.redirect(req.session.returnTo || '/')
 })
@@ -265,6 +291,7 @@ Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
   if (!results.length) {
     console.log('No brigade with the slug ' + process.env.BRIGADE + ' found in database. Populating with default values.')
     var defaultBrigadeData = require('./config/default-brigade')()
+    defaultBrigadeData.slug = process.env.BRIGADE
     brigadeDetails = defaultBrigadeData
     var defaultBrigade = new Brigade(defaultBrigadeData)
     defaultBrigade.save(function (err) {

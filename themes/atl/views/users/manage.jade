@@ -1,0 +1,46 @@
+extends ../layout
+
+block content
+  .page-header
+    h3 Manage Users
+    form.pull-right(method='POST', action='/users/sync')
+      input(type='hidden', name='_csrf', value=_csrf)
+      button.btn.btn-primary(type='submit')
+        i.fa.fa-github
+        | Fetch Users from #{ brigade.slug }
+    .row
+      .col-sm-6
+      table.table
+        thead
+          tr
+            th
+              input.select-all(type="checkbox")
+            th username
+            th name
+            th email
+            th brigadehub permissions
+            th github ID
+        tbody  
+          each user in users
+            tr
+              td.select 
+                input.select-user(type="checkbox", value=user.username)
+              td.username= user.username
+              td.name= user.profile.name
+              td.email= user.email
+              td.roles
+                if user.roles.read
+                  span.role Read, 
+                if user.roles.blog
+                  span.role Blog, 
+                if user.roles.project
+                  span.role Project, 
+                if user.roles.lead
+                  span.role Project Lead, 
+                if user.roles.core
+                  span.role Core, 
+                if user.roles.coreLead
+                  span.role Core Team Lead, 
+                if user.roles.superAdmin
+                  span.role Super Admin
+              td.github= user.github
