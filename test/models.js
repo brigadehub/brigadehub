@@ -3,7 +3,8 @@ var should = chai.should();
 var User = require('../models/User');
 
 describe('User Model', function() {
-  it('should create a new user', function(done) {
+  /* This is using the defunct user/pass auth. Needs to test Github auth*/
+  /*it('should create a new user', function(done) {
     var user = new User({
       email: 'test@gmail.com',
       password: 'password'
@@ -38,5 +39,5 @@ describe('User Model', function() {
       if (err) return done(err);
       done();
     });
-  });
+  });*/
 });
