@@ -30,10 +30,10 @@ module.exports = {
             allDay : false // will make the time show
         }
     ]
-    res.render(req.locals.brigade.theme.slug+'/views/events/index', {
+    res.render(res.locals.brigade.theme.slug+'/views/events/index', {
       events: events,
       title: 'Events',
-      brigade: req.locals.brigade
+      brigade: res.locals.brigade
     })
   },
   /**
@@ -41,9 +41,9 @@ module.exports = {
    * Manage Events.
    */
   getEventsManage: function (req, res) {
-    res.render(req.locals.brigade.theme.slug+'/views/events/manage', {
+    res.render(res.locals.brigade.theme.slug+'/views/events/manage', {
       title: 'Manage Events',
-      brigade: req.locals.brigade
+      brigade: res.locals.brigade
     })
   },
   /**
@@ -58,9 +58,9 @@ module.exports = {
    * New Events.
    */
   getEventsNew: function (req, res) {
-    res.render(req.locals.brigade.theme.slug+'/views/events/new', {
+    res.render(res.locals.brigade.theme.slug+'/views/events/new', {
       title: 'New Events',
-      brigade: req.locals.brigade
+      brigade: res.locals.brigade
     })
   },
   /**
@@ -76,10 +76,10 @@ module.exports = {
    * Display Event by ID.
    */
   getEventsID: function (req, res) {
-    res.render(req.locals.brigade.theme.slug+'/views/events/event', {
+    res.render(res.locals.brigade.theme.slug+'/views/events/event', {
       eventID: req.params.eventID,
       title: 'Events',
-      brigade: req.locals.brigade
+      brigade: res.locals.brigade
     })
   },
   /**
@@ -87,10 +87,10 @@ module.exports = {
    * IDSettings Events.
    */
   getEventsIDSettings: function (req, res) {
-    res.render(req.locals.brigade.theme.slug+'/views/events/settings', {
+    res.render(res.locals.brigade.theme.slug+'/views/events/settings', {
       eventID: req.params.eventID,
       title: 'IDSettings Events',
-      brigade: req.locals.brigade
+      brigade: res.locals.brigade
     })
   },
   /**

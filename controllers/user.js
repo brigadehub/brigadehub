@@ -13,9 +13,9 @@ exports.getLogin = function (req, res) {
   if (req.user) {
     return res.redirect('/')
   }
-  res.render(req.locals.brigade.theme.slug+'/views/account/login', {
+  res.render(res.locals.brigade.theme.slug+'/views/account/login', {
     title: 'Login',
-    brigade: req.locals.brigade
+    brigade: res.locals.brigade
   })
 }
 
@@ -66,9 +66,9 @@ exports.getLogout = function (req, res) {
  * Profile page.
  */
 exports.getAccount = function (req, res) {
-  res.render(req.locals.brigade.theme.slug+'/views/account/profile', {
+  res.render(res.locals.brigade.theme.slug+'/views/account/profile', {
     title: 'Account Management',
-    brigade: req.locals.brigade
+    brigade: res.locals.brigade
   })
 }
 
@@ -136,9 +136,9 @@ exports.getOauthUnlink = function (req, res, next) {
  * Edit Login page.
  */
 exports.getLoginEdit = function (req, res) {
-  res.render(req.locals.brigade.theme.slug+'/views/account/login-edit', {
+  res.render(res.locals.brigade.theme.slug+'/views/account/login-edit', {
     title: 'Login Edit',
-    brigade: req.locals.brigade
+    brigade: res.locals.brigade
   })
 }
 

@@ -7,9 +7,9 @@ var Brigade = require('../models/Brigade');
  * Brigade page.
  */
 exports.getBrigade = function(req, res) {
-  res.render(req.locals.brigade.theme.slug+'/views/brigade', {
+  res.render(res.locals.brigade.theme.slug+'/views/brigade', {
     title: 'Brigade',
-    brigade: req.locals.brigade
+    brigade: res.locals.brigade
   });
 };
 

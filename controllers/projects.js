@@ -16,10 +16,10 @@ module.exports = {
    * List of Project examples.
    */
   getProjects: function (req, res) {
-    Projects.find({brigade: req.locals.brigade.slug}, function (err, foundProjects) {
-      res.render(req.locals.brigade.theme.slug + '/views/projects/index', {
+    Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
+      res.render(res.locals.brigade.theme.slug + '/views/projects/index', {
         title: 'Projects',
-        brigade: req.locals.brigade,
+        brigade: res.locals.brigade,
         projects: foundProjects
       })
     })
@@ -30,11 +30,11 @@ module.exports = {
    * Manage Projects.
    */
   getProjectsManage: function (req, res) {
-    Projects.find({brigade: req.locals.brigade.slug}, function (err, foundProjects) {
+    Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
       console.log(foundProjects)
-      res.render(req.locals.brigade.theme.slug + '/views/projects/manage', {
+      res.render(res.locals.brigade.theme.slug + '/views/projects/manage', {
         title: 'Manage Projects',
-        brigade: req.locals.brigade,
+        brigade: res.locals.brigade,
         projects: foundProjects
       })
     })
@@ -51,9 +51,9 @@ module.exports = {
    * New Projects.
    */
   getProjectsNew: function (req, res) {
-    res.render(req.locals.brigade.theme.slug + '/views/projects/new', {
+    res.render(res.locals.brigade.theme.slug + '/views/projects/new', {
       title: 'New Projects',
-      brigade: req.locals.brigade
+      brigade: res.locals.brigade
     })
   },
   /**
@@ -69,10 +69,10 @@ module.exports = {
    * Display Project by ID.
    */
   getProjectsID: function (req, res) {
-    res.render(req.locals.brigade.theme.slug + '/views/projects/project', {
+    res.render(res.locals.brigade.theme.slug + '/views/projects/project', {
       projectId: req.params.projectId,
       title: 'Projects',
-      brigade: req.locals.brigade
+      brigade: res.locals.brigade
     })
   },
   /**
@@ -80,10 +80,10 @@ module.exports = {
    * IDSettings Projects.
    */
   getProjectsIDSettings: function (req, res) {
-    res.render(req.locals.brigade.theme.slug + '/views/projects/settings', {
+    res.render(res.locals.brigade.theme.slug + '/views/projects/settings', {
       projectId: req.params.projectId,
       title: 'IDSettings Projects',
-      brigade: req.locals.brigade
+      brigade: res.locals.brigade
     })
   },
   /**
@@ -98,7 +98,7 @@ module.exports = {
    * Sync Projects.
    */
   postProjectsSync: function (req, res) {
-    Projects.fetchGithubRepos(req.locals.brigade, req.user, function (results) {
+    Projects.fetchGithubRepos(res.locals.brigade, req.user, function (results) {
       req.flash('success', { msg: 'Success! You have successfully synced projects from Github.' })
       res.redirect('/projects/manage')
     })

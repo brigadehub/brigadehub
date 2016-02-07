@@ -4,9 +4,9 @@ module.exports = {
    * About form page.
    */
   getAbout: function (req, res) {
-    res.render(req.locals.brigade.theme.slug+'/views/about/index', {
+    res.render(res.locals.brigade.theme.slug+'/views/about/index', {
       title: 'About',
-      brigade: req.locals.brigade
+      brigade: res.locals.brigade
     })
   },
 
@@ -15,9 +15,9 @@ module.exports = {
    * Edit About page content.
    */
   getAboutEdit: function (req, res) {
-    res.render(req.locals.brigade.theme.slug+'/views/about/edit', {
+    res.render(res.locals.brigade.theme.slug+'/views/about/edit', {
       title: 'Edit About',
-      brigade: req.locals.brigade
+      brigade: res.locals.brigade
     })
   },
 
