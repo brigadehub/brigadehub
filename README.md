@@ -6,17 +6,26 @@ A Work in Progress (WIP) of a Code for America Brigade Website/Portal CMS. This 
 BrigadeHub is designed to meet some very specific goals:
 
 - Be the external face for the brigade
-- List and organize active projects
-- Give new users a place to onboard
-- Show upcoming events and calendars
-- Show Leadership / Contact info
+- List and organize active projects through Github API integration
+- Give new users a place to onboard through tight integration with Github oauth and expandable API integrations
+- Show upcoming events and calendars through Meetup and Google Calendar API integration
+- Show Leadership / Contact info / member bios
 - Brigade Blogging
 
 This may be a pipe dream, I know that, but I wanted to give it a shot. It's originally based on [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter), but has been heavily modified to meet our needs. We're striving to match [feross/standard](https://github.com/feross/standard) javascript styling, though the original boilerplate didn't conform to that, so it's a wip.
 
-I want to eventually allow theming for the site, but for now I'm going to try and make it a similar clone to [Code for Atlanta's](http://www.codeforatlanta.org/) main site, since I really like that one.
+Inspirations
+------------
 
-This may die in a week. Be aware. It's very much a quick idea I wanted to play with. We'll see if it survives.
+Similar projects have been concieved and implemented previously, most prominently by [CodeForPhilly](https://codeforphilly.org/) in the form of [Laddr](https://github.com/CfABrigadePhiladelphia/laddr). The reason I'm building a parallel system is for a few reasons:
+
+- I wanted a system that isn't based in PHP, and didn't require a custom Linux VM to run
+- I wanted to utilize the cross-discipline talents of Node.js developers, who generally can move from front-back end quickly
+- I wanted a one-click deploy system, preferrably to Heroku, that would make deployment of a new hub effortless
+- I wanted a platform tightly coupled with the Github API, for oauth, handling permissioning and adminning of the github repos easily
+- I wanted a system that easily lent itself to additional onboarding steps for new members.
+
+Another project which this is pulling inspiration from is (CodeForAtlanta](http://www.codeforatlanta.org/)'s [Connector](https://github.com/codeforatlanta/connector), as well as the site design/UX
 
 Features
 --------
