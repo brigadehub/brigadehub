@@ -25,7 +25,7 @@ Similar projects have been concieved and implemented previously, most prominentl
 - I wanted a platform tightly coupled with the Github API, for oauth, handling permissioning and adminning of the github repos easily
 - I wanted a system that easily lent itself to additional onboarding steps for new members.
 
-Another project which this is pulling inspiration from is (CodeForAtlanta](http://www.codeforatlanta.org/)'s [Connector](https://github.com/codeforatlanta/connector), as well as the site design/UX
+Another project which this is pulling inspiration from is [CodeForAtlanta](http://www.codeforatlanta.org/)'s [Connector](https://github.com/codeforatlanta/connector), as well as the site design/UX
 
 Features
 --------
