@@ -6,13 +6,12 @@ var Brigade = require('../models/Brigade')
  * GET /brigade
  * Brigade page.
  */
-exports.getBrigade = function(req, res) {
-  res.render(res.locals.brigade.theme.slug+'/views/brigade', {
+exports.getBrigade = function (req, res) {
+  res.render(res.locals.brigade.theme.slug + '/views/brigade', {
     title: 'Brigade',
     brigade: res.locals.brigade
-  });
-};
-
+  })
+}
 
 /**
  * POST /brigade
@@ -49,7 +48,7 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.url = req.body.url
       thisBrigade.github = req.body.github
       thisBrigade.copy.description = req.body.description
-    } else if (req.body['theme-slug']){ // social media keys updated
+    } else if (req.body['theme-slug']) { // social media keys updated
       thisBrigade.theme.slug = req.body['theme-slug']
       thisBrigade.theme.logo = req.body.logo
       thisBrigade.theme.show.title = req.body['show-title'] === 'on'
