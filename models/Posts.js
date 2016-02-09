@@ -1,27 +1,21 @@
 var mongoose = require('mongoose')
 
 var postsSchema = new mongoose.Schema({
-  // Follows fullcalendar's event object model, display options omitted:
-  // http://fullcalendar.io/docs/event_data/Event_Object/
   id: String, // this is the slug
   title: String, // Display title
-  start: String, // Moment-ish date, ISO8601 string, http://en.wikipedia.org/wiki/ISO_8601
-  end: String, // same ^^
-  allDay: Boolean, // shows time of day or not
+  author: String,
   url: String, // an external link you can use to override where to go when clicking
-
-  // These options are used within brigadehub for content storage
-  description: String,
-  location: String,
-  hosts: Array
+  content: String,
+  date: String,
+  tags: Array
 })
 
-postsSchema.methods.fetchGoogleEvents = function (cb) {
+postsSchema.statics.fetchGithubPosts = function (cb) {
   cb(null, isMatch)
 }
 
-postsSchema.methods.fetchMeetupEvents = function (cb) {
+postsSchema.statics.exportMarkdownPosts = function (cb) {
   cb(null, isMatch)
 }
 
-module.exports = mongoose.model('Events', postsSchema)
+module.exports = mongoose.model('Posts', postsSchema)
