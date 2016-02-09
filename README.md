@@ -6,17 +6,33 @@ A Work in Progress (WIP) of a Code for America Brigade Website/Portal CMS. This 
 BrigadeHub is designed to meet some very specific goals:
 
 - Be the external face for the brigade
-- List and organize active projects
-- Give new users a place to onboard
-- Show upcoming events and calendars
-- Show Leadership / Contact info
+- List and organize active projects through Github API integration
+- Give new users a place to onboard through tight integration with Github oauth and expandable API integrations
+- Show upcoming events and calendars through Meetup and Google Calendar API integration
+- Show Leadership / Contact info / member bios
 - Brigade Blogging
 
 This may be a pipe dream, I know that, but I wanted to give it a shot. It's originally based on [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter), but has been heavily modified to meet our needs. We're striving to match [feross/standard](https://github.com/feross/standard) javascript styling, though the original boilerplate didn't conform to that, so it's a wip.
 
-I want to eventually allow theming for the site, but for now I'm going to try and make it a similar clone to [Code for Atlanta's](http://www.codeforatlanta.org/) main site, since I really like that one.
+Contributing
+------------
 
-This may die in a week. Be aware. It's very much a quick idea I wanted to play with. We'll see if it survives.
+We're shooting for **MVP** and we need your help! You can take a look through the [issues](https://github.com/sfbrigade/brigadehub/issues) on this repo, and look for any issues tagged ***[`help wanted`](https://github.com/sfbrigade/brigadehub/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+needed%22)***, those are things you can hop in and contribute without much coordination. Other issues are definitely welcome for contributions, but would require more coordination with me to ensure we're using the same data structures moving forward.
+
+To coordinate with the current team or for help in installing/running, join us on [SFBrigade Slack](http://c4a.me/cfsfslack) on the `#brigadehub` channel, or reach out to me on the `#sfbrigade` IRC channel on freenode.
+
+Inspirations
+------------
+
+Similar projects have been concieved and implemented previously, most prominently by [CodeForPhilly](https://codeforphilly.org/) in the form of [Laddr](https://github.com/CfABrigadePhiladelphia/laddr). The reason I'm building a parallel system is for a few reasons:
+
+- I wanted a system that isn't based in PHP, and didn't require a custom Linux VM to run
+- I wanted to utilize the cross-discipline talents of Node.js developers, who generally can move from front-back end quickly
+- I wanted a one-click deploy system, preferrably to Heroku, that would make deployment of a new hub effortless
+- I wanted a platform tightly coupled with the Github API, for oauth, handling permissioning and adminning of the github repos easily
+- I wanted a system that easily lent itself to additional onboarding steps for new members.
+
+Another project which this is pulling inspiration from is [CodeForAtlanta](http://www.codeforatlanta.org/)'s [Connector](https://github.com/codeforatlanta/connector), as well as the site design/UX
 
 Features
 --------
@@ -891,16 +907,6 @@ Changelog
 - Added initial routes
 - Updated User model
 
-Contributing
-------------
-
-If something is unclear, confusing, or needs to be refactored, please let me know.
-Pull requests are always welcome, but due to the opinionated nature of this
-project, I cannot accept every pull request. Please open an issue before
-submitting a pull request. This project uses
-[feross/standard](https://github.com/feross/standard) with a
-few minor exceptions. If you are submitting a pull request that involves
-Jade templates, please make sure you are using *spaces*, not tabs.
 
 License
 -------
