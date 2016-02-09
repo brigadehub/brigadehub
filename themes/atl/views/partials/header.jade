@@ -53,6 +53,9 @@
                 if user.roles.superAdmin
                   li
                     a(href='/brigade') Manage Brigade
+                if user.roles.core || user.roles.superAdmin || user.roles.lead
+                  li
+                    a(href='/users/manage') Manage Users
                 if user.roles.project
                   li.divider
                   li.header Projects

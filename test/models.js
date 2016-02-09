@@ -1,6 +1,6 @@
 var chai = require('chai');
 var should = chai.should();
-var User = require('../models/User');
+var User = require('../models/Users');
 
 describe('User Model', function() {
   /* This is using the defunct user/pass auth. Needs to test Github auth*/

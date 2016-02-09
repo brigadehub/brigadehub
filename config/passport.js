@@ -12,7 +12,7 @@ var OpenIDStrategy = require('passport-openid').Strategy
 var OAuthStrategy = require('passport-oauth').OAuthStrategy
 var OAuth2Strategy = require('passport-oauth').OAuth2Strategy
 
-var User = require('../models/User')
+var User = require('../models/Users')
 
 passport.serializeUser(function (user, done) {
   done(null, user.id)
@@ -23,6 +23,95 @@ passport.deserializeUser(function (id, done) {
     done(err, user)
   })
 })
+
+
+/**
+ * Sign in with GitHub.
+ */
+passport.use(new GitHubStrategy({
+  clientID: process.env.GITHUB_ID,
+  clientSecret: process.env.GITHUB_SECRET,
+  callbackURL: '/auth/github/callback',
+  passReqToCallback: true
+}, function (req, accessToken, refreshToken, profile, done) {
+  if (req.user) {
+    User.findOne({ github: profile.id }, function (err, existingUser) {
+      if (existingUser) {
+        req.flash('errors', { msg: 'There is already a GitHub account that belongs to you. Sign in with that account or delete it, then link it with your current account.' })
+        done(err)
+      } else {
+        User.findById(req.user.id, function (err, user) {
+          user.github = profile.id
+          user.username = profile.username
+          user.tokens.push({ kind: 'github', accessToken: accessToken })
+          user.profile.name = user.profile.name || profile.displayName
+          user.profile.picture = user.profile.picture || profile._json.avatar_url
+          user.profile.location = user.profile.location || profile._json.location
+          user.profile.website = user.profile.website || profile._json.blog
+          User.count({}, function (err, count) {
+            if (!count) {
+              user.roles = {
+                read: true,
+                blog: true,
+                project: true,
+                lead: true,
+                core: true,
+                coreLead: true,
+                superAdmin: true
+              }
+              user.teams.core = ['executive']
+              user.teams.projects = ['website']
+            }
+            user.save(function (err) {
+              req.flash('info', { msg: 'GitHub account has been linked.' })
+              done(err, user)
+            })
+          })
+        })
+      }
+    })
+  } else {
+    User.findOne({ github: profile.id }, function (err, existingUser) {
+      if (existingUser) {
+        return done(null, existingUser)
+      }
+      User.findOne({ email: profile._json.email }, function (err, existingEmailUser) {
+        if (existingEmailUser) {
+          req.flash('errors', { msg: 'There is already an account using this email address. Sign in to that account and link it with GitHub manually from Account Settings.' })
+          done(err)
+        } else {
+          var user = new User()
+          user.email = profile._json.email
+          user.github = profile.id
+          user.username = profile.username
+          user.tokens.push({ kind: 'github', accessToken: accessToken })
+          user.profile.name = profile.displayName
+          user.profile.picture = profile._json.avatar_url
+          user.profile.location = profile._json.location
+          user.profile.website = profile._json.blog
+          User.count({}, function (err, count) {
+            if (!count) {
+              user.roles = {
+                read: true,
+                blog: true,
+                project: true,
+                lead: true,
+                core: true,
+                coreLead: true,
+                superAdmin: true
+              }
+              user.teams.core = ['executive']
+              user.teams.projects = ['website']
+            }
+            user.save(function (err) {
+              done(err, user)
+            })
+          })
+        }
+      })
+    })
+  }
+}))
 
 /**
  * Sign in with Instagram.
@@ -164,91 +253,6 @@ passport.use(new FacebookStrategy({
   }
 }))
 
-/**
- * Sign in with GitHub.
- */
-passport.use(new GitHubStrategy({
-  clientID: process.env.GITHUB_ID,
-  clientSecret: process.env.GITHUB_SECRET,
-  callbackURL: '/auth/github/callback',
-  passReqToCallback: true
-}, function (req, accessToken, refreshToken, profile, done) {
-  if (req.user) {
-    User.findOne({ github: profile.id }, function (err, existingUser) {
-      if (existingUser) {
-        req.flash('errors', { msg: 'There is already a GitHub account that belongs to you. Sign in with that account or delete it, then link it with your current account.' })
-        done(err)
-      } else {
-        User.findById(req.user.id, function (err, user) {
-          user.github = profile.id
-          user.tokens.push({ kind: 'github', accessToken: accessToken })
-          user.profile.name = user.profile.name || profile.displayName
-          user.profile.picture = user.profile.picture || profile._json.avatar_url
-          user.profile.location = user.profile.location || profile._json.location
-          user.profile.website = user.profile.website || profile._json.blog
-          User.count({}, function (err, count) {
-            if (!count) {
-              user.roles = {
-                read: true,
-                blog: true,
-                project: true,
-                lead: true,
-                core: true,
-                coreLead: true,
-                superAdmin: true
-              }
-              user.teams.core = ['executive']
-              user.teams.projects = ['website']
-            }
-            user.save(function (err) {
-              req.flash('info', { msg: 'GitHub account has been linked.' })
-              done(err, user)
-            })
-          })
-        })
-      }
-    })
-  } else {
-    User.findOne({ github: profile.id }, function (err, existingUser) {
-      if (existingUser) {
-        return done(null, existingUser)
-      }
-      User.findOne({ email: profile._json.email }, function (err, existingEmailUser) {
-        if (existingEmailUser) {
-          req.flash('errors', { msg: 'There is already an account using this email address. Sign in to that account and link it with GitHub manually from Account Settings.' })
-          done(err)
-        } else {
-          var user = new User()
-          user.email = profile._json.email
-          user.github = profile.id
-          user.tokens.push({ kind: 'github', accessToken: accessToken })
-          user.profile.name = profile.displayName
-          user.profile.picture = profile._json.avatar_url
-          user.profile.location = profile._json.location
-          user.profile.website = profile._json.blog
-          User.count({}, function (err, count) {
-            if (!count) {
-              user.roles = {
-                read: true,
-                blog: true,
-                project: true,
-                lead: true,
-                core: true,
-                coreLead: true,
-                superAdmin: true
-              }
-              user.teams.core = ['executive']
-              user.teams.projects = ['website']
-            }
-            user.save(function (err) {
-              done(err, user)
-            })
-          })
-        }
-      })
-    })
-  }
-}))
 
 // Sign in with Twitter.
 

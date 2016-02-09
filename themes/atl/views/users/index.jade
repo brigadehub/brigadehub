@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  .page-header
+    h3 All Users
+    .row
+      .col-sm-6
+        each user in users
+          .user-card
+            span.title= user.name
+            br
+            span.description= user.description
+            br
+            span.link= user.homepage
+            br
+            br
