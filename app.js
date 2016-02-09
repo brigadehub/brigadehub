@@ -22,6 +22,8 @@ var sass = require('node-sass-middleware')
 var _ = require('lodash')
 var fs = require('fs')
 
+var DB_INSTANTIATED
+
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  *
@@ -99,12 +101,22 @@ app.use(session({
     autoReconnect: true
   })
 }))
+/* Check if db is connected */
+app.use(checkDB)
+function checkDB (req, res, next) {
+  if (!DB_INSTANTIATED) {
+    return setTimeout(function () {
+      checkDB(req, res, next)
+    }, 500)
+  }
+  next()
+}
 /* Attach brigade info to req */
 app.use(function (req, res, next) {
   Brigade.find({}, function (err, results) {
     if (!results.length) throw new Error('BRIGADE NOT IN DATABASE')
-    req.locals = req.locals || {}
-    req.locals.brigade = results[0]
+    res.locals = res.locals || {}
+    res.locals.brigade = results[0]
     next()
   })
 })
@@ -258,9 +270,11 @@ Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
     defaultBrigade.save(function (err) {
       if (err) return handleError(err)
       console.log('Default Brigade populated into database.')
+      DB_INSTANTIATED = true
       startServer()
     })
   } else {
+    DB_INSTANTIATED = true
     brigadeDetails = results[0]
     startServer()
   }

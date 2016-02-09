@@ -6,12 +6,12 @@ var Brigade = require('../models/Brigade')
  * GET /brigade
  * Brigade page.
  */
-exports.getBrigade = function (req, res) {
-  res.render(req.locals.brigade.theme.slug + '/views/brigade', {
+exports.getBrigade = function(req, res) {
+  res.render(res.locals.brigade.theme.slug+'/views/brigade', {
     title: 'Brigade',
-    brigade: req.locals.brigade
-  })
-}
+    brigade: res.locals.brigade
+  });
+};
 
 /**
  * POST /brigade
@@ -30,13 +30,13 @@ exports.postBrigade = function (req, res, next) {
     return res.redirect('/brigade')
   }*/
   console.log(req.body)
-  req.locals.brigade.name = req.body.name
-  req.locals.brigade.location.general = req.body.location
-  req.locals.brigade.url = req.body.url
-  req.locals.brigade.github = req.body.github
-  req.locals.brigade.theme.logo = req.body.logo
-  req.locals.brigade.theme.slug = req.body['theme-slug']
-  Brigade.find({slug: req.locals.brigade.slug}, function (err, results) {
+  res.locals.brigade.name = req.body.name
+  res.locals.brigade.location.general = req.body.location
+  res.locals.brigade.url = req.body.url
+  res.locals.brigade.github = req.body.github
+  res.locals.brigade.theme.logo = req.body.logo
+  res.locals.brigade.theme.slug = req.body['theme-slug']
+  Brigade.find({slug: res.locals.brigade.slug}, function (err, results) {
     if (err) {
       console.error(err)
       req.flash('error', { msg: 'An error has occurred. Check console.' })
