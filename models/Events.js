@@ -17,11 +17,11 @@ var eventsSchema = new mongoose.Schema({
 })
 
 eventsSchema.methods.fetchGoogleEvents = function (cb) {
-  cb(null, isMatch)
+  cb(null, {})
 }
 
 eventsSchema.methods.fetchMeetupEvents = function (cb) {
-  cb(null, isMatch)
+  cb(null, {})
 }
 
 module.exports = mongoose.model('Events', eventsSchema)

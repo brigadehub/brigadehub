@@ -16,7 +16,7 @@ module.exports = function () {
     theme: {
       slug: 'atl',
       logo: '',
-      show:{
+      show: {
         title: true,
         events: true,
         projects: true,

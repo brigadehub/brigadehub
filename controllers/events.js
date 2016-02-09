@@ -2,35 +2,29 @@
  * Split into declaration and initialization for better startup performance.
  */
 
-var request
-
-var _ = require('lodash')
-var async = require('async')
-var querystring = require('querystring')
-
 module.exports = {
   /**
    * GET /events
    * List of Event examples.
    */
   getEvents: function (req, res) {
-    var events =  [
-        {
-            title  : 'event1',
-            start  : '2016-01-01'
-        },
-        {
-            title  : 'event2',
-            start  : '2016-01-05',
-            end    : '2016-01-07'
-        },
-        {
-            title  : 'event3',
-            start  : '2016-01-09T12:30:00',
-            allDay : false // will make the time show
-        }
+    var events = [
+      {
+        title: 'event1',
+        start: '2016-01-01'
+      },
+      {
+        title: 'event2',
+        start: '2016-01-05',
+        end: '2016-01-07'
+      },
+      {
+        title: 'event3',
+        start: '2016-01-09T12:30:00',
+        allDay: false // will make the time show
+      }
     ]
-    res.render(res.locals.brigade.theme.slug+'/views/events/index', {
+    res.render(res.locals.brigade.theme.slug + '/views/events/index', {
       events: events,
       title: 'Events',
       brigade: res.locals.brigade
@@ -41,7 +35,7 @@ module.exports = {
    * Manage Events.
    */
   getEventsManage: function (req, res) {
-    res.render(res.locals.brigade.theme.slug+'/views/events/manage', {
+    res.render(res.locals.brigade.theme.slug + '/views/events/manage', {
       title: 'Manage Events',
       brigade: res.locals.brigade
     })
@@ -58,7 +52,7 @@ module.exports = {
    * New Events.
    */
   getEventsNew: function (req, res) {
-    res.render(res.locals.brigade.theme.slug+'/views/events/new', {
+    res.render(res.locals.brigade.theme.slug + '/views/events/new', {
       title: 'New Events',
       brigade: res.locals.brigade
     })
@@ -76,7 +70,7 @@ module.exports = {
    * Display Event by ID.
    */
   getEventsID: function (req, res) {
-    res.render(res.locals.brigade.theme.slug+'/views/events/event', {
+    res.render(res.locals.brigade.theme.slug + '/views/events/event', {
       eventID: req.params.eventID,
       title: 'Events',
       brigade: res.locals.brigade
@@ -87,7 +81,7 @@ module.exports = {
    * IDSettings Events.
    */
   getEventsIDSettings: function (req, res) {
-    res.render(res.locals.brigade.theme.slug+'/views/events/settings', {
+    res.render(res.locals.brigade.theme.slug + '/views/events/settings', {
       eventID: req.params.eventID,
       title: 'IDSettings Events',
       brigade: res.locals.brigade

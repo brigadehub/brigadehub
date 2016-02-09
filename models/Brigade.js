@@ -14,7 +14,7 @@ var brigadeSchema = new mongoose.Schema({
   theme: {
     slug: String,
     logo: String,
-    show:{
+    show: {
       title: Boolean,
       events: Boolean,
       projects: Boolean,

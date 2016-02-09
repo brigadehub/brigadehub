@@ -1,5 +1,3 @@
-var _ = require('lodash')
-var async = require('async')
 var Brigade = require('../models/Brigade')
 
 /**
@@ -18,7 +16,7 @@ exports.getBrigade = function (req, res) {
  * Sign in using email and password.
  */
 exports.postBrigade = function (req, res, next) {
-  /*req.assert('name', 'Password cannot be blank').notEmpty()
+  /* req.assert('name', 'Password cannot be blank').notEmpty()
   req.assert('slug', 'Slug cannot be blank').notEmpty()
   req.assert('github', 'Github Group cannot be blank').notEmpty()
   req.assert('theme-slug', 'Theme cannot be blank').notEmpty()
@@ -28,7 +26,7 @@ exports.postBrigade = function (req, res, next) {
   if (errors) {
     req.flash('errors', errors)
     return res.redirect('/brigade')
-  }*/
+  } */
   console.log(req.body)
   res.locals.brigade.name = req.body.name
   res.locals.brigade.location.general = req.body.location
@@ -69,6 +67,5 @@ exports.postBrigade = function (req, res, next) {
       req.flash('success', { msg: "Success! You've updated your brigade." })
       res.redirect('/brigade')
     })
-
   })
 }

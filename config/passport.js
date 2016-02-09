@@ -24,7 +24,6 @@ passport.deserializeUser(function (id, done) {
   })
 })
 
-
 /**
  * Sign in with GitHub.
  */
@@ -36,11 +35,13 @@ passport.use(new GitHubStrategy({
 }, function (req, accessToken, refreshToken, profile, done) {
   if (req.user) {
     User.findOne({ github: profile.id }, function (err, existingUser) {
+      if (err) console.error(err)
       if (existingUser) {
         req.flash('errors', { msg: 'There is already a GitHub account that belongs to you. Sign in with that account or delete it, then link it with your current account.' })
         done(err)
       } else {
         User.findById(req.user.id, function (err, user) {
+          if (err) console.error(err)
           user.github = profile.id
           user.username = profile.username
           user.tokens.push({ kind: 'github', accessToken: accessToken })
@@ -49,6 +50,7 @@ passport.use(new GitHubStrategy({
           user.profile.location = user.profile.location || profile._json.location
           user.profile.website = user.profile.website || profile._json.blog
           User.count({}, function (err, count) {
+            if (err) console.error(err)
             if (!count) {
               user.roles = {
                 read: true,
@@ -63,6 +65,7 @@ passport.use(new GitHubStrategy({
               user.teams.projects = ['website']
             }
             user.save(function (err) {
+              if (err) console.error(err)
               req.flash('info', { msg: 'GitHub account has been linked.' })
               done(err, user)
             })
@@ -72,10 +75,12 @@ passport.use(new GitHubStrategy({
     })
   } else {
     User.findOne({ github: profile.id }, function (err, existingUser) {
+      if (err) console.error(err)
       if (existingUser) {
         return done(null, existingUser)
       }
       User.findOne({ email: profile._json.email }, function (err, existingEmailUser) {
+        if (err) console.error(err)
         if (existingEmailUser) {
           req.flash('errors', { msg: 'There is already an account using this email address. Sign in to that account and link it with GitHub manually from Account Settings.' })
           done(err)
@@ -90,6 +95,7 @@ passport.use(new GitHubStrategy({
           user.profile.location = profile._json.location
           user.profile.website = profile._json.blog
           User.count({}, function (err, count) {
+            if (err) console.error(err)
             if (!count) {
               user.roles = {
                 read: true,
@@ -104,6 +110,7 @@ passport.use(new GitHubStrategy({
               user.teams.projects = ['website']
             }
             user.save(function (err) {
+              if (err) console.error(err)
               done(err, user)
             })
           })
@@ -124,11 +131,13 @@ passport.use(new InstagramStrategy({
 }, function (req, accessToken, refreshToken, profile, done) {
   if (req.user) {
     User.findOne({ instagram: profile.id }, function (err, existingUser) {
+      if (err) console.error(err)
       if (existingUser) {
         req.flash('errors', { msg: 'There is already an Instagram account that belongs to you. Sign in with that account or delete it, then link it with your current account.' })
         done(err)
       } else {
         User.findById(req.user.id, function (err, user) {
+          if (err) console.error(err)
           user.instagram = profile.id
           user.tokens.push({ kind: 'instagram', accessToken: accessToken })
           user.profile.name = user.profile.name || profile.displayName
@@ -143,6 +152,7 @@ passport.use(new InstagramStrategy({
     })
   } else {
     User.findOne({ instagram: profile.id }, function (err, existingUser) {
+      if (err) console.error(err)
       if (existingUser) {
         return done(null, existingUser)
       }
@@ -169,10 +179,12 @@ passport.use(new InstagramStrategy({
 passport.use(new LocalStrategy({ usernameField: 'email' }, function (email, password, done) {
   email = email.toLowerCase()
   User.findOne({ email: email }, function (err, user) {
+    if (err) console.error(err)
     if (!user) {
-      return done(null, false, { message: 'Email ' + email + ' not found'})
+      return done(null, false, { message: 'Email ' + email + ' not found' })
     }
     user.comparePassword(password, function (err, isMatch) {
+      if (err) console.error(err)
       if (isMatch) {
         return done(null, user)
       } else {
@@ -209,11 +221,13 @@ passport.use(new FacebookStrategy({
 }, function (req, accessToken, refreshToken, profile, done) {
   if (req.user) {
     User.findOne({ facebook: profile.id }, function (err, existingUser) {
+      if (err) console.error(err)
       if (existingUser) {
         req.flash('errors', { msg: 'There is already a Facebook account that belongs to you. Sign in with that account or delete it, then link it with your current account.' })
         done(err)
       } else {
         User.findById(req.user.id, function (err, user) {
+          if (err) console.error(err)
           user.facebook = profile.id
           user.tokens.push({ kind: 'facebook', accessToken: accessToken })
           user.profile.name = user.profile.name || profile.displayName
@@ -228,6 +242,7 @@ passport.use(new FacebookStrategy({
     })
   } else {
     User.findOne({ facebook: profile.id }, function (err, existingUser) {
+      if (err) console.error(err)
       if (existingUser) {
         return done(null, existingUser)
       }
@@ -253,7 +268,6 @@ passport.use(new FacebookStrategy({
   }
 }))
 
-
 // Sign in with Twitter.
 
 passport.use(new TwitterStrategy({
@@ -264,11 +278,13 @@ passport.use(new TwitterStrategy({
 }, function (req, accessToken, tokenSecret, profile, done) {
   if (req.user) {
     User.findOne({ twitter: profile.id }, function (err, existingUser) {
+      if (err) console.error(err)
       if (existingUser) {
         req.flash('errors', { msg: 'There is already a Twitter account that belongs to you. Sign in with that account or delete it, then link it with your current account.' })
         done(err)
       } else {
         User.findById(req.user.id, function (err, user) {
+          if (err) console.error(err)
           user.twitter = profile.id
           user.tokens.push({ kind: 'twitter', accessToken: accessToken, tokenSecret: tokenSecret })
           user.profile.name = user.profile.name || profile.displayName
@@ -281,9 +297,9 @@ passport.use(new TwitterStrategy({
         })
       }
     })
-
   } else {
     User.findOne({ twitter: profile.id }, function (err, existingUser) {
+      if (err) console.error(err)
       if (existingUser) {
         return done(null, existingUser)
       }
@@ -315,11 +331,13 @@ passport.use(new GoogleStrategy({
 }, function (req, accessToken, refreshToken, profile, done) {
   if (req.user) {
     User.findOne({ google: profile.id }, function (err, existingUser) {
+      if (err) console.error(err)
       if (existingUser) {
         req.flash('errors', { msg: 'There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.' })
         done(err)
       } else {
         User.findById(req.user.id, function (err, user) {
+          if (err) console.error(err)
           user.google = profile.id
           user.tokens.push({ kind: 'google', accessToken: accessToken })
           user.profile.name = user.profile.name || profile.displayName
@@ -334,6 +352,7 @@ passport.use(new GoogleStrategy({
     })
   } else {
     User.findOne({ google: profile.id }, function (err, existingUser) {
+      if (err) console.error(err)
       if (existingUser) {
         return done(null, existingUser)
       }
@@ -370,11 +389,13 @@ passport.use(new LinkedInStrategy({
 }, function (req, accessToken, refreshToken, profile, done) {
   if (req.user) {
     User.findOne({ linkedin: profile.id }, function (err, existingUser) {
+      if (err) console.error(err)
       if (existingUser) {
         req.flash('errors', { msg: 'There is already a LinkedIn account that belongs to you. Sign in with that account or delete it, then link it with your current account.' })
         done(err)
       } else {
         User.findById(req.user.id, function (err, user) {
+          if (err) console.error(err)
           user.linkedin = profile.id
           user.tokens.push({ kind: 'linkedin', accessToken: accessToken })
           user.profile.name = user.profile.name || profile.displayName
@@ -390,6 +411,7 @@ passport.use(new LinkedInStrategy({
     })
   } else {
     User.findOne({ linkedin: profile.id }, function (err, existingUser) {
+      if (err) console.error(err)
       if (existingUser) {
         return done(null, existingUser)
       }
@@ -429,8 +451,10 @@ passport.use('tumblr', new OAuthStrategy({
 },
   function (req, token, tokenSecret, profile, done) {
     User.findById(req.user._id, function (err, user) {
+      if (err) console.error(err)
       user.tokens.push({ kind: 'tumblr', accessToken: token, tokenSecret: tokenSecret })
       user.save(function (err) {
+        if (err) console.error(err)
         done(err, user)
       })
     })
@@ -450,8 +474,10 @@ passport.use('foursquare', new OAuth2Strategy({
 },
   function (req, accessToken, refreshToken, profile, done) {
     User.findById(req.user._id, function (err, user) {
+      if (err) console.error(err)
       user.tokens.push({ kind: 'foursquare', accessToken: accessToken })
       user.save(function (err) {
+        if (err) console.error(err)
         done(err, user)
       })
     })
@@ -471,8 +497,10 @@ passport.use('venmo', new OAuth2Strategy({
 },
   function (req, accessToken, refreshToken, profile, done) {
     User.findById(req.user._id, function (err, user) {
+      if (err) console.error(err)
       user.tokens.push({ kind: 'venmo', accessToken: accessToken })
       user.save(function (err) {
+        if (err) console.error(err)
         done(err, user)
       })
     })
@@ -493,19 +521,21 @@ passport.use(new OpenIDStrategy({
   var profileURL = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + process.env.STEAM_KEY + '&steamids=' + steamId
 
   User.findOne({ steam: steamId }, function (err, existingUser) {
+    if (err) console.error(err)
     if (existingUser) return done(err, existingUser)
     request(profileURL, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
+      if (!error && response.statusCode === 200) {
         var data = JSON.parse(body)
         var profile = data.response.players[0]
 
         var user = new User()
         user.steam = steamId
-        user.email = steamId + '@steam.com'; // steam does not disclose emails, prevent duplicate keys
+        user.email = steamId + '@steam.com' // steam does not disclose emails, prevent duplicate keys
         user.tokens.push({ kind: 'steam', accessToken: steamId })
         user.profile.name = profile.personaname
         user.profile.picture = profile.avatarmedium
         user.save(function (err) {
+          if (err) console.error(err)
           done(err, user)
         })
       } else {

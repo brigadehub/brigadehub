@@ -1,3 +1,4 @@
+var $ = window.jQuery
 $(document).ready(function () {
   console.log('running')
   if (window._events) {

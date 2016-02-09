@@ -14,7 +14,7 @@ var defaultHeaders = {
 var userSchema = new mongoose.Schema({
   username: { type: String, unique: true },
   email: String,
-  /*password: String,*/
+  /* password: String,*/
   facebook: String,
   twitter: String,
   google: String,
@@ -51,9 +51,9 @@ var userSchema = new mongoose.Schema({
  * Password hash middleware.
  */
 userSchema.pre('save', function (next) {
-  var user = this
+  /* var user = this*/
   return next()
-  /*if (!user.isModified('password')) {
+  /* if (!user.isModified('password')) {
     return next()
   }
   bcrypt.genSalt(10, function (err, salt) {
@@ -146,7 +146,7 @@ userSchema.statics.fetchGithubUsers = function (brigade, user, cb) {
     })
     return Promise.all(mongooseActions)
       .then(function () {
-        cb(null, results)
+        cb()
       })
       .catch(function (err) {
         throw err
@@ -166,7 +166,7 @@ function getUsers (url, aggregate, user, callback) {
   console.log('calling aggregate')
   request(options, function (err, response, body) {
     if (err) return callback(err, aggregate)
-    if (!err && response.statusCode == 200) {
+    if (!err && response.statusCode === 200) {
       var parsed = JSON.parse(body)
       aggregate = aggregate.concat(parsed)
       aggregate = _.uniq(aggregate)

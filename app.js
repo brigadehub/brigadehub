@@ -19,7 +19,7 @@ var mongoose = require('mongoose')
 var passport = require('passport')
 var expressValidator = require('express-validator')
 var sass = require('node-sass-middleware')
-var _ = require('lodash')
+/* var _ = require('lodash') */
 var fs = require('fs')
 
 var DB_INSTANTIATED
@@ -30,7 +30,7 @@ var DB_INSTANTIATED
  * Default path: .env
  */
 try {
-  stats = fs.lstatSync(__dirname + '/.env')
+  var stats = fs.lstatSync(path.join(__dirname, '/.env'))
   if (stats.isFile()) {
     dotenv.load({ path: '.env' })
   } else {
@@ -114,6 +114,7 @@ function checkDB (req, res, next) {
 /* Attach brigade info to req */
 app.use(function (req, res, next) {
   Brigade.find({}, function (err, results) {
+    if (err) throw err
     if (!results.length) throw new Error('BRIGADE NOT IN DATABASE')
     res.locals = res.locals || {}
     res.locals.brigade = results[0]
@@ -288,6 +289,7 @@ app.use(errorHandler())
  * Check if brigade exists before starting Express server.
  */
 Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
+  if (err) throw err
   if (!results.length) {
     console.log('No brigade with the slug ' + process.env.BRIGADE + ' found in database. Populating with default values.')
     var defaultBrigadeData = require('./config/default-brigade')()
@@ -295,7 +297,7 @@ Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
     brigadeDetails = defaultBrigadeData
     var defaultBrigade = new Brigade(defaultBrigadeData)
     defaultBrigade.save(function (err) {
-      if (err) return handleError(err)
+      if (err) throw err
       console.log('Default Brigade populated into database.')
       DB_INSTANTIATED = true
       startServer()

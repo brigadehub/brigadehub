@@ -1,7 +1,4 @@
 var _ = require('lodash')
-var async = require('async')
-var crypto = require('crypto')
-var nodemailer = require('nodemailer')
 var passport = require('passport')
 var Users = require('../models/Users')
 
@@ -123,7 +120,7 @@ module.exports = {
         return next(err)
       }
       user[provider] = undefined
-      user.tokens = _.reject(user.tokens, function (token) { return token.kind === provider; })
+      user.tokens = _.reject(user.tokens, function (token) { return token.kind === provider })
       user.save(function (err) {
         if (err) return next(err)
         req.flash('info', { msg: provider + ' account has been unlinked.' })
@@ -167,13 +164,13 @@ module.exports = {
    */
   getUsers: function (req, res) {
     Users.find({brigade: res.locals.brigade.slug}, function (err, foundUsers) {
+      if (err) console.error(err)
       res.render(res.locals.brigade.theme.slug + '/views/users/index', {
         title: 'Users',
         brigade: res.locals.brigade,
         users: foundUsers
       })
     })
-
   },
   /**
    * GET /users/manage
@@ -181,6 +178,7 @@ module.exports = {
    */
   getUsersManage: function (req, res) {
     Users.find({}, function (err, foundUsers) {
+      if (err) console.error(err)
       console.log(foundUsers)
       res.render(res.locals.brigade.theme.slug + '/views/users/manage', {
         title: 'Manage Users',

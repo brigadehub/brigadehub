@@ -11,11 +11,11 @@ var postsSchema = new mongoose.Schema({
 })
 
 postsSchema.statics.fetchGithubPosts = function (cb) {
-  cb(null, isMatch)
+  cb(null, {})
 }
 
 postsSchema.statics.exportMarkdownPosts = function (cb) {
-  cb(null, isMatch)
+  cb(null, {})
 }
 
 module.exports = mongoose.model('Posts', postsSchema)

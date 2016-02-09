@@ -2,12 +2,6 @@
  * Split into declaration and initialization for better startup performance.
  */
 
-var request
-
-var _ = require('lodash')
-var async = require('async')
-var querystring = require('querystring')
-
 var Projects = require('../models/Projects')
 
 module.exports = {
@@ -17,13 +11,13 @@ module.exports = {
    */
   getProjects: function (req, res) {
     Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
+      if (err) console.error(err)
       res.render(res.locals.brigade.theme.slug + '/views/projects/index', {
         title: 'Projects',
         brigade: res.locals.brigade,
         projects: foundProjects
       })
     })
-
   },
   /**
    * GET /projects/manage
@@ -31,6 +25,7 @@ module.exports = {
    */
   getProjectsManage: function (req, res) {
     Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
+      if (err) console.error(err)
       console.log(foundProjects)
       res.render(res.locals.brigade.theme.slug + '/views/projects/manage', {
         title: 'Manage Projects',

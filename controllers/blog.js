@@ -2,11 +2,11 @@
  * Split into declaration and initialization for better startup performance.
  */
 
-var request
+// var request
 
-var _ = require('lodash')
-var async = require('async')
-var querystring = require('querystring')
+// var _ = require('lodash')
+// var async = require('async')
+// var querystring = require('querystring')
 
 module.exports = {
   /**
@@ -14,7 +14,7 @@ module.exports = {
    * List of Blog examples.
    */
   getBlog: function (req, res) {
-    res.render(res.locals.brigade.theme.slug+'/views/blog/index', {
+    res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
       title: 'Blog',
       brigade: res.locals.brigade
     })
@@ -24,7 +24,7 @@ module.exports = {
    * Manage Blog.
    */
   getBlogManage: function (req, res) {
-    res.render(res.locals.brigade.theme.slug+'/views/blog/manage', {
+    res.render(res.locals.brigade.theme.slug + '/views/blog/manage', {
       title: 'Manage Blog',
       brigade: res.locals.brigade
     })
@@ -41,7 +41,7 @@ module.exports = {
    * New Blog.
    */
   getBlogNew: function (req, res) {
-    res.render(res.locals.brigade.theme.slug+'/views/blog/new', {
+    res.render(res.locals.brigade.theme.slug + '/views/blog/new', {
       title: 'New Blog',
       brigade: res.locals.brigade
     })
@@ -59,7 +59,7 @@ module.exports = {
    * Display Blog by ID.
    */
   getBlogID: function (req, res) {
-    res.render(res.locals.brigade.theme.slug+'/views/blog/post', {
+    res.render(res.locals.brigade.theme.slug + '/views/blog/post', {
       blogId: req.params.blogID,
       title: 'Blog',
       brigade: res.locals.brigade
@@ -70,7 +70,7 @@ module.exports = {
    * IDEdit Blog.
    */
   getBlogIDEdit: function (req, res) {
-    res.render(res.locals.brigade.theme.slug+'/views/blog/edit', {
+    res.render(res.locals.brigade.theme.slug + '/views/blog/edit', {
       blogId: req.params.blogID,
       title: 'IDEdit Blog',
       brigade: res.locals.brigade

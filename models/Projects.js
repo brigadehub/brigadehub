@@ -33,7 +33,6 @@ var projectsSchema = new mongoose.Schema({
   // status: String, // represented above
   homepage: String,
   repository: String,
-  geography: Array,
   contact: {
     name: String,
     email: String
@@ -48,6 +47,7 @@ projectsSchema.statics.fetchGithubRepos = function (brigade, user, cb) {
   var Projects = this
   var url = 'https://api.github.com/orgs/' + brigade.slug + '/repos'
   getRepos(url, [], user, function (err, aggregate) {
+    if (err) console.error(err)
     // massage data, fetch civic.json files
     var promiseArray = []
     aggregate.forEach(function (repo) {
@@ -55,8 +55,8 @@ projectsSchema.statics.fetchGithubRepos = function (brigade, user, cb) {
         return new Promise(function (resolve, reject) {
           var civicJsonUrl = repo.contents_url.replace('{+path}', 'civic.json')
           getRepoCivicJson(civicJsonUrl, user, function (err, results) {
-            if (err) {
-            }
+            if (err) console.error(err)
+
             resolve({repo: repo, json: results})
           })
         })
@@ -71,11 +71,13 @@ projectsSchema.statics.fetchGithubRepos = function (brigade, user, cb) {
           function buildPromise (project) {
             return new Promise(function (resolve, reject) {
               Projects.find({id: project.repo.name, brigade: brigade.slug}, function (err, foundProject) {
+                if (err) console.error(err)
                 if (!foundProject.length) {
                   console.log('creating', project.repo.name)
                   var projectData = createUpdateProjectData(project, {}, brigade)
                   var newProject = new Projects(projectData)
                   newProject.save(function (err) {
+                    if (err) console.error(err)
                     resolve()
                   })
                 } else { // project already exists, needs updating
@@ -83,6 +85,7 @@ projectsSchema.statics.fetchGithubRepos = function (brigade, user, cb) {
                   var thisProject = foundProject[0]
                   thisProject = createUpdateProjectData(project, thisProject, brigade)
                   thisProject.save(function (err) {
+                    if (err) console.error(err)
                     resolve()
                   })
                 }
@@ -99,10 +102,11 @@ projectsSchema.statics.fetchGithubRepos = function (brigade, user, cb) {
           .catch(function (err) {
             throw err
           })
-      }).catch(function (err) {
-      console.error(err)
-      cb(err)
-    })
+      })
+      .catch(function (err) {
+        console.error(err)
+        cb(err)
+      })
   })
 }
 
@@ -121,7 +125,7 @@ function getRepos (url, aggregate, user, callback) {
   }
   request(options, function (err, response, body) {
     if (err) return callback(err, aggregate)
-    if (!err && response.statusCode == 200) {
+    if (!err && response.statusCode === 200) {
       var parsed = JSON.parse(body)
       aggregate = aggregate.concat(parsed)
       aggregate = _.uniq(aggregate)
@@ -145,7 +149,7 @@ function getRepoCivicJson (url, user, callback) {
   }
   request(options, function (err, response, body) {
     if (err) return callback(err)
-    if (!err && response.statusCode == 200) {
+    if (!err && response.statusCode === 200) {
       var civicJS
       try {
         var parsed = JSON.parse(body)
@@ -153,7 +157,7 @@ function getRepoCivicJson (url, user, callback) {
         var civicJSON = cj.toString()
         civicJS = JSON.parse(civicJSON)
         console.log('civicJSON', civicJS)
-      } catch(e) {
+      } catch (e) {
         console.warn('Error occured', e)
       }
       return callback(null, civicJS)
@@ -173,26 +177,26 @@ function createUpdateProjectData (project, original, brigade) {
   project.json.links = project.json.links || []
   project.json.contact = project.json.contact || {}
 
-  original.id = project.repo.name, // this is the slug - civic.sf.json + civic.dc.json
-  original.brigade = brigade.slug, // this is the slug - civic.sf.json + civic.dc.json
-  original.status = project.json.status ? project.json.status.toLowerCase() : 'proposed', // civic.json + civic.dc.json - proposed, ideation, alpha, beta, production, archival
+  original.id = project.repo.name // this is the slug - civic.sf.json + civic.dc.json
+  original.brigade = brigade.slug // this is the slug - civic.sf.json + civic.dc.json
+  original.status = project.json.status ? project.json.status.toLowerCase() : 'proposed' // civic.json + civic.dc.json - proposed, ideation, alpha, beta, production, archival
 
-  original.thumbnailUrl = project.json.thumbnailUrl || 'https://placeholdit.imgix.net/~text?txtsize=15&txt=thumbnail&w=100&h=100',
-  original.bornAt = project.json.bornAt || brigade.name,
-  original.geography = project.json.geography || brigade.location.general,
-  original.politicalEntity = project.json.politicalEntity || '',
-  original.type = project.json.type || '',
+  original.thumbnailUrl = project.json.thumbnailUrl || 'https://placeholdit.imgix.net/~text?txtsize=15&txt=thumbnail&w=100&h=100'
+  original.bornAt = project.json.bornAt || brigade.name
+  original.geography = project.json.geography || brigade.location.general
+  original.politicalEntity = project.json.politicalEntity || ''
+  original.type = project.json.type || ''
   original.needs = original.needs || []
   original.needs = original.needs.concat(project.json.needs)
   original.needs = _.uniq(original.needs)
   original.categories = original.categories || []
   original.categories = original.categories.concat(project.json.categories)
   original.categories = _.uniq(original.categories)
-  original.name = project.json.name || project.repo.name, // Display title
-  original.description = project.json.description || project.repo.description || 'A new project.',
-  original.license = project.json.license || 'MIT',
-  original.homepage = project.json.homepage || project.repo.homepage || project.repo.url,
-  original.repository = project.json.repository || project.repo.url,
+  original.name = project.json.name || project.repo.name // Display titl
+  original.description = project.json.description || project.repo.description || 'A new project.'
+  original.license = project.json.license || 'MIT'
+  original.homepage = project.json.homepage || project.repo.homepage || project.repo.url
+  original.repository = project.json.repository || project.repo.url
   original.geography = original.geography || []
   original.geography = original.geography.concat(project.json.geography)
   original.geography = _.uniq(original.geography)

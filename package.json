@@ -7,7 +7,8 @@
   },
   "scripts": {
     "start": "node app.js",
-    "test": "mocha --reporter spec --timeout 5000"
+    "pretest": "standard",
+    "test": "istanbul cover _mocha -- --reporter spec --timeout 5000"
   },
   "dependencies": {
     "async": "^1.5.2",
@@ -28,6 +29,7 @@
     "fbgraph": "^1.1.0",
     "github-api": "^0.10.7",
     "instagram-node": "^0.5.8",
+    "istanbul": "^0.4.2",
     "jade": "^1.11.0",
     "lastfm": "^0.9.2",
     "link-header-parser": "0.0.2",
@@ -55,6 +57,7 @@
     "paypal-rest-sdk": "^1.6.8",
     "request": "^2.67.0",
     "serve-favicon": "^2.3.0",
+    "standard": "^6.0.4",
     "stripe": "^4.2.0",
     "tumblr.js": "^0.0.7",
     "twilio": "^2.8.0",
