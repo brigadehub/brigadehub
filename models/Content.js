@@ -7,9 +7,8 @@ var contentSchema = new mongoose.Schema({
   content: {
     title: String,
     date: Date,
-
+    data: String
   }
-
 })
 
 module.exports = mongoose.model('Content', contentSchema)
