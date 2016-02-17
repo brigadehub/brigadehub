@@ -48,7 +48,13 @@ Features
 
 Install - Deploy support
 ------------------------
+
 This is actively maintained in [brigadehub's wiki](https://github.com/sfbrigade/brigadehub/wiki/Install---Support)
+
+Contributing
+------------
+
+Refer to our [`CONTRIBUTING.md`](/.github/CONTRIBUTING.md) doc.
 
 Changelog
 ---------
