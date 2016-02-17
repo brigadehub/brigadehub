@@ -1,18 +1,21 @@
 # BrigadeHub
 =================
 
-A Work in Progress (WIP) of a Code for America Brigade Website/Portal CMS. This is more of a thought experiment to see if it's even feasible to build and maintain something like this.
+A Work in Progress (WIP, read: unfinished, not-feature-complete, not-production-ready) of a Code for America Brigade Website/Portal CMS. This is being built to consolidate the efforts of maintaining a brigade website into a single location, and to allow other non-developer brigade leadership to update content as needed.
 
 BrigadeHub is designed to meet some very specific goals:
 
 - Be the external face for the brigade
-- List and organize active projects through Github API integration
-- Give new users a place to onboard through tight integration with Github oauth and expandable API integrations
-- Show upcoming events and calendars through Meetup and Google Calendar API integration
 - Show Leadership / Contact info / member bios
 - Brigade Blogging
+- Show upcoming events and calendars through Meetup and Google Calendar API integration
+- Give new users a place to onboard through tight integration with Github oauth and expandable API integrations
+- Display and market active projects through Github API integration
+- Allow non-developers to update website info at-will
+- Allow developers to hack and customize as desired
+- Allow brigades to launch with a single non-dev step to their own environment (most likely Heroku)
 
-This may be a pipe dream, I know that, but I wanted to give it a shot. It's originally based on [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter), but has been heavily modified to meet our needs. We're striving to match [feross/standard](https://github.com/feross/standard) javascript styling, though the original boilerplate didn't conform to that, so it's a wip.
+This project is originally based on [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter), and that's where most of the deploy documents come from, but the codebase has been heavily modified to meet our needs. We're striving to match [feross/standard](https://github.com/feross/standard) javascript styling, though the original boilerplate didn't conform to that, so it's a wip.
 
 Contributing
 ------------
@@ -32,7 +35,7 @@ Similar projects have been concieved and implemented previously, most prominentl
 - I wanted a platform tightly coupled with the Github API, for oauth, handling permissioning and adminning of the github repos easily
 - I wanted a system that easily lent itself to additional onboarding steps for new members.
 
-Another project which this is pulling inspiration from is [CodeForAtlanta](http://www.codeforatlanta.org/)'s [Connector](https://github.com/codeforatlanta/connector), as well as the site design/UX
+Another project which this is pulling inspiration from is [CodeForAtlanta](http://www.codeforatlanta.org/)'s [Connector](https://github.com/codeforatlanta/connector). [Chime](https://github.com/chimecms/chime) was also a CMS that had similar goals, but focused on local governments, rather than brigades.
 
 Features
 --------
@@ -42,6 +45,7 @@ Features
 - MVC Project Structure
 - Sass stylesheets (auto-compiled via middleware)
 - Bootstrap 3
+- Theming
 - **Account Management**
  - Gravatar
  - Profile Details
