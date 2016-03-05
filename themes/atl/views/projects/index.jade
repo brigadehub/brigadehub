@@ -1,12 +1,32 @@
 extends ../layout
 
+mixin sidebarItem(name,subItems)
+  li=name
+          ul
+            each val in subItems
+              li
+                a=val
+
+
 block content
   .page-header
     h3 All Projects
-    .row
+    //sidebar list
+    div
+      //parent list
+      ul
+        mixin sidebarItem('Project status',['Development','Public test','Official / running'])
+        mixin sidebarItem('Dedicated for',['Civil society organizations','Cities','Watchdogs'])
+        mixin sidebarItem('Development status',['active','Suspended'])
+        mixin sidebarItem('Join as',['backend developer','frontend developer','designer','editorial staff'])
+        mixin sidebarItem('Developed locally in',['San Francisco'])
+        mixin sidebarItem('Technologies',['Android','AngularJS','Django','iOS','Javascript'])
+    //Add projects    
+    div.row
       .col-sm-6
         each project in projects
           .project-card
+            img(href='http://placekitten.com/g/200/300')
             span.title= project.name
             br
             span.description= project.description
