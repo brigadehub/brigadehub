@@ -1,6 +1,6 @@
 @import "themes/default/variables";
 
-@import "vendors/bootstrap/bootstrap";
+// @import "vendors/bootstrap/bootstrap";
 @import "vendors/bootstrap-social";
 @import "vendors/font-awesome/font-awesome";
 
@@ -81,5 +81,14 @@ textarea {
       min-height: 0;
       text-transform:uppercase;
     }
+  }
+}
+.float {
+  display: block;
+  &.right{
+    float: right;
+  }
+  &.center {
+    margin:auto;
   }
 }
