@@ -48,7 +48,7 @@ var homeCtrl = require('./controllers/home')
 var eventsCtrl = require('./controllers/events')
 var blogCtrl = require('./controllers/blog')
 var projectsCtrl = require('./controllers/projects')
-var aboutCtrl = require('./controllers/about')
+var contactCtrl = require('./controllers/contact')
 var usersCtrl = require('./controllers/user')
 var brigadeCtrl = require('./controllers/brigade')
 
@@ -149,9 +149,9 @@ app.post('/login', usersCtrl.postLogin)
 app.get('/login/edit', passportConf.isAuthenticated, usersCtrl.getLoginEdit)
 app.post('/login/edit', passportConf.isAuthenticated, usersCtrl.postLoginEdit)
 app.get('/logout', usersCtrl.getLogout)
-app.get('/about', aboutCtrl.getAbout)
-app.get('/about/edit', passportConf.isAuthenticated, aboutCtrl.getAboutEdit)
-app.post('/about', passportConf.isAuthenticated, aboutCtrl.postAbout)
+app.get('/contact', contactCtrl.getContact)
+app.get('/contact/edit', passportConf.isAuthenticated, contactCtrl.getContactEdit)
+app.post('/contact', passportConf.isAuthenticated, contactCtrl.postContact)
 
 /**
  * Meta Routes
@@ -223,10 +223,6 @@ app.post('/users/:userId/sync', passportConf.isAuthenticated, usersCtrl.postUser
 /**
  * OAuth authentication routes. (Sign in)
  */
-app.get('/auth/instagram', passport.authenticate('instagram'))
-app.get('/auth/instagram/callback', passport.authenticate('instagram', { failureRedirect: '/login' }), function (req, res) {
-  res.redirect(req.session.returnTo || '/')
-})
 app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'user_location'] }))
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), function (req, res) {
   res.redirect(req.session.returnTo || '/')
