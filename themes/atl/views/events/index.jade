@@ -11,3 +11,18 @@ block content
   script.
     // make this object available to frontend js for rendering in calendar
     window._events = !{JSON.stringify(events).replace(/<\//g, "<\\/")}
+  each event in upcomingevents
+        .project-card
+          span.title= event.title
+          br
+          span.description= event.start
+          br
+          span.description= event.venue
+          br
+          span.description= event.address
+          br
+          span.description= event.city
+          br
+          a(href='#{event.url_page}', target='_blank') Event Meetup Page
+          br
+          br

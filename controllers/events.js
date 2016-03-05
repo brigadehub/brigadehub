@@ -16,13 +16,18 @@ module.exports = {
     result.forEach(function(item){
       var event = {
         title: item.name,
-        start: new Date(item.time+item.utc_offset)
+        start: new Date(item.time+item.utc_offset),
+        venue: item.venue.name,
+        address: item.venue.address_1,
+        city: item.venue.city,
+        url_page: item.event_url
       }
       aggregate.push(event)
     })
 
     res.render(res.locals.brigade.theme.slug + '/views/events/index', {
       events: aggregate,
+      upcomingevents: aggregate.slice(0,10),
       title: 'Events',
       brigade: res.locals.brigade
     })
