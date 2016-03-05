@@ -1,5 +1,15 @@
 extends ../layout
 
 block content
-  .page-header
-    h3 A Project
+  .row
+    .col-sm-12.col-md-9
+        .project-single
+          h3.page-header= project.name
+          h4 description
+          p= project.description
+          h4 contact
+          h4 license
+          p= project.license
+      .col-sm-12.col-md-3
+        .see-also
+          h3.page-header See also
