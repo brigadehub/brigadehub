@@ -11,25 +11,15 @@ module.exports = {
    * List of Event examples.
    */
   getEvents: function (req, res) {
-  var meetupid = res.locals.brigade.meetup.split(".com/")[1].replace(/\//g, "")
+  var meetupid = "www.meetup.com/Code-for-San-Francisco-Civic-Hack-Night/".split(".com/")[1].replace(/\//g, "")
   var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
-  getEvents = function(url){
-    return new Promise(function(resolve, reject){
-      request(url, function(error, response, body){
-        if (!error && response.statusCode == 200) {
-          var parsed = JSON.parse(body);
-          resolve(parsed.results)
-        }
-        else{
-          reject();
-        }
-      })
-    })
-  }
   var aggregate = []
-  getEvents(url).then(function(result){
+  Events.fetchMeetupEvents(url).then(function(result){
     result.forEach(function(item){
-      var event = {title: item.name, start: new Date(item.time+item.utc_offset)}
+      var event = {
+        title: item.name,
+        start: new Date(item.time+item.utc_offset)
+      }
       aggregate.push(event)
     })
 
