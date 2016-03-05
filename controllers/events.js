@@ -36,6 +36,7 @@ module.exports = {
     console.log(error)
     res.render(res.locals.brigade.theme.slug + '/views/events/index', {
       title: 'Events',
+      error: error,
       brigade: res.locals.brigade
     })
   })
