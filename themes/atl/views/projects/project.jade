@@ -4,7 +4,12 @@ block content
   .row
     .col-sm-12.col-md-9
         .project-single
-          h3.page-header= project.name
+          h1.page-header= project.name
+          .row
+            .col-sm-12.col-md-12
+              div.banner
+                img(src="http://placehold.it/800x200?text=banner")
+        
           .row
             .col-sm-12.col-md-9
               div.description
@@ -37,6 +42,7 @@ block content
                 strong Repository:
                   a(href="#{project.repository}")  #{project.repository}
             .col-sm-12.col-md-3
+              h4 Team
               div.contact
                 strong Contact:
                   a(href="mailto:#{project.contact.email}")  #{project.contact.name}
@@ -55,4 +61,4 @@ block content
           
       .col-sm-12.col-md-3
         .see-also
-          h3.page-header See also
+          h3 See also
