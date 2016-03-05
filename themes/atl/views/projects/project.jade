@@ -1,3 +1,11 @@
+var projectStatus = {
+  "proposed": "label-info",
+  "ideation": "label-info",
+  "alpha": "label-danger",
+  "beta": "label-warning",
+  "production": "label-success",
+  "archival": "label-success"}
+
 extends ../layout
 
 block content
@@ -11,7 +19,7 @@ block content
             .col-sm-12.col-md-12
               div.banner(style="margin-bottom: 50px;")
                 img(src="http://placehold.it/1000x200?text=banner", style="width: 100%;")
-        
+          
           .row
             .col-sm-12.col-md-9
               div.description
@@ -20,10 +28,20 @@ block content
               div.born-at
                 strong Born at:
                 |  #{project.bornAt}
+
               div.project-status
-                strong Project status:
-                |  #{project.status}
-              div.homepage
+                strong Project status: 
+                if (project.status === 'proposed' || project.status === 'ideation')
+                  span(class="label label-info")  #{project.status}
+                if (project.status === 'alpha')
+                  span(class="label label-danger")  #{project.status}
+                if (project.status === 'beta')
+                  span(class="label label-warning")  #{project.status}
+                if (project.status === 'production' || project.status === 'archival')
+                  span(class="label label-success")  #{project.status}
+
+              
+              div.homepage(style="margin-top: 5px;")
                 i.fa.fa-home.fa-fw
                 a(href="#{project.homepage}") #{project.homepage}
               div.repository
