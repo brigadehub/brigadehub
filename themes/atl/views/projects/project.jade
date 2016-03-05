@@ -5,11 +5,53 @@ block content
     .col-sm-12.col-md-9
         .project-single
           h3.page-header= project.name
-          h4 description
-          p= project.description
-          h4 contact
-          h4 license
-          p= project.license
+          div.description
+            strong Description:
+            |  #{project.description}
+          div.project-status
+            strong Project status:
+            |  #{project.status}
+          div.born-at
+            strong Born at:
+            |  #{project.bornAt}
+          div.geography
+            strong Geography:
+            |  #{project.geography}
+          div.political-entity
+            strong Political entity:
+            |  #{project.politicalEntity}
+          div.types
+            strong Types:
+            |  #{project.types}
+          div.needs
+            strong Needs:
+            |  #{project.needs}
+          div.categories
+            strong Categories:
+            |  #{project.categories}
+          div.homepage
+            strong Homepage:
+              a(href="#{project.homepage}")  #{project.homepage}
+          div.repository
+            strong Repository:
+              a(href="#{project.repository}")  #{project.repository}
+          div.contact
+            strong Contact:
+              a(href="mailto:#{project.contact.email}")  #{project.contact.name}
+
+          div.partners
+            strong Partners: 
+            |  #{project.partners}
+          div.data
+            strong Data: 
+            |  #{project.data}
+          div.keywords
+            strong keywords:
+            |  #{project.keywords}
+          div.links
+            strong Links:
+            |  #{project.links}
+          
       .col-sm-12.col-md-3
         .see-also
           h3.page-header See also
