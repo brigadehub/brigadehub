@@ -11,27 +11,52 @@ module.exports = {
    * List of Event examples.
    */
   getEvents: function (req, res) {
-    var events = [
-      {
-        title: 'event1',
-        start: '2016-01-01'
-      },
-      {
-        title: 'event2',
-        start: '2016-01-05',
-        end: '2016-01-07'
-      },
-      {
-        title: 'event3',
-        start: '2016-01-09T12:30:00',
-        allDay: false // will make the time show
-      }
-    ]
+  var meetupid = res.locals.brigade.meetup.split(".com/")[1].replace(/\//g, "")
+  var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
+  getEvents = function(url){
+    return new Promise(function(resolve, reject){
+      request(url, function(error, response, body){
+        if (!error && response.statusCode == 200) {
+          var parsed = JSON.parse(body);
+          resolve(parsed.results)
+        }
+        else{
+          reject();
+        }
+      })
+    })
+  }
+  var aggregate = []
+  getEvents(url).then(function(result){
+    result.forEach(function(item){
+      var event = {title: item.name, start: new Date(item.time+item.utc_offset)}
+      aggregate.push(event)
+    })
+
     res.render(res.locals.brigade.theme.slug + '/views/events/index', {
-      events: events,
+      events: aggregate,
       title: 'Events',
       brigade: res.locals.brigade
     })
+  })
+  // console.log(aggregate)
+  //   var events = [
+  //     {
+  //       title: 'event1',
+  //       start: '2016-01-01'
+  //     },
+  //     {
+  //       title: 'event2',
+  //       start: '2016-01-05',
+  //       end: '2016-01-07'
+  //     },
+  //     {
+  //       title: 'event3',
+  //       start: '2016-01-09T12:30:00',
+  //       allDay: false // will make the time show
+  //     }
+  //   ]
+
   },
   /**
    * GET /events/manage
@@ -102,17 +127,7 @@ module.exports = {
    * Sync Events.
    */
   postEventsSync: function (req, res) {
-  var meetupgroupid = res.locals.brigade.meetup.split(".com/")[1].replace(/\//g, "")
-  var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupgroupid + '&page=50'
-  request(url, function(error, response, body){
-    if (!error && response.statusCode == 200) {
-      var parsed = JSON.parse(body);
-      var aggregate = []
-      aggregate = aggregate.concat(parsed.results)
-      aggregate = _.uniq(aggregate)
-      console.log('aggregate count', aggregate.length)
-    }
-  })
+
     res.redirect('/events/manage')
   },
   /**
