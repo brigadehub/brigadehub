@@ -1,6 +1,77 @@
 extends layout
 
-block content
+  div.container
+    div#landing-hero.row
+      div#landing-message.col-sm-8
+        p
+          Code for San Francisco is really great, as evidenced by the background-image applied to landing-hero
+      div#landing-events.col-sm-4
+        h2  Events
+        ul.list-group
+          li.list-group-item 
+            a.event-title  This is the Event Title
+              span.label  Jan. 31
+    div#landing-stats.row
+      div.col-sm-3
+        div#landing-stat-1.landing-stat
+          div.row
+            div.col-sm-4
+              Image here
+            div.col-sm-8
+              span.display-4
+                000
+              p
+                I Am Label
+        div#landing-stat-2.landing-stat
+          div.row
+            div.col-sm-4
+              Image here
+            div.col-sm-8
+              span.display-4
+                000
+              p
+                I Am Label
+        div#landing-stat-3.landing-stat
+          div.row
+            div.col-sm-4
+              Image here
+            div.col-sm-8
+              span.display-4
+                000
+              p
+                I Am Label
+        div#landing-stat-4.landing-stat
+          div.row
+            div.col-sm-4
+              Image here
+            div.col-sm-8
+              span.display-4
+                000
+              p
+                I Am Label
+    div#landing-ctas.row
+      div.col-sm-4
+        div#landing-cta-1.card.landing-cta
+          img.card-img-top
+          div.card-block
+            h4.card-title
+
+    div#landing-projects.row
+
+    div#landing-blog.row
+
+    div#landing-partners.row
+
+
+
+
+
+
+
+
+
+
+  block content
   //- h1= brigade.name
   p.lead= brigade.copy.description
   p
