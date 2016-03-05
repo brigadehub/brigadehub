@@ -12,7 +12,8 @@ block content
   .page-header
     h3 All Projects
     //sidebar list
-    div
+    div 
+      .col-sm-3
       //parent list
       ul
         mixin sidebarItem('Project status',['Development','Public test','Official / running'])
@@ -23,14 +24,16 @@ block content
         mixin sidebarItem('Technologies',['Android','AngularJS','Django','iOS','Javascript'])
     //Add projects    
     div.row
-      .col-sm-6
+      .col-sm-9
         each project in projects
           .project-card
-            img(src='http://placehold.it/200x200' width='200' height='200')
-            span.title= project.name
-            br
-            span.description= project.description
-            br
-            span.link= project.homepage
-            br
-            br
+            figure
+              a(href=project.homepage)
+                img(src='http://placehold.it/200x200' width='200' height='200' alt='placeholder')
+              div
+                h3
+                  a(href=project.homepage)
+                    =project.name
+                br
+                p.description= project.description
+                br
