@@ -1,6 +1,7 @@
 /**
  * Split into declaration and initialization for better startup performance.
  */
+var Events = require('../models/Events')
 
 module.exports = {
   /**
@@ -8,27 +9,27 @@ module.exports = {
    * List of Event examples.
    */
   getEvents: function (req, res) {
-    var events = [
-      {
-        title: 'event1',
-        start: '2016-01-01'
-      },
-      {
-        title: 'event2',
-        start: '2016-01-05',
-        end: '2016-01-07'
-      },
-      {
-        title: 'event3',
-        start: '2016-01-09T12:30:00',
-        allDay: false // will make the time show
+  var meetupid = "www.meetup.com/Code-for-San-Francisco-Civic-Hack-Night/".split(".com/")[1].replace(/\//g, "")
+  var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
+  var aggregate = []
+  Events.fetchMeetupEvents(url).then(function(result){
+    result.forEach(function(item){
+      var event = {
+        title: item.name,
+        start: new Date(item.time+item.utc_offset)
       }
-    ]
+      aggregate.push(event)
+    })
+
     res.render(res.locals.brigade.theme.slug + '/views/events/index', {
-      events: events,
+      events: aggregate,
       title: 'Events',
       brigade: res.locals.brigade
     })
+  }, function(error){
+    console.log(error)
+  })
+
   },
   /**
    * GET /events/manage
@@ -99,7 +100,8 @@ module.exports = {
    * Sync Events.
    */
   postEventsSync: function (req, res) {
-    res.redirect('Events/manage')
+
+    res.redirect('/events/manage')
   },
   /**
    * POST /events/:eventID/settings
@@ -109,3 +111,4 @@ module.exports = {
     res.redirect('Events/' + req.params.eventID + '/settings')
   }
 }
+
