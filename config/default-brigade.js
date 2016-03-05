@@ -13,6 +13,7 @@ module.exports = function () {
     },
     url: 'http://codeforexample.org',
     github: 'codeforexample',
+    meetup: 'http://www.meetup.com/example-code',
     theme: {
       slug: 'atl',
       logo: '',

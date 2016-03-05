@@ -11,6 +11,7 @@ var brigadeSchema = new mongoose.Schema({
   },
   url: String,
   github: String,
+  meetup: String,
   theme: {
     slug: String,
     logo: String,

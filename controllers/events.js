@@ -1,6 +1,9 @@
 /**
  * Split into declaration and initialization for better startup performance.
  */
+var Events = require('../models/Events')
+var request = require('request')
+var _ = require('lodash')
 
 module.exports = {
   /**
@@ -99,7 +102,18 @@ module.exports = {
    * Sync Events.
    */
   postEventsSync: function (req, res) {
-    res.redirect('Events/manage')
+  var meetupgroupid = res.locals.brigade.meetup.split(".com/")[1].replace(/\//g, "")
+  var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupgroupid + '&page=50'
+  request(url, function(error, response, body){
+    if (!error && response.statusCode == 200) {
+      var parsed = JSON.parse(body);
+      var aggregate = []
+      aggregate = aggregate.concat(parsed.results)
+      aggregate = _.uniq(aggregate)
+      console.log('aggregate count', aggregate.length)
+    }
+  })
+    res.redirect('/events/manage')
   },
   /**
    * POST /events/:eventID/settings
@@ -109,3 +123,4 @@ module.exports = {
     res.redirect('Events/' + req.params.eventID + '/settings')
   }
 }
+
