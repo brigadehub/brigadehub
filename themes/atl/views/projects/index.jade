@@ -9,11 +9,11 @@ mixin sidebarItem(name,subItems)
 
 
 block content
-  .page-header
+  div
     h2 All Projects
     //sidebar list
     .row
-      .col-sm-3
+      .col-sm-3.sidebar
         //parent list
         ul
           mixin sidebarItem('Project status',['Development','Public test','Official / running'])
