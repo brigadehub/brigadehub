@@ -13,18 +13,23 @@ block content
       // make this object available to frontend js for rendering in calendar
       window._events = !{JSON.stringify(events).replace(/<\//g, "<\\/")}
     h1 Upcoming events list
-    each event in upcomingevents
-      .project-card
-        span.title= event.title
-        br
-        span.description  Date and start time: #{event.start}
-        br
-        span.description  Venue: #{event.venue}
-        br
-        span.description Address: #{event.address}, #{event.city}
-        br
-        a(href='#{event.url_page}', target='_blank') Event Meetup Page
-        br
-        br
+    table.table
+      thead
+        tr
+          th Event name
+          th Date & time
+          th Venue
+          th Address
+          th Meetup page link
+      tbody
+        each event in upcomingevents
+          tr
+            td #{event.title}
+            td #{event.start}
+            td #{event.venue}
+            td #{event.address}, #{event.city}
+            td
+              a(href='#{event.url_page}', target='_blank') Event Meetup Page
+
   else
     h3 There was a problem fetching your events from Meetup
