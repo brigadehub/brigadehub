@@ -11,6 +11,7 @@ module.exports = {
   getEvents: function (req, res) {
   var meetupid = "www.meetup.com/Code-for-San-Francisco-Civic-Hack-Night/".split(".com/")[1].replace(/\//g, "")
   var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
+
   var aggregate = []
   Events.fetchMeetupEvents(url).then(function(result){
     result.forEach(function(item){
@@ -33,6 +34,10 @@ module.exports = {
     })
   }, function(error){
     console.log(error)
+    res.render(res.locals.brigade.theme.slug + '/views/events/index', {
+      title: 'Events',
+      brigade: res.locals.brigade
+    })
   })
 
   },
