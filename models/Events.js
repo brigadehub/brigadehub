@@ -29,7 +29,7 @@ eventsSchema.statics.fetchMeetupEvents = function(meetupid) {
         resolve(parsed.results)
       }
       else{
-        reject();
+        reject(error);
       }
     })
   })
