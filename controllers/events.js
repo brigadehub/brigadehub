@@ -2,8 +2,6 @@
  * Split into declaration and initialization for better startup performance.
  */
 var Events = require('../models/Events')
-var request = require('request')
-var _ = require('lodash')
 
 module.exports = {
   /**
