@@ -11723,10 +11723,20 @@ textarea {
   margin-top: 20px;
 }
 
+
 .thumbnail {
   padding: 0;
   border-radius: 0;
   box-shadow: 0 0 5px #ccc, inset 0 0 0 #000;
+}
+
+.project-card {
+  display: inline-block;
+  max-width:200px;
+  height:350px;
+  margin:0;
+  vertical-align:top;
+  margin: 4px 10px;
 }
 
 .fa {

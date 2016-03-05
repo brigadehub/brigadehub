@@ -15,13 +15,7 @@ var userSchema = new mongoose.Schema({
   username: { type: String, unique: true },
   email: String,
   /* password: String,*/
-  facebook: String,
-  twitter: String,
-  google: String,
   github: String,
-  instagram: String,
-  linkedin: String,
-  steam: String,
   tokens: Array,
   roles: {
     read: {type: Boolean, default: true},
@@ -188,13 +182,8 @@ function createUpdateUserData (user, original, brigade) {
   // Standardize data
   original.email = user.email
   original.password = original.password || ''
-  original.facebook = original.facebook || ''
-  original.twitter = original.twitter || ''
-  original.google = original.google || ''
   original.github = original.github || user.id
   original.username = user.login
-  original.instagram = original.instagram || ''
-  original.linkedin = original.linkedin || ''
   original.steam = original.steam || ''
   original.tokens = original.tokens || []
   original.roles = original.roles || {}

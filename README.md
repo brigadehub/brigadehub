@@ -1,9 +1,11 @@
-# BrigadeHub
+# BrigadeHub [![Build Status](https://travis-ci.org/sfbrigade/brigadehub.svg?branch=edge)](https://travis-ci.org/sfbrigade/brigadehub)
 #### Simplify your brigade's website maintenence
 
 BrigadeHub is a **pre-alpha** work in progress (read: unfinished, not-feature-complete, not-production-ready) of a Code for America Brigade website/portal CMS/CRM/BLT/BYOB/ETC. This is being built to consolidate the efforts of maintaining a brigade website into a single location, and to allow other non-developer brigade leadership to update content as needed.
 
-BrigadeHub is designed to meet some very specific goals:
+For a complete top-down view of the roadmap, take a look at our active ***[Roadmap Discussion](https://github.com/sfbrigade/brigadehub/issues/45)***
+
+In short, BrigadeHub is designed to meet some very specific goals:
 
 - Be the external face for the brigade
 - Show Leadership / Contact info / member bios
