@@ -21,15 +21,14 @@ eventsSchema.methods.fetchGoogleEvents = function (cb) {
   cb(null, {})
 }
 
-eventsSchema.statics.fetchMeetupEvents = function(meetupid) {
-  return new Promise(function(resolve, reject){
-    request(meetupid, function(error, response, body){
-      if (!error && response.statusCode == 200) {
-        var parsed = JSON.parse(body);
+eventsSchema.statics.fetchMeetupEvents = function (meetupid) {
+  return new Promise(function (resolve, reject) {
+    request(meetupid, function (error, response, body) {
+      if (!error && response.statusCode === 200) {
+        var parsed = JSON.parse(body)
         resolve(parsed.results)
-      }
-      else{
-        reject(error);
+      } else {
+        reject(error)
       }
     })
   })

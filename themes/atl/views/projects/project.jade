@@ -1,5 +1,118 @@
+var projectStatus = {
+  "proposed": "label-info",
+  "ideation": "label-info",
+  "alpha": "label-danger",
+  "beta": "label-warning",
+  "production": "label-success",
+  "archival": "label-success"}
+
 extends ../layout
 
 block content
-  .page-header
-    h3 A Project
+  .row
+    .col-sm-12.col-md-12
+      h1.page-header= project.name
+  .row
+    .col-sm-12.col-md-9
+        .project-single
+          .row
+            .col-sm-12.col-md-12
+              div.banner(style="margin-bottom: 50px;")
+                img(src="http://placehold.it/1000x200?text=banner", style="width: 100%;")
+          
+          .row
+            .col-sm-12.col-md-9
+              div.description
+                |  #{project.description}
+              br
+              div.born-at
+                strong Born at:
+                |  #{project.bornAt}
+
+              div.project-status
+                strong Project status: 
+                if (project.status === 'proposed' || project.status === 'ideation')
+                  span(class="label label-info")  #{project.status}
+                if (project.status === 'alpha')
+                  span(class="label label-danger")  #{project.status}
+                if (project.status === 'beta')
+                  span(class="label label-warning")  #{project.status}
+                if (project.status === 'production' || project.status === 'archival')
+                  span(class="label label-success")  #{project.status}
+
+              
+              div.homepage(style="margin-top: 5px;")
+                i.fa.fa-home.fa-fw
+                a(href="#{project.homepage}") #{project.homepage}
+              div.repository
+                i.fa.fa-github-square.fa-fw
+                a(href="#{project.repository}") #{project.repository}
+              br
+              div.geography
+                strong Geography:
+                |  #{project.geography}
+              div.political-entity
+                strong Political entity:
+                |  #{project.politicalEntity}
+              div.types
+                strong Types:
+                |  #{project.types}
+              div.needs
+                strong Needs:
+                |  #{project.needs}
+              div.categories
+                strong Categories:
+                |  #{project.categories}
+              div.data
+                strong Data: 
+                |  #{project.data}
+              div.keywords
+                strong keywords:
+                |  #{project.keywords}
+            .col-sm-12.col-md-3
+              .row
+                .col-sm-12.col-md-12
+                  h4 Team
+                  .team
+                    .owner
+                      .row(style="margin-bottom: 10px;")
+                        .col-sm-4.col-md-4(style="padding-right: 0;")
+                          .avatar
+                            img(src="http://placehold.it/100x100?text=contact", style="width: 100%;")
+                        .col-sm-8.col-md-8
+                          a(href="mailto:#{project.contact.email}") #{project.contact.name}
+                    .partners
+                      .row(style="margin-bottom: 10px;")
+                        .col-sm-4.col-md-4(style="padding-right: 0;")
+                          .avatar
+                            img(src="http://placehold.it/100x100?text=contact", style="width: 100%;")
+                        .col-sm-8.col-md-8
+                          a(href="mailto:#{project.contact.email}") #{project.contact.name}
+                      .row(style="margin-bottom: 10px;")
+                        .col-sm-4.col-md-4(style="padding-right: 0;")
+                          .avatar
+                            img(src="http://placehold.it/100x100?text=contact", style="width: 100%;")
+                        .col-sm-8.col-md-8
+                          a(href="mailto:#{project.contact.email}") #{project.contact.name}
+                      .row(style="margin-bottom: 10px;")
+                        .col-sm-4.col-md-4(style="padding-right: 0;")
+                          .avatar
+                            img(src="http://placehold.it/100x100?text=contact", style="width: 100%;")
+                        .col-sm-8.col-md-8
+                          a(href="mailto:#{project.contact.email}") #{project.contact.name}
+                      .row(style="margin-bottom: 10px;")
+                        .col-sm-4.col-md-4(style="padding-right: 0;")
+                          .avatar
+                            img(src="http://placehold.it/100x100?text=contact", style="width: 100%;")
+                        .col-sm-8.col-md-8
+                          a(href="mailto:#{project.contact.email}") #{project.contact.name}
+                  //- .partners
+                  //-   strong Partners: 
+                  //-   |  #{project.partners}
+          
+      .col-sm-12.col-md-3
+        .see-also
+          h3(style="margin-top: 0;") See also
+          div.links
+            strong Links:
+            |  #{project.links}

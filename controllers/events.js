@@ -9,27 +9,26 @@ module.exports = {
    * List of Event examples.
    */
   getEvents: function (req, res) {
-  var meetupid = "www.meetup.com/Code-for-San-Francisco-Civic-Hack-Night/".split(".com/")[1].replace(/\//g, "")
-  var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
-  var aggregate = []
-  Events.fetchMeetupEvents(url).then(function(result){
-    result.forEach(function(item){
-      var event = {
-        title: item.name,
-        start: new Date(item.time+item.utc_offset)
-      }
-      aggregate.push(event)
-    })
+    var meetupid = 'www.meetup.com/Code-for-San-Francisco-Civic-Hack-Night/'.split('.com/')[1].replace(/\//g, '')
+    var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
+    var aggregate = []
+    Events.fetchMeetupEvents(url).then(function (result) {
+      result.forEach(function (item) {
+        var event = {
+          title: item.name,
+          start: new Date(item.time + item.utc_offset)
+        }
+        aggregate.push(event)
+      })
 
-    res.render(res.locals.brigade.theme.slug + '/views/events/index', {
-      events: aggregate,
-      title: 'Events',
-      brigade: res.locals.brigade
+      res.render(res.locals.brigade.theme.slug + '/views/events/index', {
+        events: aggregate,
+        title: 'Events',
+        brigade: res.locals.brigade
+      })
+    }, function (error) {
+      console.log(error)
     })
-  }, function(error){
-    console.log(error)
-  })
-
   },
   /**
    * GET /events/manage
@@ -100,7 +99,6 @@ module.exports = {
    * Sync Events.
    */
   postEventsSync: function (req, res) {
-
     res.redirect('/events/manage')
   },
   /**
@@ -111,4 +109,3 @@ module.exports = {
     res.redirect('Events/' + req.params.eventID + '/settings')
   }
 }
-

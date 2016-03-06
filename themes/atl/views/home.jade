@@ -1,26 +1,146 @@
 extends layout
-
-block content
-  //- h1= brigade.name
-  p.lead= brigade.copy.description
-  p
-    | Join us on 
-    a(href='http://www.meetup.com/codeforatlanta/', target='_blank') Meetup
-    |  and sign up to our mailing list:
-    div
-      .pull-left
-        form#mc-embedded-subscribe-form.form-inline(action='//codeforsanfrancisco.us10.list-manage.com/subscribe/post?u=13e30524fec23783d4f80e3b5&id=9ea07180fe', method='post', name='mc-embedded-subscribe-form', novalidate='novalidate', role='form', target='_blank')
-          input#mce-EMAIL.form-control(name='EMAIL', placeholder='Your email address', style='width:250px;', type='email', value='')
-          input#mc-embedded-subscribe.btn.btn-primary(name='subscribe', type='submit', value='Get Email Updates')
-      .pull-right.brigade-logo
-        img(alt='Brigade', src='/assets/brigade-80a87b0db6b6bafa21fd2f9478932353.png')
-    .clearfix
-    p.slack
-      | Join the discussion on Slack: 
-      iframe.__slackin(src='https://codeforsanfrancisco-slackin.herokuapp.com/iframe?large', style='border-width: 0px; width: 154px; height: 30px; visibility: visible;')
+div.container
+  div#landing-hero.row
+    div#landing-message.col-sm-8
+      p
+        | Code for San Francisco is really great, as evidenced by the background-image applied to landing-hero
+    div#landing-events.col-sm-4
+      h2  
+        a(href="#") Events
+      ul.list-group-item
+        li.list-group-item 
+          a.event-title(href="#")  This is the Event Title 
+            span.label.label-default  Jan. 31
+        li.list-group-item 
+          a.event-title(href="#")   This is the Event Title 
+            span.label.label-default  Jan. 20
+        li.list-group-item 
+          a.event-title(href="#")   This is the Event Title 
+          span.label.label-default  Jan. 15
   hr
-  .row
-    .col-sm-4
-      h2 next event here
-    .col-sm-8
-      h2 Search Projects
+  div#landing-stats.row
+    div.col-sm-3
+      div#landing-stat-1.landing-stat
+        div.row
+          div.col-sm-5
+            img.img-fluid(src="http://placehold.it/200x200")
+          div.col-sm-7
+            p
+              strong 400
+            p
+              | Slackers registered
+    div.col-sm-3
+      div#landing-stat-2.landing-stat
+        div.row
+          div.col-sm-5
+            img.img-fluid(src="http://placehold.it/200x200")
+          div.col-sm-7
+            p
+              strong 82
+            p
+              | Ideas being discussed
+    div.col-sm-3
+      div#landing-stat-3.landing-stat
+        div.row
+          div.col-sm-5
+            img.img-fluid(src="http://placehold.it/200x200")
+          div.col-sm-7
+            p
+              strong 3
+            p
+              | Bay Area Brigades
+    div.col-sm-3
+      div#landing-stat-4.landing-stat
+        div.row
+          div.col-sm-5
+            img.img-fluid(src="http://placehold.it/200x200")
+          div.col-sm-7
+            p
+              strong 19
+            p
+              | Active Projects
+  hr
+  div#landing-ctas.row
+    div.col-sm-4
+      div#landing-cta-1.card.landing-cta
+        img.card-img-top.img-fluid(src="http://placehold.it/400X250")
+        div.card-block
+          h4.card-title Discuss
+          p.card-text Share your idea on the forum telling a story about needs and problems that should be resolved. Join ongoing discussions to help find solutions.
+          a.btn.btn-secondary(href="#") Join Slack
+    div.col-sm-4
+      div#landing-cta-2.card.landing-cta
+        img.card-img-top.img-fluid(src="http://placehold.it/400X250")
+        div.card-block
+          h4.card-title Meet Locally
+          p.card-text Meet regularly with a group of activists. Discuss needs and ideas together with civil servants and civil society organizations. Boost project development by meeting face to face.
+          a.btn.btn-secondary(href="#") Join us on Meetup
+    div.col-sm-4
+      div#landing-cta-3.card.landing-cta
+        img.card-img-top.img-fluid(src="http://placehold.it/400X250")
+        div.card-block
+          h4.card-title Build Projects
+          p.card-text Start a new project as its coordinator or join one of the existing multidisciplinary teams. Folllow project development path from the needs analysis to the country wide deployment.
+          a.btn.btn-secondary(href="#") Join Github
+  hr
+  div#landing-projects.row
+    h2.text-xs-center Projects
+    div.col-sm-2
+      div#landing-project-1.landing-project
+        img.img-thumbnail(src="http://placehold.it/200x200")
+        a(href="#") Project Name
+    div.col-sm-2
+      div#landing-project-2.landing-project
+        img.img-thumbnail(src="http://placehold.it/200x200")
+        a(href="#") Project Name
+    div.col-sm-2
+      div#landing-project-3.landing-project
+        img.img-thumbnail(src="http://placehold.it/200x200")
+        a(href="#") Project Name
+    div.col-sm-2
+      div#landing-project-4.landing-project
+        img.img-thumbnail(src="http://placehold.it/200x200")
+        a(href="#") Project Name
+    div.col-sm-2
+      div#landing-project-5.landing-project
+        img.img-thumbnail(src="http://placehold.it/200x200")
+        a(href="#") Project Name
+    div.col-sm-2
+      div#landing-project-6.landing-project
+        img.img-thumbnail(src="http://placehold.it/200x200")
+        a(href="#") Project Name
+    div.col-sm-12.text-xs-center
+      a.btn.btn-secondary(href="#").center-block All Projects
+  hr
+  div#landing-blog.row
+    h2.text-xs-center  Blog
+    div.col-sm-4
+      div#post-1.card.post
+        img.card-img-top.img-fluid(src="http://placehold.it/400X250")
+        div.card-block
+          h4.card-title 
+            a(href="#") Blog Post Title
+          p.card-text This is some text.
+          p.card-text 00 Dec. 16 
+            a(href="#") Category
+    div.col-sm-4
+      div#post-2.card.post
+        img.card-img-top.img-fluid(src="http://placehold.it/400X250")
+        div.card-block
+          h4.card-title 
+            a(href="#") Blog Post Title
+          p.card-text This is some text.
+          p.card-text 00 Dec. 16 
+            a(href="#") Blog Post Title
+    div.col-sm-4
+      div#post-3.card.post
+        img.card-img-top.img-fluid(src="http://placehold.it/400X250")
+        div.card-block
+          h4.card-title 
+            a(href="#") Blog Post Title
+          p.card-text This is some text.
+          p.card-text 00 Dec. 16 
+            a(href="#")
+              Category
+    div.col-sm-12.text-xs-center
+      a.btn.btn-secondary(href="#").center-block All Posts

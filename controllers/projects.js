@@ -64,10 +64,18 @@ module.exports = {
    * Display Project by ID.
    */
   getProjectsID: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/projects/project', {
-      projectId: req.params.projectId,
-      title: 'Projects',
-      brigade: res.locals.brigade
+    Projects.findOne({
+      brigade: res.locals.brigade.slug,
+      id: req.params.projectId
+    }, function (err, foundProject) {
+      if (err) console.error(err)
+      console.log(foundProject)
+      res.render(res.locals.brigade.theme.slug + '/views/projects/project', {
+        projectId: req.params.projectId,
+        title: foundProject.name,
+        brigade: res.locals.brigade,
+        project: foundProject
+      })
     })
   },
   /**
