@@ -27,11 +27,11 @@ block content
         each project in projects
           .project-card.thumbnail
             figure
-              a(href=project.homepage)
+              a(href='/products/#{project.id}')
                 img(src='http://placehold.it/200x200' width='200' height='200' alt='placeholder')
               div
                 h3
-                  a(href=project.homepage)
+                  a(href='/products/#{project.id}')
                     =project.name
                 br
                 p.description= project.description
