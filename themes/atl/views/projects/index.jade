@@ -9,11 +9,11 @@ mixin sidebarItem(name,subItems)
 
 
 block content
-  .page-header
+  div
     h2 All Projects
     //sidebar list
     .row
-      .col-sm-3
+      .col-sm-3.sidebar
         //parent list
         ul
           mixin sidebarItem('Project status',['Development','Public test','Official / running'])
@@ -27,11 +27,11 @@ block content
         each project in projects
           .project-card.thumbnail
             figure
-              a(href=project.homepage)
+              a(href='/projects/#{project.id}')
                 img(src='http://placehold.it/200x200' width='200' height='200' alt='placeholder')
               div
                 h3
-                  a(href=project.homepage)
+                  a(href='/projects/#{project.id}')
                     =project.name
                 br
                 p.description= project.description
