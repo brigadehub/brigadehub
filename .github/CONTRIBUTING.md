@@ -3,7 +3,7 @@ Contributing
 
 #### Before starting
 
-- Have the application running locally on your machine
+- Have the application [installed](https://github.com/sfbrigade/brigadehub/wiki/Development-Install) and running locally on your machine
 - Have [Zenhub](https://www.zenhub.io/) installed in your chrome browser so you can see the boards we are organizing
 - Have looked through and understand the [Brigadehub Roadmap](https://github.com/sfbrigade/brigadehub/wiki/Roadmap) and the feature list for the current release push.
 - Have joined the SFbrigade Github org ([join by clicking here](http://c4sf.me/joingithub))
