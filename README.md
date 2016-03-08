@@ -1,3 +1,5 @@
+<img src="/logo.v1.png" width="150" />
+
 # BrigadeHub [![Build Status](https://travis-ci.org/sfbrigade/brigadehub.svg?branch=edge)](https://travis-ci.org/sfbrigade/brigadehub)
 #### Simplify your brigade's website maintenence
 
