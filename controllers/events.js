@@ -1,6 +1,3 @@
-/**
- * Split into declaration and initialization for better startup performance.
- */
 var Events = require('../models/Events')
 
 module.exports = {
@@ -9,26 +6,38 @@ module.exports = {
    * List of Event examples.
    */
   getEvents: function (req, res) {
-    var meetupid = 'www.meetup.com/Code-for-San-Francisco-Civic-Hack-Night/'.split('.com/')[1].replace(/\//g, '')
-    var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
-    var aggregate = []
-    Events.fetchMeetupEvents(url).then(function (result) {
-      result.forEach(function (item) {
-        var event = {
-          title: item.name,
-          start: new Date(item.time + item.utc_offset)
-        }
-        aggregate.push(event)
-      })
+  var meetupid = "www.meetup.com/Code-for-San-Francisco-Civic-Hack-Night/".split(".com/")[1].replace(/\//g, "")
+  var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
 
-      res.render(res.locals.brigade.theme.slug + '/views/events/index', {
-        events: aggregate,
-        title: 'Events',
-        brigade: res.locals.brigade
-      })
-    }, function (error) {
-      console.log(error)
+  var aggregate = []
+  Events.fetchMeetupEvents(url).then(function(result){
+    result.forEach(function(item){
+      var event = {
+        title: item.name,
+        start: new Date(item.time+item.utc_offset),
+        venue: item.venue.name,
+        address: item.venue.address_1,
+        city: item.venue.city,
+        url_page: item.event_url
+      }
+      aggregate.push(event)
     })
+
+    res.render(res.locals.brigade.theme.slug + '/views/events/index', {
+      events: aggregate,
+      upcomingevents: aggregate.slice(0,10),
+      title: 'Events',
+      brigade: res.locals.brigade
+    })
+  }, function(error){
+    console.log(error)
+    res.render(res.locals.brigade.theme.slug + '/views/events/index', {
+      title: 'Events',
+      error: error,
+      brigade: res.locals.brigade
+    })
+  })
+
   },
   /**
    * GET /events/manage
@@ -99,6 +108,7 @@ module.exports = {
    * Sync Events.
    */
   postEventsSync: function (req, res) {
+
     res.redirect('/events/manage')
   },
   /**
