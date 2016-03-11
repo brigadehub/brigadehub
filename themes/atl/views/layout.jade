@@ -8,7 +8,6 @@ html
     title #{title} - Hackathon Starter
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/css/bootstrap.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.css')
-    link(rel='stylesheet', href='//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css')
     link(rel='stylesheet', href='/css/main.css')
   body
     include partials/header
@@ -19,14 +18,11 @@ html
 
     include partials/footer
 
-    block scripts
-      script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.js')
-      script(src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/js/bootstrap.js')
-      script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js')
-      script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.js')
-      script(src='//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js')
-      script(src='https://cdn.rawgit.com/showdownjs/showdown/1.3.0/dist/showdown.min.js')
-      script(src='/js/main.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/js/bootstrap.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.js')
+    script(src='/js/main.js')
 
     // Google Analytics: change UA-XXXXX-X to be your site's ID
     script.

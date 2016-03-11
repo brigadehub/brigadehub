@@ -1,6 +1,12 @@
-"use strict"
-var Blog = require('../models/Blogs')
-var markdown = require('markdown').markdown
+/**
+ * Split into declaration and initialization for better startup performance.
+ */
+
+// var request
+
+// var _ = require('lodash')
+// var async = require('async')
+// var querystring = require('querystring')
 
 module.exports = {
   /**
@@ -45,21 +51,7 @@ module.exports = {
    * Submit New Blog.
    */
   postBlogNew: function (req, res) {
-    res.redirect('/blog/new')
-    let content = req.body.blogcontent
-
-    let blogpost = new Blog({
-      title: req.body.blogtitle,
-      plaintextcontent: content,
-      htmlcontent: markdown.toHTML(content)
-    })
-
-    console.log(blogpost)
-
-    blogpost.save(function (err) {
-      if (err)
-      console.log(err)
-    })
+    res.redirect('blog/new')
   },
 
   /**
