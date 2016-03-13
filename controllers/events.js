@@ -6,32 +6,31 @@ module.exports = {
    * List of Event examples.
    */
   getEvents: function (req, res) {
-  var meetupid = "www.meetup.com/Code-for-San-Francisco-Civic-Hack-Night/".split(".com/")[1].replace(/\//g, "") //need to replace with schema call
-  var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
-  var aggregate = []
-  Events.fetchMeetupEvents(url).then(function(result){
-    result['events'].forEach(function(item){
-      var event = {
-        title: item.name,
-        start: new Date(item.time).toLocaleString(),
-        venue: item.venue.name,
-        address: item.venue.address_1,
-        city: item.venue.city,
-        url_page: item.event_url
+    var meetupid = "www.meetup.com/Code-for-San-Francisco-Civic-Hack-Night/".split(".com/")[1].replace(/\//g, "") //need to replace with schema call
+    var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
+    var aggregate = []
+    Events.fetchMeetupEvents(url).then(function(result){
+      result['events'].forEach(function(item){
+        var event = {
+          title: item.name,
+          start: new Date(item.time).toLocaleString(),
+          venue: item.venue.name,
+          address: item.venue.address_1,
+          city: item.venue.city,
+          url_page: item.event_url
+        }
+        aggregate.push(event)
+      })
+      if(result['error']){
+        req.flash('errors', {msg: result['error']})
       }
-      aggregate.push(event)
+      res.render(res.locals.brigade.theme.slug + '/views/events/index', {
+        events: aggregate,
+        upcomingevents: aggregate.slice(0,10),
+        title: 'Events',
+        brigade: res.locals.brigade
+      })
     })
-    if(result['error']){
-      req.flash('errors', {msg: result['error']})
-    }
-    res.render(res.locals.brigade.theme.slug + '/views/events/index', {
-      events: aggregate,
-      upcomingevents: aggregate.slice(0,10),
-      title: 'Events',
-      brigade: res.locals.brigade
-    })
-  })
-
   },
   /**
    * GET /events/manage
