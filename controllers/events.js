@@ -13,7 +13,7 @@ module.exports = {
     result['events'].forEach(function(item){
       var event = {
         title: item.name,
-        start: new Date(item.time+item.utc_offset),
+        start: new Date(item.time).toLocaleString(),
         venue: item.venue.name,
         address: item.venue.address_1,
         city: item.venue.city,
