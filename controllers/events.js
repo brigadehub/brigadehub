@@ -6,12 +6,11 @@ module.exports = {
    * List of Event examples.
    */
   getEvents: function (req, res) {
-  var meetupid = "www.meetup.com/Code-for-San-Francisco-Civic-Hack-Night/".split(".com/")[1].replace(/\//g, "")
+  var meetupid = "www.meetup.com/Code-for-San-Francisco-Civic-Hack-Night/".split(".com/")[1].replace(/\//g, "") //need to replace with schema call
   var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
-
   var aggregate = []
   Events.fetchMeetupEvents(url).then(function(result){
-    result.forEach(function(item){
+    result['events'].forEach(function(item){
       var event = {
         title: item.name,
         start: new Date(item.time+item.utc_offset),
@@ -22,18 +21,13 @@ module.exports = {
       }
       aggregate.push(event)
     })
-
+    if(result['error']){
+      req.flash('errors', {msg: result['error']})
+    }
     res.render(res.locals.brigade.theme.slug + '/views/events/index', {
       events: aggregate,
       upcomingevents: aggregate.slice(0,10),
       title: 'Events',
-      brigade: res.locals.brigade
-    })
-  }, function(error){
-    console.log(error)
-    res.render(res.locals.brigade.theme.slug + '/views/events/index', {
-      title: 'Events',
-      error: error,
       brigade: res.locals.brigade
     })
   })
