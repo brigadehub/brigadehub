@@ -26,16 +26,9 @@ eventsSchema.statics.fetchMeetupEvents = function (meetupid) {
     request(meetupid, function (error, response, body) {
       if (!error && response.statusCode === 200) {
         var parsed = JSON.parse(body)
-        var eventsresp = {'events': parsed.results}
-        if(parsed.results.length < 1){
-          eventsresp['error'] = 'We could not find any events on your Meetup account. Please check your Meetup.com link if you were expecting some to show.'
-        }
-        resolve(eventsresp)
+        resolve(parsed.results)
       }else{
-        resolve({
-          'events': [],
-          'error': error
-        })
+        reject(error)
       }
     })
   })
