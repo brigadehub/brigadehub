@@ -8,7 +8,8 @@
   "scripts": {
     "start": "node app.js",
     "pretest": "standard",
-    "test": "istanbul cover _mocha -- --reporter spec --timeout 5000"
+    "test": "istanbul cover _mocha -- --reporter spec --timeout 5000",
+    "develop": "nodemon app.js"
   },
   "dependencies": {
     "async": "^1.5.2",
@@ -60,6 +61,7 @@
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
     "multiline": "^1.0.2",
+    "nodemon": "^1.9.1",
     "supertest": "^1.1.0"
   },
   "license": "ISC"
