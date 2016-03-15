@@ -49,6 +49,7 @@
     "passport": "0.3.2",
     "passport-github": "^1.0.0",
     "passport-local": "^1.0.0",
+    "passport-meetup": "^1.0.0",
     "passport-oauth": "^1.0.0",
     "passport-openid": "^0.4.0",
     "paypal-rest-sdk": "^1.6.8",
