@@ -7,8 +7,15 @@ module.exports = {
    */
 
 getEvents: function (req, res) {
-    var meetupid = "www.meetup.com/Code-for-San-Francisco-Civic-Hack-Night/".split(".com/")[1].replace(/\//g, "") //need to replace with schema call
-    var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
+    try{
+      var meetupid = res.locals.brigade.meetup.split(".com/")[1].replace(/\//g, "")
+    }
+    catch(err){
+      meetupid = "null"
+    }
+    finally{
+      var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
+    }
     var aggregate = []
     Events.fetchMeetupEvents(url).then(function(result){
       result.forEach(function(item){

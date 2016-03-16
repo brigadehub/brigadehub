@@ -45,6 +45,7 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.location.general = req.body.location
       thisBrigade.url = req.body.url
       thisBrigade.github = req.body.github
+      thisBrigade.meetup = req.body.meetupurl
       thisBrigade.copy.description = req.body.description
     } else if (req.body['theme-slug']) { // social media keys updated
       thisBrigade.theme.slug = req.body['theme-slug']
