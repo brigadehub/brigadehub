@@ -12,6 +12,7 @@
     "start": "node app.js",
     "pretest": "standard",
     "test": "istanbul cover _mocha -- --reporter spec --timeout 5000",
+    "db:clear": "./scripts/database-clear",
     "develop": "nodemon app.js"
   },
   "dependencies": {
@@ -65,6 +66,7 @@
     "blessed": "^0.1.81",
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
+    "mongodb": "^2.1.7",
     "multiline": "^1.0.2",
     "nodemon": "^1.9.1",
     "supertest": "^1.1.0"
