@@ -5,10 +5,15 @@
     "type": "git",
     "url": "https://github.com/sfbrigade/brigadehub.git"
   },
+  "engines": {
+    "node": ">=4 <5"
+  },
   "scripts": {
     "start": "node app.js",
     "pretest": "standard",
-    "test": "istanbul cover _mocha -- --reporter spec --timeout 5000"
+    "test": "istanbul cover _mocha -- --reporter spec --timeout 5000",
+    "db:clear": "./scripts/database-clear",
+    "develop": "nodemon app.js"
   },
   "dependencies": {
     "async": "^1.5.2",
@@ -40,6 +45,7 @@
     "mongoose": "^4.3.5",
     "morgan": "^1.6.1",
     "node-sass-middleware": "^0.9.7",
+    "node-version-checker": "^1.0.6",
     "nodemailer": "^2.0.0",
     "passport": "0.3.2",
     "passport-github": "^1.0.0",
@@ -59,7 +65,9 @@
     "blessed": "^0.1.81",
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
+    "mongodb": "^2.1.7",
     "multiline": "^1.0.2",
+    "nodemon": "^1.9.1",
     "supertest": "^1.1.0"
   },
   "license": "ISC"
