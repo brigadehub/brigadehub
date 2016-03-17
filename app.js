@@ -1,4 +1,9 @@
 /**
+ * Check Node Version FIRST
+ */
+require('node-version-checker')
+
+/**
  * Module dependencies.
  */
 var express = require('express')

@@ -9,28 +9,30 @@ mixin sidebarItem(name,subItems)
 
 
 block content
-  .page-header
-    h3 All Projects
+  div
+    h2 All Projects
     //sidebar list
-    div
-      //parent list
-      ul
-        mixin sidebarItem('Project status',['Development','Public test','Official / running'])
-        mixin sidebarItem('Dedicated for',['Civil society organizations','Cities','Watchdogs'])
-        mixin sidebarItem('Development status',['active','Suspended'])
-        mixin sidebarItem('Join as',['backend developer','frontend developer','designer','editorial staff'])
-        mixin sidebarItem('Developed locally in',['San Francisco'])
-        mixin sidebarItem('Technologies',['Android','AngularJS','Django','iOS','Javascript'])
-    //Add projects    
-    div.row
-      .col-sm-6
+    .row
+      .col-sm-3.sidebar
+        //parent list
+        ul
+          mixin sidebarItem('Project status',['Development','Public test','Official / running'])
+          mixin sidebarItem('Dedicated for',['Civil society organizations','Cities','Watchdogs'])
+          mixin sidebarItem('Development status',['active','Suspended'])
+          mixin sidebarItem('Join as',['backend developer','frontend developer','designer','editorial staff'])
+          mixin sidebarItem('Developed locally in',['San Francisco'])
+          mixin sidebarItem('Technologies',['Android','AngularJS','Django','iOS','Javascript'])
+      //Add projects    
+      .col-sm-9
         each project in projects
-          .project-card
-            img(href='http://placekitten.com/g/200/300')
-            span.title= project.name
-            br
-            span.description= project.description
-            br
-            span.link= project.homepage
-            br
-            br
+          .project-card.thumbnail
+            figure
+              a(href='/projects/#{project.id}')
+                img(src='http://placehold.it/200x200' width='200' height='200' alt='placeholder')
+              div
+                h3
+                  a(href='/projects/#{project.id}')
+                    =project.name
+                br
+                p.description= project.description
+                br
