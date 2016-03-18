@@ -39,8 +39,8 @@ module.exports = function () {
         clientSecret: ''
       },
       meetup: {
-        clientId: '',
-        clientSecret: ''
+        consumerKey: process.env.MEETUP_KEY,
+        consumerSecret: process.env.MEETUP_SECRET
       },
       google: {
         clientId: '',

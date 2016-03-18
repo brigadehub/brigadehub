@@ -1,10 +1,10 @@
 extends ../layout
 
 block content
-  .page-header
+  .page-header.row
     h3 Profile Information
 
-  form.form-horizontal(action='/account/profile', method='POST')
+  form.row.form-horizontal(action='/account/profile', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
       label.col-sm-3.control-label(for='email') Email
@@ -41,10 +41,31 @@ block content
           i.fa.fa-pencilr
           | Update Profile
 
-  .page-header
+  .page-header.row
+    h3 Social Media Accounts
+    
+  form.row.form-horizontal(action='#', method='POST')
+    
+    
+    .form-group
+      label.col-sm-3.control-label(for='meetup') Meetup
+      .col-sm-7
+        if(user.checkAuth('meetup'))
+          a.btn.btn-danger(href="/auth/disconnect/meetup") Disconnect from Meetup
+        else
+          a.btn.btn-secondary(href="/auth/meetup") Auth with Meetup
+    .form-group
+      label.col-sm-3.control-label(for='slack') Slack
+      .col-sm-7
+        if(user.checkAuth('slack'))
+          a.btn.btn-danger(href="/auth/disconnect/slack") Disconnect from Slack
+        else
+          a.btn.btn-secondary(href="/auth/slack") Auth with Slack
+
+  .page-header.row
     h3 Delete Account
 
-  form.form-horizontal(action='/account/delete', method='POST')
+  form.row.form-horizontal(action='/account/delete', method='POST')
     .form-group
       p.col-sm-offset-3.col-sm-4 You can delete your account, but keep in mind this action is irreversible.
       input(type='hidden', name='_csrf', value=_csrf)

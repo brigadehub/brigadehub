@@ -38,8 +38,8 @@ var brigadeSchema = new mongoose.Schema({
       clientSecret: String
     },
     meetup: {
-      clientId: String,
-      clientSecret: String
+      consumerKey: String,
+      consumerSecret: String
     },
     google: {
       clientId: String,
