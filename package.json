@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node app.js",
     "pretest": "standard",
-    "test": "istanbul cover _mocha -- --reporter spec --timeout 5000",
+    "test": "istanbul cover _mocha -- --recursive --reporter spec --timeout 5000",
     "db:clear": "./scripts/database-clear",
     "develop": "nodemon app.js"
   },
@@ -43,6 +43,7 @@
     "method-override": "^2.3.5",
     "moment": "^2.11.1",
     "mongoose": "^4.3.5",
+    "mongoose-unique-validator": "^1.0.2",
     "morgan": "^1.6.1",
     "node-sass-middleware": "^0.9.7",
     "node-version-checker": "^1.0.6",
@@ -71,7 +72,11 @@
     "supertest": "^1.1.0"
   },
   "standard": {
-    "globals": [ "it", "beforeEach", "describe" ]
+    "globals": [
+      "it",
+      "beforeEach",
+      "describe"
+    ]
   },
   "license": "ISC"
 }
