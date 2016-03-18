@@ -36,9 +36,16 @@ module.exports = {
    * New Blog.
    */
   getBlogNew: function (req, res) {
+    let uniqueId = ''
+    for (let i = 0; i < 10; i++) {
+      uniqueId += Math.floor(Math.random() * 10)
+    }
+
     res.render(res.locals.brigade.theme.slug + '/views/blog/new', {
       title: 'New Blog',
-      brigade: res.locals.brigade
+      brigade: res.locals.brigade,
+      plaintextcontent: req.session.blogpostplaintextcontent,
+      uniqueId: uniqueId
     })
   },
   /**
@@ -56,14 +63,14 @@ module.exports = {
 
     blogpost.save(function (err) {
       if (err) {
-        req.flash('errors', { msg: 'Error saving blog post' })
+        req.session.blogpostplaintextcontent = content
+        req.flash('errors', { msg: err.message })
+        return res.redirect(req.session.returnTo || '/blog/new')
       } else {
         req.flash('success', { msg: 'Success! Blog post created' })
         return res.redirect('/blog')
       }
     })
-
-    res.redirect('blog/new')
   },
 
   /**

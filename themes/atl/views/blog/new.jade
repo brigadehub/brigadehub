@@ -13,6 +13,12 @@ block content
       $(document).ready(function () {
         var converter = new showdown.Converter();
         var simplemde = new SimpleMDE({
+          autosave: {
+            enabled: true,
+            delay: 10000,
+            uniqueId: #{uniqueId}
+          },
+          intitialValue: "#{plaintextcontent}",
           previewRender: function(plainText) {
             return converter.makeHtml(plainText);
           }
