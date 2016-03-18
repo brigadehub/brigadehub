@@ -1,5 +1,7 @@
 extends ../layout
 
+!= messages()
+
 block content
   if !error
     block scripts
@@ -23,6 +25,6 @@ block content
   div
     form(id='blogsubmit', method='POST', action='/blog/new')
       input(type="hidden", name="_csrf", value=_csrf)
-      input(type='text', value='Title..')
+      input(type='text', value='Title..', name='blogtitle')
       input(type='submit', value='Submit')
       textarea(form='blogsubmit', name='blogcontent')

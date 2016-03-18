@@ -1,4 +1,5 @@
-"use strict"
+'use strict'
+
 var Blog = require('../models/Blogs')
 var markdown = require('markdown').markdown
 
@@ -45,7 +46,6 @@ module.exports = {
    * Submit New Blog.
    */
   postBlogNew: function (req, res) {
-    res.redirect('/blog/new')
     let content = req.body.blogcontent
 
     let blogpost = new Blog({
@@ -54,11 +54,13 @@ module.exports = {
       htmlcontent: markdown.toHTML(content)
     })
 
-    console.log(blogpost)
-
     blogpost.save(function (err) {
-      if (err)
-      console.log(err)
+      if (err) {
+        req.flash('errors', { msg: 'Error saving blog post' })
+      } else {
+        req.flash('success', { msg: 'Success! Blog post created' })
+        return res.redirect('/blog')
+      }
     })
   },
 
