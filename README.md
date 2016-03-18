@@ -5,7 +5,7 @@
 
 BrigadeHub is a **pre-alpha** work in progress (read: unfinished, not-feature-complete, not-production-ready) of a Code for America Brigade website/portal CMS/CRM/BLT/BYOB/ETC. This is being built to consolidate the efforts of maintaining a brigade website into a single location, and to allow other non-developer brigade leadership to update content as needed.
 
-For a complete top-down view of the roadmap, take a look at our active ***[Roadmap Discussion](https://github.com/sfbrigade/brigadehub/issues/45)***
+For a complete top-down view of the roadmap, take a look at our active ***[Roadmap Wiki](https://github.com/sfbrigade/brigadehub/wiki/Roadmap)***, and our list of ***[Alpha features](https://github.com/sfbrigade/brigadehub/issues/51)***
 
 In short, BrigadeHub is designed to meet some very specific goals:
 
@@ -24,13 +24,13 @@ This project is originally based on [sahat/hackathon-starter](https://github.com
 Inspirations
 ------------
 
-Similar projects have been concieved and implemented previously, most prominently by [CodeForPhilly](https://codeforphilly.org/) in the form of [Laddr](https://github.com/CfABrigadePhiladelphia/laddr). The reason I'm building a parallel system is for a few reasons:
+Similar projects have been concieved and implemented previously, most prominently by [CodeForPhilly](https://codeforphilly.org/) in the form of [Laddr](https://github.com/CfABrigadePhiladelphia/laddr). The reason we're building a parallel system is for a few reasons:
 
-- I wanted a system that isn't based in PHP, and didn't require a custom Linux VM to run
-- I wanted to utilize the cross-discipline talents of Node.js developers, who generally can move from front-back end quickly
-- I wanted a one-click deploy system, preferrably to Heroku, that would make deployment of a new hub effortless
-- I wanted a platform tightly coupled with the Github API, for oauth, handling permissioning and adminning of the github repos easily
-- I wanted a system that easily lent itself to additional onboarding steps for new members.
+- a system that isn't based in PHP, and didn't require a custom Linux VM to run
+- to utilize the cross-discipline talents of Node.js developers, who generally can move from front-back end quickly
+- a one-click deploy system, preferrably to Heroku, that would make deployment of a new hub effortless
+- a platform tightly coupled with the Github API, for oauth, handling permissioning and adminning of the github repos easily
+- a system that easily lent itself to additional onboarding steps for new members.
 
 Another project which this is pulling inspiration from is [CodeForAtlanta](http://www.codeforatlanta.org/)'s [Connector](https://github.com/codeforatlanta/connector). [Chime](https://github.com/chimecms/chime) was also a CMS that had similar goals, but focused on local governments, rather than brigades.
 

@@ -62,6 +62,8 @@ module.exports = {
         return res.redirect('/blog')
       }
     })
+
+    res.redirect('blog/new')
   },
 
   /**

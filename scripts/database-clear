@@ -1,0 +1,38 @@
+#! /usr/bin/env node
+
+var MongoClient = require('mongodb').MongoClient
+var assert = require('assert')
+var dotenv = require('dotenv')
+
+var path = require('path')
+var fs = require('fs')
+
+/**
+ * Load environment variables from .env file, where API keys and passwords are configured.
+ *
+ * Default path: .env
+ */
+try {
+  var stats = fs.lstatSync(path.resolve(__dirname, '../.env'))
+  if (stats.isFile()) {
+    dotenv.load({ path: path.resolve(__dirname, '../.env') })
+  } else {
+    throw new Error('.env is not a file!')
+  }
+} catch (e) {
+  console.warn(e)
+  console.warn('.env file not found. Defaulting to sample. Please copy .env.example to .env and populate with your own credentials.')
+  dotenv.load({ path: path.resolve(__dirname, '../.env.example') })
+}
+
+// Connection URL
+var url = process.env.MONGODB
+
+// Use connect method to connect to the Server
+MongoClient.connect(url, function (err, db) {
+  assert.equal(null, err)
+  console.log('Connected correctly to server', url)
+  db.dropDatabase()
+  console.log('Dropped database successfully', url)
+  db.close()
+})
