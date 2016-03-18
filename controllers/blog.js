@@ -67,6 +67,7 @@ module.exports = {
         req.flash('errors', { msg: err.message })
         return res.redirect(req.session.returnTo || '/blog/new')
       } else {
+        req.session.blogpostplaintextcontent = null
         req.flash('success', { msg: 'Success! Blog post created' })
         return res.redirect('/blog')
       }
