@@ -1,8 +1,8 @@
 'use strict'
 
 var Blog = require('../../models/Blogs')
+var expect = require('chai').expect
 let fakeblogpost
-let duplicateblogpost
 
 describe('Blog Model', function () {
   beforeEach(function (done) {
@@ -12,13 +12,18 @@ describe('Blog Model', function () {
       htmlcontent: '<p> La la la </p>'
     }
 
-    duplicateblogpost = {
-      title: 'Jonny Foobar',
-      plaintextcontent: '# Had a floopsy',
-      htmlcontent: '<p> La floop floop </p>'
-    }
+    Blog.remove({title: 'Jonny Foobar'}, function (err) {
+      if (err) throw err
+    })
 
-    Blog.remove()
+    done()
+  })
+
+  after(function (done) {
+    Blog.remove({title: 'Jonny Foobar'}, function (err) {
+      if (err) throw err
+    })
+
     done()
   })
 
@@ -27,24 +32,36 @@ describe('Blog Model', function () {
 
     beforeEach(function (done) {
       blogpost = new Blog(fakeblogpost)
-      duplicateblogpost = new Blog(duplicateblogpost)
       done()
     })
 
     it('should save', function (done) {
       blogpost.save(function (err) {
-        if (err) throw err
+        if (err) {
+          done(err)
+        } else {
+          done()
+        }
       })
-
-      done()
     })
 
     it('should not save a document with a duplicate title', function (done) {
-      duplicateblogpost.save(function (err) {
-        if (err) throw err
+      let duplicateblogpost = new Blog({
+        title: 'Jonny Foobar',
+        plaintextcontent: '# Had a floopsy',
+        htmlcontent: '<p> La floop floop </p>'
       })
 
-      done()
+      blogpost.save()
+
+      duplicateblogpost.save(function (err) {
+        if (err) {
+          expect(err)
+          done()
+        } else {
+          done()
+        }
+      })
     })
   })
 })

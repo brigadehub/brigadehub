@@ -65,18 +65,22 @@
   },
   "devDependencies": {
     "blessed": "^0.1.81",
+    "blue-tape": "^0.2.0",
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
     "mongodb": "^2.1.7",
     "multiline": "^1.0.2",
     "nodemon": "^1.9.1",
-    "supertest": "^1.1.0"
+    "supertest": "^1.1.0",
+    "tape": "^4.5.1"
   },
   "standard": {
     "globals": [
       "it",
       "beforeEach",
-      "describe"
+      "describe",
+      "afterEach",
+      "after"
     ]
   },
   "license": "ISC"
