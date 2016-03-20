@@ -3,6 +3,7 @@ var passport = require('passport')
 // var request = require('request')
 var LocalStrategy = require('passport-local').Strategy
 var GitHubStrategy = require('passport-github').Strategy
+var MeetupStrategy = require('passport-meetup').Strategy
 // var OpenIDStrategy = require('passport-openid').Strategy
 // var OAuthStrategy = require('passport-oauth').OAuthStrategy
 // var OAuth2Strategy = require('passport-oauth').OAuth2Strategy
@@ -112,6 +113,33 @@ passport.use(new GitHubStrategy({
         }
       })
     })
+  }
+}))
+
+/**
+ * Sign in with GitHub.
+ */
+passport.use(new MeetupStrategy({
+  consumerKey: process.env.MEETUP_KEY,
+  consumerSecret: process.env.MEETUP_SECRET,
+  callbackURL: '/auth/meetup/callback',
+  passReqToCallback: true
+}, function (req, accessToken, refreshToken, profile, done) {
+  if (req.user) {
+    console.log('req.user exists', profile)
+    User.findById(req.user.id, function (err, user) {
+      if (err) console.error(err)
+      user.tokens.push({ kind: 'meetup', accessToken: accessToken })
+      user.save(function (err) {
+        if (err) console.error(err)
+        req.flash('info', { msg: 'Meetup account has been linked.' })
+        done(err, user)
+      })
+    })
+  } else {
+    console.log("req.user doesn't exist")
+    req.flash('info', { msg: 'You must be logged in to link your Meetup account.' })
+    done('ERROR')
   }
 }))
 
