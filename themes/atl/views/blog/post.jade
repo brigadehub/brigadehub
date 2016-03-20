@@ -1,5 +1,10 @@
 extends ../layout
 
 block content
-  .page-header
-    h3 Blog Post
+  .container-fluid
+    .col-md-2
+    .col-md-8
+      .page-header
+        h3 #{ post.title }
+      !{ post.htmlcontent }
+    .col-md-2
