@@ -16,16 +16,14 @@ var logger = require('morgan')
 var errorHandler = require('errorhandler')
 var lusca = require('lusca')
 var methodOverride = require('method-override')
-var dotenv = require('dotenv')
 var MongoStore = require('connect-mongo/es5')(session)
 var flash = require('express-flash')
-var path = require('path')
 var mongoose = require('mongoose')
 var passport = require('passport')
 var expressValidator = require('express-validator')
 var sass = require('node-sass-middleware')
+var path = require('path')
 /* var _ = require('lodash') */
-var fs = require('fs')
 
 var DB_INSTANTIATED
 
@@ -34,18 +32,7 @@ var DB_INSTANTIATED
  *
  * Default path: .env
  */
-try {
-  var stats = fs.lstatSync(path.join(__dirname, '/.env'))
-  if (stats.isFile()) {
-    dotenv.load({ path: '.env' })
-  } else {
-    throw new Error('.env is not a file!')
-  }
-} catch (e) {
-  console.warn(e)
-  console.warn('.env file not found. Defaulting to sample. Please copy .env.example to .env and populate with your own credentials.')
-  dotenv.load({ path: '.env.example' })
-}
+require('./dotenv.js')()
 /**
  * Controllers (route handlers).
  */
