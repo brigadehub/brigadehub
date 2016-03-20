@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  padding-top: 60px;
+  padding-top: 138px;
   margin-bottom: 75px;
 }
 
@@ -116,5 +116,48 @@ textarea {
   }
   &.center {
     margin:auto;
+  }
+}
+.clearfix{
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.navbar {
+  height:138px;
+  a{
+    height:100%;
+  }
+  ul{
+    height:100%;
+  }
+  .row.account {
+    height:66px;
+    .dropdown-toggle{
+      padding-right: 40px;
+      position: relative;
+      width: auto;
+      white-space: nowrap;
+      img{
+        position: absolute;
+        right: -15px;
+        top: 18px;
+        left: auto;
+        bottom: auto;
+      }
+      &:after{
+        display:none;
+      }
+    }
+    .navbar-brand{
+      height:100%;
+      img{
+        height:60%;
+        width:auto;
+      }
+    }
   }
 }

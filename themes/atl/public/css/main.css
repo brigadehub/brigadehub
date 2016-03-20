@@ -2689,7 +2689,7 @@ html {
 }
 
 body {
-  padding-top: 60px;
+  padding-top: 138px;
   margin-bottom: 75px;
 }
 
@@ -2767,6 +2767,56 @@ textarea {
 
 .float.center {
   margin: auto;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.navbar {
+  height: 138px;
+}
+
+.navbar a {
+  height: 100%;
+}
+
+.navbar ul {
+  height: 100%;
+}
+
+.navbar .row.account {
+  height: 66px;
+}
+
+.navbar .row.account .dropdown-toggle {
+  padding-right: 40px;
+  position: relative;
+  width: auto;
+  white-space: nowrap;
+}
+
+.navbar .row.account .dropdown-toggle img {
+  position: absolute;
+  right: -15px;
+  top: 18px;
+  left: auto;
+  bottom: auto;
+}
+
+.navbar .row.account .dropdown-toggle:after {
+  display: none;
+}
+
+.navbar .row.account .navbar-brand {
+  height: 100%;
+}
+
+.navbar .row.account .navbar-brand img {
+  height: 60%;
+  width: auto;
 }
 
 /*# sourceMappingURL=main.css.map */

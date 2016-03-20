@@ -7,4 +7,13 @@ $(document).ready(function () {
       events: window._events
     })
   }
+  $(window).on('scroll', function(event){
+    var scroll = $(window).scrollTop();
+    console.log(scroll)
+    if(scroll > 10){
+      $('body').addClass('scroll')
+    } else{
+      $('body').removeClass('scroll')
+    }
+  })
 })
