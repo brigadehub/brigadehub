@@ -1,4 +1,3 @@
-
 nav.navbar.navbar-light.bg-faded.navbar-fixed-top
   .container
     .row.account.clearfix
@@ -54,31 +53,3 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
         if brigade.theme.show.about
           li.nav-item(class=title=='Contact'?'active':undefined)
             a.nav-link(href='/contact') Contact
-      
-      
-//- 
-//- .navbar.navbar-default.navbar-fixed-top
-//-   .container
-//-     .navbar-header
-//-       button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-//-         span.sr-only Toggle navigation
-//-         span.icon-bar
-//-         span.icon-bar
-//-         span.icon-bar
-//-       a.navbar-brand(href='/')
-//-         i.fa.fa-cube
-//-         = brigade.name
-//-     .collapse.navbar-collapse
-//-       ul.nav.navbar-nav
-//-         if brigade.theme.show.events
-//-           li(class=title=='Events'?'active':undefined)
-//-             a(href='/events') Events
-//-         if brigade.theme.show.projects
-//-           li(class=title=='Projects'?'active':undefined)
-//-             a(href='/projects') Projects
-//-         if brigade.theme.show.blog
-//-           li(class=title=='Blog'?'active':undefined)
-//-             a(href='/blog') Blog
-//-         if brigade.theme.show.about
-//-           li(class=title=='About'?'active':undefined)
-//-             a(href='/about') About Us

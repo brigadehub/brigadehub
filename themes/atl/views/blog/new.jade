@@ -1,5 +1,36 @@
 extends ../layout
 
+!= messages()
+
 block content
+  if !error
+    block scripts
+      script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.js')
+      script(src='//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js')
+      script(src='https://cdn.rawgit.com/showdownjs/showdown/1.3.0/dist/showdown.min.js')
+
+    script.
+      $(document).ready(function () {
+        var converter = new showdown.Converter();
+        var simplemde = new SimpleMDE({
+          autosave: {
+            enabled: true,
+            delay: 10000,
+            uniqueId: #{uniqueId}
+          },
+          initialValue: "#{plaintextcontent}",
+          previewRender: function(plainText) {
+            return converter.makeHtml(plainText);
+          }
+        });
+      });
+
   .page-header
     h3 New Blog
+
+  div
+    form(id='blogsubmit', method='POST', action='/blog/new')
+      input(type="hidden", name="_csrf", value=_csrf)
+      input(type='text', value='Title..', name='blogtitle')
+      input(type='submit', value='Submit')
+      textarea(form='blogsubmit', name='blogcontent')

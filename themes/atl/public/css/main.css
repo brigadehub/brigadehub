@@ -2691,6 +2691,7 @@ html {
 body {
   padding-top: 138px;
   margin-bottom: 75px;
+  transition: padding-top 0.2s ease-in-out;
 }
 
 footer {
@@ -2777,6 +2778,7 @@ textarea {
 
 .navbar {
   height: 138px;
+  transition: height 0.2s ease-in-out;
 }
 
 .navbar a {
@@ -2789,6 +2791,7 @@ textarea {
 
 .navbar .row.account {
   height: 66px;
+  transition: height 0.2s ease-in-out, margin-bottom 0.2s ease-in-out;
 }
 
 .navbar .row.account .dropdown-toggle {
@@ -2796,6 +2799,7 @@ textarea {
   position: relative;
   width: auto;
   white-space: nowrap;
+  transition: height 0.2s ease-in-out, padding 0.2s ease-in-out;
 }
 
 .navbar .row.account .dropdown-toggle img {
@@ -2804,6 +2808,7 @@ textarea {
   top: 18px;
   left: auto;
   bottom: auto;
+  transition: height 0.2s ease-in-out;
 }
 
 .navbar .row.account .dropdown-toggle:after {
@@ -2817,6 +2822,29 @@ textarea {
 .navbar .row.account .navbar-brand img {
   height: 60%;
   width: auto;
+}
+
+body.scroll {
+  padding-top: 78px;
+}
+
+body.scroll .navbar {
+  padding-top: 0px;
+  height: 78px;
+}
+
+body.scroll .navbar .row.account {
+  height: 10px;
+  margin-bottom: 10px;
+}
+
+body.scroll .navbar .row.account .dropdown-toggle {
+  padding: 2px 0;
+  height: 10px;
+}
+
+body.scroll .navbar .row.account .dropdown-toggle img {
+  height: 0;
 }
 
 /*# sourceMappingURL=main.css.map */

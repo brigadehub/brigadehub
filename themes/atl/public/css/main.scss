@@ -9,6 +9,8 @@
 // Scaffolding
 // -------------------------
 
+$scroll-transition: .2s;
+
 html {
   position: relative;
   min-height: 100%;
@@ -17,6 +19,7 @@ html {
 body {
   padding-top: 138px;
   margin-bottom: 75px;
+  transition: padding-top $scroll-transition ease-in-out;
 }
 
 footer {
@@ -128,6 +131,7 @@ textarea {
 
 .navbar {
   height:138px;
+  transition: height $scroll-transition ease-in-out;
   a{
     height:100%;
   }
@@ -136,17 +140,22 @@ textarea {
   }
   .row.account {
     height:66px;
+
+    transition: height $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
     .dropdown-toggle{
       padding-right: 40px;
       position: relative;
       width: auto;
       white-space: nowrap;
+      transition: height $scroll-transition ease-in-out, padding $scroll-transition ease-in-out;
+
       img{
         position: absolute;
         right: -15px;
         top: 18px;
         left: auto;
         bottom: auto;
+        transition: height $scroll-transition ease-in-out;
       }
       &:after{
         display:none;
@@ -157,6 +166,24 @@ textarea {
       img{
         height:60%;
         width:auto;
+      }
+    }
+  }
+}
+body.scroll {
+  padding-top: 78px;
+  .navbar {
+    padding-top:0px;
+    height:78px;
+    .row.account {
+      height:10px;
+      margin-bottom:10px;
+      .dropdown-toggle {
+        padding: 2px 0;
+        height:10px;
+        img{
+          height:0;
+        }
       }
     }
   }
