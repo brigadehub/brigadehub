@@ -1,7 +1,7 @@
 'use strict'
 
 var mongoose = require('mongoose')
-// var uniqueValidator = require('mongoose-unique-validator')
+var uniqueValidator = require('mongoose-unique-validator')
 
 let blogSchema = new mongoose.Schema({
   title: { type: String, required: true, unique: true },
@@ -11,6 +11,6 @@ let blogSchema = new mongoose.Schema({
   published: Boolean
 })
 
-// blogSchema.plugin(uniqueValidator)
+blogSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Blog', blogSchema)
