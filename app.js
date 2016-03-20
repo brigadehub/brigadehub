@@ -244,7 +244,7 @@ app.get('/auth/github', passport.authenticate('github', {
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function (req, res) {
   res.redirect(req.session.returnTo || '/')
 })
-app.get('/auth/meetup', passport.authenticate('meetup', { scope: ['basic', 'rsvp']}))
+app.get('/auth/meetup', passport.authenticate('meetup', { scope: ['basic', 'rsvp'] }))
 app.get('/auth/meetup/callback', passport.authenticate('meetup', { failureRedirect: '/account' }), function (req, res) {
   res.redirect(req.session.returnTo || '/account')
 })

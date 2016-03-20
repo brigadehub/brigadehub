@@ -78,7 +78,7 @@ userSchema.methods.gravatar = function (size) {
  * Helper method to see if auth is authorized
  */
 userSchema.methods.checkAuth = function (authName) {
-  if(_.filter(this.tokens, {kind:authName}).length){
+  if (_.filter(this.tokens, { kind: authName }).length) {
     return true
   }
   return false
