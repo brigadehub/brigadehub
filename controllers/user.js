@@ -262,9 +262,9 @@ module.exports = {
    * Get /auth/disconnect/:service
    * Disconnect a passport service
    */
-  disconnectService: function (req, res) {
+  disconnectService: function (req, res, next) {
     var service = req.params.service
-    if(service === 'github'){
+    if (service === 'github') {
       req.flash('errors', { msg: 'Cannot disconnect Github account. Delete brigadehub account if you wish to disconnect.' })
       return res.redirect('/account')
     }
@@ -273,12 +273,12 @@ module.exports = {
       if (err) {
         return next(err)
       }
-      user.tokens = _.reject(user.tokens, {kind:service})
+      user.tokens = _.reject(user.tokens, { kind: service })
       user.save(function (err) {
         if (err) {
           return next(err)
         }
-        req.flash('success', { msg: 'Disconnected '+service+' service.' })
+        req.flash('success', { msg: 'Disconnected ' + service + ' service.' })
         res.redirect('/account')
       })
     })
