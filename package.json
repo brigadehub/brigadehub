@@ -11,7 +11,9 @@
   "scripts": {
     "start": "node app.js",
     "pretest": "standard",
-    "test": "istanbul cover _mocha -- --recursive --reporter spec --timeout 5000",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:e2e": "echo 'no e2e tests available.'",
+    "test:unit": "babel-node ./node_modules/istanbul/lib/cli cover tape -- **/*.tape.js",
     "db:clear": "./scripts/database-clear",
     "develop": "nodemon app.js"
   },
@@ -61,10 +63,12 @@
     "standard": "^6.0.4",
     "twilio": "^2.8.0",
     "twit": "^2.1.1",
+    "uuid": "^2.0.1",
     "validator": "^4.5.0",
     "yui": "^3.18.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.6.5",
     "blessed": "^0.1.81",
     "blue-tape": "^0.2.0",
     "chai": "^3.4.1",
@@ -73,7 +77,8 @@
     "multiline": "^1.0.2",
     "nodemon": "^1.9.1",
     "supertest": "^1.1.0",
-    "tape": "^4.5.1"
+    "tape": "^4.5.1",
+    "tape-catch": "^1.0.4"
   },
   "standard": {
     "globals": [

@@ -9,14 +9,17 @@
 // Scaffolding
 // -------------------------
 
+$scroll-transition: .2s;
+
 html {
   position: relative;
   min-height: 100%;
 }
 
 body {
-  padding-top: 60px;
+  padding-top: 138px;
   margin-bottom: 75px;
+  transition: padding-top $scroll-transition ease-in-out;
 }
 
 footer {
@@ -116,5 +119,194 @@ textarea {
   }
   &.center {
     margin:auto;
+  }
+}
+.clearfix{
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+nav.navbar {
+  height:138px;
+  background-color:white;
+  transition: height $scroll-transition ease-in-out;
+  a{
+    height:100%;
+  }
+  ul{
+    height:100%;
+  }
+  .row.account {
+    height:66px;
+
+    transition: height $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
+    .dropdown-toggle{
+      padding-right: 40px;
+      position: relative;
+      width: auto;
+      white-space: nowrap;
+      transition: height $scroll-transition ease-in-out, padding $scroll-transition ease-in-out;
+
+      img{
+        position: absolute;
+        right: -15px;
+        top: 18px;
+        left: auto;
+        bottom: auto;
+        transition: height $scroll-transition ease-in-out;
+      }
+      &:after{
+        display:none;
+      }
+    }
+
+  }
+  .row.navigation{
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    height:58px;
+  }
+  .navbar-brand{
+    height:100%;
+    white-space:nowrap;
+    img{
+      display:inline-block;
+      height:60%;
+      width:auto;
+      &.brigade-logo{
+        height:100%;
+        float: left;
+      }
+    }
+    span{
+      height: 100%;
+      display: inline-block;
+      padding-top: 9px;
+      float: left;
+      margin-left:10px;
+    }
+  }
+}
+body.scroll {
+  padding-top: 78px;
+  .navbar {
+    padding-top:0px;
+    height:78px;
+    box-shadow: 0 1px 1px 0px rgba(0,0,0,0.4);
+    .row.navigation {
+      border-top:none;
+    }
+    .row.account {
+      height:10px;
+      margin-bottom:10px;
+      .dropdown-toggle {
+        padding: 2px 0;
+        height:10px;
+        img{
+          height:0;
+        }
+      }
+    }
+  }
+}
+
+/* Landing Page */
+
+#landing-hero{
+  display:block;
+  width:100%;
+  height:400px;
+  background-size:cover;
+  position:relative;
+  color:white;
+  &:before{
+    content:'';
+    display:block;
+    z-index:1;
+    position:absolute;
+    top:0px;
+    left:0px;
+    bottom:0px;
+    right:0px;
+    background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+  }
+  & > *{
+    z-index:2;
+  }
+
+  #landing-message{
+    color:white;
+    position:absolute;
+    left:25px;
+    bottom:25px;
+    p{
+      font-size: 24px;
+    }
+  }
+  #landing-events{
+    position: absolute;
+    left:auto;
+    top: 25px;
+    bottom: 25px;
+    right: 25px;
+    border: 2px solid #fff;
+    background: rgba(170,0,1,0.8);
+    width: 320px;
+    padding: 30px 30px;
+    color:white;
+    ul{
+      background:transparent;
+      border:none;
+      padding:0;
+      li{
+        color:white;
+        background:transparent;
+        border:none;
+        a{
+          color:white;
+        }
+      }
+    }
+  }
+}
+
+#landing-stats{
+  .col-sm-5{
+    height:108px;
+    position:relative;
+  }
+  img{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translateY(-50%) translateX(-50%);
+  }
+  strong{
+    color: #d20a11;
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 80%;
+    margin-top: -5px;
+    margin-bottom: 5px;
+
+  }
+  .txt{
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 110%;
+  }
+}
+#landing-ctas{
+  span.card-img-top{
+    display:block;
+    width:338px;
+    height:211px;
+    background-size:cover;
+    overflow:hidden;
   }
 }

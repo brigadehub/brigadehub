@@ -27,7 +27,7 @@ eventsSchema.statics.fetchMeetupEvents = function (meetupid) {
       if (!error && response.statusCode === 200) {
         var parsed = JSON.parse(body)
         resolve(parsed.results)
-      }else{
+      } else {
         reject(error)
       }
     })
