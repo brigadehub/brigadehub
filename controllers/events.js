@@ -5,16 +5,22 @@ module.exports = {
    * GET /events
    * List of Event examples.
    */
-  getEvents: function (req, res) {
-    var meetupid = 'www.meetup.com/Code-for-San-Francisco-Civic-Hack-Night/'.split('.com/')[1].replace(/\//g, '')
-    var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
-
+getEvents: function (req, res) {
+    try{
+      var meetupid = res.locals.brigade.meetup.split(".com/")[1].replace(/\//g, "")
+    }
+    catch(err){
+      meetupid = "null"
+    }
+    finally{
+      var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
+    }
     var aggregate = []
-    Events.fetchMeetupEvents(url).then(function (result) {
-      result.forEach(function (item) {
+    Events.fetchMeetupEvents(url).then(function(result){
+      result.forEach(function(item){
         var event = {
           title: item.name,
-          start: new Date(item.time + item.utc_offset),
+          start: new Date(item.time).toLocaleString(),
           venue: item.venue.name,
           address: item.venue.address_1,
           city: item.venue.city,
@@ -22,19 +28,22 @@ module.exports = {
         }
         aggregate.push(event)
       })
-
+      if(aggregate.length < 1){
+        throw new Error("We could not find any events on your Meetup account. Please check your Meetup.com link if you were expecting some to show.")
+      }
       res.render(res.locals.brigade.theme.slug + '/views/events/index', {
         events: aggregate,
-        upcomingevents: aggregate.slice(0, 10),
+        upcomingevents: aggregate.slice(0,10),
         title: 'Events',
         brigade: res.locals.brigade
       })
-    }, function (error) {
-      console.log(error)
-      res.render(res.locals.brigade.theme.slug + '/views/events/index', {
-        title: 'Events',
-        error: error,
-        brigade: res.locals.brigade
+    }).catch(function (err) {
+        req.flash('errors', {msg: err})
+        res.render(res.locals.brigade.theme.slug + '/views/events/index', {
+          events: [],
+          upcomingevents: aggregate.slice(0,10),
+          title: 'Events',
+          brigade: res.locals.brigade
       })
     })
   },
