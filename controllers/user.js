@@ -79,11 +79,13 @@ module.exports = {
       if (err) {
         return next(err)
       }
+      console.log(req.body)
       user.email = req.body.email || ''
       user.profile.name = req.body.name || ''
       user.profile.gender = req.body.gender || ''
       user.profile.location = req.body.location || ''
       user.profile.website = req.body.website || ''
+      user.profile.showcontact = req.body['showcontact'] === 'on'
       user.save(function (err) {
         if (err) {
           return next(err)

@@ -36,6 +36,10 @@ block content
       .col-sm-4
         img(src="#{user.gravatar()}", class='profile', width='100', height='100')
     .form-group
+      label.col-sm-3.control-label(for='showcontact') Show contact info? '#{user.profile.showcontact}'
+      .col-sm-3
+        input.form-control(id='showcontact', name='showcontact', type='checkbox', checked=(user.profile.showcontact))
+    .form-group
       .col-sm-offset-3.col-sm-4
         button.btn.btn.btn-primary(type='submit')
           i.fa.fa-pencilr
@@ -43,10 +47,10 @@ block content
 
   .page-header.row
     h3 Social Media Accounts
-    
+
   form.row.form-horizontal(action='#', method='POST')
-    
-    
+
+
     .form-group
       label.col-sm-3.control-label(for='meetup') Meetup
       .col-sm-7
