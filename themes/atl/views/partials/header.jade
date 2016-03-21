@@ -37,9 +37,9 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
                 a.dropdown-item.divider
                 a.dropdown-item(href='/logout') Logout
     .row.navigation
-      a.navbar-brand(href='/')
-        i.fa.fa-cube
-        = brigade.name
+      a.navbar-brand.brigade-brand(href='/')
+        img.brigade-logo(src='https://i.imgur.com/BoXEeve.png')
+        span= brigade.name
       ul.nav.navbar-nav.pull-xs-right
         if brigade.theme.show.events
           li.nav-item(class=title=='Events'?'active':undefined)

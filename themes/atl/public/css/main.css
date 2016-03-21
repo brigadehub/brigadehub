@@ -2776,25 +2776,26 @@ textarea {
   clear: both;
 }
 
-.navbar {
+nav.navbar {
   height: 138px;
+  background-color: white;
   transition: height 0.2s ease-in-out;
 }
 
-.navbar a {
+nav.navbar a {
   height: 100%;
 }
 
-.navbar ul {
+nav.navbar ul {
   height: 100%;
 }
 
-.navbar .row.account {
+nav.navbar .row.account {
   height: 66px;
   transition: height 0.2s ease-in-out, margin-bottom 0.2s ease-in-out;
 }
 
-.navbar .row.account .dropdown-toggle {
+nav.navbar .row.account .dropdown-toggle {
   padding-right: 40px;
   position: relative;
   width: auto;
@@ -2802,7 +2803,7 @@ textarea {
   transition: height 0.2s ease-in-out, padding 0.2s ease-in-out;
 }
 
-.navbar .row.account .dropdown-toggle img {
+nav.navbar .row.account .dropdown-toggle img {
   position: absolute;
   right: -15px;
   top: 18px;
@@ -2811,17 +2812,36 @@ textarea {
   transition: height 0.2s ease-in-out;
 }
 
-.navbar .row.account .dropdown-toggle:after {
+nav.navbar .row.account .dropdown-toggle:after {
   display: none;
 }
 
-.navbar .row.account .navbar-brand {
-  height: 100%;
+nav.navbar .row.navigation {
+  height: 58px;
 }
 
-.navbar .row.account .navbar-brand img {
+nav.navbar .navbar-brand {
+  height: 100%;
+  white-space: nowrap;
+}
+
+nav.navbar .navbar-brand img {
+  display: inline-block;
   height: 60%;
   width: auto;
+}
+
+nav.navbar .navbar-brand img.brigade-logo {
+  height: 100%;
+  float: left;
+}
+
+nav.navbar .navbar-brand span {
+  height: 100%;
+  display: inline-block;
+  padding-top: 9px;
+  float: left;
+  margin-left: 10px;
 }
 
 body.scroll {
@@ -2845,6 +2865,114 @@ body.scroll .navbar .row.account .dropdown-toggle {
 
 body.scroll .navbar .row.account .dropdown-toggle img {
   height: 0;
+}
+
+/* Landing Page */
+#landing-hero {
+  display: block;
+  width: 100%;
+  height: 400px;
+  background-size: cover;
+  position: relative;
+  color: white;
+}
+
+#landing-hero:before {
+  content: '';
+  display: block;
+  z-index: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  background: -moz-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.65) 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.65) 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.65) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 );
+  /* IE6-9 */
+}
+
+#landing-hero > * {
+  z-index: 2;
+}
+
+#landing-hero #landing-message {
+  color: white;
+  position: absolute;
+  left: 25px;
+  bottom: 25px;
+}
+
+#landing-hero #landing-message p {
+  font-size: 24px;
+}
+
+#landing-hero #landing-events {
+  position: absolute;
+  left: auto;
+  top: 25px;
+  bottom: 25px;
+  right: 25px;
+  border: 2px solid #fff;
+  background: rgba(170, 0, 1, 0.8);
+  width: 320px;
+  padding: 30px 30px;
+  color: white;
+}
+
+#landing-hero #landing-events ul {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+#landing-hero #landing-events ul li {
+  color: white;
+  background: transparent;
+  border: none;
+}
+
+#landing-hero #landing-events ul li a {
+  color: white;
+}
+
+#landing-stats .col-sm-5 {
+  height: 108px;
+  position: relative;
+}
+
+#landing-stats img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+
+#landing-stats strong {
+  color: #d20a11;
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 80%;
+  margin-top: -5px;
+  margin-bottom: 5px;
+}
+
+#landing-stats .txt {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 110%;
+}
+
+#landing-ctas span.card-img-top {
+  display: block;
+  width: 338px;
+  height: 211px;
+  background-size: cover;
+  overflow: hidden;
 }
 
 /*# sourceMappingURL=main.css.map */
