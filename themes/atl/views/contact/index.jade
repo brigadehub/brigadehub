@@ -8,44 +8,25 @@ block content
   .row
     .col-sm-9
       .row
+      each user in users
         .col-sm-6
           .row
             .col-sm-3
-                img(src="http://lorempixel.com/g/81/81/")
+                img(src="#{user.profile.picture}", width='80')
             .col-sm-9
                 h3
-                  a(href="#") Krzysztof Madejski
-                p Koordynator ogólnopolski
+                  a(href="mailto: #{user.email}") #{user.profile.name} (name)
+                p (position)
                 p
-                  a(href="#") krzysztof.madejski@epf.org.pl
-                p 664 082 823
-        .col-sm-6
-          .row 
-            .col-sm-3
-                img(src="http://lorempixel.com/g/81/81/")
-            .col-sm-9
-                h3 
-                  a(href="#") Krzysztof Madejski
-                p Koordynator ogólnopolski
-                p
-                  a(href="#") krzysztof.madejski@epf.org.pl
-                p 664 082 823
-      .row
-        .col-sm-6
-          .row
-            .col-sm-3
-                img(src="http://lorempixel.com/g/81/81/")
-            .col-sm-9
-                h3
-                  a(href="#") Krzysztof Madejski
-                p Koordynator ogólnopolski
-                p
-                  a(href="#") krzysztof.madejski@epf.org.pl
-                p 664 082 823
+                  a(href="mailto: #{user.email}") email
     .col-sm-3
       h2 See Also
       img(src="http://lorempixel.com/g/240/240/")
-      p 
+      p
         a(href="#") Visualization Budget Lodz
       p We visualize the budget of the city of Lodz
       img(src="http://lorempixel.com/g/240/240/")
+  .row
+    br
+    h2.text-xs-center Partners
+    hr

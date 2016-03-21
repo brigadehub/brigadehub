@@ -1,12 +1,18 @@
+var Users = require('../models/Users')
+
 module.exports = {
   /**
    * GET /contact
    * Contact form page.
    */
   getContact: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/contact/index', {
-      title: 'Contact',
-      brigade: res.locals.brigade
+    Users.find({}, function (err, foundUsers) {
+      if (err) console.error(err)
+      res.render(res.locals.brigade.theme.slug + '/views/contact/index', {
+        users: foundUsers,
+        title: 'Contact',
+        brigade: res.locals.brigade
+      })
     })
   },
 
