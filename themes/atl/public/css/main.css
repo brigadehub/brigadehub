@@ -2817,6 +2817,7 @@ nav.navbar .row.account .dropdown-toggle:after {
 }
 
 nav.navbar .row.navigation {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   height: 58px;
 }
 
@@ -2851,6 +2852,11 @@ body.scroll {
 body.scroll .navbar {
   padding-top: 0px;
   height: 78px;
+  box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.4);
+}
+
+body.scroll .navbar .row.navigation {
+  border-top: none;
 }
 
 body.scroll .navbar .row.account {
