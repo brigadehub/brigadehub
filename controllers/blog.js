@@ -82,7 +82,6 @@ module.exports = {
     Blog.findOne({title: req.params.blogId}, function (err, post) {
       if (err) throw err
 
-      console.log(post.htmlcontent)
       res.render(res.locals.brigade.theme.slug + '/views/blog/post', {
         blogId: req.params.blogId,
         title: 'Blog',
