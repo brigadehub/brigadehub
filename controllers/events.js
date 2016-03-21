@@ -5,7 +5,6 @@ module.exports = {
    * GET /events
    * List of Event examples.
    */
-
 getEvents: function (req, res) {
     try{
       var meetupid = res.locals.brigade.meetup.split(".com/")[1].replace(/\//g, "")
@@ -117,7 +116,6 @@ getEvents: function (req, res) {
    * Sync Events.
    */
   postEventsSync: function (req, res) {
-
     res.redirect('/events/manage')
   },
   /**

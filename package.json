@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node app.js",
     "pretest": "standard",
-    "test": "istanbul cover _mocha -- --reporter spec --timeout 5000",
+    "test": "istanbul cover _mocha -- --recursive --reporter spec --timeout 5000",
     "db:clear": "./scripts/database-clear",
     "develop": "nodemon app.js"
   },
@@ -40,9 +40,11 @@
     "lob": "^3.7.0",
     "lodash": "^4.0.0",
     "lusca": "^1.3.0",
+    "markdown": "^0.5.0",
     "method-override": "^2.3.5",
     "moment": "^2.11.1",
     "mongoose": "^4.3.5",
+    "mongoose-unique-validator": "^1.0.2",
     "morgan": "^1.6.1",
     "node-sass-middleware": "^0.9.7",
     "node-version-checker": "^1.0.6",
@@ -50,6 +52,7 @@
     "passport": "0.3.2",
     "passport-github": "^1.0.0",
     "passport-local": "^1.0.0",
+    "passport-meetup": "^1.0.0",
     "passport-oauth": "^1.0.0",
     "passport-openid": "^0.4.0",
     "paypal-rest-sdk": "^1.6.8",
@@ -63,12 +66,23 @@
   },
   "devDependencies": {
     "blessed": "^0.1.81",
+    "blue-tape": "^0.2.0",
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
     "mongodb": "^2.1.7",
     "multiline": "^1.0.2",
     "nodemon": "^1.9.1",
-    "supertest": "^1.1.0"
+    "supertest": "^1.1.0",
+    "tape": "^4.5.1"
+  },
+  "standard": {
+    "globals": [
+      "it",
+      "beforeEach",
+      "describe",
+      "afterEach",
+      "after"
+    ]
   },
   "license": "ISC"
 }

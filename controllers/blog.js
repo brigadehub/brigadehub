@@ -1,12 +1,7 @@
-/**
- * Split into declaration and initialization for better startup performance.
- */
+'use strict'
 
-// var request
-
-// var _ = require('lodash')
-// var async = require('async')
-// var querystring = require('querystring')
+var Blog = require('../models/Blogs')
+var markdown = require('markdown').markdown
 
 module.exports = {
   /**
@@ -41,9 +36,16 @@ module.exports = {
    * New Blog.
    */
   getBlogNew: function (req, res) {
+    let uniqueId = ''
+    for (let i = 0; i < 10; i++) {
+      uniqueId += Math.floor(Math.random() * 10)
+    }
+
     res.render(res.locals.brigade.theme.slug + '/views/blog/new', {
       title: 'New Blog',
-      brigade: res.locals.brigade
+      brigade: res.locals.brigade,
+      plaintextcontent: req.session.blogpostplaintextcontent,
+      uniqueId: uniqueId
     })
   },
   /**
@@ -51,7 +53,25 @@ module.exports = {
    * Submit New Blog.
    */
   postBlogNew: function (req, res) {
-    res.redirect('blog/new')
+    let content = req.body.blogcontent
+
+    let blogpost = new Blog({
+      title: req.body.blogtitle,
+      plaintextcontent: content,
+      htmlcontent: markdown.toHTML(content)
+    })
+
+    blogpost.save(function (err) {
+      if (err) {
+        req.session.blogpostplaintextcontent = content
+        req.flash('errors', { msg: err.message })
+        return res.redirect(req.session.returnTo || '/blog/new')
+      } else {
+        req.session.blogpostplaintextcontent = null
+        req.flash('success', { msg: 'Success! Blog post created' })
+        return res.redirect('/blog')
+      }
+    })
   },
 
   /**

@@ -59,6 +59,8 @@ exports.postBrigade = function (req, res, next) {
     } else { // social media keys updated
       thisBrigade.auth.github.clientId = req.body['github-client-id']
       thisBrigade.auth.github.clientSecret = req.body['github-client-secret']
+      thisBrigade.auth.meetup.consumerKey = req.body['meetup-client-id']
+      thisBrigade.auth.meetup.consumerSecret = req.body['meetup-client-secret']
     }
     thisBrigade.save(function (err, results) {
       if (err) {
