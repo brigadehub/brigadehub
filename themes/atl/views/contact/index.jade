@@ -15,10 +15,11 @@ block content
                 img(src="#{user.profile.picture}", width='80')
             .col-sm-9
                 h3
-                  a(href="mailto: #{user.email}") #{user.profile.name} (name)
+                  a(href="#") #{user.profile.name} (name)
                 p (position)
-                p
-                  a(href="mailto: #{user.email}") email
+                if user.profile.showcontact
+                  p
+                    a(href="mailto: #{user.email}") email
     .col-sm-3
       h2 See Also
       img(src="http://lorempixel.com/g/240/240/")
