@@ -6,7 +6,7 @@ module.exports = {
    * Contact form page.
    */
   getContact: function (req, res) {
-    Users.find({}, function (err, foundUsers) {
+    Users.find({$or: [{'roles.core': true}, {'roles.coreLead': true}, {'roles.superAdmin': true}]}, function (err, foundUsers) {
       if (err) console.error(err)
       res.render(res.locals.brigade.theme.slug + '/views/contact/index', {
         users: foundUsers,
