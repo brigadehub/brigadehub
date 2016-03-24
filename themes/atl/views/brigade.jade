@@ -16,6 +16,11 @@ block content
         textarea.form-control(name='description', id='description', rows="6")
           | #{ brigade.copy.description }
     .form-group
+      label.col-sm-3.control-label(for='tagline') Tagline
+      .col-sm-7
+        textarea.form-control(name='tagline', id='tagline', rows="6")
+          | #{ brigade.copy.tagline }
+    .form-group
       label.col-sm-3.control-label(for='location') Location
       .col-sm-7
         input.form-control(type='text', name='location', id='location', value='#{brigade.location.general}')
