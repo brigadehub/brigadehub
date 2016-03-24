@@ -1,88 +1,55 @@
-
-nav.navbar.navbar-light.bg-faded
+nav.navbar.navbar-light.bg-faded.navbar-fixed-top
   .container
-    a.navbar-brand(href='#') Navbar
-    ul.nav.navbar-nav
-      li.nav-item.active
-        a.nav-link(href='#')
-          | Home 
-          span.sr-only (current)
-      |     
-      li.nav-item
-        a.nav-link(href='#') Features
-      |     
-      li.nav-item
-        a.nav-link(href='#') Pricing
-      |     
-      li.nav-item
-        a.nav-link(href='#') About
-    |   
-    
-    ul.nav.navbar-nav.pull-xs-right
-      if brigade.theme.show.login
-        if !user
-          li(class=title=='Login'?'active':undefined)
-            a(href='/login') Login
-        else
-          li.dropdown(class=title=='Account Management'?'active':undefined)
-            a.dropdown-toggle(href='#', data-toggle='dropdown')
-              if user.profile.picture
-                img(src='#{user.profile.picture}',width='32')
-              else
-                img(src='#{user.gravatar(32)}')
-              | #{user.profile.name || user.email || user.id}&nbsp;
-              i.caret
-            ul.dropdown-menu
-              li
-                a(href='/account') My Account
-              if user.roles.blog || user.roles.core || user.roles.superAdmin
-                li.header Management
-              if user.roles.blog || user.roles.superAdmin
-                li
-                  a(href='/blog/manage') Manage Blog Posts
-              if user.roles.core || user.roles.superAdmin
-                li
-                  a(href='/events/manage') Manage Events
-                li
-                  a(href='/projects/manage') Manage Projects
-              if user.roles.superAdmin
-                li
-                  a(href='/brigade') Manage Brigade
-              if user.roles.core || user.roles.superAdmin || user.roles.lead
-                li
-                  a(href='/users/manage') Manage Users
-              if user.roles.project
-                li.divider
-                li.header Projects
-                each project in user.teams.project
-                  li
-                    a(href='/projects/'+project)=project
-              li.divider
-              li
-                a(href='/logout') Logout
-//- 
-//- .navbar.navbar-default.navbar-fixed-top
-//-   .container
-//-     .navbar-header
-//-       button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-//-         span.sr-only Toggle navigation
-//-         span.icon-bar
-//-         span.icon-bar
-//-         span.icon-bar
-//-       a.navbar-brand(href='/')
-//-         i.fa.fa-cube
-//-         = brigade.name
-//-     .collapse.navbar-collapse
-//-       ul.nav.navbar-nav
-//-         if brigade.theme.show.events
-//-           li(class=title=='Events'?'active':undefined)
-//-             a(href='/events') Events
-//-         if brigade.theme.show.projects
-//-           li(class=title=='Projects'?'active':undefined)
-//-             a(href='/projects') Projects
-//-         if brigade.theme.show.blog
-//-           li(class=title=='Blog'?'active':undefined)
-//-             a(href='/blog') Blog
-//-         if brigade.theme.show.about
-//-           li(class=title=='About'?'active':undefined)
-//-             a(href='/about') About Us
+    .row.account.clearfix
+      a.navbar-brand(href='/')
+        img(src='/logo.png')
+      ul.nav.navbar-nav.pull-xs-right
+        if brigade.theme.show.login
+          if !user
+            li(class=title=='Login'?'active':undefined)
+              a(href='/login') Login
+          else
+            li.nav-item.dropdown(class=title=='Account Management'?'active':undefined)
+              a.nav-link.dropdown-toggle(href='javascript:void(0)', data-toggle='dropdown')
+                | #{user.profile.name || user.email || user.id}
+                if user.profile.picture
+                  img(src='#{user.profile.picture}',width='32')
+                else
+                  img(src='#{user.gravatar(32)}')
+              .dropdown-menu
+                a.dropdown-item(href='/account') My Account
+                if user.roles.blog || user.roles.core || user.roles.superAdmin
+                  a.dropdown-item.header Management
+                if user.roles.blog || user.roles.superAdmin
+                  a.dropdown-item(href='/blog/manage') Manage Blog Posts
+                if user.roles.core || user.roles.superAdmin
+                  a.dropdown-item(href='/events/manage') Manage Events
+                  a.dropdown-item(href='/projects/manage') Manage Projects
+                if user.roles.superAdmin
+                  a.dropdown-item(href='/brigade') Manage Brigade
+                if user.roles.core || user.roles.superAdmin || user.roles.lead
+                  a.dropdown-item(href='/users/manage') Manage Users
+                if user.roles.project
+                  a.dropdown-item.divider
+                  a.dropdown-item.header Projects
+                  each project in user.teams.project
+                    a.dropdown-item(href='/projects/'+project)=project
+                a.dropdown-item.divider
+                a.dropdown-item(href='/logout') Logout
+    .row.navigation
+      a.navbar-brand.brigade-brand(href='/')
+        img.brigade-logo(src='https://i.imgur.com/BoXEeve.png')
+        span= brigade.name
+      ul.nav.navbar-nav.pull-xs-right
+        if brigade.theme.show.events
+          li.nav-item(class=title=='Events'?'active':undefined)
+            a.nav-link(href='/events') Events
+        if brigade.theme.show.projects
+          li.nav-item(class=title=='Projects'?'active':undefined)
+            a.nav-link(href='/projects') Projects
+        if brigade.theme.show.blog
+          li.nav-item(class=title=='Blog'?'active':undefined)
+            a.nav-link(href='/blog') Blog
+        if brigade.theme.show.about
+          li.nav-item(class=title=='Contact'?'active':undefined)
+            a.nav-link(href='/contact') Contact

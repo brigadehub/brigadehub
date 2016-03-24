@@ -45,6 +45,7 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.location.general = req.body.location
       thisBrigade.url = req.body.url
       thisBrigade.github = req.body.github
+      thisBrigade.meetup = req.body.meetupurl
       thisBrigade.copy.description = req.body.description
     } else if (req.body['theme-slug']) { // social media keys updated
       thisBrigade.theme.slug = req.body['theme-slug']
@@ -58,6 +59,8 @@ exports.postBrigade = function (req, res, next) {
     } else { // social media keys updated
       thisBrigade.auth.github.clientId = req.body['github-client-id']
       thisBrigade.auth.github.clientSecret = req.body['github-client-secret']
+      thisBrigade.auth.meetup.consumerKey = req.body['meetup-client-id']
+      thisBrigade.auth.meetup.consumerSecret = req.body['meetup-client-secret']
     }
     thisBrigade.save(function (err, results) {
       if (err) {
