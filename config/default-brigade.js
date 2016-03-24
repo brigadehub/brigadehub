@@ -11,6 +11,7 @@ module.exports = function () {
       specific: '',
       geo: ''
     },
+    heroImage: 'https://i.imgur.com/m7omd0N.jpg',
     url: 'http://codeforexample.org',
     github: 'codeforexample',
     theme: {
@@ -26,7 +27,7 @@ module.exports = function () {
       }
     },
     copy: {
-      tagline: 'An awesome brigade',
+      tagline: 'is a community searching for technological solutions to social challenges.',
       description: "We're a bunch of civic-minded technologists, designers, and topic experts using our skills to improve Example and the world."
     },
     auth: {

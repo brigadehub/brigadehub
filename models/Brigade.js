@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
 var brigadeSchema = new mongoose.Schema({
   name: String,
   slug: String,
-  image: String,
+  heroImage: String,
   recoveryEmail: String,
   location: {
     general: String,
