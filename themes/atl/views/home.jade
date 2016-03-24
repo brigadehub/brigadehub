@@ -2,7 +2,7 @@ extends layout
 
 block content
   .container
-    #landing-hero.row(style="background-image:url('https://i.imgur.com/m7omd0N.jpg');background-position:bottom center;")
+    #landing-hero.row(style="background-image:url(" + brigade.image + ");background-position:bottom center;")
       #landing-message.col-sm-8
         p
           strong= brigade.name

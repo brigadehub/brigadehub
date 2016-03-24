@@ -31,6 +31,7 @@ exports.postBrigade = function (req, res, next) {
   res.locals.brigade.name = req.body.name
   res.locals.brigade.location.general = req.body.location
   res.locals.brigade.url = req.body.url
+  res.locals.brigade.image = req.body.image
   res.locals.brigade.github = req.body.github
   res.locals.brigade.theme.logo = req.body.logo
   res.locals.brigade.theme.slug = req.body['theme-slug']
@@ -44,10 +45,11 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.name = req.body.name
       thisBrigade.location.general = req.body.location
       thisBrigade.url = req.body.url
+      thisBrigade.image = req.body.image || 'https://i.imgur.com/m7omd0N.jpg'
       thisBrigade.github = req.body.github
       thisBrigade.meetup = req.body.meetupurl
       thisBrigade.copy.description = req.body.description
-    } else if (req.body['theme-slug']) { // social media keys updated
+    } else if (req.body['theme-slug']) { // theme updated
       thisBrigade.theme.slug = req.body['theme-slug']
       thisBrigade.theme.logo = req.body.logo
       thisBrigade.theme.show.title = req.body['show-title'] === 'on'
