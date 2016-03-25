@@ -1,45 +1,61 @@
 extends ../layout
 
 block content
-  .page-header.row
-    h3 Profile Information
 
-  form.row.form-horizontal(action='/account/profile', method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
-      label.col-sm-3.control-label(for='email') Email
-      .col-sm-7
-        input.form-control(type='email', name='email', id='email', value='#{user.email}')
-    .form-group
-      label.col-sm-3.control-label(for='name') Name
-      .col-sm-7
-        input.form-control(type='text', name='name', id='name', value='#{user.profile.name}')
-    //- .form-group
-    //-   label.col-sm-3.control-label(for='gender') Gender
-    //-   .col-sm-4
-    //-     label.radio.col-sm-4
-    //-       input(type='radio', checked=user.profile.gender=='male', name='gender', value='male', data-toggle='radio')
-    //-       span Male
-    //-     label.radio.col-sm-4
-    //-       input(type='radio', checked=user.profile.gender=='female', name='gender', value='female', data-toggle='radio')
-    //-       span Female
-    .form-group
-      label.col-sm-3.control-label(for='location') Location
-      .col-sm-7
-        input.form-control(type='text', name='location', id='location', value='#{user.profile.location}')
-    .form-group
-      label.col-sm-3.control-label(for='website') Website
-      .col-sm-7
-        input.form-control(type='text', name='website', id='website', value='#{user.profile.website}')
-    .form-group
-      label.col-sm-3.control-label(for='gravatar') Gravatar
-      .col-sm-4
-        img(src="#{user.gravatar()}", class='profile', width='100', height='100')
-    .form-group
-      .col-sm-offset-3.col-sm-4
-        button.btn.btn.btn-primary(type='submit')
-          i.fa.fa-pencilr
-          | Update Profile
+  .page-header.row
+
+    ul.nav.nav-tabs(role="tablist")
+      li.nav-item
+        a.nav-link.active(data-toggle="tab", href="#profile", role="tab") Profile
+      li.nav-item
+        a.nav-link.active(data-toggle="tab", href="#social", role="tab") Social
+      li.nav-item
+        a.nav-link.active(data-toggle="tab", href="#delete", role="tab") Delete
+
+    .tab-content
+      .tab-pane.active#profile(role="tabpanel")
+        h1 Profile
+      .tab-pane.active#social(role="tabpanel")
+        h1 Social
+      .tab-pane.active#delete(role="tabpanel")
+        h1 Delete
+
+
+
+    h3 Profile Information
+    form.form-horizontal(action='/account/profile', method='POST')
+      input(type='hidden', name='_csrf', value=_csrf)
+      .row
+        .col-sm-2
+            label(for='email') Email
+        .col-sm-9
+            input.form-control(type='email', name='email', id='email', value='#{user.email}')
+      .row
+        .col-sm-2
+          label(for='name') Name
+        .col-sm-2
+          input.form-control(type='text', name='name', id='name', value='#{user.profile.name}')
+      .row
+        .col-sm-2
+          label(for='location') Location
+        .col-sm-9
+          input.form-control(type='text', name='location', id='location', value='#{user.profile.location}')
+      .row
+        .col-sm-2
+          label(for='website') Website
+        .col-sm-7
+            input.form-control(type='text', name='website', id='website', value='#{user.profile.website}')
+      .row
+        .col-sm-2
+          label(for='gravatar') Gravatar
+        .col-sm-7
+            img(src="#{user.gravatar()}", class='profile', width='100', height='100')
+      hr
+      .row
+        .col-sm-7.col-sm-offset-3
+            button.btn.btn.btn-primary(type='submit')
+              i.fa.fa-pencilr
+              | Update Profile
 
   .page-header.row
     h3 Social Media Accounts
