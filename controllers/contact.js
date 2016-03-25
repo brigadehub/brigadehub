@@ -1,13 +1,6 @@
 var Users = require('../models/Users')
 var nodemailer = require('nodemailer')
-var transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_PASS
-  }
-})
+
 
 module.exports = {
   /**
@@ -43,6 +36,14 @@ module.exports = {
     req.assert('name', 'Name cannot be blank').notEmpty()
     req.assert('email', 'Email is not valid').isEmail()
     req.assert('message', 'Message cannot be blank').notEmpty()
+    var transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      auth: {
+        user: res.locals.brigade.auth.email.user,
+        pass: res.locals.brigade.auth.email.password
+      }
+    })
     var mailOptions = {
       from: req.body.email,
       to: 'dbcjckyee@gmail.com',

@@ -65,6 +65,8 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.auth.github.clientSecret = req.body['github-client-secret']
       thisBrigade.auth.meetup.consumerKey = req.body['meetup-client-id']
       thisBrigade.auth.meetup.consumerSecret = req.body['meetup-client-secret']
+      thisBrigade.auth.email.user = req.body['emailuser']
+      thisBrigade.auth.email.password = req.body['emailpass']
     }
     thisBrigade.save(function (err, results) {
       if (err) {
