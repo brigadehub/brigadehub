@@ -29,6 +29,25 @@ block content
       p We visualize the budget of the city of Lodz
       img(src="http://lorempixel.com/g/240/240/")
   .row
-    br
-    h2.text-xs-center Partners
-    hr
+    h5.text-xs-center Send a message to the brigade:
+    form.row.form-horizontal(action='/contact', method='POST')
+      input(type='hidden', name='_csrf', value=_csrf)
+      .form-group
+        label.col-sm-3.control-label(for='name') Name
+        .col-sm-3
+          input.form-control(type='name', name='name', id='name', value='')
+        |<br>
+      .form-group
+        label.col-sm-3.control-label(for='email') Email
+        .col-sm-3
+          input.form-control(type='email', name='email', id='email', value='')
+        |<br>
+      .form-group
+        label.col-sm-3.control-label(for='message') Message
+        .col-sm-7
+          textarea.form-control(name='message', id='message', rows="6")
+      .form-group
+        .col-sm-offset-3.col-sm-4
+          button.btn.btn.btn-primary(type='submit')
+            i.fa.fa-pencil
+            | Send Message

@@ -143,7 +143,6 @@ app.post('/login/edit', passportConf.isAuthenticated, usersCtrl.postLoginEdit)
 app.get('/logout', usersCtrl.getLogout)
 app.get('/contact', contactCtrl.getContact)
 app.get('/contact/edit', passportConf.isAuthenticated, contactCtrl.getContactEdit)
-app.get('/contact/form', contactCtrl.getContactForm)
 app.post('/contact', passportConf.isAuthenticated, contactCtrl.postContact)
 
 /**

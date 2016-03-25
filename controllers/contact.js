@@ -35,10 +35,6 @@ module.exports = {
       brigade: res.locals.brigade
     })
   },
-
-  getContactForm: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/contact/contact-form')
-  },
   /**
    * POST /contact/edit
    * Update Contact page info
