@@ -79,10 +79,15 @@ module.exports = {
    * Display Blog by ID.
    */
   getBlogID: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/blog/post', {
-      blogId: req.params.blogID,
-      title: 'Blog',
-      brigade: res.locals.brigade
+    Blog.findOne({title: req.params.blogId}, function (err, post) {
+      if (err) throw err
+
+      res.render(res.locals.brigade.theme.slug + '/views/blog/post', {
+        blogId: req.params.blogId,
+        title: 'Blog',
+        brigade: res.locals.brigade,
+        post: post
+      })
     })
   },
   /**
