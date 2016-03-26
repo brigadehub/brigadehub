@@ -1,7 +1,6 @@
 var Users = require('../models/Users')
 var nodemailer = require('nodemailer')
 
-
 module.exports = {
   /**
    * GET /contact
@@ -46,8 +45,8 @@ module.exports = {
     })
     var mailOptions = {
       from: req.body.email,
-      to: 'dbcjckyee@gmail.com',
-      subject: 'Message from ' + req.body.name,
+      to: res.locals.brigade.auth.email.user,
+      subject: 'Message from ' + req.body.email,
       text: req.body.message
     }
     transporter.sendMail(mailOptions, function (error, info) {
