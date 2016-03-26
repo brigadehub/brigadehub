@@ -28,6 +28,10 @@ block content
       .col-sm-7
         input.form-control(type='text', name='location', id='location', value='#{user.profile.location}')
     .form-group
+      label.col-sm-3.control-label(for='location') Brigade role/position
+      .col-sm-7
+        input.form-control(type='text', name='position', id='position', value='#{user.profile.position}')
+    .form-group
       label.col-sm-3.control-label(for='website') Website
       .col-sm-7
         input.form-control(type='text', name='website', id='website', value='#{user.profile.website}')

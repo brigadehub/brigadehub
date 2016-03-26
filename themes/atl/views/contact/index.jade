@@ -14,12 +14,17 @@ block content
             .col-sm-3
                 img(src="#{user.profile.picture}", width='80')
             .col-sm-9
-                h3
-                  a(href="#") #{user.profile.name} (name)
-                p (position)
-                if user.profile.showcontact
-                  p
-                    a(href="mailto: #{user.email}") email
+              if user.profile.name
+                h3 #{user.profile.name}
+              else
+                h3 name placeholder
+              if user.profile.position
+                p #{user.profile.position}
+              else
+                p position placeholder
+              if user.profile.showcontact
+                p
+                  a(href="mailto: #{user.email}") email
     .col-sm-3
       h2 See Also
       img(src="http://lorempixel.com/g/240/240/")
