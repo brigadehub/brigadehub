@@ -2,13 +2,13 @@ extends layout
 
 block content
   .container
-    #landing-hero.row
+    #landing-hero.row(style="background-image:url(" + brigade.heroImage + ");background-position:bottom center;")
       #landing-message.col-sm-8
         p
-          | Code for San Francisco is really great, as evidenced by the background-image applied to landing-hero
+          strong= brigade.name
+          | &nbsp;#{brigade.copy.tagline}
       #landing-events.col-sm-4
-        h2  
-          a(href="#") Events
+        h5 Upcoming events
         ul.list-group-item
           li.list-group-item 
             a.event-title(href="#")  This is the Event Title 
@@ -25,61 +25,61 @@ block content
         #landing-stat-1.landing-stat
           .row
             .col-sm-5
-              img.img-fluid(src="http://placehold.it/200x200")
+              img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-forum.png")
             .col-sm-7
               p
                 strong 400
-              p
+              p.txt
                 | Slackers registered
       .col-sm-3
         #landing-stat-2.landing-stat
           .row
             .col-sm-5
-              img.img-fluid(src="http://placehold.it/200x200")
+              img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-ideas.png")
             .col-sm-7
               p
                 strong 82
-              p
+              p.txt
                 | Ideas being discussed
       .col-sm-3
         #landing-stat-3.landing-stat
           .row
             .col-sm-5
-              img.img-fluid(src="http://placehold.it/200x200")
+              img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-citylab.png")
             .col-sm-7
               p
-                strong 3
-              p
+                strong 4
+              p.txt
                 | Bay Area Brigades
       .col-sm-3
         #landing-stat-4.landing-stat
           .row
             .col-sm-5
-              img.img-fluid(src="http://placehold.it/200x200")
+              img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-projects.png")
             .col-sm-7
               p
                 strong 19
-              p
+              p.txt
                 | Active Projects
     hr
     #landing-ctas.row
       .col-sm-4
         #landing-cta-1.card.landing-cta
-          img.card-img-top.img-fluid(src="http://placehold.it/400X250")
+          span.card-img-top(style="background-image:url('https://i.imgur.com/eat2FgN.png');background-position:bottom right;")
           .card-block
             h4.card-title Discuss
             p.card-text Share your idea on the forum telling a story about needs and problems that should be resolved. Join ongoing discussions to help find solutions.
             a.btn.btn-secondary(href="#") Join Slack
       .col-sm-4
         #landing-cta-2.card.landing-cta
-          img.card-img-top.img-fluid(src="http://placehold.it/400X250")
+          span.card-img-top(style="background-image:url('https://i.imgur.com/pSBPT2n.png');background-position:bottom center;")
           .card-block
             h4.card-title Meet Locally
             p.card-text Meet regularly with a group of activists. Discuss needs and ideas together with civil servants and civil society organizations. Boost project development by meeting face to face.
             a.btn.btn-secondary(href="#") Join us on Meetup
       .col-sm-4
         #landing-cta-3.card.landing-cta
-          img.card-img-top.img-fluid(src="http://placehold.it/400X250")
+          span.card-img-top(style="background-image:url('https://i.imgur.com/7JCmL7b.png');background-position:bottom right;")
           .card-block
             h4.card-title Build Projects
             p.card-text Start a new project as its coordinator or join one of the existing multidisciplinary teams. Folllow project development path from the needs analysis to the country wide deployment.

@@ -4,15 +4,16 @@ module.exports = function () {
   var auditDate = moment().format('YYYY-MM-DD HH:mm:ss')
   return {
     name: 'Code for Example',
-    slug: 'brigadehub-dev',
+    slug: 'codeforexample',
     recoveryEmail: 'admin@codeforexample.org',
     location: {
       general: '',
       specific: '',
       geo: ''
     },
+    heroImage: 'https://i.imgur.com/m7omd0N.jpg',
     url: 'http://codeforexample.org',
-    github: 'brigadehub-dev',
+    github: 'codeforexample',
     theme: {
       slug: 'atl',
       logo: '',
@@ -26,7 +27,7 @@ module.exports = function () {
       }
     },
     copy: {
-      tagline: 'An awesome brigade',
+      tagline: 'is a community searching for technological solutions to social challenges.',
       description: "We're a bunch of civic-minded technologists, designers, and topic experts using our skills to improve Example and the world."
     },
     auth: {

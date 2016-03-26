@@ -1,5 +1,18 @@
 extends ../layout
-
 block content
-  .page-header
-    h3 Blog Post
+.container
+	.row 
+		.col-sm-12
+			.page-header
+    			h3 #{ post.title }
+    			p 00 January 2016 | 
+    				a(href="#") PostCategory
+	.row 
+		.col-sm-9
+  			!{ post.htmlcontent }
+		.col-sm-3
+			figure
+				img(src="", alt="xxxxxxxFirstname Lastname").img-fluid.img-thumbnail
+			p Firstname Lastname
+			p
+				a(href="#").btn.btn-secondary Other Articles from the Author
