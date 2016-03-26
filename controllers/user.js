@@ -79,7 +79,6 @@ module.exports = {
       if (err) {
         return next(err)
       }
-      console.log(req.body)
       user.email = req.body.email || ''
       user.profile.name = req.body.name || ''
       user.profile.gender = req.body.gender || ''

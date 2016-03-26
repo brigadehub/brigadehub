@@ -20,7 +20,6 @@ block content
             th email
             th brigadehub permissions
             th github ID
-            th show contact info?
         tbody
           each user in users
             tr
@@ -45,5 +44,4 @@ block content
                 if user.roles.superAdmin
                   span.role Super Admin
               td.github= user.github
-              td.select
-                form.row.form-horizontal(action='/users/manage', method='POST')
+
