@@ -1,10 +1,35 @@
 extends ../layout
 
 block content
-  .page-header
+  .page-header.row
     h3 Manage Events
     form.pull-right(method='POST', action='/events/sync')
       input(type='hidden', name='_csrf', value=_csrf)
       button.btn.btn-primary(type='submit')
         i.fa.fa-refresh
         | Fetch Meetup Events
+  .row
+    h1 All events
+    table.table
+      thead
+        tr
+          th Event name
+          th Date & time
+          th Hosts
+          th Address
+          th
+          th
+      tbody
+        each event in allEvents
+          tr
+            td #{event.title}
+            td #{event.start}
+            td #{event.hosts[0]}
+            td #{event.location}
+            td
+              a(href='/events/#{event.id}/settings') Edit
+            td
+              form(method='POST', action='/events/#{event.id}/delete')
+                input(type='hidden', name='_csrf', value=_csrf)
+                button(type='submit')
+                  | Delete

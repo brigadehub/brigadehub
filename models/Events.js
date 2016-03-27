@@ -1,6 +1,5 @@
 var mongoose = require('mongoose')
 var request = require('request')
-var Event = require
 var eventsSchema = new mongoose.Schema({
   // Follows fullcalendar's event object model, display options omitted:
   // http://fullcalendar.io/docs/event_data/Event_Object/
@@ -26,11 +25,12 @@ eventsSchema.statics.fetchMeetupEvents = function (meetupid) {
   getEvents(meetupid, function (err, aggregate) {
     if (err) console.error(err)
     if (aggregate.length < 1) {
-      console.error("There was a problem in importing your events.")
+      console.error('There was a problem in importing your events.')
     } else {
-      aggregate.forEach(function (outing){
-        Events.find({'id': outing.id}, function (err, foundEvents){
+      aggregate.forEach(function (outing) {
+        Events.find({'id': outing.id}, function (err, foundEvents) {
           if (foundEvents.length < 1) {
+            if (err) console.error(err)
             var eventData = createUpdateEventData(outing, {})
             var newEvent = new Events(eventData)
             newEvent.save(function (err) {
@@ -49,13 +49,12 @@ eventsSchema.statics.fetchMeetupEvents = function (meetupid) {
   })
 }
 
-function getEvents(meetupid, callback) {
+function getEvents (meetupid, callback) {
   request(meetupid, function (error, response, body) {
     if (!error && response.statusCode === 200) {
-        var parsed = JSON.parse(body)
-        return callback(null, parsed.results)
-      }
-    else {
+      var parsed = JSON.parse(body)
+      return callback(null, parsed.results)
+    } else {
       return callback(error, [])
     }
   })
@@ -67,10 +66,10 @@ function createUpdateEventData (event, original, brigade) {
   eventData.title = event.name || ''
   eventData.url = event.event_url || ''
   eventData.description = event.description || ''
-  eventData.location = event.venue.address_1 + ' ' +event.venue.city || ''
+  eventData.location = event.venue.address_1 + ' ' + event.venue.city || ''
   eventData.hosts = event.venue.name || ''
-  eventData.start = new Date(event.time).toLocaleString() || ''
-  eventData.end = new Date(event.time + event.duration).toLocaleString() || ''
+  eventData.start = new Date(event.time).toISOString() || ''
+  eventData.end = new Date(event.time + event.duration).toISOString() || ''
   return eventData
 }
 

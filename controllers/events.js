@@ -6,14 +6,8 @@ module.exports = {
    * List of Event examples.
    */
   getEvents: function (req, res) {
-    // try {
-    //   var meetupid = res.locals.brigade.meetup.split('.com/')[1].replace(/\//g, '')
-    // } catch (err) {
-    //   meetupid = 'null'
-    // } finally {
-    //   var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
-    // }
     Events.find({}, function (err, foundEvents) {
+      if (err) console.error(err)
       res.render(res.locals.brigade.theme.slug + '/views/events/index', {
         events: foundEvents,
         upcomingevents: foundEvents.slice(0, 10),
@@ -27,10 +21,14 @@ module.exports = {
    * Manage Events.
    */
   getEventsManage: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/events/manage', {
-      title: 'Manage Events',
-      brigade: res.locals.brigade
-    })
+    Events.find({}, function (err, foundEvents) {
+      res.render(res.locals.brigade.theme.slug + '/views/events/manage', {
+        title: 'Manage Events',
+        allEvents: foundEvents,
+        brigade: res.locals.brigade
+      })
+    }).sort({start: 1})
+
   },
   /**
    * POST /events/manage
@@ -94,6 +92,7 @@ module.exports = {
     var meetupid = res.locals.brigade.meetup.split('.com/')[1].replace(/\//g, '')
     var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
     Events.fetchMeetupEvents(url)
+    req.flash('success', { msg: 'Success! You have successfully synced events from Meetup.' })
     res.redirect('/events/manage')
   },
   /**
@@ -102,5 +101,14 @@ module.exports = {
    */
   postEventsIDSync: function (req, res) {
     res.redirect('Events/' + req.params.eventID + '/settings')
+  },
+
+  postDeleteEvent: function (req, res) {
+    Events.remove({ id: req.params.eventId }, function (err) {
+      if (err) {
+        return next(err)
+      }
+      res.redirect('/events/manage')
+    })
   }
 }

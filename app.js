@@ -183,7 +183,7 @@ app.get('/events/:eventId', eventsCtrl.getEventsID)
 app.post('/events/:eventId', passportConf.isAuthenticated, eventsCtrl.postEventsIDSettings)
 app.get('/events/:eventId/settings', passportConf.isAuthenticated, eventsCtrl.getEventsIDSettings)
 app.post('/events/:eventId/sync', passportConf.isAuthenticated, eventsCtrl.postEventsIDSync)
-
+app.post('/events/:eventId/delete', passportConf.isAuthenticated, eventsCtrl.postDeleteEvent)
 /**
  * Blog routes.
  */
