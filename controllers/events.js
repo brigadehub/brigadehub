@@ -71,10 +71,14 @@ module.exports = {
    * IDSettings Events.
    */
   getEventsIDSettings: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/events/settings', {
-      eventID: req.params.eventID,
-      title: 'IDSettings Events',
-      brigade: res.locals.brigade
+    Events.find( {id: req.params.eventId}, function (err, foundEvent) {
+      if (err) console.log(err)
+      console.log(foundEvent)
+      res.render(res.locals.brigade.theme.slug + '/views/events/settings', {
+        event: foundEvent[0],
+        title: 'IDSettings Events',
+        brigade: res.locals.brigade
+      })
     })
   },
   /**
@@ -82,7 +86,8 @@ module.exports = {
    * Submit IDSettings Events.
    */
   postEventsIDSettings: function (req, res) {
-    res.redirect('Events/' + req.params.eventID + '/settings')
+    console.log(req.params)
+    res.redirect('/events/' + req.params.eventId + '/settings')
   },
   /**
    * POST /events/sync

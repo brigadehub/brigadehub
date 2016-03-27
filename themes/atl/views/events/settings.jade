@@ -3,3 +3,35 @@ extends ../layout
 block content
   .page-header
     h3 Event Settings
+    form.row.form-horizontal(action='/events/#{event.id}', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .form-group
+          label.col-sm-3.control-label(for='title') Event title
+          .col-sm-7
+            input.form-control(type='name', name='title', id='title', value='#{event.title}')
+        .form-group
+          label.col-sm-3.control-label(for='location') Location
+          .col-sm-7
+            input.form-control(type='location', name='location', id='location', value='#{event.location}')
+        .form-group
+          label.col-sm-3.control-label(for='start') Event start
+          .col-sm-7
+            input.form-control(type='start', name='start', id='start', value='#{event.start}')
+        .form-group
+          label.col-sm-3.control-label(for='end') Event end
+          .col-sm-7
+            input.form-control(type='end', name='end', id='end', value='#{event.end}')
+        .form-group
+          label.col-sm-3.control-label(for='url') Event URL
+          .col-sm-7
+            input.form-control(type='name', name='url', id='url', value='#{event.url}')
+        .form-group
+          label.col-sm-3.control-label(for='description') Description
+          .col-sm-7
+            textarea.form-control(name='description', id='description', rows="6")
+              | #{event.description}
+        .form-group
+          .col-sm-offset-3.col-sm-4
+            button.btn.btn.btn-primary(type='submit')
+              i.fa.fa-pencil
+              | Update Event
