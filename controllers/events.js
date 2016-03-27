@@ -52,7 +52,12 @@ module.exports = {
    * Submit New Events.
    */
   postEventsNew: function (req, res) {
-    res.redirect('events/new')
+    var newEvent = new Events(req.body)
+    newEvent.id = newEvent._id
+    newEvent.save(function (err) {
+      if (err) console.error(err)
+    })
+    res.redirect('/events/new')
   },
 
   /**
@@ -85,7 +90,6 @@ module.exports = {
    * Submit IDSettings Events.
    */
   postEventsIDSettings: function (req, res) {
-    console.log(req.body)
     Events.find({id: req.params.eventId}, function (err, foundEvent) {
       if (err) console.log(err)
       var thisEvent = foundEvent[0]
