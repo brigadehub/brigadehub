@@ -32,18 +32,19 @@ eventsSchema.statics.fetchMeetupEvents = function (meetupid) {
           Events.find({'id': outing.id}, function (err, foundEvents) {
             if (foundEvents.length < 1) {
               if (err) console.error(err)
-              var eventData = createUpdateEventData(outing, {})
+              var eventData = createUpdateEventData(outing)
               var newEvent = new Events(eventData)
               newEvent.save(function (err) {
                 if (err) console.error(err)
               })
-            } else {
-              var thisEvent = foundEvents[0]
-              thisEvent = createUpdateEventData(outing, thisEvent)
-              thisEvent.save(function (err) {
-                if (err) console.error(err)
-              })
             }
+            // else {
+            //   var thisEvent = foundEvents[0]
+            //   thisEvent = createUpdateEventData(outing)
+            //   thisEvent.save(function (err) {
+            //     if (err) console.error(err)
+            //   })
+            // }
           })
         })
         resolve()
@@ -63,8 +64,8 @@ function getEvents (meetupid, callback) {
   })
 }
 
-function createUpdateEventData (event, original, brigade) {
-  var eventData = original || {}
+function createUpdateEventData (event) {
+  var eventData = {}
   eventData.id = event.id || ''
   eventData.title = event.name || ''
   eventData.url = event.event_url || ''
