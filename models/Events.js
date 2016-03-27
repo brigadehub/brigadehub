@@ -22,30 +22,33 @@ eventsSchema.methods.fetchGoogleEvents = function (cb) {
 
 eventsSchema.statics.fetchMeetupEvents = function (meetupid) {
   var Events = this
-  getEvents(meetupid, function (err, aggregate) {
-    if (err) console.error(err)
-    if (aggregate.length < 1) {
-      console.error('There was a problem in importing your events.')
-    } else {
-      aggregate.forEach(function (outing) {
-        Events.find({'id': outing.id}, function (err, foundEvents) {
-          if (foundEvents.length < 1) {
-            if (err) console.error(err)
-            var eventData = createUpdateEventData(outing, {})
-            var newEvent = new Events(eventData)
-            newEvent.save(function (err) {
+  return new Promise(function (resolve, reject) {
+    getEvents(meetupid, function (err, aggregate) {
+      if (err) console.error(err)
+      if (aggregate.length < 1) {
+        console.error('There was a problem in importing your events.')
+      } else {
+        aggregate.forEach(function (outing) {
+          Events.find({'id': outing.id}, function (err, foundEvents) {
+            if (foundEvents.length < 1) {
               if (err) console.error(err)
-            })
-          } else {
-            var thisEvent = foundEvents[0]
-            thisEvent = createUpdateEventData(outing, thisEvent)
-            thisEvent.save(function (err) {
-              if (err) console.error(err)
-            })
-          }
+              var eventData = createUpdateEventData(outing, {})
+              var newEvent = new Events(eventData)
+              newEvent.save(function (err) {
+                if (err) console.error(err)
+              })
+            } else {
+              var thisEvent = foundEvents[0]
+              thisEvent = createUpdateEventData(outing, thisEvent)
+              thisEvent.save(function (err) {
+                if (err) console.error(err)
+              })
+            }
+          })
         })
-      })
-    }
+        resolve()
+      }
+    })
   })
 }
 
