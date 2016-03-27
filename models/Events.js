@@ -27,13 +27,21 @@ eventsSchema.statics.fetchMeetupEvents = function (meetupid) {
     if (err) console.error(err)
     if (aggregate.length < 1) {
       console.error("There was a problem in importing your events.")
-    }
-    else {
+    } else {
       aggregate.forEach(function (outing){
         Events.find({'id': outing.id}, function (err, foundEvents){
           if (foundEvents.length < 1) {
             var eventData = createUpdateEventData(outing, {})
-            console.log(eventData)
+            var newEvent = new Events(eventData)
+            newEvent.save(function (err) {
+              if (err) console.error(err)
+            })
+          } else {
+            var thisEvent = foundEvents[0]
+            thisEvent = createUpdateEventData(outing, thisEvent)
+            thisEvent.save(function (err) {
+              if (err) console.error(err)
+            })
           }
         })
       })
@@ -54,7 +62,7 @@ function getEvents(meetupid, callback) {
 }
 
 function createUpdateEventData (event, original, brigade) {
-  var eventData = {}
+  var eventData = original || {}
   eventData.id = event.id || ''
   eventData.title = event.name || ''
   eventData.url = event.event_url || ''

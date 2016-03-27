@@ -17,7 +17,7 @@ block content
       tr
         th Event name
         th Date & time
-        th Venue
+        th Hosts
         th Address
         th
     tbody
@@ -25,10 +25,10 @@ block content
         tr
           td #{event.title}
           td #{event.start}
-          td #{event.venue}
-          td #{event.address}, #{event.city}
+          td #{event.hosts[0]}
+          td #{event.location}
           td
-            a(href='#{event.url_page}', class="mu-rsvp-btn") RSVP
+            a(href='#{event.url}', class="mu-rsvp-btn") RSVP
   script.
     ! function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
