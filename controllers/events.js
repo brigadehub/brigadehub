@@ -14,7 +14,7 @@ module.exports = {
         title: 'Events',
         brigade: res.locals.brigade
       })
-    })
+    }).sort({start: 1})
   },
   /**
    * GET /events/manage
