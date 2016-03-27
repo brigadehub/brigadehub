@@ -71,9 +71,8 @@ module.exports = {
    * IDSettings Events.
    */
   getEventsIDSettings: function (req, res) {
-    Events.find( {id: req.params.eventId}, function (err, foundEvent) {
+    Events.find({id: req.params.eventId}, function (err, foundEvent) {
       if (err) console.log(err)
-      console.log(foundEvent)
       res.render(res.locals.brigade.theme.slug + '/views/events/settings', {
         event: foundEvent[0],
         title: 'IDSettings Events',
@@ -86,8 +85,22 @@ module.exports = {
    * Submit IDSettings Events.
    */
   postEventsIDSettings: function (req, res) {
-    console.log(req.params)
-    res.redirect('/events/' + req.params.eventId + '/settings')
+    console.log(req.body)
+    Events.find({id: req.params.eventId}, function (err, foundEvent) {
+      if (err) console.log(err)
+      var thisEvent = foundEvent[0]
+      thisEvent.title = req.body.title
+      thisEvent.location = req.body.location
+      thisEvent.start = req.body.start
+      thisEvent.end = req.body.end
+      thisEvent.url = req.body.url
+      thisEvent.description = req.body.description
+      thisEvent.save(function (err) {
+        if (err) console.log(err)
+      })
+      req.flash('success', {msg: 'Success! You have updated your event.'})
+      res.redirect('/events/' + req.params.eventId + '/settings')
+    })
   },
   /**
    * POST /events/sync
@@ -97,10 +110,10 @@ module.exports = {
     var meetupid = res.locals.brigade.meetup.split('.com/')[1].replace(/\//g, '')
     var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
     Events.fetchMeetupEvents(url).then(function (value) {
-      req.flash('success', { msg: 'Success! You have successfully synced events from Meetup.' })
+      req.flash('success', {msg: 'Success! You have successfully synced events from Meetup.'})
       res.redirect('/events/manage')
     }).catch(function (error) {
-      req.flash('errors', { msg: error })
+      req.flash('errors', {msg: error})
       res.redirect('/events/manage')
     })
   },
@@ -113,7 +126,7 @@ module.exports = {
   },
 
   postDeleteEvent: function (req, res) {
-    Events.remove({ id: req.params.eventId }, function (err) {
+    Events.remove({id: req.params.eventId}, function (err) {
       if (err) {
         console.log(err)
       }
