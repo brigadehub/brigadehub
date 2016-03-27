@@ -124,9 +124,24 @@ module.exports = {
   postEventsIDSync: function (req, res) {
     res.redirect('Events/' + req.params.eventID + '/settings')
   },
-
+  /**
+   * POST /events/:eventId/delete
+   * Delete Events.
+   */
   postDeleteEvent: function (req, res) {
     Events.remove({id: req.params.eventId}, function (err) {
+      if (err) {
+        console.log(err)
+      }
+      res.redirect('/events/manage')
+    })
+  },
+  /**
+   * POST /events/:eventId/delete
+   * Delete Events.
+   */
+  postDeleteAllEvents: function (req, res) {
+    Events.remove({}, function (err) {
       if (err) {
         console.log(err)
       }
