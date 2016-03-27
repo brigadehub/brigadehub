@@ -26,7 +26,7 @@ eventsSchema.statics.fetchMeetupEvents = function (meetupid) {
     getEvents(meetupid, function (err, aggregate) {
       if (err) console.error(err)
       if (aggregate.length < 1) {
-        console.error('There was a problem in importing your events.')
+        reject('We were unable to find any events attached to your Meetup account. Please check your Meetup.com credentials if you were expecting to import some events. ')
       } else {
         aggregate.forEach(function (outing) {
           Events.find({'id': outing.id}, function (err, foundEvents) {

@@ -22,13 +22,13 @@ module.exports = {
    */
   getEventsManage: function (req, res) {
     Events.find({}, function (err, foundEvents) {
+      if (err) console.error(err)
       res.render(res.locals.brigade.theme.slug + '/views/events/manage', {
         title: 'Manage Events',
         allEvents: foundEvents,
         brigade: res.locals.brigade
       })
     }).sort({start: 1})
-
   },
   /**
    * POST /events/manage
@@ -94,6 +94,9 @@ module.exports = {
     Events.fetchMeetupEvents(url).then(function (value) {
       req.flash('success', { msg: 'Success! You have successfully synced events from Meetup.' })
       res.redirect('/events/manage')
+    }).catch(function (error) {
+      req.flash('errors', { msg: error })
+      res.redirect('/events/manage')
     })
   },
   /**
@@ -107,7 +110,7 @@ module.exports = {
   postDeleteEvent: function (req, res) {
     Events.remove({ id: req.params.eventId }, function (err) {
       if (err) {
-        return next(err)
+        console.log(err)
       }
       res.redirect('/events/manage')
     })
