@@ -29,7 +29,7 @@ block content
         each event in allEvents
           tr
             td #{event.title}
-            td #{event.start}
+            td #{moment(event.start).format('YYYY-MM-DD HH:mm')}
             td #{event.hosts[0]}
             td #{event.location}
             td

@@ -1,5 +1,6 @@
 var mongoose = require('mongoose')
 var request = require('request')
+var moment = require('moment')
 var eventsSchema = new mongoose.Schema({
   // Follows fullcalendar's event object model, display options omitted:
   // http://fullcalendar.io/docs/event_data/Event_Object/
@@ -72,8 +73,8 @@ function createUpdateEventData (event) {
   eventData.description = event.description || ''
   eventData.location = event.venue.address_1 + ' ' + event.venue.city || ''
   eventData.hosts = event.venue.name || ''
-  eventData.start = new Date(event.time).toISOString() || ''
-  eventData.end = new Date(event.time + event.duration).toISOString() || ''
+  eventData.start = moment(new Date(event.time)).format() || ''
+  eventData.end = moment(new Date(event.time + event.duration)).format() || ''
   return eventData
 }
 

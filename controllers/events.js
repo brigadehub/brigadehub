@@ -1,5 +1,5 @@
 var Events = require('../models/Events')
-
+var moment = require('moment')
 module.exports = {
   /**
    * GET /events
@@ -12,7 +12,8 @@ module.exports = {
         events: foundEvents,
         upcomingevents: foundEvents.slice(0, 10),
         title: 'Events',
-        brigade: res.locals.brigade
+        brigade: res.locals.brigade,
+        moment: moment
       })
     }).sort({start: 1})
   },
@@ -26,7 +27,8 @@ module.exports = {
       res.render(res.locals.brigade.theme.slug + '/views/events/manage', {
         title: 'Manage Events',
         allEvents: foundEvents,
-        brigade: res.locals.brigade
+        brigade: res.locals.brigade,
+        moment: moment
       })
     }).sort({start: 1})
   },
@@ -80,7 +82,9 @@ module.exports = {
       if (err) console.log(err)
       res.render(res.locals.brigade.theme.slug + '/views/events/settings', {
         event: foundEvent[0],
-        title: 'IDSettings Events',
+        title: 'Event Settings',
+        start: moment(foundEvent[0].start).format('YYYY-MM-DD HH:mm'),
+        end: moment(foundEvent[0].end).format('YYYY-MM-DD HH:mm'),
         brigade: res.locals.brigade
       })
     })
@@ -95,8 +99,8 @@ module.exports = {
       var thisEvent = foundEvent[0]
       thisEvent.title = req.body.title
       thisEvent.location = req.body.location
-      thisEvent.start = req.body.start
-      thisEvent.end = req.body.end
+      thisEvent.start = moment(req.body.start, moment.ISO_8601).format()
+      thisEvent.end = moment(req.body.end, moment.ISO_8601).format()
       thisEvent.url = req.body.url
       thisEvent.description = req.body.description
       thisEvent.save(function (err) {
