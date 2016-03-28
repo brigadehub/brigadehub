@@ -1,20 +1,21 @@
 'use strict'
 
-var test = require('tape-catch')
-var Blog = require('../../models/Blogs')
-var uuid = require('uuid')
+const test = require('tape-catch')
+const Blog = require('../../models/Blogs')
+const uuid = require('uuid')
 
 var db = require('../db-connect')()
 
 test('Blogs #save()', function (t) {
-  t.plan(2)
+  t.plan(4)
 
   var uniquePostName = uuid.v4()
 
   let blogpost = new Blog({
     title: uniquePostName,
     plaintextcontent: '# Had a floopsy',
-    htmlcontent: '<p> La floop floop </p>'
+    htmlcontent: '<p> La floop floop </p>',
+    date: '1459186599827'
   })
 
   let duplicateblogpost = new Blog({
@@ -48,6 +49,28 @@ test('Blogs #save()', function (t) {
       } else {
         console.log('no error')
         t.fail()
+        t.end()
+      }
+    })
+  })
+
+  t.test('should generate a caption from htmlcontent', function (t) {
+    blogpost.save(function (err, blogpost) {
+      if (err) {
+        t.end(err)
+      } else {
+        t.equal(blogpost.caption, ' La floop floop ')
+        t.end()
+      }
+    })
+  })
+
+  t.test('should generate a normalizedDate field', function (t) {
+    blogpost.save(function (err) {
+      if (err) {
+        t.end(err)
+      } else {
+        t.equal(blogpost.normalizedDate, 'Tuesday, March 29th 2016, 1AM')
         t.end()
       }
     })
