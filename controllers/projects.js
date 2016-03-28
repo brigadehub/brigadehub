@@ -13,8 +13,8 @@ module.exports = {
     Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
       if (err) console.error(err)
       var allKeywords = []
-      foundProjects.forEach(function(project) {
-        project.keywords.forEach(function(keyword) {
+      foundProjects.forEach(function (project) {
+        project.keywords.forEach(function (keyword) {
           if (allKeywords.indexOf(keyword) < 0) {
             allKeywords.push(keyword)
           }
