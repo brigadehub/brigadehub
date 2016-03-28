@@ -56,9 +56,12 @@ module.exports = {
   postEventsNew: function (req, res) {
     var newEvent = new Events(req.body)
     newEvent.id = newEvent._id
+    newEvent.start = moment(newEvent.start, moment.ISO_8601).format()
+    newEvent.end = moment(newEvent.end, moment.ISO_8601).format()
     newEvent.save(function (err) {
       if (err) console.error(err)
     })
+    req.flash('success', {msg: 'Success! You have created an event.'})
     res.redirect('/events/new')
   },
 
