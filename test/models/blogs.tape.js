@@ -55,7 +55,7 @@ test('Blogs #save()', function (t) {
   })
 
   t.test('should generate a caption from htmlcontent', function (t) {
-    blogpost.save(function (err, blogpost) {
+    blogpost.save(function (err) {
       if (err) {
         t.end(err)
       } else {
@@ -66,6 +66,9 @@ test('Blogs #save()', function (t) {
   })
 
   t.test('should generate a normalizedDate field', function (t) {
+    console.log(blogpost)
+    console.log(blogpost.date)
+    console.log(blogpost.normalizedDate)
     blogpost.save(function (err) {
       if (err) {
         t.end(err)
