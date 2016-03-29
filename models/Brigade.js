@@ -45,6 +45,10 @@ var brigadeSchema = new mongoose.Schema({
     google: {
       clientId: String,
       clientSecret: String
+    },
+    email: {
+      user: String,
+      password: String
     }
   },
   auditLog: Array

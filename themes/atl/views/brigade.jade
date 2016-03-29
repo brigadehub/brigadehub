@@ -119,6 +119,16 @@ block content
         label.col-sm-3.control-label(for='meetup-client-secret') Client Secret
         .col-sm-7
           input.form-control(type='meetup-client-secret', name='meetup-client-secret', secret='meetup-client-secret', value='#{brigade.auth.meetup.consumerSecret}')
+    .row
+      h4 Contact form email credentials
+      .form-group
+        label.col-sm-3.control-label(for='emailuser') Brigade email
+        .col-sm-7
+          input.form-control(type='text', name='emailuser', id='emailuser', value='#{brigade.auth.email.user}')
+      .form-group
+        label.col-sm-3.control-label(for='emailpass') Brigade email password
+        .col-sm-7
+          input.form-control(type='password', name='emailpass', id='emailpass', value='#{brigade.auth.email.password}')
     .form-group
       .col-sm-offset-3.col-sm-4
         button.btn.btn.btn-primary(type='submit')
