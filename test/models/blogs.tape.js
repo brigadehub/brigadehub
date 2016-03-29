@@ -60,9 +60,6 @@ test('Blogs #save()', function (t) {
   })
 
   t.test('should generate a normalizedDate field', function (t) {
-    console.log(blogpost)
-    console.log(blogpost.date)
-    console.log(blogpost.normalizedDate)
     blogpost.save(function (err) {
       if (err) {
         t.end(err)
@@ -74,6 +71,5 @@ test('Blogs #save()', function (t) {
   })
 })
 test.onFinish(function () {
-  console.log('finished tests')
   db.disconnect()
 })
