@@ -149,6 +149,7 @@ module.exports = {
       if (err) {
         console.log(err)
       }
+      req.flash('success', {msg: 'Your event was deleted.'})
       res.redirect('/events/manage')
     })
   },
@@ -161,6 +162,7 @@ module.exports = {
       if (err) {
         console.log(err)
       }
+      req.flash('success', {msg: 'Your events were deleted.'})
       res.redirect('/events/manage')
     })
   }
