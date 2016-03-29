@@ -20,27 +20,28 @@ block content
             th email
             th brigadehub permissions
             th github ID
-        tbody  
+        tbody
           each user in users
             tr
-              td.select 
+              td.select
                 input.select-user(type="checkbox", value=user.username)
               td.username= user.username
               td.name= user.profile.name
               td.email= user.email
               td.roles
                 if user.roles.read
-                  span.role Read, 
+                  span.role Read,
                 if user.roles.blog
-                  span.role Blog, 
+                  span.role Blog,
                 if user.roles.project
-                  span.role Project, 
+                  span.role Project,
                 if user.roles.lead
-                  span.role Project Lead, 
+                  span.role Project Lead,
                 if user.roles.core
-                  span.role Core, 
+                  span.role Core,
                 if user.roles.coreLead
-                  span.role Core Team Lead, 
+                  span.role Core Team Lead,
                 if user.roles.superAdmin
                   span.role Super Admin
               td.github= user.github
+

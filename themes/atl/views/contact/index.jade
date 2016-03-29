@@ -8,44 +8,51 @@ block content
   .row
     .col-sm-9
       .row
+      each user in users
         .col-sm-6
           .row
             .col-sm-3
-                img(src="http://lorempixel.com/g/81/81/")
+                img(src="#{user.profile.picture}", width='80')
             .col-sm-9
-                h3
-                  a(href="#") Krzysztof Madejski
-                p Koordynator ogólnopolski
+              if user.profile.name
+                h3 #{user.profile.name}
+              else
+                h3 name placeholder
+              if user.profile.position
+                p #{user.profile.position}
+              else
+                p position placeholder
+              if user.profile.showcontact
                 p
-                  a(href="#") krzysztof.madejski@epf.org.pl
-                p 664 082 823
-        .col-sm-6
-          .row 
-            .col-sm-3
-                img(src="http://lorempixel.com/g/81/81/")
-            .col-sm-9
-                h3 
-                  a(href="#") Krzysztof Madejski
-                p Koordynator ogólnopolski
-                p
-                  a(href="#") krzysztof.madejski@epf.org.pl
-                p 664 082 823
-      .row
-        .col-sm-6
-          .row
-            .col-sm-3
-                img(src="http://lorempixel.com/g/81/81/")
-            .col-sm-9
-                h3
-                  a(href="#") Krzysztof Madejski
-                p Koordynator ogólnopolski
-                p
-                  a(href="#") krzysztof.madejski@epf.org.pl
-                p 664 082 823
+                  a(href="mailto: #{user.email}") email
     .col-sm-3
       h2 See Also
       img(src="http://lorempixel.com/g/240/240/")
-      p 
+      p
         a(href="#") Visualization Budget Lodz
       p We visualize the budget of the city of Lodz
       img(src="http://lorempixel.com/g/240/240/")
+  hr
+  .row
+    h5.text-xs-center Send a message to the brigade:
+    form.row.form-horizontal(action='/contact', method='POST')
+      input(type='hidden', name='_csrf', value=_csrf)
+      .form-group.text-xs-right
+        label.col-sm-3.control-label(for='name') Name
+        .col-sm-3
+          input.form-control(type='name', name='name', id='name', value='')
+        |<br>
+      .form-group.text-xs-right
+        label.col-sm-3.control-label(for='email') Email
+        .col-sm-3
+          input.form-control(type='email', name='email', id='email', value='')
+        |<br>
+      .form-group.text-xs-right
+        label.col-sm-3.control-label(for='message') Message
+        .col-sm-6
+          textarea.form-control(name='message', id='message', rows="6")
+      .form-group
+        .col-sm-offset-3.col-sm-4
+          button.btn.btn.btn-primary(type='submit')
+            i.fa.fa-pencil
+            | Send Message
