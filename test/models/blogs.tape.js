@@ -3,6 +3,7 @@
 const test = require('tape-catch')
 const Blog = require('../../models/Blogs')
 const uuid = require('uuid')
+const moment = require('moment')
 
 var db = require('../db-connect')()
 
@@ -11,11 +12,12 @@ test('Blogs #save()', function (t) {
 
   var uniquePostName = uuid.v4()
 
+  let date = Date.now()
   let blogpost = new Blog({
     title: uniquePostName,
     plaintextcontent: '# Had a floopsy',
     htmlcontent: '<p> La floop floop </p>',
-    date: '1459186599827'
+    date: date
   })
 
   let duplicateblogpost = new Blog({
@@ -25,9 +27,7 @@ test('Blogs #save()', function (t) {
   })
 
   t.test('should save', function (t) {
-    console.log('saving')
     blogpost.save(function (err) {
-      console.log('end of save')
       if (err) {
         t.end(err)
       } else {
@@ -37,17 +37,11 @@ test('Blogs #save()', function (t) {
   })
 
   t.test('should throw validation error on duplicate title', function (t) {
-    console.log('saving')
-
     duplicateblogpost.save(function (err) {
-      console.log('end of save')
-
       if (err) {
-        console.log('error')
         t.pass()
         t.end()
       } else {
-        console.log('no error')
         t.fail()
         t.end()
       }
@@ -73,7 +67,7 @@ test('Blogs #save()', function (t) {
       if (err) {
         t.end(err)
       } else {
-        t.equal(blogpost.normalizedDate, 'Tuesday, March 29th 2016, 1AM')
+        t.equal(blogpost.normalizedDate, moment(date).format('dddd, MMMM Do YYYY, hA'))
         t.end()
       }
     })
