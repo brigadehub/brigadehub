@@ -4,39 +4,43 @@ extends ../layout
 
 block content
   .row.page-header
-    h3 All Events
+    .col-sm-12
+      h1 Events
   .row
-    p
-      #events-calendar
-  script.
-    // make this object available to frontend js for rendering in calendar
-    window._events = !{JSON.stringify(events).replace(/<\//g, "<\\/")}
-  h1 Upcoming events list
-  table.table
-    thead
-      tr
-        th Event name
-        th Date & time
-        th Venue
-        th Address
-        th
-    tbody
-      each event in upcomingevents
-        tr
-          td #{event.title}
-          td #{event.start}
-          td #{event.venue}
-          td #{event.address}, #{event.city}
-          td
-            a(href='#{event.url_page}', class="mu-rsvp-btn") RSVP
-  script.
-    ! function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (!d.getElementById(id)) {
-          js = d.createElement(s);
-          js.id = id;
-          js.async = true;
-          js.src = "https://a248.e.akamai.net/secure.meetupstatic.com/s/script/2012676015776998360572/api/mu.btns.js?id=#{brigade.auth.meetup.consumerKey}";
-          fjs.parentNode.insertBefore(js, fjs);
-      }
-    }(document, "script", "mu-bootjs");
+    .col-sm-12
+      p
+        #events-calendar
+    script.
+      // make this object available to frontend js for rendering in calendar
+      window._events = !{JSON.stringify(events).replace(/<\//g, "<\\/")}
+  .row
+    .col-sm-12
+      h1 Upcoming events list
+      table.table
+        thead
+          tr
+            th Event name
+            th Date &amp; time
+            th Venue
+            th Address
+            th
+        tbody
+          each event in upcomingevents
+            tr
+              td #{event.title}
+              td #{event.start}
+              td #{event.venue}
+              td #{event.address}, #{event.city}
+              td
+                a(href='#{event.url_page}', class="mu-rsvp-btn") RSVP
+      script.
+        ! function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (!d.getElementById(id)) {
+              js = d.createElement(s);
+              js.id = id;
+              js.async = true;
+              js.src = "https://a248.e.akamai.net/secure.meetupstatic.com/s/script/2012676015776998360572/api/mu.btns.js?id=#{brigade.auth.meetup.consumerKey}";
+              fjs.parentNode.insertBefore(js, fjs);
+          }
+        }(document, "script", "mu-bootjs");
