@@ -30,22 +30,15 @@ eventsSchema.statics.fetchMeetupEvents = function (meetupid) {
         reject('We were unable to find any events attached to your Meetup account. Please check your Meetup.com credentials if you were expecting to import some events. ')
       } else {
         aggregate.forEach(function (outing) {
-          Events.find({'id': outing.id}, function (err, foundEvents) {
-            if (foundEvents.length < 1) {
+          Events.find({'id': outing.id}, function (err, foundEvent) {
+            if (foundEvent.length < 1) {
               if (err) console.error(err)
-              var eventData = createUpdateEventData(outing)
+              var eventData = createEventData(outing)
               var newEvent = new Events(eventData)
               newEvent.save(function (err) {
                 if (err) console.error(err)
               })
             }
-            // else {
-            //   var thisEvent = foundEvents[0]
-            //   thisEvent = createUpdateEventData(outing)
-            //   thisEvent.save(function (err) {
-            //     if (err) console.error(err)
-            //   })
-            // }
           })
         })
         resolve()
@@ -65,7 +58,7 @@ function getEvents (meetupid, callback) {
   })
 }
 
-function createUpdateEventData (event) {
+function createEventData (event) {
   var eventData = {}
   eventData.id = event.id || ''
   eventData.title = event.name || ''
