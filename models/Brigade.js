@@ -3,6 +3,7 @@ var mongoose = require('mongoose')
 var brigadeSchema = new mongoose.Schema({
   name: String,
   slug: String,
+  heroImage: String,
   recoveryEmail: String,
   location: {
     general: String,
@@ -44,6 +45,10 @@ var brigadeSchema = new mongoose.Schema({
     google: {
       clientId: String,
       clientSecret: String
+    },
+    email: {
+      user: String,
+      password: String
     }
   },
   auditLog: Array

@@ -16,6 +16,11 @@ block content
         textarea.form-control(name='description', id='description', rows="6")
           | #{ brigade.copy.description }
     .form-group
+      label.col-sm-3.control-label(for='tagline') Tagline
+      .col-sm-7
+        textarea.form-control(name='tagline', id='tagline', rows="6")
+          | #{ brigade.copy.tagline }
+    .form-group
       label.col-sm-3.control-label(for='location') Location
       .col-sm-7
         input.form-control(type='text', name='location', id='location', value='#{brigade.location.general}')
@@ -23,6 +28,10 @@ block content
       label.col-sm-3.control-label(for='url') Site Url
       .col-sm-7
         input.form-control(type='text', name='url', id='url', value='#{brigade.url}')
+    .form-group
+      label.col-sm-3.control-label(for='heroImage') Image Url
+      .col-sm-7
+        input.form-control(type='text', name='heroImage', id='heroImage', value='#{brigade.heroImage}')
     .form-group
       label.col-sm-3.control-label(for='github') Github Group
       .col-sm-7
@@ -110,6 +119,16 @@ block content
         label.col-sm-3.control-label(for='meetup-client-secret') Client Secret
         .col-sm-7
           input.form-control(type='meetup-client-secret', name='meetup-client-secret', secret='meetup-client-secret', value='#{brigade.auth.meetup.consumerSecret}')
+    .row
+      h4 Contact form email credentials
+      .form-group
+        label.col-sm-3.control-label(for='emailuser') Brigade email
+        .col-sm-7
+          input.form-control(type='text', name='emailuser', id='emailuser', value='#{brigade.auth.email.user}')
+      .form-group
+        label.col-sm-3.control-label(for='emailpass') Brigade email password
+        .col-sm-7
+          input.form-control(type='password', name='emailpass', id='emailpass', value='#{brigade.auth.email.password}')
     .form-group
       .col-sm-offset-3.col-sm-4
         button.btn.btn.btn-primary(type='submit')
