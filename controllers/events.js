@@ -102,6 +102,7 @@ module.exports = {
       var thisEvent = foundEvent[0]
       thisEvent.title = req.body.title
       thisEvent.location = req.body.location
+      thisEvent.hosts = req.body.hosts
       thisEvent.start = moment(req.body.start, moment.ISO_8601).format()
       thisEvent.end = moment(req.body.end, moment.ISO_8601).format()
       thisEvent.url = req.body.url
