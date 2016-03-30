@@ -7,29 +7,32 @@ block content
     .col-sm-12
       h1 Events
   .row
-    p
-      #events-calendar
+    .col-sm-12
+      p
+        #events-calendar
   script.
     // make this object available to frontend js for rendering in calendar
     window._events = !{JSON.stringify(events).replace(/<\//g, "<\\/")}
-  h1 Upcoming events list
-  table.table
-    thead
-      tr
-        th Event name
-        th Date & time
-        th Hosts
-        th Address
-        th
-    tbody
-      each event in upcomingevents
-        tr
-          td #{event.title}
-          td #{moment(event.start).format('YYYY-MM-DD HH:mm')}
-          td #{event.hosts[0]}
-          td #{event.location}
-          td
-            a(href='#{event.url}', class="mu-rsvp-btn") RSVP
+  .row
+    .col-sm-12
+      h1 Upcoming events list
+      table.table
+        thead
+          tr
+            th Event name
+            th Date & time
+            th Hosts
+            th Address
+            th
+        tbody
+          each event in upcomingevents
+            tr
+              td #{event.title}
+              td #{moment(event.start).format('YYYY-MM-DD HH:mm')}
+              td #{event.hosts[0]}
+              td #{event.location}
+              td
+                a(href='#{event.url}', class="mu-rsvp-btn") RSVP
   script.
     ! function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
