@@ -19,7 +19,12 @@ block content
       .col-sm-3.sidebar
         //parent list
         ul
-          mixin sidebarItem('Keywords',keywords)
+          mixin sidebarItem('Project status',['Development','Public test','Official / running'])
+          mixin sidebarItem('Dedicated for',['Civil society organizations','Cities','Watchdogs'])
+          mixin sidebarItem('Development status',['active','Suspended'])
+          mixin sidebarItem('Join as',['backend developer','frontend developer','designer','editorial staff'])
+          mixin sidebarItem('Developed locally in',['San Francisco'])
+          mixin sidebarItem('Technologies',['Android','AngularJS','Django','iOS','Javascript'])
       //Add projects    
       .col-sm-9
         .row

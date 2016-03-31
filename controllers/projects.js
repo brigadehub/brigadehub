@@ -12,19 +12,10 @@ module.exports = {
   getProjects: function (req, res) {
     Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
       if (err) console.error(err)
-      var allKeywords = []
-      foundProjects.forEach(function (project) {
-        project.keywords.forEach(function (keyword) {
-          if (allKeywords.indexOf(keyword) < 0) {
-            allKeywords.push(keyword)
-          }
-        })
-      })
       res.render(res.locals.brigade.theme.slug + '/views/projects/index', {
         title: 'Projects',
         brigade: res.locals.brigade,
-        projects: foundProjects,
-        keywords: allKeywords.sort()
+        projects: foundProjects
       })
     })
   },
