@@ -21,7 +21,7 @@ block content
           tr
             th Event name
             th Date & time
-            th Hosts
+            th Host
             th Address
             th
         tbody
@@ -29,7 +29,7 @@ block content
             tr
               td #{event.title}
               td #{moment(event.start).format('YYYY-MM-DD HH:mm')}
-              td #{event.hosts[0]}
+              td #{event.host}
               td #{event.location}
               td
                 a(href='#{event.url}', class="mu-rsvp-btn") RSVP

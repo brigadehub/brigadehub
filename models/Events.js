@@ -14,7 +14,7 @@ var eventsSchema = new mongoose.Schema({
   // These options are used within brigadehub for content storage
   description: String,
   location: String,
-  hosts: Array
+  host: String
 })
 
 eventsSchema.methods.fetchGoogleEvents = function (cb) {
@@ -65,7 +65,7 @@ function createEventData (event) {
   eventData.url = event.event_url || ''
   eventData.description = event.description || ''
   eventData.location = event.venue.address_1 + ' ' + event.venue.city || ''
-  eventData.hosts = event.venue.name || ''
+  eventData.host = event.venue.name || ''
   eventData.start = moment(new Date(event.time)).format() || ''
   eventData.end = moment(new Date(event.time + event.duration)).format() || ''
   return eventData
