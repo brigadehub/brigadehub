@@ -18,6 +18,15 @@ block content
         form.form-horizontal(action='/brigade', method='POST')
           input(type='hidden', name='_csrf', value=_csrf)
           .row.form-group
+            label.col-sm-3(for='tagline') Tagline
+            .col-sm-7
+              textarea.form-control(name='tagline', id='tagline', rows="6")
+                | #{ brigade.copy.tagline }
+          .row.form-group
+            label.col-sm-3.control-label(for='heroImage') Image Url
+            .col-sm-7
+              input.form-control(type='text', name='heroImage', id='heroImage', value='#{brigade.heroImage}')
+          .row.form-group
             label.col-sm-3(for='name') Brigade Name
             .col-sm-9
               input.form-control(type='name', name='name', id='name', value='#{brigade.name}')
@@ -124,6 +133,19 @@ block content
               label(for='meetup-client-secret') Client Secret
             .col-sm-9
               input.form-control(type='meetup-client-secret', name='meetup-client-secret', secret='meetup-client-secret', value='#{brigade.auth.meetup.consumerSecret}')
+          .row 
+            .col-sm-12
+              h4 Contact form email credentials 
+          .row
+            .col-sm-3
+              label.control-label(for='emailuser') Brigade email
+            .col-sm-7
+              input.form-control(type='text', name='emailuser', id='emailuser', value='#{brigade.auth.email.user}')
+          .row  
+            .col-sm-3
+              label(for='emailpass') Brigade email password
+            .col-sm-7
+              input.form-control(type='password', name='emailpass', id='emailpass', value='#{brigade.auth.email.password}')
           .row
             .col-sm-offset-3.col-sm-4
               button.btn.btn.btn-primary(type='submit')
