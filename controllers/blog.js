@@ -1,6 +1,6 @@
 'use strict'
 
-var Blog = require('../models/Blogs')
+var Post = require('../models/Posts')
 var markdown = require('markdown').markdown
 
 module.exports = {
@@ -9,9 +9,13 @@ module.exports = {
    * List of Blog examples.
    */
   getBlog: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
-      title: 'Blog',
-      brigade: res.locals.brigade
+    Post.find({}, function(err, results){
+      var blogPosts = results
+      res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
+        title: 'Blog',
+        brigade: res.locals.brigade,
+        posts:blogPosts
+      })
     })
   },
   /**
@@ -55,7 +59,7 @@ module.exports = {
   postBlogNew: function (req, res) {
     let content = req.body.blogcontent
 
-    let blogpost = new Blog({
+    let blogpost = new Post({
       title: req.body.blogtitle,
       plaintextcontent: content,
       htmlcontent: markdown.toHTML(content)
