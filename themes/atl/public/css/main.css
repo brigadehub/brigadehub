@@ -2981,4 +2981,9 @@ body.scroll .navbar .row.account .dropdown-toggle img {
   overflow: hidden;
 }
 
+/* Account page */
+.delete-account-options {
+  display: none;
+}
+
 /*# sourceMappingURL=main.css.map */
