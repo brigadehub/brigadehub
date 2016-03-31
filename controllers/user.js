@@ -101,7 +101,7 @@ module.exports = {
    * Delete user account.
    */
   postDeleteAccount: function (req, res, next) {
-    if (req.body['verify-account-deletion-string'] === "delete my account") {
+    if (req.body['verify-account-deletion-string'] === 'delete my account') {
       Users.remove({ _id: req.user.id }, function (err) {
         if (err) {
           return next(err)
