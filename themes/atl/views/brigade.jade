@@ -2,135 +2,152 @@ extends layout
 
 block content
   .page-header.row
-    h3 Brigade Information
+    h1 Manage Brigade
 
-  form.row.form-horizontal(action='/brigade', method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
-      label.col-sm-3.control-label(for='name') Brigade Name
-      .col-sm-7
-        input.form-control(type='name', name='name', id='name', value='#{brigade.name}')
-    .form-group
-      label.col-sm-3.control-label(for='description') Description
-      .col-sm-7
-        textarea.form-control(name='description', id='description', rows="6")
-          | #{ brigade.copy.description }
-    .form-group
-      label.col-sm-3.control-label(for='tagline') Tagline
-      .col-sm-7
-        textarea.form-control(name='tagline', id='tagline', rows="6")
-          | #{ brigade.copy.tagline }
-    .form-group
-      label.col-sm-3.control-label(for='location') Location
-      .col-sm-7
-        input.form-control(type='text', name='location', id='location', value='#{brigade.location.general}')
-    .form-group
-      label.col-sm-3.control-label(for='url') Site Url
-      .col-sm-7
-        input.form-control(type='text', name='url', id='url', value='#{brigade.url}')
-    .form-group
-      label.col-sm-3.control-label(for='heroImage') Image Url
-      .col-sm-7
-        input.form-control(type='text', name='heroImage', id='heroImage', value='#{brigade.heroImage}')
-    .form-group
-      label.col-sm-3.control-label(for='github') Github Group
-      .col-sm-7
-        input.form-control(type='text', name='github', id='github', value='#{brigade.github}')
-    .form-group
-      label.col-sm-3.control-label(for='meetupurl') Meetup Group URL
-      .col-sm-7
-        input.form-control(type='text', name='meetupurl', id='meetupurl', value='#{brigade.meetup}')
-    .form-group
-      .col-sm-offset-3.col-sm-4
-        button.btn.btn.btn-primary(type='submit')
-          i.fa.fa-pencil
-          | Update Brigade
+  .row
+    ul.nav.nav-tabs(role="tablist")
+      li.nav-item
+        a.nav-link.active(data-toggle="tab", href="#general", role="tab") General
+      li.nav-item
+        a.nav-link(data-toggle="tab", href="#theme", role="tab") Theme
+      li.nav-item
+        a.nav-link(data-toggle="tab", href="#signin", role="tab") Sign-In
 
-  .page-header.row
-    h3 Theme Settings
-  form.row.form-horizontal(action='/brigade', method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
-      label.col-sm-3.control-label(for='theme-slug') Theme
-      .col-sm-7
-        input.form-control(type='text', name='theme-slug', id='theme-slug', value='#{brigade.theme.slug}')
-    .form-group
-      label.col-sm-3.control-label(for='logo') Logo
-      .col-sm-7
-        input.form-control(type='text', name='logo', id='logo', value='#{brigade.theme.logo}')
-      .col-sm-offset-3.col-sm-4
-        img(src="#{brigade.theme.logo}", class='logo')
-    .form-group
-      label.col-sm-3.control-label Enabled Sections
-      .col-sm-7
-        .row
-          .col-sm-4.checkbox
-            label
-              input.title(id="show-title", name="show-title", type="checkbox", checked=(brigade.theme.show.title ? "checked" : undefined))
-              | Show Brigade Name
-          .col-sm-4.checkbox
-            label
-              input.events(id="show-events", name="show-events", type="checkbox", checked=(brigade.theme.show.events ? "checked" : undefined))
-              | Show Events Pages
-          .col-sm-4.checkbox
-            label
-              input.projects(id="show-projects", name="show-projects", type="checkbox", checked=(brigade.theme.show.projects ? "checked" : undefined))
-              | Show Projects Pages
-        .row
-          .col-sm-4.checkbox
-            label
-              input.blog(id="show-blog", name="show-blog", type="checkbox", checked=(brigade.theme.show.blog ? "checked" : undefined))
-              | Show Blog Pages
-          .col-sm-4.checkbox
-            label
-              input.about(id="show-about", name="show-about", type="checkbox", checked=(brigade.theme.show.about ? "checked" : undefined))
-              | Show About Page
-          .col-sm-4.checkbox
-            label
-              input.login(id="show-login", name="show-login", type="checkbox", checked=(brigade.theme.show.login ? "checked" : undefined))
-              | Show Login Page
-    .form-group
-      .col-sm-offset-3.col-sm-4
-        button.btn.btn.btn-primary(type='submit')
-          i.fa.fa-pencil
-          | Update Theme
-  .page-header.row
-    h3 Social Media Sign-in and Links
-
-  form.row.form-horizontal(action='/brigade', method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .row
-      h4 Github Oauth keys
-      .form-group
-        label.col-sm-3.control-label(for='github-client-id') Client ID
-        .col-sm-7
-          input.form-control(type='github-client-id', name='github-client-id', id='github-client-id', value='#{brigade.auth.github.clientId}')
-      .form-group
-        label.col-sm-3.control-label(for='github-client-secret') Client Secret
-        .col-sm-7
-          input.form-control(type='github-client-secret', name='github-client-secret', secret='github-client-secret', value='#{brigade.auth.github.clientSecret}')
-    .row
-      h4 Meetup Oauth keys
-      .form-group
-        label.col-sm-3.control-label(for='meetup-client-id') Client ID
-        .col-sm-7
-          input.form-control(type='meetup-client-id', name='meetup-client-id', id='meetup-client-id', value='#{brigade.auth.meetup.consumerKey}')
-      .form-group
-        label.col-sm-3.control-label(for='meetup-client-secret') Client Secret
-        .col-sm-7
-          input.form-control(type='meetup-client-secret', name='meetup-client-secret', secret='meetup-client-secret', value='#{brigade.auth.meetup.consumerSecret}')
-    .row
-      h4 Contact form email credentials
-      .form-group
-        label.col-sm-3.control-label(for='emailuser') Brigade email
-        .col-sm-7
-          input.form-control(type='text', name='emailuser', id='emailuser', value='#{brigade.auth.email.user}')
-      .form-group
-        label.col-sm-3.control-label(for='emailpass') Brigade email password
-        .col-sm-7
-          input.form-control(type='password', name='emailpass', id='emailpass', value='#{brigade.auth.email.password}')
-    .form-group
-      .col-sm-offset-3.col-sm-4
-        button.btn.btn.btn-primary(type='submit')
-          i.fa.fa-pencil
-          | Update Social Media
+    .tab-content
+      .tab-pane.active#general(role="tabpanel")
+        form.form-horizontal(action='/brigade', method='POST')
+          input(type='hidden', name='_csrf', value=_csrf)
+          .row.form-group
+            label.col-sm-3(for='tagline') Tagline
+            .col-sm-7
+              textarea.form-control(name='tagline', id='tagline', rows="6")
+                | #{ brigade.copy.tagline }
+          .row.form-group
+            label.col-sm-3.control-label(for='heroImage') Image Url
+            .col-sm-7
+              input.form-control(type='text', name='heroImage', id='heroImage', value='#{brigade.heroImage}')
+          .row.form-group
+            label.col-sm-3(for='name') Brigade Name
+            .col-sm-9
+              input.form-control(type='name', name='name', id='name', value='#{brigade.name}')
+          .row.form-group
+            label.col-sm-3(for='description') Description
+            .col-sm-9
+              textarea.form-control(name='description', id='description', rows="6")
+                | #{ brigade.copy.description }
+          .row.form-group
+            label.col-sm-3(for='location') Location
+            .col-sm-9
+              input.form-control(type='text', name='location', id='location', value='#{brigade.location.general}')
+          .row.form-group
+            label.col-sm-3(for='url') Site Url
+            .col-sm-9
+              input.form-control(type='text', name='url', id='url', value='#{brigade.url}')
+          .row.form-group
+            label.col-sm-3(for='github') Github Group
+            .col-sm-9
+              input.form-control(type='text', name='github', id='github', value='#{brigade.github}')
+          .row.form-group
+            label.col-sm-3(for='meetupurl') Meetup Group URL
+            .col-sm-9
+              input.form-control(type='text', name='meetupurl', id='meetupurl', value='#{brigade.meetup}')
+          .row.form-group
+            .col-sm-12
+              button.btn.btn.btn-primary(type='submit')
+                i.fa.fa-pencil
+                | Update Brigade
+      .tab-pane#theme(role="tabpanel")
+        form.form-horizontal(action='/brigade', method='POST')
+          input(type='hidden', name='_csrf', value=_csrf)
+          .row.form-group
+            label.col-sm-3(for='theme-slug') Theme
+            .col-sm-9
+              input.form-control(type='text', name='theme-slug', id='theme-slug', value='#{brigade.theme.slug}')
+          .row.form-group
+            label.col-sm-3(for='logo') Logo
+            .col-sm-9
+              input.form-control(type='text', name='logo', id='logo', value='#{brigade.theme.logo}')
+          .row
+            .col-sm-12
+              img(src="#{brigade.theme.logo}", class='logo')
+          .row.form-group
+            label.col-sm-3 Enabled Sections
+            .col-sm-9
+              .row
+                .col-sm-4.checkbox
+                  label
+                    input.title(id="show-title", name="show-title", type="checkbox", checked=(brigade.theme.show.title ? "checked" : undefined))
+                    | Show Brigade Name
+                .col-sm-4.checkbox
+                  label
+                    input.events(id="show-events", name="show-events", type="checkbox", checked=(brigade.theme.show.events ? "checked" : undefined))
+                    | Show Events Pages
+                .col-sm-4.checkbox
+                  label
+                    input.projects(id="show-projects", name="show-projects", type="checkbox", checked=(brigade.theme.show.projects ? "checked" : undefined))
+                    | Show Projects Pages
+              .row
+                .col-sm-4.checkbox
+                  label
+                    input.blog(id="show-blog", name="show-blog", type="checkbox", checked=(brigade.theme.show.blog ? "checked" : undefined))
+                    | Show Blog Pages
+                .col-sm-4.checkbox
+                  label
+                    input.about(id="show-about", name="show-about", type="checkbox", checked=(brigade.theme.show.about ? "checked" : undefined))
+                    | Show About Page
+                .col-sm-4.checkbox
+                  label
+                    input.login(id="show-login", name="show-login", type="checkbox", checked=(brigade.theme.show.login ? "checked" : undefined))
+                    | Show Login Page
+          .form-group
+            .col-sm-offset-3.col-sm-4
+              button.btn.btn.btn-primary(type='submit')
+                i.fa.fa-pencil
+                | Update Theme
+      .tab-pane#signin(role="tabpanel")
+        form.form-horizontal(action='/brigade', method='POST')
+          input(type='hidden', name='_csrf', value=_csrf)
+          .row 
+            .col-sm-12
+              h4 Github Oauth keys    
+          .row
+            .col-sm-3
+                label(for='github-client-id') Client ID
+            .col-sm-9
+                input.form-control(type='github-client-id', name='github-client-id', id='github-client-id', value='#{brigade.auth.github.clientId}')
+          .row
+            .col-sm-3
+              label(for='github-client-secret') Client Secret
+            .col-sm-9
+              input.form-control(type='github-client-secret', name='github-client-secret', secret='github-client-secret', value='#{brigade.auth.github.clientSecret}')
+          .row
+            .col-sm-12
+              h4 Meetup Oauth keys
+          .row
+            .col-sm-3
+              label(for='meetup-client-id') Client ID
+            .col-sm-9
+              input.form-control(type='meetup-client-id', name='meetup-client-id', id='meetup-client-id', value='#{brigade.auth.meetup.consumerKey}')
+          .row
+            .col-sm-3
+              label(for='meetup-client-secret') Client Secret
+            .col-sm-9
+              input.form-control(type='meetup-client-secret', name='meetup-client-secret', secret='meetup-client-secret', value='#{brigade.auth.meetup.consumerSecret}')
+          .row 
+            .col-sm-12
+              h4 Contact form email credentials 
+          .row
+            .col-sm-3
+              label.control-label(for='emailuser') Brigade email
+            .col-sm-7
+              input.form-control(type='text', name='emailuser', id='emailuser', value='#{brigade.auth.email.user}')
+          .row  
+            .col-sm-3
+              label(for='emailpass') Brigade email password
+            .col-sm-7
+              input.form-control(type='password', name='emailpass', id='emailpass', value='#{brigade.auth.email.password}')
+          .row
+            .col-sm-offset-3.col-sm-4
+              button.btn.btn.btn-primary(type='submit')
+                i.fa.fa-pencil
+                | Update Social Media

@@ -1,83 +1,78 @@
 extends ../layout
-
 block content
   .page-header.row
-    h3 Profile Information
-
-  form.row.form-horizontal(action='/account/profile', method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
-      label.col-sm-3.control-label(for='email') Email
-      .col-sm-7
-        input.form-control(type='email', name='email', id='email', value='#{user.email}')
-    .form-group
-      label.col-sm-3.control-label(for='name') Name
-      .col-sm-7
-        input.form-control(type='text', name='name', id='name', value='#{user.profile.name}')
-    //- .form-group
-    //-   label.col-sm-3.control-label(for='gender') Gender
-    //-   .col-sm-4
-    //-     label.radio.col-sm-4
-    //-       input(type='radio', checked=user.profile.gender=='male', name='gender', value='male', data-toggle='radio')
-    //-       span Male
-    //-     label.radio.col-sm-4
-    //-       input(type='radio', checked=user.profile.gender=='female', name='gender', value='female', data-toggle='radio')
-    //-       span Female
-    .form-group
-      label.col-sm-3.control-label(for='location') Location
-      .col-sm-7
-        input.form-control(type='text', name='location', id='location', value='#{user.profile.location}')
-    .form-group
-      label.col-sm-3.control-label(for='location') Brigade role/position
-      .col-sm-7
-        input.form-control(type='text', name='position', id='position', value='#{user.profile.position}')
-    .form-group
-      label.col-sm-3.control-label(for='website') Website
-      .col-sm-7
-        input.form-control(type='text', name='website', id='website', value='#{user.profile.website}')
-    .form-group
-      label.col-sm-3.control-label(for='gravatar') Gravatar
-      .col-sm-4
-        img(src="#{user.gravatar()}", class='profile', width='100', height='100')
-    .form-group
-      label.col-sm-3.control-label(for='showcontact') Show contact info?
-      .col-sm-3
-        input.form-control(id='showcontact', name='showcontact', type='checkbox', checked=(user.profile.showcontact))
-    .form-group
-      .col-sm-offset-3.col-sm-4
-        button.btn.btn.btn-primary(type='submit')
-          i.fa.fa-pencilr
-          | Update Profile
-
-  .page-header.row
-    h3 Social Media Accounts
-
-  form.row.form-horizontal(action='#', method='POST')
-
-
-    .form-group
-      label.col-sm-3.control-label(for='meetup') Meetup
-      .col-sm-7
-        if(user.checkAuth('meetup'))
-          a.btn.btn-danger(href="/auth/disconnect/meetup") Disconnect from Meetup
-        else
-          a.btn.btn-secondary(href="/auth/meetup") Auth with Meetup
-    .form-group
-      label.col-sm-3.control-label(for='slack') Slack
-      .col-sm-7
-        if(user.checkAuth('slack'))
-          a.btn.btn-danger(href="/auth/disconnect/slack") Disconnect from Slack
-        else
-          a.btn.btn-secondary(href="/auth/slack") Auth with Slack
-
-  .page-header.row
-    h3 Delete Account
-
-  form.row.form-horizontal(action='/account/delete', method='POST')
-    .form-group
-      p.col-sm-offset-3.col-sm-4 You can delete your account, but keep in mind this action is irreversible.
-      input(type='hidden', name='_csrf', value=_csrf)
-      .col-sm-offset-3.col-sm-4
-        button.btn.btn-danger(type='submit')
-          i.fa.fa-trash
-          | Delete my account
+    h1 My Account
+    ul.nav.nav-tabs(role="tablist")
+      li.nav-item
+        a.nav-link.active(data-toggle="tab", href="#profile", role="tab") Profile
+      li.nav-item
+        a.nav-link(data-toggle="tab", href="#social", role="tab") Social
+      li.nav-item
+        a.nav-link(data-toggle="tab", href="#delete", role="tab") Delete
+    .tab-content
+      .tab-pane.active#profile(role="tabpanel")
+        form.form-horizontal(action='/account/profile', method='POST')
+          input(type='hidden', name='_csrf', value=_csrf)
+          .row
+            .col-sm-2
+                label(for='email') Email
+            .col-sm-9
+                input.form-control(type='email', name='email', id='email', value='#{user.email}')
+          .row
+            .col-sm-2
+              label(for='name') Name
+            .col-sm-9
+              input.form-control(type='text', name='name', id='name', value='#{user.profile.name}')
+          .row
+            .col-sm-2
+              label(for='location') Location
+            .col-sm-9
+              input.form-control(type='text', name='location', id='location', value='#{user.profile.location}')
+          .row
+            .col-sm-2
+              label(for='website') Website
+            .col-sm-9
+                input.form-control(type='text', name='website', id='website', value='#{user.profile.website}')
+          .row
+            .col-sm-2
+              label(for='gravatar') Gravatar
+            .col-sm-9
+                img(src="#{user.gravatar()}", class='profile', width='100', height='100')
+          .row
+            .col-sm-2
+              p Public Contact info
+            .col-sm-9
+              input(id='showcontact', name='showcontact', type='checkbox', checked=(user.profile.showcontact))
+              label(for='showcontact') Show contact info
+          hr
+          .row
+            .col-sm-7.col-sm-offset-2
+                button.btn.btn.btn-primary(type='submit')
+                  i.fa.fa-pencilr
+                  | Update Profile
+      .tab-pane#social(role="tabpanel")
+        .row
+          form.form-horizontal(action='#', method='POST')
+            .form-group
+              label.col-sm-3.control-label(for='meetup') Meetup
+              .col-sm-7
+                if(user.checkAuth('meetup'))
+                  a.btn.btn-danger(href="/auth/disconnect/meetup") Disconnect from Meetup
+                else
+                  a.btn.btn-secondary(href="/auth/meetup") Auth with Meetup
+            .form-group
+              label.col-sm-3.control-label(for='slack') Slack
+              .col-sm-7
+                if(user.checkAuth('slack'))
+                  a.btn.btn-danger(href="/auth/disconnect/slack") Disconnect from Slack
+                else
+                  a.btn.btn-secondary(href="/auth/slack") Auth with Slack
+      .tab-pane#delete(role="tabpanel")
+          form.row.form-horizontal(action='/account/delete', method='POST')
+            .form-group
+              p.col-sm-offset-3.col-sm-4 You can delete your account, but keep in mind this action is irreversible.
+              input(type='hidden', name='_csrf', value=_csrf)
+              .col-sm-offset-3.col-sm-4
+                button.btn.btn-danger(type='submit')
+                  i.fa.fa-trash
+                  | Delete my account
