@@ -1,20 +1,23 @@
 'use strict'
 
-var test = require('tape-catch')
-var Blog = require('../../models/Blogs')
-var uuid = require('uuid')
+const test = require('tape-catch')
+const Blog = require('../../models/Blogs')
+const uuid = require('uuid')
+const moment = require('moment')
 
 var db = require('../db-connect')()
 
 test('Blogs #save()', function (t) {
-  t.plan(2)
+  t.plan(4)
 
   var uniquePostName = uuid.v4()
 
+  let date = Date.now()
   let blogpost = new Blog({
     title: uniquePostName,
     plaintextcontent: '# Had a floopsy',
-    htmlcontent: '<p> La floop floop </p>'
+    htmlcontent: '<p> La floop floop </p>',
+    date: date
   })
 
   let duplicateblogpost = new Blog({
@@ -24,9 +27,7 @@ test('Blogs #save()', function (t) {
   })
 
   t.test('should save', function (t) {
-    console.log('saving')
     blogpost.save(function (err) {
-      console.log('end of save')
       if (err) {
         t.end(err)
       } else {
@@ -36,24 +37,39 @@ test('Blogs #save()', function (t) {
   })
 
   t.test('should throw validation error on duplicate title', function (t) {
-    console.log('saving')
-
     duplicateblogpost.save(function (err) {
-      console.log('end of save')
-
       if (err) {
-        console.log('error')
         t.pass()
         t.end()
       } else {
-        console.log('no error')
         t.fail()
+        t.end()
+      }
+    })
+  })
+
+  t.test('should generate a caption from htmlcontent', function (t) {
+    blogpost.save(function (err) {
+      if (err) {
+        t.end(err)
+      } else {
+        t.equal(blogpost.caption, ' La floop floop ')
+        t.end()
+      }
+    })
+  })
+
+  t.test('should generate a normalizedDate field', function (t) {
+    blogpost.save(function (err) {
+      if (err) {
+        t.end(err)
+      } else {
+        t.equal(blogpost.normalizedDate, moment(date).format('dddd, MMMM Do YYYY, hA'))
         t.end()
       }
     })
   })
 })
 test.onFinish(function () {
-  console.log('finished tests')
   db.disconnect()
 })
