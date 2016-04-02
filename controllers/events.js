@@ -13,15 +13,15 @@ module.exports = {
       if (err) console.error(err)
       var localzone = jstz.determine().name()
       var mappedEvents = foundEvents.map(function (event) {
-        event.convertedstart = moment.unix(event.start).tz(localzone).format('ha z MM-DD-YYYY')
-        event.localstart =  moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('ha z MM-DD-YYYY')
+        event.convertedstart = moment.unix(event.start).tz(localzone).format('ha z MMMM DD, YYYY')
+        event.localstart = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('ha z MMMM DD, YYYY')
         return event
       })
       res.render(res.locals.brigade.theme.slug + '/views/events/index', {
         events: mappedEvents,
         upcomingevents: mappedEvents.slice(0, 10),
         title: 'Events',
-        brigade: res.locals.brigade,
+        brigade: res.locals.brigade
       })
     }).sort({start: 1})
   },
@@ -33,7 +33,7 @@ module.exports = {
     Events.find({}, function (err, foundEvents) {
       if (err) console.error(err)
       var mappedEvents = foundEvents.map(function (event) {
-        event.localstart =  moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('ha z MM-DD-YYYY')
+        event.localstart = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('ha z MMMM DD, YYYY')
         return event
       })
       res.render(res.locals.brigade.theme.slug + '/views/events/manage', {
@@ -108,6 +108,7 @@ module.exports = {
    * Submit IDSettings Events.
    */
   postEventsIDSettings: function (req, res) {
+    console.log(req.body)
     Events.find({id: req.params.eventId}, function (err, foundEvent) {
       if (err) console.log(err)
       var thisEvent = foundEvent[0]

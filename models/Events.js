@@ -1,6 +1,5 @@
 var mongoose = require('mongoose')
 var request = require('request')
-var moment = require('moment')
 var eventsSchema = new mongoose.Schema({
   // Follows fullcalendar's event object model, display options omitted:
   // http://fullcalendar.io/docs/event_data/Event_Object/
@@ -8,8 +7,6 @@ var eventsSchema = new mongoose.Schema({
   title: String, // Display title
   start: String, // Moment-ish date, ISO8601 string, http://en.wikipedia.org/wiki/ISO_8601
   end: String, // same ^^
-  localstart: String,
-  convertedstart: String,
   allDay: Boolean, // shows time of day or not
   url: String, // an external link you can use to override where to go when clicking
 
