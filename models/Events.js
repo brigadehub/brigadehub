@@ -1,5 +1,6 @@
 var mongoose = require('mongoose')
 var request = require('request')
+var uuid = require('node-uuid')
 var eventsSchema = new mongoose.Schema({
   // Follows fullcalendar's event object model, display options omitted:
   // http://fullcalendar.io/docs/event_data/Event_Object/
@@ -59,7 +60,7 @@ function getEvents (meetupid, callback) {
 function createEventData (event) {
   var eventData = {}
   var unixtime = Math.floor(event.time / 1000)
-  eventData.id = event.id || ''
+  eventData.id = uuid.v1() || ''
   eventData.title = event.name || ''
   eventData.url = event.event_url || ''
   eventData.description = event.description || ''
