@@ -11,9 +11,9 @@ module.exports = {
   getEvents: function (req, res) {
     Events.find({}, function (err, foundEvents) {
       if (err) console.error(err)
-      var localzone = moment.tz.guess()
+      var userzone = moment.tz.guess()
       var mappedEvents = foundEvents.map(function (event) {
-        event.convertedstart = moment.unix(event.start).tz(localzone).format('ha z MMMM DD, YYYY')
+        event.convertedstart = moment.unix(event.start).tz(userzone).format('ha z MMMM DD, YYYY')
         event.localstart = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('ha z MMMM DD, YYYY')
         event.start = moment.unix(event.start).format()
         return event
