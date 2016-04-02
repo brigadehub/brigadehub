@@ -1,6 +1,5 @@
 var Events = require('../models/Events')
 var moment = require('moment')
-var jstz = require('jstimezonedetect')
 var tz = require('moment-timezone')
 var uuid = require('node-uuid')
 
@@ -12,7 +11,7 @@ module.exports = {
   getEvents: function (req, res) {
     Events.find({}, function (err, foundEvents) {
       if (err) console.error(err)
-      var localzone = jstz.determine().name()
+      var localzone = moment.tz.guess()
       var mappedEvents = foundEvents.map(function (event) {
         event.convertedstart = moment.unix(event.start).tz(localzone).format('ha z MMMM DD, YYYY')
         event.localstart = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('ha z MMMM DD, YYYY')
