@@ -1,0 +1,23 @@
+#! /usr/bin/env node
+var Seedling = require('seedling')
+var goosestrap = require('goosestrap');
+var path = require('path');
+var glob = require('glob')
+
+require('../dotenv.js')()
+var models = path.resolve("./models/*")
+var db = goosestrap(process.env.MONGODB ||  process.env.MONGOLAB_URI, models);
+
+
+var requireDir = require('require-dir')
+var seeds = requireDir('../seeds/development')
+seeds.Brigade = seeds.Brigade()
+
+seed = new Seedling(db, seeds)
+seed.clear(function(){
+  seed.create(function(err){
+    if(err) throw err
+    console.log('Database seeding complete. Please restart your server.')
+    process.exit()
+  })
+})

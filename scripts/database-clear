@@ -12,18 +12,7 @@ var fs = require('fs')
  *
  * Default path: .env
  */
-try {
-  var stats = fs.lstatSync(path.resolve(__dirname, '../.env'))
-  if (stats.isFile()) {
-    dotenv.load({ path: path.resolve(__dirname, '../.env') })
-  } else {
-    throw new Error('.env is not a file!')
-  }
-} catch (e) {
-  console.warn(e)
-  console.warn('.env file not found. Defaulting to sample. Please copy .env.example to .env and populate with your own credentials.')
-  dotenv.load({ path: path.resolve(__dirname, '../.env.example') })
-}
+require('../dotenv.js')()
 
 // Connection URL
 var url = process.env.MONGODB

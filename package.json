@@ -15,6 +15,7 @@
     "test:e2e": "echo 'no e2e tests available.'",
     "test:unit": "babel-node ./node_modules/istanbul/lib/cli cover tape -- **/*.tape.js",
     "db:clear": "./scripts/database-clear",
+    "db:seed": "./scripts/database-seed",
     "develop": "nodemon app.js"
   },
   "dependencies": {
@@ -72,10 +73,14 @@
     "blessed": "^0.1.81",
     "blue-tape": "^0.2.0",
     "chai": "^3.4.1",
+    "faker": "^3.1.0",
+    "goosestrap": "^1.0.0",
     "mocha": "^2.3.4",
     "mongodb": "^2.1.7",
     "multiline": "^1.0.2",
     "nodemon": "^1.9.1",
+    "require-dir": "^0.3.0",
+    "seedling": "0.0.10",
     "supertest": "^1.1.0",
     "tape": "^4.5.1",
     "tape-catch": "^1.0.4"
