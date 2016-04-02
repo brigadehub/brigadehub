@@ -39,7 +39,7 @@ block content
             |:
             select(id="startminute", name="startminute")
               -for(var i = 0;i<61;i++){
-              option(value="#{i}:00") #{i}
+              option(value="#{i}:00") #{i < 10 ? ('0' + i) : i}
               -}
             <br/><br/>
         .form-group
@@ -64,7 +64,7 @@ block content
             |:
             select(id="endminute", name="endminute")
               -for(var i = 0;i<61;i++){
-              option(value="#{i}:00") #{i}
+              option(value="#{i}:00") #{i < 10 ? ('0' + i) : i}
               -}
             <br/><br/>
         .form-group
