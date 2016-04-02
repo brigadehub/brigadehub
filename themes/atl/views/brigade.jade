@@ -1,5 +1,5 @@
 extends layout
-
+- admin = ('admin'==brigade.location.timezone) ? 'selected' : null;
 block content
   .page-header.row
     h3 Brigade Information
@@ -27,7 +27,10 @@ block content
     .form-group
       label.col-sm-3.control-label(for='timezone') Time Zone
       .col-sm-7
-        input.form-control(type='text', name='timezone', id='timezone', value='#{brigade.location.timezone}')
+        select(id="timezone", name="timezone")
+          for zone in ['America/Los_Angeles', 'America/Boise', 'America/Chicago', 'America/New_York']
+            option(value="#{zone}", selected=(zone == brigade.location.timezone)) #{zone}
+        | <br/><br/>
     .form-group
       label.col-sm-3.control-label(for='url') Site Url
       .col-sm-7
