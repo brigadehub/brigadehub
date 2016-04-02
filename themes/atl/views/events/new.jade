@@ -18,13 +18,55 @@ block content
           .col-sm-7
             input.form-control(type='host', name='host', id='host', value='')
         .form-group
-          label.col-sm-3.control-label(for='start') Event start
+          label.col-sm-3.control-label(for='start') Event start:
           .col-sm-7
-            input.form-control(type='start', name='start', id='start', value='(YYYY-MM-DD HH:mm format)')
+            select(id="startmonth", name="startmonth")
+              for month in ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+                option(value="#{month}-") #{month}
+            select(id="startday", name="startday")
+              -for(var i = 1;i<31;i++){
+              option(value="#{i}-") #{i}
+              -}
+            select(id="startyear", name="startyear")
+              -for(var i = 2016;i<2030;i++){
+              option(value="#{i} ") #{i}
+              -}
+            |---
+            select(id="starthour", name="starthour")
+              -for(var i = 1;i<25;i++){
+              option(value="#{i}:") #{i}
+              -}
+            |:
+            select(id="startminute", name="startminute")
+              -for(var i = 1;i<61;i++){
+              option(value="#{i}:00") #{i}
+              -}
+            <br/><br/>
         .form-group
-          label.col-sm-3.control-label(for='end') Event end
+          label.col-sm-3.control-label(for='end') Event End:
           .col-sm-7
-            input.form-control(type='end', name='end', id='end', value='(YYYY-MM-DD HH:mm format)')
+            select(id="endmonth", name="endmonth")
+              for month in ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+                option(value="#{month}-") #{month}
+            select(id="endday", name="endday")
+              -for(var i = 1;i<31;i++){
+              option(value="#{i}-") #{i}
+              -}
+            select(id="endyear", name="endyear")
+              -for(var i = 2016;i<2030;i++){
+              option(value="#{i} ") #{i}
+              -}
+            |---
+            select(id="endhour", name="endhour")
+              -for(var i = 1;i<25;i++){
+              option(value="#{i}:") #{i}
+              -}
+            |:
+            select(id="endminute", name="endminute")
+              -for(var i = 1;i<61;i++){
+              option(value="#{i}:00") #{i}
+              -}
+            <br/><br/>
         .form-group
           label.col-sm-3.control-label(for='url') Event URL
           .col-sm-7

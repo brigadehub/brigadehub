@@ -67,8 +67,8 @@ module.exports = {
   postEventsNew: function (req, res) {
     var newEvent = new Events(req.body)
     newEvent.id = newEvent._id
-    newEvent.start = moment(newEvent.start, moment.ISO_8601).format()
-    newEvent.end = moment(newEvent.end, moment.ISO_8601).format()
+    newEvent.start = Date.parse(req.body.startday + req.body.startmonth + req.body.startyear + req.body.starthour + req.body.startminute)/1000
+    newEvent.end = Date.parse(req.body.endday + req.body.endmonth + req.body.endyear + req.body.endhour + req.body.endminute)/1000
     newEvent.save(function (err) {
       if (err) console.error(err)
     })

@@ -9,7 +9,6 @@ var eventsSchema = new mongoose.Schema({
   end: String, // same ^^
   allDay: Boolean, // shows time of day or not
   url: String, // an external link you can use to override where to go when clicking
-
   // These options are used within brigadehub for content storage
   description: String,
   location: String,

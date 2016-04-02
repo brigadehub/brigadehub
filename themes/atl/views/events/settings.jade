@@ -21,8 +21,8 @@ block content
           label.col-sm-3.control-label(for='start') Event start:
           .col-sm-7
             select(id="startmonth", name="startmonth")
-              for month, i in ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
-                option(value="#{i+1}") #{month}
+              for month in ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+                option(value=month) #{month}
             select(id="startday", name="startday")
               -for(var i = 1;i<31;i++){
               option(value="#{i}") #{i}
@@ -46,8 +46,8 @@ block content
           label.col-sm-3.control-label(for='end') Event End:
           .col-sm-7
             select(id="endmonth", name="endmonth")
-              for month, i in ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
-                option(value="#{i+1}") #{month}
+              for month in ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+                option(value=month) #{month}
             select(id="endday", name="endday")
               -for(var i = 1;i<31;i++){
               option(value="#{i}") #{i}
