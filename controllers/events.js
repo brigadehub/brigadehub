@@ -1,5 +1,8 @@
 var Events = require('../models/Events')
 var moment = require('moment')
+var jstz = require('jstimezonedetect')
+var tz = require('moment-timezone')
+
 module.exports = {
   /**
    * GET /events
@@ -24,11 +27,16 @@ module.exports = {
   getEventsManage: function (req, res) {
     Events.find({}, function (err, foundEvents) {
       if (err) console.error(err)
+      var localzone = jstz.determine().name()
+      var mappedEvents = foundEvents.map(function (event) {
+        event.localstart = moment.unix(event.start).tz(localzone).format('ha z')
+        return event
+      })
+      console.log(mappedEvents)
       res.render(res.locals.brigade.theme.slug + '/views/events/manage', {
         title: 'Manage Events',
         allEvents: foundEvents,
-        brigade: res.locals.brigade,
-        moment: moment
+        brigade: res.locals.brigade
       })
     }).sort({start: 1})
   },

@@ -45,6 +45,7 @@
     "markdown": "^0.5.0",
     "method-override": "^2.3.5",
     "moment": "^2.11.1",
+    "moment-timezone": "^0.5.3",
     "mongoose": "^4.3.5",
     "mongoose-unique-validator": "^1.0.2",
     "morgan": "^1.6.1",

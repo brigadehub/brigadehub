@@ -8,6 +8,9 @@ var eventsSchema = new mongoose.Schema({
   title: String, // Display title
   start: String, // Moment-ish date, ISO8601 string, http://en.wikipedia.org/wiki/ISO_8601
   end: String, // same ^^
+  timezone: String,
+  localstart: String,
+  convertedstart: String,
   allDay: Boolean, // shows time of day or not
   url: String, // an external link you can use to override where to go when clicking
 
@@ -60,14 +63,19 @@ function getEvents (meetupid, callback) {
 
 function createEventData (event) {
   var eventData = {}
+  var unixtime = Math.floor(event.time / 1000)
   eventData.id = event.id || ''
   eventData.title = event.name || ''
   eventData.url = event.event_url || ''
   eventData.description = event.description || ''
   eventData.location = event.venue.address_1 + ' ' + event.venue.city || ''
   eventData.host = event.venue.name || ''
-  eventData.start = moment(new Date(event.time)).format() || ''
-  eventData.end = moment(new Date(event.time + event.duration)).format() || ''
+  eventData.start = unixtime || ''
+  if (event.duration) {
+    eventData.end = unixtime + Math.floor(event.duration / 1000)
+  } else {
+    eventData.end = ''
+  }
   return eventData
 }
 
