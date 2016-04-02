@@ -28,7 +28,10 @@ block content
           each event in upcomingevents
             tr
               td #{event.title}
-              td #{moment(event.start).format('YYYY-MM-DD HH:mm')}
+              td
+                |Local event time: #{event.localstart}
+                br
+                |User converted time: #{event.convertedstart}
               td #{event.host}
               td #{event.location}
               td

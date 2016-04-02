@@ -25,6 +25,10 @@ block content
       .col-sm-7
         input.form-control(type='text', name='location', id='location', value='#{brigade.location.general}')
     .form-group
+      label.col-sm-3.control-label(for='timezone') Time Zone
+      .col-sm-7
+        input.form-control(type='text', name='timezone', id='timezone', value='#{brigade.location.timezone}')
+    .form-group
       label.col-sm-3.control-label(for='url') Site Url
       .col-sm-7
         input.form-control(type='text', name='url', id='url', value='#{brigade.url}')

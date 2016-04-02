@@ -11,12 +11,17 @@ module.exports = {
   getEvents: function (req, res) {
     Events.find({}, function (err, foundEvents) {
       if (err) console.error(err)
+      var localzone = jstz.determine().name()
+      var mappedEvents = foundEvents.map(function (event) {
+        event.convertedstart = moment.unix(event.start).tz(localzone).format('ha z MM-DD-YYYY')
+        event.localstart =  moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('ha z MM-DD-YYYY')
+        return event
+      })
       res.render(res.locals.brigade.theme.slug + '/views/events/index', {
-        events: foundEvents,
-        upcomingevents: foundEvents.slice(0, 10),
+        events: mappedEvents,
+        upcomingevents: mappedEvents.slice(0, 10),
         title: 'Events',
         brigade: res.locals.brigade,
-        moment: moment
       })
     }).sort({start: 1})
   },
@@ -27,15 +32,13 @@ module.exports = {
   getEventsManage: function (req, res) {
     Events.find({}, function (err, foundEvents) {
       if (err) console.error(err)
-      var localzone = jstz.determine().name()
       var mappedEvents = foundEvents.map(function (event) {
-        event.localstart = moment.unix(event.start).tz(localzone).format('ha z')
+        event.localstart =  moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('ha z MM-DD-YYYY')
         return event
       })
-      console.log(mappedEvents)
       res.render(res.locals.brigade.theme.slug + '/views/events/manage', {
         title: 'Manage Events',
-        allEvents: foundEvents,
+        allEvents: mappedEvents,
         brigade: res.locals.brigade
       })
     }).sort({start: 1})

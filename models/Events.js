@@ -8,7 +8,6 @@ var eventsSchema = new mongoose.Schema({
   title: String, // Display title
   start: String, // Moment-ish date, ISO8601 string, http://en.wikipedia.org/wiki/ISO_8601
   end: String, // same ^^
-  timezone: String,
   localstart: String,
   convertedstart: String,
   allDay: Boolean, // shows time of day or not
