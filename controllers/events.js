@@ -109,15 +109,14 @@ module.exports = {
    * Submit IDSettings Events.
    */
   postEventsIDSettings: function (req, res) {
-    console.log(req.body)
     Events.find({id: req.params.eventId}, function (err, foundEvent) {
       if (err) console.log(err)
       var thisEvent = foundEvent[0]
       thisEvent.title = req.body.title
       thisEvent.location = req.body.location
       thisEvent.host = req.body.host
-      thisEvent.start = Date.parse(req.body.start)/1000
-      thisEvent.end = Date.parse(req.body.end)/1000
+      thisEvent.start = moment.tz(req.body.start, 'MM-DD-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
+      thisEvent.end = moment.tz(req.body.end, 'MM-DD-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
       thisEvent.url = req.body.url
       thisEvent.description = req.body.description
       thisEvent.save(function (err) {
