@@ -1,5 +1,60 @@
 extends ../layout
 
 block content
-  .page-header
-    h3 Edit Blog
+  .page-header.row
+    h3 Edit Blog Post
+    
+
+
+    //- slug: String, // this is the slug
+    //- title: String, // Display title
+    //- author: String,
+    //- url: String, // an external link you can use to override where to go when clicking
+    //- image: String,
+    //- description: String,
+    //- content: String,
+    //- date: String,
+    //- unix: Number,
+    //- tags: Array
+  form.row.form-horizontal(action='/blog/#{post.slug}', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row
+      label.col-sm-3.control-label(for='title') Title
+      .col-sm-7
+        input.form-control(type='text', name='title', id='title', value='#{post.title}')
+    .form-group.row
+      label.col-sm-3.control-label(for='author') Author
+      .col-sm-7
+        input.form-control(type='text', name='author', id='author', value='#{post.author}')
+    .form-group.row
+      label.col-sm-3.control-label(for='url') Override Url (optional)
+      .col-sm-7
+        input.form-control(type='text', name='url', id='url', value='#{post.url}')
+    .form-group.row
+      label.col-sm-3.control-label(for='image') Brigade role/position
+      .col-sm-7
+        input.form-control(type='text', name='image', id='image', value='#{post.image}')
+      .col-sm-4.col-sm-offset-3
+        img(src="#{post.image}", class='post-image', style="width:100%")
+    .form-group.row
+      label.col-sm-3.control-label(for='description') Short Description
+      .col-sm-7
+        input.form-control(type='text', name='description', id='description', value='#{post.description}')
+    .form-group.row
+      label.col-sm-3.control-label(for='date') "Published on" date
+      .col-sm-7
+        input.form-control(type='text', name='date', id='date', value='#{post.date}')
+    .form-group.row
+      label.col-sm-3.control-label(for='tags') Short Description
+      .col-sm-7
+        input.form-control(type='text', name='tags', id='tags', value='#{post.tags}')
+    .form-group.row
+      label.col-sm-3.control-label(for='content') Post
+      .col-sm-7
+        textarea.form-control.simple-mde(name='content', id='content', rows='30')
+          | #{post.content}
+    .form-group.row
+      .col-sm-offset-3.col-sm-4
+        button.btn.btn.btn-primary(type='submit')
+          i.fa.fa-pencilr
+          | Save Post

@@ -12,7 +12,7 @@ module.exports = function () {
       specific: '',
       geo: ''
     },
-    heroImage: faker.image.city(1080,399),
+    heroImage: faker.image.city(1080, 399),
     url: 'http://codeforexample.org',
     github: 'codeforexample',
     theme: {

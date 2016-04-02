@@ -24,7 +24,7 @@ module.exports = [
       'email': faker.internet.email()
     },
     'categories': [],
-    'needs': [],
+    'needs': []
   },
   {
     'id': 'really-empty-project',
@@ -49,7 +49,7 @@ module.exports = [
       'email': faker.internet.email()
     },
     'categories': [],
-    'needs': [],
+    'needs': []
   },
   {
     'id': 'forked-project-kong',
@@ -74,7 +74,7 @@ module.exports = [
       'email': faker.internet.email()
     },
     'categories': [],
-    'needs': [],
+    'needs': []
   },
   {
     'id': 'mirrored-project-hackathon-starter',
@@ -99,7 +99,7 @@ module.exports = [
       'email': faker.internet.email()
     },
     'categories': [],
-    'needs': [],
+    'needs': []
   },
   {
     'id': 'mirrored-project-mirror',
@@ -124,7 +124,7 @@ module.exports = [
       'email': faker.internet.email()
     },
     'categories': [],
-    'needs': [],
+    'needs': []
   }, {
     'id': 'mirrored-project-mirror',
     'brigade': 'codeforexample',
@@ -148,6 +148,6 @@ module.exports = [
       'email': faker.internet.email()
     },
     'categories': [],
-    'needs': [],
+    'needs': []
   }
 ]

@@ -1,15 +1,26 @@
 extends ../layout
 
 block content
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/blog') Blog
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/blog/#{post.slug}')= post.title
   .row.page-header
     .col-sm-12
-      h1 Blog
+      h1= post.title
   .row 
     .col-sm-12
-      .page-header
-        h3= post.title
+      .page-header.float
         p 00 January 2016 | 
-          a(href="#") PostCategory
+          each tag in post.tags
+            a(href='/blog?tag=#{tag}') tag
+            | &nbsp;
+      if user && (user.roles.core || user.roles.superAdmin)
+        a.float.right.btn.btn-secondary(href="/blog/#{post.slug}/edit") Edit this post
+      
   .row 
     .col-sm-12(style="display:block; background-image:url('#{post.image}'); width:100%; height:399px; background-size:cover; background-position:center center;")
   .row 
