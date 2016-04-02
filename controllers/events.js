@@ -15,6 +15,7 @@ module.exports = {
       var mappedEvents = foundEvents.map(function (event) {
         event.convertedstart = moment.unix(event.start).tz(localzone).format('ha z MMMM DD, YYYY')
         event.localstart = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('ha z MMMM DD, YYYY')
+        event.start = moment.unix(event.start).format()
         return event
       })
       res.render(res.locals.brigade.theme.slug + '/views/events/index', {
