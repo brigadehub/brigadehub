@@ -68,8 +68,8 @@ module.exports = {
   postEventsNew: function (req, res) {
     var newEvent = new Events(req.body)
     newEvent.id = uuid.v1()
-    newEvent.start = Date.parse(req.body.startday + req.body.startmonth + req.body.startyear + req.body.starthour + req.body.startminute)/1000
-    newEvent.end = Date.parse(req.body.endday + req.body.endmonth + req.body.endyear + req.body.endhour + req.body.endminute)/1000
+    newEvent.start = Date.parse(req.body.startday + req.body.startmonth + req.body.startyear + req.body.starthour + req.body.startminute) / 1000
+    newEvent.end = Date.parse(req.body.endday + req.body.endmonth + req.body.endyear + req.body.endhour + req.body.endminute) / 1000
     newEvent.save(function (err) {
       if (err) console.error(err)
     })
