@@ -1,18 +1,32 @@
 extends ../layout
+
 block content
-.container
-	.row 
-		.col-sm-12
-			.page-header
-    			h3 #{ post.title }
-    			p 00 January 2016 | 
-    				a(href="#") PostCategory
-	.row 
-		.col-sm-9
-  			!{ post.htmlcontent }
-		.col-sm-3
-			figure
-				img(src="", alt="xxxxxxxFirstname Lastname").img-fluid.img-thumbnail
-			p Firstname Lastname
-			p
-				a(href="#").btn.btn-secondary Other Articles from the Author
+  .row.page-header
+    .col-sm-12
+      h1 Blog
+  .row 
+    .col-sm-12
+      .page-header
+        h3= post.title
+        p 00 January 2016 | 
+          a(href="#") PostCategory
+  .row 
+    .col-sm-9
+      p !{post.content}
+    .col-sm-3
+      figure
+        img(src="", alt="").img-fluid.img-thumbnail
+        p= post.author
+        p
+          a(href="#").btn.btn-secondary Other Articles from the Author
+            
+//- slug: String, // this is the slug
+//- title: String, // Display title
+//- author: String,
+//- url: String, // an external link you can use to override where to go when clicking
+//- image: String,
+//- description: String,
+//- content: String,
+//- date: String,
+//- unix: Number,
+//- tags: Array

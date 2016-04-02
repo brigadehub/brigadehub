@@ -5,17 +5,24 @@ block content
     .col-sm-12
       h1 Blog
   .row.tags
+    ul
+      if query
+        li
+          a(href='?') Clear Search Tag
+      each tag in tags
+        li(class=query===tag?'selected':'')
+          a(href="?tag=#{tag}")= tag
   .row
-      //- slug: String, // this is the slug
-      //- title: String, // Display title
-      //- author: String,
-      //- url: String, // an external link you can use to override where to go when clicking
-      //- image: String,
-      //- description: String,
-      //- content: String,
-      //- date: String,
-      //- unix: Number,
-      //- tags: Array
+    //- slug: String, // this is the slug
+    //- title: String, // Display title
+    //- author: String,
+    //- url: String, // an external link you can use to override where to go when clicking
+    //- image: String,
+    //- description: String,
+    //- content: String,
+    //- date: String,
+    //- unix: Number,
+    //- tags: Array
     .col-sm-12
       each post in posts
         a.col-sm-2.col-md-4(href=(post.url !== '' ? post.url : '/blog/'+post.slug))

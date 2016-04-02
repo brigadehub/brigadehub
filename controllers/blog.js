@@ -1,7 +1,8 @@
 'use strict'
 
 var Post = require('../models/Posts')
-var markdown = require('markdown').markdown
+var markdown = require('marked')
+var _ = require('lodash')
 
 module.exports = {
   /**
@@ -9,12 +10,24 @@ module.exports = {
    * List of Blog examples.
    */
   getBlog: function (req, res) {
+    var mongooseQuery = {}
+    if(req.query.tag){
+      mongooseQuery.tags = req.query.tag
+    }
+    console.log(mongooseQuery)
     Post.find({}, function(err, results){
-      var blogPosts = results
-      res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
-        title: 'Blog',
-        brigade: res.locals.brigade,
-        posts:blogPosts
+      var tags = _.uniq(_.flatMap(results, 'tags'))
+      Post.find(mongooseQuery, function(err, results){
+
+        var blogPosts = results || []
+        console.log(tags)
+        res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
+          title: 'Blog',
+          brigade: res.locals.brigade,
+          posts:blogPosts,
+          tags:tags,
+          query:req.query.tag
+        })
       })
     })
   },
@@ -62,7 +75,7 @@ module.exports = {
     let blogpost = new Post({
       title: req.body.blogtitle,
       plaintextcontent: content,
-      htmlcontent: markdown.toHTML(content)
+      // htmlcontent: markdown.toHTML(content)
     })
 
     blogpost.save(function (err) {
@@ -83,9 +96,12 @@ module.exports = {
    * Display Blog by ID.
    */
   getBlogID: function (req, res) {
-    Blog.findOne({title: req.params.blogId}, function (err, post) {
+    console.log(req.params)
+    Post.find({slug: req.params.blogId}, function (err, post) {
       if (err) throw err
-
+      console.log(post)
+      post = post[0]
+      post.content = markdown(post.content)
       res.render(res.locals.brigade.theme.slug + '/views/blog/post', {
         blogId: req.params.blogId,
         title: 'Blog',
