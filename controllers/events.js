@@ -97,8 +97,8 @@ module.exports = {
       res.render(res.locals.brigade.theme.slug + '/views/events/settings', {
         event: foundEvent[0],
         title: 'Event Settings',
-        start: moment(foundEvent[0].start).format('YYYY-MM-DD HH:mm'),
-        end: moment(foundEvent[0].end).format('YYYY-MM-DD HH:mm'),
+        start: moment.unix(foundEvent[0].start).tz(res.locals.brigade.location.timezone).format('MM-DD-YYYY HH:mm:ss'),
+        end: moment.unix(foundEvent[0].end).tz(res.locals.brigade.location.timezone).format('MM-DD-YYYY HH:mm:ss'),
         brigade: res.locals.brigade
       })
     })
@@ -115,8 +115,8 @@ module.exports = {
       thisEvent.title = req.body.title
       thisEvent.location = req.body.location
       thisEvent.host = req.body.host
-      thisEvent.start = moment(req.body.start, moment.ISO_8601).format()
-      thisEvent.end = moment(req.body.end, moment.ISO_8601).format()
+      thisEvent.start = Date.parse(req.body.start)/1000
+      thisEvent.end = Date.parse(req.body.end)/1000
       thisEvent.url = req.body.url
       thisEvent.description = req.body.description
       thisEvent.save(function (err) {
