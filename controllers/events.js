@@ -1,7 +1,7 @@
 var Events = require('../models/Events')
 var moment = require('moment')
-var tz = require('moment-timezone')
 var uuid = require('node-uuid')
+require('moment-timezone')
 
 module.exports = {
   /**
