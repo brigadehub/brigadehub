@@ -76,7 +76,7 @@ block content
   form.row.form-horizontal(action='/account/delete', method='POST')
     .form-group
       input(type='hidden', name='_csrf', value=_csrf)
-      .col-sm-offset-3.col-sm-4
+      .delete-account.col-sm-offset-3.col-sm-4
         a.btn.btn-danger.btn-delete-account
           i.fa.fa-trash
           | Delete my account
@@ -93,6 +93,11 @@ block content
 
   block script
     script.
+      $(document).ready(function(){
+        $('.delete-account').show()
+        $('.delete-account-options').hide()
+      })
+
       $('.btn-delete-account').on('click', function() {
         $('.delete-account-options').show()
         $('.btn-delete-account').hide()
