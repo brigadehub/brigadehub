@@ -144,7 +144,7 @@ userSchema.statics.fetchGithubUsers = function (brigade, user, cb) {
   })
 }
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('Users', userSchema)
 
 function getUsers (url, aggregate, user, callback) {
   var headers = _.cloneDeep(defaultHeaders)

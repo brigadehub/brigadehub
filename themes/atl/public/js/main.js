@@ -1,3 +1,5 @@
+
+/* global SimpleMDE */
 var $ = window.jQuery
 $(document).ready(function () {
   console.log('running')
@@ -16,4 +18,10 @@ $(document).ready(function () {
       $('body').removeClass('scroll')
     }
   })
+  var editor = new SimpleMDE({
+    element: $('.simple-mde')[0],
+    forceSync: true,
+    indentWithTabs: false
+  })
+  console.log(editor)
 })
