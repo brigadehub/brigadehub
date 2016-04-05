@@ -15,16 +15,18 @@ block content
   .row
     .col-sm-9
       .banner(style="margin-bottom: 50px;")
-        img(src="http://placehold.it/1000x200?text=banner", style="width: 100%;")
+        img(src="http://placehold.it/1000x200?text=banner").img-fluid
       .row
-        .col-sm-9
+        .col-sm-8
           .description
-            |  #{project.description}
+            h4 Description
+            p
+              |  #{project.description}
           hr
-          .born-at
+          p.born-at
             strong Born at:
             |  #{project.bornAt}
-          .project-status
+          p.project-status
             strong Project status: 
             if (project.status === 'proposed' || project.status === 'ideation')
               span(class="label label-info")  #{project.status}
@@ -34,101 +36,88 @@ block content
               span(class="label label-warning")  #{project.status}
             if (project.status === 'production' || project.status === 'archival')
               span(class="label label-success")  #{project.status}
-          .homepage(style="margin-top: 5px;")
+          p.homepage
             i.fa.fa-home.fa-fw
             a(href="#{project.homepage}") #{project.homepage}
-          .repository
+          p.repository
             i.fa.fa-github-square.fa-fw
             a(href="#{project.repository}") #{project.repository}
           hr
-          .geography
+          p.geography
             strong Geography:
             |  #{project.geography}
-          .political-entity
+          p.political-entity
             strong Political entity:
             |  #{project.politicalEntity}
-          .types
+          p.types
             strong Types:
             |  #{project.types}
-          .needs
+          p.needs
             strong Needs:
             |  #{project.needs}
-          .categories
+          p.categories
             strong Categories:
             |  #{project.categories}
-          .data
+          p.data
             strong Data: 
             |  #{project.data}
-          .keywords
+          p.keywords
             strong keywords:
             |  #{project.keywords}
-        .col-sm-3
+        .col-sm-4
           h4 Team
-          .team
-            .owner
-              .row
-                .col-sm-4
-                  .avatar
-                    img(src="http://placehold.it/100x100?text=contact", style="width: 100%;")
-                .col-sm-8
-                  a(href="mailto:#{project.contact.email}") #{project.contact.name}
-            .partners
-              .row
-                .col-sm-4
-                  .avatar
-                    img(src="http://placehold.it/100x100?text=contact", style="width: 100%;")
-                .col-sm-8
-                  a(href="mailto:#{project.contact.email}") #{project.contact.name}
-              .row
-                .col-sm-4
-                  .avatar
-                    img(src="http://placehold.it/100x100?text=contact", style="width: 100%;")
-                .col-sm-8
-                  a(href="mailto:#{project.contact.email}") #{project.contact.name}
-              .row
-                .col-sm-4
-                  .avatar
-                    img(src="http://placehold.it/100x100?text=contact", style="width: 100%;")
-                .col-sm-8
-                  a(href="mailto:#{project.contact.email}") #{project.contact.name}
-              .row
-                .col-sm-4
-                  .avatar
-                    img(src="http://placehold.it/100x100?text=contact", style="width: 100%;")
-                .col-sm-8
-                  a(href="mailto:#{project.contact.email}") #{project.contact.name}
-          //- .partners
-                  //-   strong Partners: 
-                  //-   |  #{project.partners}        
+
+
+          .media
+            .media-left
+              a(href="#")
+                img(src="http://placehold.it/40x40?text=contact").media-object.media-middle
+            .media-body
+              a(href="mailto:#{project.contact.email}") #{project.contact.name}
+          .media
+            .media-left
+              a(href="#")
+                img(src="http://placehold.it/40x40?text=contact").media-object.media-middle
+            .media-body
+              a(href="mailto:#{project.contact.email}") #{project.contact.name}
+          .media
+            .media-left
+              a(href="#")
+                img(src="http://placehold.it/40x40?text=contact").media-object.media-middle
+            .media-body
+              a(href="mailto:#{project.contact.email}") #{project.contact.name}
+          .media
+            .media-left
+              a(href="#")
+                img(src="http://placehold.it/40x40?text=contact").media-object.media-middle
+            .media-body
+              a(href="mailto:#{project.contact.email}") #{project.contact.name}
+          
+  
     .col-sm-3
         .see-also
-          h3(style="margin-top: 0;") See also
           .links
-            .row
-              .col-sm-12
-                .avatar
-                  img(src="http://placehold.it/400x400?text=other+project", style="width: 100%;")
-              .col-sm-12
-                h5 
+            .card
+              a(href="#")
+                img(src="http://placehold.it/400x400?text=other+project").card-img-top.img-fluid
+              .card-block
+                .card-title
                   a(href="#") Other Project A
-                p This is Other Project A
-
-            .row
-              .col-sm-12
-                .avatar
-                  img(src="http://placehold.it/400x400?text=other+project", style="width: 100%;")
-              .col-sm-12
-                h5 
-                  a(href="#") Other Project B
-                p This is Other Project B
-
-            .row
-              .col-sm-12
-                .avatar
-                  img(src="http://placehold.it/400x400?text=other+project", style="width: 100%;")
-              .col-sm-12
-                h5 
-                  a(href="#") Other Project C
-                p This is Other Project C
-            //- strong Links:
-            //- |  #{project.links}
+                .card-text
+                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            .card
+              a(href="#")
+                img(src="http://placehold.it/400x400?text=other+project").card-img-top.img-fluid
+              .card-block
+                .card-title
+                  a(href="#") Other Project A
+                .card-text
+                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            .card
+              a(href="#")
+                img(src="http://placehold.it/400x400?text=other+project").card-img-top.img-fluid
+              .card-block
+                .card-title
+                  a(href="#") Other Project A
+                .card-text
+                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit. 

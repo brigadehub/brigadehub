@@ -28,3 +28,6 @@ bower_components
 .DS_Store
 Thumbs.db
 coverage
+
+main.css
+main.css.map
