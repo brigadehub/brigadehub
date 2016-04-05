@@ -16,7 +16,8 @@
     "test:unit": "babel-node ./node_modules/istanbul/lib/cli cover tape -- **/*.tape.js",
     "db:clear": "./scripts/database-clear",
     "db:seed": "./scripts/database-seed",
-    "develop": "nodemon app.js"
+    "develop": "nodemon app.js",
+    "cleaninstall": "rm -rf node_modules && npm install"
   },
   "dependencies": {
     "async": "^1.5.2",
