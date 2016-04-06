@@ -17,6 +17,7 @@ module.exports = {
     Events.fetchMeetupEvents(url).then(function (result) {
       result.forEach(function (item) {
         var event = {
+          view: 'event-list',
           title: item.name,
           start: new Date(item.time).toLocaleString(),
           venue: item.venue.name,
@@ -51,6 +52,7 @@ module.exports = {
    */
   getEventsManage: function (req, res) {
     res.render(res.locals.brigade.theme.slug + '/views/events/manage', {
+      view: 'event-list-manage',
       title: 'Manage Events',
       brigade: res.locals.brigade
     })
@@ -68,6 +70,7 @@ module.exports = {
    */
   getEventsNew: function (req, res) {
     res.render(res.locals.brigade.theme.slug + '/views/events/new', {
+      view: 'event-new',
       title: 'New Events',
       brigade: res.locals.brigade
     })
@@ -86,6 +89,7 @@ module.exports = {
    */
   getEventsID: function (req, res) {
     res.render(res.locals.brigade.theme.slug + '/views/events/event', {
+      view: 'event',
       eventID: req.params.eventID,
       title: 'Events',
       brigade: res.locals.brigade
@@ -97,6 +101,7 @@ module.exports = {
    */
   getEventsIDSettings: function (req, res) {
     res.render(res.locals.brigade.theme.slug + '/views/events/settings', {
+      view: 'event-settings',
       eventID: req.params.eventID,
       title: 'IDSettings Events',
       brigade: res.locals.brigade

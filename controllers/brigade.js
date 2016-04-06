@@ -6,6 +6,7 @@ var Brigade = require('../models/Brigade')
  */
 exports.getBrigade = function (req, res) {
   res.render(res.locals.brigade.theme.slug + '/views/brigade', {
+    view: 'brigade-manage',
     title: 'Brigade',
     brigade: res.locals.brigade
   })
