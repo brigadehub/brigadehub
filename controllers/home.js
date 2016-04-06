@@ -3,9 +3,9 @@
  * Home page.
  */
 
- var Projects = require('../models/Projects')
+var Projects = require('../models/Projects')
 
- var NUM_PROJECTS_SHOWN = 6;
+var NUM_PROJECTS_SHOWN = 6
 
 exports.index = function (req, res) {
   console.log(req.user)
@@ -20,10 +20,10 @@ exports.index = function (req, res) {
       })
     })
 
-  res.render(res.locals.brigade.theme.slug + '/views/home', {
-    title: 'Home',
-    brigade: res.locals.brigade,
-    projects: foundProjects.splice(0, NUM_PROJECTS_SHOWN)
-  })
+    res.render(res.locals.brigade.theme.slug + '/views/home', {
+      title: 'Home',
+      brigade: res.locals.brigade,
+      projects: foundProjects.splice(0, NUM_PROJECTS_SHOWN)
+    })
   })
 }
