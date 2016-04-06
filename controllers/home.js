@@ -4,19 +4,8 @@
  */
 var Projects = require('../models/Projects')
 
-exports.index = function (req, res) {
-  console.log(req.user)
-  getProjects(res).then(function (projects) {
-    res.render(res.locals.brigade.theme.slug + '/views/home', {
-      title: 'Home',
-      brigade: res.locals.brigade,
-      projects: projects
-    })
-  })
-}
-
-getProjects = function (res) {
-  return new Promise (function (resolve, reject) {
+function getProjects (res) {
+  return new Promise(function (resolve, reject) {
     Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
       if (err) console.error(err)
       var allKeywords = []
@@ -28,6 +17,17 @@ getProjects = function (res) {
         })
       })
       resolve(foundProjects)
+    })
+  })
+}
+
+exports.index = function (req, res) {
+  console.log(req.user)
+  getProjects(res).then(function (projects) {
+    res.render(res.locals.brigade.theme.slug + '/views/home', {
+      title: 'Home',
+      brigade: res.locals.brigade,
+      projects: projects
     })
   })
 }
