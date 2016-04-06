@@ -45,6 +45,7 @@ exports.postBrigade = function (req, res, next) {
     if (req.body.name) { // brigade form updated
       thisBrigade.name = req.body.name
       thisBrigade.location.general = req.body.location
+      thisBrigade.location.timezone = req.body.timezone
       thisBrigade.url = req.body.url
       thisBrigade.heroImage = req.body.heroImage || 'https://i.imgur.com/m7omd0N.jpg'
       thisBrigade.copy.tagline = req.body.tagline

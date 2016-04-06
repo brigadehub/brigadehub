@@ -8,7 +8,8 @@ var brigadeSchema = new mongoose.Schema({
   location: {
     general: String,
     specific: String,
-    geo: String
+    geo: String,
+    timezone: String
   },
   url: String,
   github: String,
