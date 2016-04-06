@@ -50,6 +50,7 @@
     "mongoose-unique-validator": "^1.0.2",
     "morgan": "^1.6.1",
     "node-sass-middleware": "^0.9.7",
+    "node-uuid": "^1.4.7",
     "node-version-checker": "^1.0.6",
     "nodemailer": "^2.0.0",
     "passport": "0.3.2",
