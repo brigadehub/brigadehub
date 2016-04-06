@@ -1,14 +1,14 @@
 var selectn = require('selectn')
-module.exports = function(passport, auth){
+module.exports = function (passport, auth) {
   // console.log(passport._strategies)
   // Github
-  if(
+  if (
     selectn('_strategies.github._oauth2._clientId', passport) &&
     selectn('_strategies.github._oauth2._clientId', passport) !== auth.github.clientId
   ) {
     passport._strategies.github._oauth2._clientId = auth.github.clientId
   }
-  if(
+  if (
     selectn('_strategies.github._oauth2._clientSecret', passport) &&
     selectn('_strategies.github._oauth2._clientSecret', passport) !== auth.github.clientSecret
   ) {
@@ -16,19 +16,17 @@ module.exports = function(passport, auth){
   }
 
   // Meetup
-  if(
+  if (
     selectn('_strategies.meetup._oauth._consumerKey', passport) &&
     selectn('_strategies.meetup._oauth._consumerKey', passport) !== auth.meetup.consumerKey
   ) {
     passport._strategies.meetup._oauth._consumerKey = auth.meetup.consumerKey
   }
-  if(
+  if (
     selectn('_strategies.meetup._oauth._consumerSecret', passport) &&
     selectn('_strategies.meetup._oauth._consumerSecret', passport) !== auth.meetup.consumerSecret
   ) {
     passport._strategies.meetup._oauth._consumerSecret = auth.meetup.consumerSecret
   }
-
   // TODO load Slack dynamic auth tokens
-
 }
