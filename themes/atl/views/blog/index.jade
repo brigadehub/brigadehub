@@ -1,48 +1,40 @@
 extends ../layout
+
 block content
-.container
-  .page-header
-    h1 Blog
-  // note multiple rows... will need to calculate them based on number of posts for perfect alignment. - AB
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/blog') Blog
+  .row.page-header
+    .col-sm-12
+      h1 Blog
+  .row.tags
+    ul
+      if query
+        li
+          a(href='?') Clear Search Tag
+      each tag in tags
+        li(class=query===tag?'selected':'')
+          a(href="?tag=#{tag}")= tag
   .row
-    .col-sm-4
-      a(href="#")
-        img(src="http://lorempixel.com/g/360/215/").img-fluid
-      p 
-        small.text-muted January 31, 2016 | 
-          a(href="#") Blog
-      h4 Dramatically engage top-line web services 
-      p Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions.
-    .col-sm-4
-      a(href="#")
-        img(src="http://lorempixel.com/g/360/215/").img-fluid
-      p 
-        small.text-muted January 31, 2016 | 
-          a(href="#") Blog
-      h4 Holisticly predominate extensible testing procedures
-        p Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.
-    .col-sm-4
-      a(href="#")
-        img(src="http://lorempixel.com/g/360/215/").img-fluid
-      p 
-        small.text-muted January 31, 2016 | 
-          a(href="#") Blog
-      h4 Objectively Innovate Empowered Manufactured Products
-      p Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.
-  .row
-    .col-sm-4
-      a(href="#")
-        img(src="http://lorempixel.com/g/360/215/").img-fluid
-      p 
-        small.text-muted January 31, 2016 | 
-          a(href="#") Blog
-      h4 Proactively envisioned multimedia
-      p Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric "outside the box" thinking. Completely pursue scalable customer service through sustainable potentialities.
-    .col-sm-4
-      a(href="#")
-        img(src="http://lorempixel.com/g/360/215/").img-fluid
-      p 
-        small.text-muted January 31, 2016 | 
-          a(href="#") Blog
-      h4 Seamlessly visualize quality intellectual capital
-      p Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.
+    //- slug: String, // this is the slug
+    //- title: String, // Display title
+    //- author: String,
+    //- url: String, // an external link you can use to override where to go when clicking
+    //- image: String,
+    //- description: String,
+    //- content: String,
+    //- date: String,
+    //- unix: Number,
+    //- tags: Array
+    .col-sm-12
+      each post in posts
+        a.col-sm-2.col-md-4(href=(post.url !== '' ? post.url : '/blog/'+post.slug))
+          img(src=post.image, style="width:100%;")
+          span.date= post.date
+          | | 
+          span.author= post.author
+          h4= post.title
+          p= post.description
+            

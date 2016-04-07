@@ -1,7 +1,8 @@
 'use strict'
 
-var Blog = require('../models/Blogs')
-var markdown = require('markdown').markdown
+var Post = require('../models/Posts')
+var markdown = require('marked')
+var _ = require('lodash')
 
 module.exports = {
   /**
@@ -9,9 +10,27 @@ module.exports = {
    * List of Blog examples.
    */
   getBlog: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
-      title: 'Blog',
-      brigade: res.locals.brigade
+    var mongooseQuery = {}
+    if (req.query.tag) {
+      mongooseQuery.tags = req.query.tag
+    }
+    console.log(mongooseQuery)
+    Post.find({}, function (err, results) {
+      if (err) console.error(err)
+      var tags = _.uniq(_.flatMap(results, 'tags'))
+      Post.find(mongooseQuery, function (err, results) {
+        if (err) console.error(err)
+        var blogPosts = results || []
+        console.log(tags)
+        res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
+          title: 'Blog',
+          brigade: res.locals.brigade,
+          user: res.locals.user,
+          posts: blogPosts,
+          tags: tags,
+          query: req.query.tag
+        })
+      })
     })
   },
   /**
@@ -44,6 +63,7 @@ module.exports = {
     res.render(res.locals.brigade.theme.slug + '/views/blog/new', {
       title: 'New Blog',
       brigade: res.locals.brigade,
+      user: res.locals.user,
       plaintextcontent: req.session.blogpostplaintextcontent,
       uniqueId: uniqueId
     })
@@ -55,10 +75,10 @@ module.exports = {
   postBlogNew: function (req, res) {
     let content = req.body.blogcontent
 
-    let blogpost = new Blog({
+    let blogpost = new Post({
       title: req.body.blogtitle,
-      plaintextcontent: content,
-      htmlcontent: markdown.toHTML(content)
+      plaintextcontent: content
+    // htmlcontent: markdown.toHTML(content)
     })
 
     blogpost.save(function (err) {
@@ -79,13 +99,18 @@ module.exports = {
    * Display Blog by ID.
    */
   getBlogID: function (req, res) {
-    Blog.findOne({title: req.params.blogId}, function (err, post) {
+    console.log(req.params)
+    console.log(res.locals)
+    Post.find({slug: req.params.blogId}, function (err, post) {
       if (err) throw err
-
+      console.log(post)
+      post = post[0]
+      post.content = markdown(post.content)
       res.render(res.locals.brigade.theme.slug + '/views/blog/post', {
         blogId: req.params.blogId,
         title: 'Blog',
         brigade: res.locals.brigade,
+        user: res.locals.user,
         post: post
       })
     })
@@ -95,10 +120,17 @@ module.exports = {
    * IDEdit Blog.
    */
   getBlogIDEdit: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/blog/edit', {
-      blogId: req.params.blogID,
-      title: 'IDEdit Blog',
-      brigade: res.locals.brigade
+    Post.find({slug: req.params.blogId}, function (err, post) {
+      if (err) throw err
+      console.log(post)
+      post = post[0]
+      res.render(res.locals.brigade.theme.slug + '/views/blog/edit', {
+        blogId: req.params.blogId,
+        title: 'Edit Blog',
+        brigade: res.locals.brigade,
+        user: res.locals.user,
+        post: post
+      })
     })
   },
   /**
@@ -106,7 +138,49 @@ module.exports = {
    * Submit IDEdit Blog.
    */
   postBlogIDEdit: function (req, res) {
-    res.redirect('Blog/' + req.params.blogID + '/edit')
+    // - slug: String, // this is the slug
+    // - title: String, // Display title
+    // - author: String,
+    // - url: String, // an external link you can use to override where to go when clicking
+    // - image: String,
+    // - description: String,
+    // - content: String,
+    // - date: String,
+    // - unix: Number,
+    // - tags: Array
+
+    Post.find({slug: req.params.blogId}, function (err, post) {
+      if (err) throw err
+      console.log(post)
+      post = post[0]
+      post.title = req.body.title
+      post.author = req.body.author
+      post.url = req.body.url
+      post.image = req.body.image
+      post.description = req.body.description
+      post.content = req.body.content
+      post.date = req.body.date
+      post.unix = req.body.unix
+      post.tags = req.body.tags
+      if (req.body.tags.indexOf(',') > -1) {
+        req.body.tags = req.body.tags.split(',')
+        post.tags = req.body.tags.map(function (tag) {
+          return tag.trim()
+        })
+      }
+      console.log(post.tags)
+      post.save(function (err) {
+        if (err) {
+          req.session.blogpostplaintextcontent = post.content
+          req.flash('errors', { msg: err.message })
+          return res.redirect(req.session.returnTo || '/blog/' + req.params.blogId + '/edit')
+        } else {
+          req.session.blogpostplaintextcontent = null
+          req.flash('success', { msg: 'Success! Blog post updated' })
+          return res.redirect('/blog/' + post.slug)
+        }
+      })
+    })
   },
   /**
    * POST /blog/sync

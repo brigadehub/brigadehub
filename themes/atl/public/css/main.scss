@@ -3,6 +3,7 @@
 // @import "vendors/bootstrap/bootstrap";
 
 @import "vendors/font-awesome/font-awesome";
+@import "vendors/simplemde.min";
 
 @import "themes/default/default";
 
@@ -114,6 +115,7 @@ textarea {
 }
 .float {
   display: block;
+  float:left;
   &.right{
     float: right;
   }
@@ -309,4 +311,10 @@ body.scroll {
     background-size:cover;
     overflow:hidden;
   }
+}
+
+/* Account page */
+
+.delete-account{
+  display: none;
 }

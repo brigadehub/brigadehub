@@ -75,9 +75,35 @@ block content
 
   form.row.form-horizontal(action='/account/delete', method='POST')
     .form-group
-      p.col-sm-offset-3.col-sm-4 You can delete your account, but keep in mind this action is irreversible.
       input(type='hidden', name='_csrf', value=_csrf)
-      .col-sm-offset-3.col-sm-4
-        button.btn.btn-danger(type='submit')
+      .delete-account.col-sm-offset-3.col-sm-4
+        a.btn.btn-danger.btn-delete-account
           i.fa.fa-trash
           | Delete my account
+
+      .delete-account-options
+        p.col-sm-offset-3.col-sm-4 Careful! Deleting your account is irreversible. If you're sure, please type "delete my account" to confirm.
+        .col-sm-offset-3.col-sm-4
+          input(type='text', name='verify-account-deletion-string', id='verify-account-deletion-string').form-control
+          button.btn.btn-danger(type='submit').btn-confirm-delete-account.m-r-1.m-y-1
+            i.fa.fa-trash
+            | Confirm
+          a.btn.btn-cancel-delete-account
+            | Cancel
+
+  block script
+    script.
+      $(document).ready(function(){
+        $('.delete-account').show()
+        $('.delete-account-options').hide()
+      })
+
+      $('.btn-delete-account').on('click', function() {
+        $('.delete-account-options').show()
+        $('.btn-delete-account').hide()
+      })
+
+      $('.btn-cancel-delete-account').on('click', function() {
+        $('.delete-account-options').hide()
+        $('.btn-delete-account').show()
+      })
