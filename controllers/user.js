@@ -171,7 +171,6 @@ module.exports = {
    */
   getUsers: function (req, res) {
     Users.find({}, function (err, foundUsers) {
-      console.log(foundUsers);
       if (err) console.error(err)
       res.render(res.locals.brigade.theme.slug + '/views/users/index', {
         title: 'Users',
@@ -187,7 +186,6 @@ module.exports = {
   getUsersManage: function (req, res) {
     Users.find({}, function (err, foundUsers) {
       if (err) console.error(err)
-      console.log(foundUsers)
       res.render(res.locals.brigade.theme.slug + '/views/users/manage', {
         title: 'Manage Users',
         brigade: res.locals.brigade,
