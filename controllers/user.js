@@ -170,7 +170,8 @@ module.exports = {
    * List of User examples.
    */
   getUsers: function (req, res) {
-    Users.find({brigade: res.locals.brigade.slug}, function (err, foundUsers) {
+    Users.find({}, function (err, foundUsers) {
+      console.log(foundUsers);
       if (err) console.error(err)
       res.render(res.locals.brigade.theme.slug + '/views/users/index', {
         title: 'Users',
