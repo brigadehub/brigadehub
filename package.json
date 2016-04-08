@@ -18,7 +18,7 @@
     "db:seed": "./scripts/database-seed",
     "develop": "nodemon app.js",
     "cleaninstall": "rm -rf node_modules && npm install",
-    "postinstall": "cp scripts/pre-commit.sh .git/hooks/pre-commit"
+    "postinstall": "if [ ! -L .git/hooks/pre-commit ]; then ln -s scripts/pre-commit.sh .git/hooks/pre-commit; fi"
   },
   "dependencies": {
     "async": "^1.5.2",
