@@ -1,5 +1,5 @@
-#! /usr/bin/env sh
+#! /bin/sh
 
-git stash -q --keep-index
-npm test
-git stash pop -q
+exec git stash -q --keep-index
+exec npm test
+exec git stash pop -q
