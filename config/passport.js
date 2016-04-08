@@ -123,7 +123,7 @@ passport.use(new GitHubStrategy({
 }))
 
 /**
- * Sign in with GitHub.
+ * Link Meetup account
  */
 passport.use(new MeetupStrategy({
   consumerKey: process.env.MEETUP_KEY,
