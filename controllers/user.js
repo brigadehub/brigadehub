@@ -12,6 +12,7 @@ module.exports = {
       return res.redirect('/')
     }
     res.render(res.locals.brigade.theme.slug + '/views/account/login', {
+      view: 'login',
       title: 'Login',
       brigade: res.locals.brigade
     })
@@ -65,6 +66,7 @@ module.exports = {
    */
   getAccount: function (req, res) {
     res.render(res.locals.brigade.theme.slug + '/views/account/profile', {
+      view: 'account-settings',
       title: 'Account Management',
       brigade: res.locals.brigade
     })
@@ -142,6 +144,7 @@ module.exports = {
    */
   getLoginEdit: function (req, res) {
     res.render(res.locals.brigade.theme.slug + '/views/account/login-edit', {
+      view: 'login-edit',
       title: 'Login Edit',
       brigade: res.locals.brigade
     })
@@ -173,6 +176,7 @@ module.exports = {
     Users.find({brigade: res.locals.brigade.slug}, function (err, foundUsers) {
       if (err) console.error(err)
       res.render(res.locals.brigade.theme.slug + '/views/users/index', {
+        view: 'user-list',
         title: 'Users',
         brigade: res.locals.brigade,
         users: foundUsers
@@ -188,6 +192,7 @@ module.exports = {
       if (err) console.error(err)
       console.log(foundUsers)
       res.render(res.locals.brigade.theme.slug + '/views/users/manage', {
+        view: 'user-list-manage',
         title: 'Manage Users',
         brigade: res.locals.brigade,
         users: foundUsers
@@ -207,6 +212,7 @@ module.exports = {
    */
   getUsersNew: function (req, res) {
     res.render(res.locals.brigade.theme.slug + '/views/users/new', {
+      view: 'user-new',
       title: 'New Users',
       brigade: res.locals.brigade
     })
@@ -225,6 +231,7 @@ module.exports = {
    */
   getUsersID: function (req, res) {
     res.render(res.locals.brigade.theme.slug + '/views/users/user', {
+      view: 'user',
       userId: req.params.userId,
       title: 'Users',
       brigade: res.locals.brigade
@@ -236,6 +243,7 @@ module.exports = {
    */
   getUsersIDSettings: function (req, res) {
     res.render(res.locals.brigade.theme.slug + '/views/users/settings', {
+      view: 'user-settings',
       userId: req.params.userId,
       title: 'IDSettings Users',
       brigade: res.locals.brigade
