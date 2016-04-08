@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# test
+# test test
 
 exec git stash -q --keep-index
 exec npm test
