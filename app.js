@@ -23,6 +23,7 @@ var passport = require('passport')
 var expressValidator = require('express-validator')
 var sass = require('node-sass-middleware')
 var path = require('path')
+var requireDir = require('require-dir')
 /* var _ = require('lodash') */
 
 var DB_INSTANTIATED
@@ -43,6 +44,11 @@ var projectsCtrl = require('./controllers/projects')
 var contactCtrl = require('./controllers/contact')
 var usersCtrl = require('./controllers/user')
 var brigadeCtrl = require('./controllers/brigade')
+
+/*
+ * Helpers
+ */
+var helpers = requireDir('./helpers')
 
 var brigadeDetails
 
@@ -110,6 +116,7 @@ app.use(function (req, res, next) {
     if (!results.length) throw new Error('BRIGADE NOT IN DATABASE')
     res.locals = res.locals || {}
     res.locals.brigade = results[0]
+    helpers.tokenLoader(passport, res.locals.brigade.auth)
     next()
   })
 })
@@ -179,10 +186,12 @@ app.post('/events/manage', passportConf.isAuthenticated, eventsCtrl.postEventsMa
 app.post('/events/sync', passportConf.isAuthenticated, eventsCtrl.postEventsSync)
 app.get('/events/new', passportConf.isAuthenticated, eventsCtrl.getEventsNew)
 app.post('/events/new', passportConf.isAuthenticated, eventsCtrl.postEventsNew)
+app.post('/events/delete', passportConf.isAuthenticated, eventsCtrl.postDeleteAllEvents)
 app.get('/events/:eventId', eventsCtrl.getEventsID)
 app.post('/events/:eventId', passportConf.isAuthenticated, eventsCtrl.postEventsIDSettings)
 app.get('/events/:eventId/settings', passportConf.isAuthenticated, eventsCtrl.getEventsIDSettings)
 app.post('/events/:eventId/sync', passportConf.isAuthenticated, eventsCtrl.postEventsIDSync)
+app.post('/events/:eventId/delete', passportConf.isAuthenticated, eventsCtrl.postDeleteEvent)
 
 /**
  * Blog routes.

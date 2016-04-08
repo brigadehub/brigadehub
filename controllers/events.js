@@ -1,4 +1,7 @@
 var Events = require('../models/Events')
+var moment = require('moment')
+var uuid = require('node-uuid')
+require('moment-timezone')
 
 module.exports = {
   /**
@@ -6,56 +9,42 @@ module.exports = {
    * List of Event examples.
    */
   getEvents: function (req, res) {
-    try {
-      var meetupid = res.locals.brigade.meetup.split('.com/')[1].replace(/\//g, '')
-    } catch (err) {
-      meetupid = 'null'
-    } finally {
-      var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
-    }
-    var aggregate = []
-    Events.fetchMeetupEvents(url).then(function (result) {
-      result.forEach(function (item) {
-        var event = {
-          view: 'event-list',
-          title: item.name,
-          start: new Date(item.time).toLocaleString(),
-          venue: item.venue.name,
-          address: item.venue.address_1,
-          city: item.venue.city,
-          url_page: item.event_url
-        }
-        aggregate.push(event)
+    Events.find({}, function (err, foundEvents) {
+      if (err) console.error(err)
+      var userzone = moment.tz.guess()
+      var mappedEvents = foundEvents.map(function (event) {
+        event.convertedstart = moment.unix(event.start).tz(userzone).format('ha z MMMM DD, YYYY')
+        event.localstart = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('ha z MMMM DD, YYYY')
+        event.start = moment.unix(event.start).format()
+        return event
       })
-      if (aggregate.length < 1) {
-        throw new Error('We could not find any events on your Meetup account. Please check your Meetup.com link if you were expecting some to show.')
-      }
       res.render(res.locals.brigade.theme.slug + '/views/events/index', {
-        events: aggregate,
-        upcomingevents: aggregate.slice(0, 10),
+        view: 'event-list',
+        events: mappedEvents,
+        upcomingevents: mappedEvents.slice(0, 10),
         title: 'Events',
         brigade: res.locals.brigade
       })
-    }).catch(function (err) {
-      req.flash('errors', {msg: err})
-      res.render(res.locals.brigade.theme.slug + '/views/events/index', {
-        events: [],
-        upcomingevents: aggregate.slice(0, 10),
-        title: 'Events',
-        brigade: res.locals.brigade
-      })
-    })
+    }).sort({start: 1})
   },
   /**
    * GET /events/manage
    * Manage Events.
    */
   getEventsManage: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/events/manage', {
-      view: 'event-list-manage',
-      title: 'Manage Events',
-      brigade: res.locals.brigade
-    })
+    Events.find({}, function (err, foundEvents) {
+      if (err) console.error(err)
+      var mappedEvents = foundEvents.map(function (event) {
+        event.localstart = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('ha z MMMM DD, YYYY')
+        return event
+      })
+      res.render(res.locals.brigade.theme.slug + '/views/events/manage', {
+        view: 'event-list-manage',
+        title: 'Manage Events',
+        allEvents: mappedEvents,
+        brigade: res.locals.brigade
+      })
+    }).sort({start: 1})
   },
   /**
    * POST /events/manage
@@ -80,7 +69,15 @@ module.exports = {
    * Submit New Events.
    */
   postEventsNew: function (req, res) {
-    res.redirect('events/new')
+    var newEvent = new Events(req.body)
+    newEvent.id = uuid.v1()
+    newEvent.start = Date.parse(req.body.startday + req.body.startmonth + req.body.startyear + req.body.starthour + req.body.startminute) / 1000
+    newEvent.end = Date.parse(req.body.endday + req.body.endmonth + req.body.endyear + req.body.endhour + req.body.endminute) / 1000
+    newEvent.save(function (err) {
+      if (err) console.error(err)
+    })
+    req.flash('success', {msg: 'Success! You have created an event.'})
+    res.redirect('/events/new')
   },
 
   /**
@@ -100,11 +97,16 @@ module.exports = {
    * IDSettings Events.
    */
   getEventsIDSettings: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/events/settings', {
-      view: 'event-settings',
-      eventID: req.params.eventID,
-      title: 'IDSettings Events',
-      brigade: res.locals.brigade
+    Events.find({id: req.params.eventId}, function (err, foundEvent) {
+      if (err) console.log(err)
+      res.render(res.locals.brigade.theme.slug + '/views/events/settings', {
+        view: 'event-settings',
+        event: foundEvent[0],
+        title: 'Event Settings',
+        start: moment.unix(foundEvent[0].start).tz(res.locals.brigade.location.timezone).format('MM-DD-YYYY HH:mm:ss'),
+        end: moment.unix(foundEvent[0].end).tz(res.locals.brigade.location.timezone).format('MM-DD-YYYY HH:mm:ss'),
+        brigade: res.locals.brigade
+      })
     })
   },
   /**
@@ -112,14 +114,42 @@ module.exports = {
    * Submit IDSettings Events.
    */
   postEventsIDSettings: function (req, res) {
-    res.redirect('Events/' + req.params.eventID + '/settings')
+    Events.find({id: req.params.eventId}, function (err, foundEvent) {
+      if (err) console.log(err)
+      var thisEvent = foundEvent[0]
+      thisEvent.title = req.body.title
+      thisEvent.location = req.body.location
+      thisEvent.host = req.body.host
+      thisEvent.start = moment.tz(req.body.start, 'MM-DD-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
+      thisEvent.end = moment.tz(req.body.end, 'MM-DD-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
+      thisEvent.url = req.body.url
+      thisEvent.description = req.body.description
+      thisEvent.save(function (err) {
+        if (err) console.log(err)
+      })
+      req.flash('success', {msg: 'Success! You have updated your event.'})
+      res.redirect('/events/' + req.params.eventId + '/settings')
+    })
   },
   /**
    * POST /events/sync
    * Sync Events.
    */
   postEventsSync: function (req, res) {
-    res.redirect('/events/manage')
+    var meetupid
+    try {
+      meetupid = res.locals.brigade.meetup.split('.com/')[1].replace(/\//g, '')
+    } catch (err) {
+      meetupid = ''
+    }
+    var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
+    Events.fetchMeetupEvents(url).then(function (value) {
+      req.flash('success', {msg: 'Success! You have successfully synced events from Meetup.'})
+      res.redirect('/events/manage')
+    }).catch(function (error) {
+      req.flash('errors', {msg: error})
+      res.redirect('/events/manage')
+    })
   },
   /**
    * POST /events/:eventID/settings
@@ -127,5 +157,31 @@ module.exports = {
    */
   postEventsIDSync: function (req, res) {
     res.redirect('Events/' + req.params.eventID + '/settings')
+  },
+  /**
+   * POST /events/:eventId/delete
+   * Delete Events.
+   */
+  postDeleteEvent: function (req, res) {
+    Events.remove({id: req.params.eventId}, function (err) {
+      if (err) {
+        console.log(err)
+      }
+      req.flash('success', {msg: 'Your event was deleted.'})
+      res.redirect('/events/manage')
+    })
+  },
+  /**
+   * POST /events/:eventId/delete
+   * Delete Events.
+   */
+  postDeleteAllEvents: function (req, res) {
+    Events.remove({}, function (err) {
+      if (err) {
+        console.log(err)
+      }
+      req.flash('success', {msg: 'Your events were deleted.'})
+      res.redirect('/events/manage')
+    })
   }
 }

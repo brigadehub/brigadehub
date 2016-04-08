@@ -87,32 +87,18 @@ block content
     hr
     #landing-projects.row
       h2.text-xs-center Projects
-      .col-sm-2
-        #landing-project-1.landing-project
-          img.img-thumbnail(src="http://placehold.it/200x200")
-          a(href="#") Project Name
-      .col-sm-2
-        #landing-project-2.landing-project
-          img.img-thumbnail(src="http://placehold.it/200x200")
-          a(href="#") Project Name
-      .col-sm-2
-        #landing-project-3.landing-project
-          img.img-thumbnail(src="http://placehold.it/200x200")
-          a(href="#") Project Name
-      .col-sm-2
-        #landing-project-4.landing-project
-          img.img-thumbnail(src="http://placehold.it/200x200")
-          a(href="#") Project Name
-      .col-sm-2
-        #landing-project-5.landing-project
-          img.img-thumbnail(src="http://placehold.it/200x200")
-          a(href="#") Project Name
-      .col-sm-2
-        #landing-project-6.landing-project
-          img.img-thumbnail(src="http://placehold.it/200x200")
-          a(href="#") Project Name
+      
+      each project in projects
+        // for perfect alignment, need a row on every odd instance of project. (row, col col, row, col col, etc. ) this code will look ok unitl you get a lot of description text on a project. - AB
+
+        .col-sm-2
+          #landing-project-1.landing-project
+            img.img-thumbnail(src="http://placehold.it/200x200")
+            a(href='/projects/#{project.id}')=project.name
+            
+            
       .col-sm-12.text-xs-center
-        a.btn.btn-secondary(href="#").center-block All Projects
+        a.btn.btn-secondary(href="projects").center-block All Projects
     hr
     #landing-blog.row
       h2.text-xs-center  Blog
