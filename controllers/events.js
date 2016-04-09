@@ -19,6 +19,7 @@ module.exports = {
         return event
       })
       res.render(res.locals.brigade.theme.slug + '/views/events/index', {
+        view: 'event-list',
         events: mappedEvents,
         upcomingevents: mappedEvents.slice(0, 10),
         title: 'Events',
@@ -38,6 +39,7 @@ module.exports = {
         return event
       })
       res.render(res.locals.brigade.theme.slug + '/views/events/manage', {
+        view: 'event-list-manage',
         title: 'Manage Events',
         allEvents: mappedEvents,
         brigade: res.locals.brigade
@@ -57,6 +59,7 @@ module.exports = {
    */
   getEventsNew: function (req, res) {
     res.render(res.locals.brigade.theme.slug + '/views/events/new', {
+      view: 'event-new',
       title: 'New Events',
       brigade: res.locals.brigade
     })
@@ -85,6 +88,7 @@ module.exports = {
    */
   getEventsID: function (req, res) {
     res.render(res.locals.brigade.theme.slug + '/views/events/event', {
+      view: 'event',
       eventID: req.params.eventID,
       title: 'Events',
       brigade: res.locals.brigade
@@ -100,6 +104,7 @@ module.exports = {
       var startDigits = moment.unix(foundEvent[0].start).tz(res.locals.brigade.location.timezone).format('MMM, D, YYYY, HH, mm').split(",")
       var endDigits = moment.unix(foundEvent[0].end).tz(res.locals.brigade.location.timezone).format('MMM, D, YYYY, HH, mm').split(",")
       res.render(res.locals.brigade.theme.slug + '/views/events/settings', {
+        view: 'event-settings',
         event: foundEvent[0],
         title: 'Event Settings',
         start: startDigits,

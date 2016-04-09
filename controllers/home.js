@@ -21,9 +21,19 @@ exports.index = function (req, res) {
     })
 
     res.render(res.locals.brigade.theme.slug + '/views/home', {
+      view: 'home',
       title: 'Home',
       brigade: res.locals.brigade,
       projects: foundProjects.splice(0, NUM_PROJECTS_SHOWN)
     })
+  })
+}
+
+exports.indexEdit = function (req, res) {
+  console.log(req.user)
+  res.render(res.locals.brigade.theme.slug + '/views/home', {
+    view: 'home-edit',
+    title: 'Edit Home',
+    brigade: res.locals.brigade
   })
 }

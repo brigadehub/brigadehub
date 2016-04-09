@@ -10,6 +10,7 @@ module.exports = {
     Users.find({$or: [{'roles.core': true}, {'roles.coreLead': true}, {'roles.superAdmin': true}]}, function (err, foundUsers) {
       if (err) console.error(err)
       res.render(res.locals.brigade.theme.slug + '/views/contact/index', {
+        view: 'contact',
         users: foundUsers,
         title: 'Contact',
         brigade: res.locals.brigade
@@ -23,6 +24,7 @@ module.exports = {
    */
   getContactEdit: function (req, res) {
     res.render(res.locals.brigade.theme.slug + '/views/contact/edit', {
+      view: 'contact-manage',
       title: 'Edit Contact',
       brigade: res.locals.brigade
     })

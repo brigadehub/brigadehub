@@ -21,6 +21,7 @@ module.exports = {
         })
       })
       res.render(res.locals.brigade.theme.slug + '/views/projects/index', {
+        view: 'project-list',
         title: 'Projects',
         brigade: res.locals.brigade,
         projects: foundProjects,
@@ -37,6 +38,7 @@ module.exports = {
       if (err) console.error(err)
       console.log(foundProjects)
       res.render(res.locals.brigade.theme.slug + '/views/projects/manage', {
+        view: 'project-list-manage',
         title: 'Manage Projects',
         brigade: res.locals.brigade,
         projects: foundProjects
@@ -56,6 +58,7 @@ module.exports = {
    */
   getProjectsNew: function (req, res) {
     res.render(res.locals.brigade.theme.slug + '/views/projects/new', {
+      view: 'project-new',
       title: 'New Projects',
       brigade: res.locals.brigade
     })
@@ -80,6 +83,7 @@ module.exports = {
       if (err) console.error(err)
       console.log(foundProject)
       res.render(res.locals.brigade.theme.slug + '/views/projects/project', {
+        view: 'project',
         projectId: req.params.projectId,
         title: foundProject.name,
         brigade: res.locals.brigade,
@@ -93,6 +97,7 @@ module.exports = {
    */
   getProjectsIDSettings: function (req, res) {
     res.render(res.locals.brigade.theme.slug + '/views/projects/settings', {
+      view: 'project-settings',
       projectId: req.params.projectId,
       title: 'IDSettings Projects',
       brigade: res.locals.brigade
