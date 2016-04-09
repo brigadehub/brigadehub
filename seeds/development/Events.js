@@ -37,5 +37,5 @@ module.exports = [
     description: 'test event 3',
     location: 'test location 3',
     host: 'test host 3'
-  },
+  }
 ]

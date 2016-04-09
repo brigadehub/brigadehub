@@ -101,8 +101,8 @@ module.exports = {
   getEventsIDSettings: function (req, res) {
     Events.find({id: req.params.eventId}, function (err, foundEvent) {
       if (err) console.log(err)
-      var startDigits = moment.unix(foundEvent[0].start).tz(res.locals.brigade.location.timezone).format('MMM, D, YYYY, HH, mm').split(",")
-      var endDigits = moment.unix(foundEvent[0].end).tz(res.locals.brigade.location.timezone).format('MMM, D, YYYY, HH, mm').split(",")
+      var startDigits = moment.unix(foundEvent[0].start).tz(res.locals.brigade.location.timezone).format('MMM, D, YYYY, HH, mm').split(',')
+      var endDigits = moment.unix(foundEvent[0].end).tz(res.locals.brigade.location.timezone).format('MMM, D, YYYY, HH, mm').split(',')
       res.render(res.locals.brigade.theme.slug + '/views/events/settings', {
         view: 'event-settings',
         event: foundEvent[0],
