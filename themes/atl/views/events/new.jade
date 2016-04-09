@@ -33,7 +33,7 @@ block content
               -}
             |---
             select(id="starthour", name="starthour")
-              -for(var hour = 1;hour<25;hour++){
+              -for(var hour = 0;hour<24;hour++){
               option(value="#{hour}:") #{hour}
               -}
             |:
@@ -58,7 +58,7 @@ block content
               -}
             |---
             select(id="endhour", name="endhour")
-              -for(var hour = 1;hour<25;hour++){
+              -for(var hour = 0;hour<24;hour++){
               option(value="#{hour}:") #{hour}
               -}
             |:
