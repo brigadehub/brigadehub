@@ -138,13 +138,8 @@ module.exports = {
    * Sync Events.
    */
   postEventsSync: function (req, res) {
-    var meetupid
-    try {
-      meetupid = res.locals.brigade.meetup.split('.com/')[1].replace(/\//g, '')
-    } catch (err) {
-      meetupid = ''
-    }
-    var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
+    console.log(res.locals.brigade.meetup)
+    var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + res.locals.brigade.meetup + '&page=50'
     Events.fetchMeetupEvents(url).then(function (value) {
       req.flash('success', {msg: 'Success! You have successfully synced events from Meetup.'})
       res.redirect('/events/manage')
