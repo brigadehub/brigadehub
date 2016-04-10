@@ -15,7 +15,7 @@ module.exports = {
         title: 'Contact',
         brigade: res.locals.brigade
       })
-    })
+    }).sort({'profile.contactpagerank': 1})
   },
 
   /**
@@ -42,7 +42,8 @@ module.exports = {
       console.log(req.body)
       foundUsers.forEach(function (user) {
         var thisUser = new Users(user)
-        if (req.body[thisUser.username]) {
+        thisUser.profile.contactpagerank = req.body[thisUser.username].contactrank
+        if (req.body[thisUser.username].showcontact) {
           thisUser.profile.showcontact = true
         } else {
           thisUser.profile.showcontact = false
