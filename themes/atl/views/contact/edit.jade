@@ -5,21 +5,28 @@ block content
     h3 Manage contact page
     .row
       .col-sm-6
-      table.table
-        thead
-          tr
-            th Username
-            th Name
-            th Display contact info to public?
-            th Display Order
-        tbody
-        form.row.form-horizontal(action='/contact', method='POST')
-          each user in users
+      form.row.form-horizontal(action='/contact', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        table.table
+          thead
             tr
-              td.username= user.username
-              td.name= user.profile.name
-              td.select
-                input.select-user(type='checkbox', name='showcontact', checked=(user.profile.showcontact))
-              td
+              th Username
+              th Name
+              th Display contact info to public?
+              th Display Order
+          tbody
+            each user in users
+              tr
+                td.username= user.username
+                input(type='hidden', name='users', value=user.username)
+                input(type='hidden', name='#{user.username}[]', value='')
+                td.name= user.profile.name
+                td.select
+                  input.select-user(type='checkbox', name='#{user.username}[showcontact]', checked=(user.profile.showcontact))
+                td
+         .form-group
+            button.btn.btn.btn-primary(type='submit')
+              i.fa.fa-pencil
+              | Submit changes
 
 

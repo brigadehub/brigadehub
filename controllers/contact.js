@@ -37,6 +37,26 @@ module.exports = {
    * POST /contact/edit
    * Update Contact page info
    */
+  postContact: function (req, res) {
+    console.log(req.body)
+    req.body.users.forEach(function (user) {
+      Users.find({'username' : user}, function (err, foundUser) {
+        var thisUser = new Users(foundUser[0])
+        console.log(req.body[user])
+        if (req.body[user].showcontact) {
+          thisUser.profile.showcontact = true
+        } else {
+          thisUser.profile.showcontact = false
+          console.log('no')
+        }
+        thisUser.save(function (err) {
+          if (err) console.error(err)
+        })
+      })
+    })
+    res.redirect('/contact/edit')
+  },
+
   postContactMessage: function (req, res) {
     req.assert('name', 'Name cannot be blank').notEmpty()
     req.assert('email', 'Email is not valid').isEmail()
