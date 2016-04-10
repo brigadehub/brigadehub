@@ -17,7 +17,9 @@
     "db:clear": "./scripts/database-clear",
     "db:seed": "./scripts/database-seed",
     "develop": "nodemon app.js",
-    "cleaninstall": "rm -rf node_modules && npm install"
+    "cleaninstall": "rm -rf node_modules && npm install",
+    "lint": "jshint .",
+    "validate": "npm ls"
   },
   "dependencies": {
     "async": "^1.5.2",
@@ -81,10 +83,12 @@
     "chai": "^3.4.1",
     "faker": "^3.1.0",
     "goosestrap": "^1.0.0",
+    "jshint": "latest",
     "mocha": "^2.3.4",
     "mongodb": "^2.1.7",
     "multiline": "^1.0.2",
     "nodemon": "^1.9.1",
+    "precommit-hook": "latest",
     "require-dir": "^0.3.0",
     "seedling": "0.0.10",
     "supertest": "^1.1.0",
@@ -100,5 +104,10 @@
       "after"
     ]
   },
-  "license": "ISC"
+  "license": "ISC",
+  "pre-commit": [
+    "lint",
+    "validate",
+    "test"
+  ]
 }
