@@ -38,16 +38,14 @@ module.exports = {
    * Update Contact page info
    */
   postContact: function (req, res) {
-    console.log(req.body)
-    req.body.users.forEach(function (user) {
-      Users.find({'username' : user}, function (err, foundUser) {
-        var thisUser = new Users(foundUser[0])
-        console.log(req.body[user])
-        if (req.body[user].showcontact) {
+    Users.find({$or: [{'roles.core': true}, {'roles.coreLead': true}, {'roles.superAdmin': true}]}, function (err, foundUsers) {
+      console.log(req.body)
+      foundUsers.forEach(function (user) {
+        var thisUser = new Users(user)
+        if (req.body[thisUser.username]) {
           thisUser.profile.showcontact = true
         } else {
           thisUser.profile.showcontact = false
-          console.log('no')
         }
         thisUser.save(function (err) {
           if (err) console.error(err)

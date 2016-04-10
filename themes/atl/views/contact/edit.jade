@@ -18,8 +18,6 @@ block content
             each user in users
               tr
                 td.username= user.username
-                input(type='hidden', name='users', value=user.username)
-                input(type='hidden', name='#{user.username}[]', value='')
                 td.name= user.profile.name
                 td.select
                   input.select-user(type='checkbox', name='#{user.username}[showcontact]', checked=(user.profile.showcontact))
