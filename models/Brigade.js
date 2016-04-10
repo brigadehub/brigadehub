@@ -30,6 +30,14 @@ var brigadeSchema = new mongoose.Schema({
     tagline: String,
     description: String
   },
+  sponsors: {
+    main: {
+      name: String,
+      url: String,
+      image: String
+    },
+    other: Array
+  },
   auth: {
     github: {
       clientId: String,
