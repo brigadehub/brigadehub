@@ -52,7 +52,7 @@ module.exports = function () {
           name: 'Zenhub',
           url: 'http://zenhub.io',
           image: 'https://i.imgur.com/jdbLl87.png'
-        },
+        }
       ]
     },
     auth: {
