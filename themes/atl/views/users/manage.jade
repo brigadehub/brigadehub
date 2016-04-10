@@ -2,12 +2,13 @@ extends ../layout
 
 block content
   .page-header
-    h3 Manage Users
+    h3 Manage users
     form.pull-right(method='POST', action='/users/sync')
       input(type='hidden', name='_csrf', value=_csrf)
       button.btn.btn-primary(type='submit')
         i.fa.fa-github
         | Fetch Users from #{ brigade.slug }
+    a(href='/contact/edit') Manage contact page
     .row
       .col-sm-6
       table.table

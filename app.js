@@ -150,7 +150,7 @@ app.post('/login/edit', passportConf.isAuthenticated, usersCtrl.postLoginEdit)
 app.get('/logout', usersCtrl.getLogout)
 app.get('/contact', contactCtrl.getContact)
 app.get('/contact/edit', passportConf.isAuthenticated, contactCtrl.getContactEdit)
-app.post('/contact', passportConf.isAuthenticated, contactCtrl.postContact)
+app.post('/contact/message/new', passportConf.isAuthenticated, contactCtrl.postContactMessage)
 
 /**
  * Meta Routes
