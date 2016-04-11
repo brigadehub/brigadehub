@@ -3,3 +3,14 @@ extends ../layout
 block content
   .page-header
     h3 Manage Blog Posts
+
+
+  .col-sm-12
+    each post in posts
+      a.col-sm-2.col-md-4(href=(post.url !== '' ? post.url : '/blog/'+post.slug+'/edit'))
+        img(src=post.image, style="width:100%;")
+        span.date= post.date
+        | | 
+        span.author= post.author
+        h4= post.title
+        p= post.description

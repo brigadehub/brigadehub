@@ -40,11 +40,20 @@ module.exports = {
    * Manage Blog.
    */
   getBlogManage: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/blog/manage', {
-      view: 'blog-list-manage',
-      title: 'Manage Blog',
-      brigade: res.locals.brigade
-    })
+
+    Post.find({author: res.locals.user.username}, function (err, posts){
+
+      res.render(res.locals.brigade.theme.slug + '/views/blog/manage', {
+        view: 'blog-list-manage',
+        title: 'Manage Blog',
+        brigade: res.locals.brigade,
+        posts: posts
+      })
+
+    });
+
+
+
   },
   /**
    * POST /blog/manage
