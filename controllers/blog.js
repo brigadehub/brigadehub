@@ -100,9 +100,6 @@ module.exports = {
       tags: req.body.tags
     })
 
-    console.log("\n\n ********** ", req.body.slug ,"  \n\n");
-
-
     if (req.body.tags.indexOf(',') > -1) {
       req.body.tags = req.body.tags.split(',')
       blogpost.tags = req.body.tags.map(function (tag) {
@@ -120,7 +117,7 @@ module.exports = {
       } else {
         req.session.blogpostplaintextcontent = null
         req.flash('success', { msg: 'Success! Blog post created' })
-        return res.redirect('/blog')
+        return res.redirect('/blog/'+blogpost.slug)
       }
     })
   },
@@ -157,7 +154,7 @@ module.exports = {
   getBlogIDEdit: function (req, res) {
     Post.find({slug: req.params.blogId}, function (err, post) {
       if (err) throw err
-      console.log(post)
+      console.log("****************"+post)
       post = post[0]
       res.render(res.locals.brigade.theme.slug + '/views/blog/edit', {
         view: 'blog-post-edit',

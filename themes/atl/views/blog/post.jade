@@ -22,7 +22,8 @@ block content
         a.float.right.btn.btn-secondary(href="/blog/#{post.slug}/edit") Edit this post
       
   .row 
-    .col-sm-12(style="display:block; background-image:url('#{post.image}'); width:100%; height:399px; background-size:cover; background-position:center center;")
+    if post.image
+      .col-sm-12(style="display:block; background-image:url('#{post.image}'); width:100%; height:399px; background-size:cover; background-position:center center;")
   .row 
     .col-sm-9
       p !{post.content}
