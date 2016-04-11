@@ -75,8 +75,6 @@ module.exports = {
   postBlogNew: function (req, res) {
     let content = req.body.content
 
-    console.log("****** THIS IS POSTING CONTNET ", req.body);
-
     let blogpost = new Post({
       title: req.body.title,
       author: req.body.author,
@@ -90,14 +88,14 @@ module.exports = {
       tags: req.body.tags
     })
 
+
     if (req.body.tags.indexOf(',') > -1) {
       req.body.tags = req.body.tags.split(',')
-      post.tags = req.body.tags.map(function (tag) {
+      blogpost.tags = req.body.tags.map(function (tag) {
         return tag.trim()
       })
     }
     var defaultUrl = req.body.title.toLowerCase().replace(/\s+/g, '-')
-    console.log(defaultUrl)
     blogpost.slug = defaultUrl
 
     blogpost.save(function (err) {
@@ -106,7 +104,6 @@ module.exports = {
         req.flash('errors', { msg: err.message })
         return res.redirect(req.session.returnTo || '/blog/new')
       } else {
-        console.log(req.body.blogtitle);
         req.session.blogpostplaintextcontent = null
         req.flash('success', { msg: 'Success! Blog post created' })
         return res.redirect('/blog')
