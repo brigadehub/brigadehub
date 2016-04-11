@@ -23,23 +23,6 @@ block content
                   input.select-user.center-block(type='checkbox', name='#{user.username}[showcontact]', checked=(user.profile.showcontact))
                 td.col-sm-5
                   input.form-control(type='number', name='#{user.username}[contactrank]', value='#{user.profile.contactpagerank}', required)
-          script.
-            var frm = document.querySelector('form.form-horizontal');
-            var inputs = frm.querySelectorAll('input[type=text]');
-            console.log(inputs)
-            frm.addEventListener('change', function () {
-              var allunique = true
-              var values = {}
-              for (var i = 0; i < inputs.length; i++) {
-                if (!values[inputs[i].value]) {
-                  values[inputs[i].value] = 'present'
-                } else {
-                  allunique = false
-                }
-              }
-              console.log(values)
-              console.log(allunique)
-            })
          .form-group
             button.btn.btn.btn-primary(type='submit')
               i.fa.fa-pencil
