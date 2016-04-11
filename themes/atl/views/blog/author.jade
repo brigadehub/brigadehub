@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+  h3 #{author.username}'s posts
+  
+  .col-sm-12
+    each post in posts
+      a.col-sm-2.col-md-4(href=(post.url !== '' ? post.url : '/blog/'+post.slug))
+        img(src=post.image, style="width:100%;")
+        span.date= post.date
+        | | 
+        span.author= post.author
+        h4= post.title
+        p= post.description

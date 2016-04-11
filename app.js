@@ -206,6 +206,7 @@ app.get('/blog/:blogId', blogCtrl.getBlogID)
 app.post('/blog/:blogId', passportConf.isAuthenticated, blogCtrl.postBlogIDEdit)
 app.get('/blog/:blogId/edit', passportConf.isAuthenticated, blogCtrl.getBlogIDEdit)
 app.post('/blog/:blogId/sync', passportConf.isAuthenticated, blogCtrl.postBlogIDSync)
+app.get('/author/:authorId', passportConf.isAuthenticated, blogCtrl.getAuthorId)
 
 /**
  * Users routes.

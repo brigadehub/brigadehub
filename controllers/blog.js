@@ -1,6 +1,7 @@
 'use strict'
 
 var Post = require('../models/Posts')
+var User = require('../models/Users')
 var markdown = require('marked')
 var _ = require('lodash')
 
@@ -81,7 +82,6 @@ module.exports = {
     let blogpost = new Post({
       title: req.body.title,
       author: req.body.author,
-      slug: req.body.url,
       url: req.body.url,
       image: req.body.image,
       description: req.body.description,
@@ -90,6 +90,8 @@ module.exports = {
       unix: req.body.unix,
       tags: req.body.tags
     })
+
+    console.log("\n\n ********** ", req.body.slug ,"  \n\n");
 
 
     if (req.body.tags.indexOf(',') > -1) {
@@ -123,8 +125,11 @@ module.exports = {
     console.log(res.locals)
     Post.find({slug: req.params.blogId}, function (err, post) {
       if (err) throw err
-      console.log(post)
       post = post[0]
+      if(post === undefined){
+        res.sendStatus(404);
+        return
+      }
       post.content = markdown(post.content)
       res.render(res.locals.brigade.theme.slug + '/views/blog/post', {
         view: 'blog-post',
@@ -202,6 +207,35 @@ module.exports = {
           return res.redirect('/blog/' + post.slug)
         }
       })
+    })
+  },
+
+  /**
+   * GET /blog/:blogID
+   * Display Blog by ID.
+   */
+  getAuthorId: function (req, res) {
+    // console.log(req.params)
+    // console.log(res.locals)
+    var author;
+    console.log("req.params.authorId", req.params.authorId);
+    User.find({username: req.params.authorId}, function (err, user) {
+      if (err) throw err
+      author = user[0]
+      if(author === undefined){
+        res.sendStatus(404);
+        return
+      }
+      Post.find({author: req.params.authorId}, function (err, posts){
+        console.log("\n***** my posts ", posts.length);
+        res.render(res.locals.brigade.theme.slug + '/views/blog/author', {
+          author: author,
+          title: 'Blog',
+          brigade: res.locals.brigade,
+          user: res.locals.user,
+          posts: posts
+        })
+      });
     })
   },
   /**

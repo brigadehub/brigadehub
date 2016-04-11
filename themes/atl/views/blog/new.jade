@@ -3,13 +3,14 @@ extends ../layout
 block content
   .page-header.row
     h3 New Blog Post
+
     
-  form.row.form-horizontal(action='/blog/new', method='POST')
+    form.row.form-horizontal(action='/blog/new', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group.row
       label.col-sm-3.control-label(for='title') Title
       .col-sm-7
-        input.form-control(type='text', name='title', id='title')
+        input.form-control(type='text', name='title', id='title', value='#{post ? post.title : ""}')
     .form-group.row
       label.col-sm-3.control-label(for='author') Author
       .col-sm-7
@@ -28,14 +29,15 @@ block content
       .col-sm-7
         input.form-control(type='text', name='date', id='date' value=new Date())
     .form-group.row
-      label.col-sm-3.control-label(for='tags') Short Description
-      .col-sm-7
-        input.form-control(type='text', name='tags', id='tags')
-    .form-group.row
       label.col-sm-3.control-label(for='content') Post
       .col-sm-7
         textarea.form-control.simple-mde(name='content', id='content', rows='30')
-  
+
+    .form-group.row
+      label.col-sm-3.control-label(for='tags') Tags (seperate with commas)
+      .col-sm-7
+        input.form-control(type='text', name='tags', id='tags')
+        
     .form-group.row
       .col-sm-offset-3.col-sm-4
         button.btn.btn.btn-primary(type='submit')
