@@ -38,8 +38,17 @@ module.exports = {
    * Update Contact page info
    */
   postContact: function (req, res) {
+    var uniquecheck = {}
+    for (key in req.body) {
+      if (!uniquecheck[req.body[key].contactrank]) {
+        uniquecheck[req.body[key].contactrank] = 'present'
+      } else {
+        req.flash('errors', {msg: 'Please enter unique values for contact page ranks'})
+        res.redirect('/contact/edit')
+        return
+      }
+    }
     Users.find({$or: [{'roles.core': true}, {'roles.coreLead': true}, {'roles.superAdmin': true}]}, function (err, foundUsers) {
-      console.log(req.body)
       foundUsers.forEach(function (user) {
         var thisUser = new Users(user)
         thisUser.profile.contactpagerank = req.body[thisUser.username].contactrank

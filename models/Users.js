@@ -38,7 +38,7 @@ var userSchema = new mongoose.Schema({
     picture: { type: String, default: '' },
     showcontact: { type: Boolean, default: true },
     position: { type: String, default: '' },
-    contactpagerank: { type: Number, default: 1}
+    contactpagerank: { type: Number, default: 1 }
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date
