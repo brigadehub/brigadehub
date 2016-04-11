@@ -73,13 +73,32 @@ module.exports = {
    * Submit New Blog.
    */
   postBlogNew: function (req, res) {
-    let content = req.body.blogcontent
+    let content = req.body.content
+
+    console.log("****** THIS IS POSTING CONTNET ", req.body);
 
     let blogpost = new Post({
-      title: req.body.blogtitle,
-      plaintextcontent: content
-    // htmlcontent: markdown.toHTML(content)
+      title: req.body.title,
+      author: req.body.author,
+      slug: req.body.url,
+      url: req.body.url,
+      image: req.body.image,
+      description: req.body.description,
+      content: req.body.content,
+      date: req.body.date,
+      unix: req.body.unix,
+      tags: req.body.tags
     })
+
+    if (req.body.tags.indexOf(',') > -1) {
+      req.body.tags = req.body.tags.split(',')
+      post.tags = req.body.tags.map(function (tag) {
+        return tag.trim()
+      })
+    }
+    var defaultUrl = req.body.title.toLowerCase().replace(/\s+/g, '-')
+    console.log(defaultUrl)
+    blogpost.slug = defaultUrl
 
     blogpost.save(function (err) {
       if (err) {
@@ -87,6 +106,7 @@ module.exports = {
         req.flash('errors', { msg: err.message })
         return res.redirect(req.session.returnTo || '/blog/new')
       } else {
+        console.log(req.body.blogtitle);
         req.session.blogpostplaintextcontent = null
         req.flash('success', { msg: 'Success! Blog post created' })
         return res.redirect('/blog')
