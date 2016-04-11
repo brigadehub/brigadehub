@@ -24,6 +24,7 @@ module.exports = {
         console.log(tags)
         res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
           title: 'Blog',
+          view: 'blog-list',
           brigade: res.locals.brigade,
           user: res.locals.user,
           posts: blogPosts,
@@ -39,6 +40,7 @@ module.exports = {
    */
   getBlogManage: function (req, res) {
     res.render(res.locals.brigade.theme.slug + '/views/blog/manage', {
+      view: 'blog-list-manage',
       title: 'Manage Blog',
       brigade: res.locals.brigade
     })
@@ -61,6 +63,7 @@ module.exports = {
     }
 
     res.render(res.locals.brigade.theme.slug + '/views/blog/new', {
+      view: 'blog-post-new',
       title: 'New Blog',
       brigade: res.locals.brigade,
       user: res.locals.user,
@@ -124,6 +127,7 @@ module.exports = {
       post = post[0]
       post.content = markdown(post.content)
       res.render(res.locals.brigade.theme.slug + '/views/blog/post', {
+        view: 'blog-post',
         blogId: req.params.blogId,
         title: 'Blog',
         brigade: res.locals.brigade,
@@ -142,6 +146,7 @@ module.exports = {
       console.log(post)
       post = post[0]
       res.render(res.locals.brigade.theme.slug + '/views/blog/edit', {
+        view: 'blog-post-edit',
         blogId: req.params.blogId,
         title: 'Edit Blog',
         brigade: res.locals.brigade,

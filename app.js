@@ -23,6 +23,7 @@ var passport = require('passport')
 var expressValidator = require('express-validator')
 var sass = require('node-sass-middleware')
 var path = require('path')
+var requireDir = require('require-dir')
 /* var _ = require('lodash') */
 
 var DB_INSTANTIATED
@@ -43,6 +44,11 @@ var projectsCtrl = require('./controllers/projects')
 var contactCtrl = require('./controllers/contact')
 var usersCtrl = require('./controllers/user')
 var brigadeCtrl = require('./controllers/brigade')
+
+/*
+ * Helpers
+ */
+var helpers = requireDir('./helpers')
 
 var brigadeDetails
 
@@ -110,6 +116,7 @@ app.use(function (req, res, next) {
     if (!results.length) throw new Error('BRIGADE NOT IN DATABASE')
     res.locals = res.locals || {}
     res.locals.brigade = results[0]
+    helpers.tokenLoader(passport, res.locals.brigade.auth)
     next()
   })
 })
