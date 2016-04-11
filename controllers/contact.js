@@ -31,7 +31,7 @@ module.exports = {
         title: 'Edit Contact',
         brigade: res.locals.brigade
       })
-    })
+    }).sort({'profile.contactpagerank': 1})
   },
   /**
    * POST /contact/edit
