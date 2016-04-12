@@ -18,7 +18,7 @@
     "db:seed": "./scripts/database-seed",
     "develop": "nodemon app.js",
     "cleaninstall": "rm -rf node_modules && npm install",
-    "lint": "jshint .",
+    "lint": "standard .",
     "validate": "npm ls"
   },
   "dependencies": {
@@ -83,7 +83,6 @@
     "chai": "^3.4.1",
     "faker": "^3.1.0",
     "goosestrap": "^1.0.0",
-    "jshint": "latest",
     "mocha": "^2.3.4",
     "mongodb": "^2.1.7",
     "multiline": "^1.0.2",
