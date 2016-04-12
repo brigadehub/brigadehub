@@ -21,7 +21,7 @@ module.exports = {
       var blogPosts = []
       Post.find(mongooseQuery, function (err, results) {
         if (err) console.error(err)
-        results.forEach(function(post){
+        results.forEach(function (post) {
           if (post.published) {
             blogPosts.push(post)
           }
@@ -61,12 +61,12 @@ module.exports = {
     req.flash('success', { msg: 'Success! Posts edited' })
     Post.find({}, function (err, posts) {
       if (err) console.error(err)
-      posts.forEach(function(post){
+      posts.forEach(function (post) {
         var reqPostInfo = req.body[post.id]
         post.published = !!reqPostInfo.published
         post.author = reqPostInfo.author
         post.date = reqPostInfo.date
-        post.save(function(err){
+        post.save(function (err) {
           if (err) throw err
         })
       })
