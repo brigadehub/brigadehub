@@ -4,7 +4,7 @@ block content
   .page-header.row
     h3 Edit Blog Post
     
-  form.row.form-horizontal(action='/blog/#{post.slug}', method='POST')
+  form.row.form-horizontal(action='/blog/post/#{post.slug}', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group.row
       label.col-sm-3.control-label(for='title') Title

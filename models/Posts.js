@@ -9,6 +9,7 @@ var postsSchema = new mongoose.Schema({
   description: String,
   content: String,
   date: String,
+  published: Boolean,
   unix: Number,
   tags: Array
 })

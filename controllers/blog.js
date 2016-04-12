@@ -55,6 +55,7 @@ module.exports = {
    * Update all Blog.
    */
   postBlogManage: function (req, res) {
+    req.flash('success', { msg: 'Success! Posts edited' })
     res.redirect('blog/manage')
   },
   /**
@@ -90,7 +91,8 @@ module.exports = {
       content: req.body.content,
       date: req.body.date,
       unix: req.body.unix,
-      tags: req.body.tags
+      tags: req.body.tags,
+      published: true
     })
     if (req.body.tags.indexOf(',') > -1) {
       req.body.tags = req.body.tags.split(',')
@@ -108,7 +110,7 @@ module.exports = {
       } else {
         req.session.blogpostplaintextcontent = null
         req.flash('success', { msg: 'Success! Blog post created' })
-        return res.redirect('/blog/' + blogpost.slug)
+        return res.redirect('/blog/post/' + blogpost.slug)
       }
     })
   },
@@ -196,11 +198,11 @@ module.exports = {
         if (err) {
           req.session.blogpostplaintextcontent = post.content
           req.flash('errors', { msg: err.message })
-          return res.redirect(req.session.returnTo || '/blog/' + req.params.blogId + '/edit')
+          return res.redirect(req.session.returnTo || '/blog/post/' + req.params.blogId + '/edit')
         } else {
           req.session.blogpostplaintextcontent = null
           req.flash('success', { msg: 'Success! Blog post updated' })
-          return res.redirect('/blog/' + post.slug)
+          return res.redirect('/blog/post/' + post.slug)
         }
       })
     })
