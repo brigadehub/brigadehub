@@ -215,33 +215,32 @@ module.exports = {
    * Submit New Users.
    */
   postUsersNew: function (req, res) {
-    Users.find({username: req.body.username, 'profile.name' :req.body.name},(err,foundUser) => {
-      if(err) console.log(err)
-      else if(foundUser.length > 0){
+    Users.find({username: req.body.username, 'profile.name': req.body.name}, (err, foundUser) => {
+      if (err) console.log(err)
+      else if (foundUser.length > 0) {
         req.flash('errors', {msg: req.body.username + ' already exists'})
         res.redirect('/users/new')
-      }
-      else{
+      } else {
         var newUser = new Users(req.body)
         newUser.profile = {
           name: req.body.email || '',
           gender: req.body.gender || '',
           position: req.body.position || '',
           location: req.body.location || '',
-          website: req.body.website || '',
+          website: req.body.website || ''
         }
         newUser.roles = {
-          read: req.read ? true : false,
-          blog: req.blog ? true : false,
-          project: req.project ? true : false,
-          lead: req.lead ? true : false,
-          core: req.core ? true : false,
-          coreLead: req.coreLead ? true : false,
-          superAdmin: req.superAdmin ? true : false,
+          read: req.read === 'read',
+          blog: req.blog === 'blog',
+          project: req.project === 'blog',
+          lead: req.lead === 'lead',
+          core: req.core === 'core',
+          coreLead: req.coreLead === 'coreLead',
+          superAdmin: req.superAdmin === 'superAdmin'
         }
 
         newUser.save((err) => {
-          if(err) console.error(err)
+          if (err) console.error(err)
         })
         req.flash('success', {msg: 'Success! You have created a new user.'})
         res.redirect('/users/new')
