@@ -18,7 +18,13 @@ block content
             th username
             th name
             th email
-            th brigadehub permissions
+            th Read?
+            th Blog?
+            th Projects?
+            th Project Lead?
+            th Core?
+            th Core Team Lead?
+            th Super Admin?
             th github ID
         tbody
           each user in users
@@ -28,20 +34,19 @@ block content
               td.username= user.username
               td.name= user.profile.name
               td.email= user.email
-              td.roles
-                if user.roles.read
-                  span.role Read,
-                if user.roles.blog
-                  span.role Blog,
-                if user.roles.project
-                  span.role Project,
-                if user.roles.lead
-                  span.role Project Lead,
-                if user.roles.core
-                  span.role Core,
-                if user.roles.coreLead
-                  span.role Core Team Lead,
-                if user.roles.superAdmin
-                  span.role Super Admin
+              td
+                input.form-control(type='checkbox', name='#{user.username}[readrole]', checked=user.roles.read)
+              td
+                input.form-control(type='checkbox', name='#{user.username}[blogrole]', checked=user.roles.blog)
+              td
+                input.form-control(type='checkbox', name='#{user.username}[projectrole]', checked=user.roles.project)
+              td
+                input.form-control(type='checkbox', name='#{user.username}[projectleadrole]', checked=user.roles.lead)
+              td
+                input.form-control(type='checkbox', name='#{user.username}[corerole]', checked=user.roles.core)
+              td
+                input.form-control(type='checkbox', name='#{user.username}[coreleadrole]', checked=user.roles.coreLead)
+              td
+                input.form-control(type='checkbox', name='#{user.username}[superadmin]', checked=user.roles.superAdmin)
               td.github= user.github
 
