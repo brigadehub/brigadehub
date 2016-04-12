@@ -2,7 +2,7 @@ extends ../layout
 
 block content
   .page-header
-    h3 Manage Users
+    h3 Manage User Roles
     form.pull-right(method='POST', action='/users/sync')
       input(type='hidden', name='_csrf', value=_csrf)
       button.btn.btn-primary(type='submit')
@@ -13,43 +13,36 @@ block content
       table.table
         thead
           tr
-            th
-              input.select-all(type="checkbox")
             th username
             th name
             th email
-            th Read?
-            th Blog?
-            th Projects?
-            th Project Lead?
-            th Core?
-            th Core Team Lead?
-            th Super Admin?
+            th Blog
+            th Projects
+            th Project Lead
+            th Core
+            th Core Team Lead
+            th Super Admin
             th github ID
         tbody
         form.pull-right(method='POST', action='/users/manage')
           input(type='hidden', name='_csrf', value=_csrf)
           each user in users
             tr
-              td.select
-                input.select-user(type="checkbox", value=user.username)
               td.username= user.username
               td.name= user.profile.name
               td.email= user.email
               td
-                input.form-control(type='checkbox', name='#{user.username}[readRole]', checked=user.roles.read)
+                input(type='checkbox', name='#{user.username}[blogRole]', checked=user.roles.blog)
               td
-                input.form-control(type='checkbox', name='#{user.username}[blogRole]', checked=user.roles.blog)
+                input(type='checkbox', name='#{user.username}[projectRole]', checked=user.roles.project)
               td
-                input.form-control(type='checkbox', name='#{user.username}[projectRole]', checked=user.roles.project)
+                input(type='checkbox', name='#{user.username}[projectLeadRole]', checked=user.roles.lead)
               td
-                input.form-control(type='checkbox', name='#{user.username}[projectLeadRole]', checked=user.roles.lead)
+                input(type='checkbox', name='#{user.username}[coreRole]', checked=user.roles.core)
               td
-                input.form-control(type='checkbox', name='#{user.username}[coreRole]', checked=user.roles.core)
+                input(type='checkbox', name='#{user.username}[coreLeadRole]', checked=user.roles.coreLead)
               td
-                input.form-control(type='checkbox', name='#{user.username}[coreLeadRole]', checked=user.roles.coreLead)
-              td
-                input.form-control(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin)
+                input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin)
               td.github= user.github
           tr
             td
