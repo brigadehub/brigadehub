@@ -204,7 +204,7 @@ app.get('/blog/new', passportConf.isAuthenticated, blogCtrl.getBlogNew)
 app.post('/blog/new', passportConf.isAuthenticated, blogCtrl.postBlogNew)
 app.get('/blog/post/:blogId', blogCtrl.getBlogID)
 app.post('/blog/post/:blogId', passportConf.isAuthenticated, blogCtrl.postBlogIDEdit)
-app.get('/blog/:blogId/edit', passportConf.isAuthenticated, blogCtrl.getBlogIDEdit)
+app.get('/blog/post/:blogId/edit', passportConf.isAuthenticated, blogCtrl.getBlogIDEdit)
 app.post('/blog/:blogId/sync', passportConf.isAuthenticated, blogCtrl.postBlogIDSync)
 app.get('/author/:authorId', passportConf.isAuthenticated, blogCtrl.getAuthorId)
 

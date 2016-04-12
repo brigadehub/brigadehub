@@ -15,14 +15,17 @@ module.exports = {
     if (req.query.tag) {
       mongooseQuery.tags = req.query.tag
     }
-    console.log(mongooseQuery)
     Post.find({}, function (err, results) {
       if (err) console.error(err)
       var tags = _.uniq(_.flatMap(results, 'tags'))
+      var blogPosts = []
       Post.find(mongooseQuery, function (err, results) {
         if (err) console.error(err)
-        var blogPosts = results || []
-        console.log(tags)
+        results.forEach(function(post){
+          if (post.published) {
+            blogPosts.push(post)
+          }
+        })
         res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
           title: 'Blog',
           view: 'blog-list',
@@ -40,7 +43,7 @@ module.exports = {
    * Manage Blog.
    */
   getBlogManage: function (req, res) {
-    Post.find({author: res.locals.user.username}, function (err, posts) {
+    Post.find({}, function (err, posts) {
       if (err) console.error(err)
       res.render(res.locals.brigade.theme.slug + '/views/blog/manage', {
         view: 'blog-list-manage',
@@ -56,7 +59,19 @@ module.exports = {
    */
   postBlogManage: function (req, res) {
     req.flash('success', { msg: 'Success! Posts edited' })
-    res.redirect('blog/manage')
+    Post.find({}, function (err, posts) {
+      if (err) console.error(err)
+      posts.forEach(function(post){
+        var reqPostInfo = req.body[post.id]
+        post.published = !!reqPostInfo.published
+        post.author = reqPostInfo.author
+        post.date = reqPostInfo.date
+        post.save(function(err){
+          if (err) throw err
+        })
+      })
+    })
+    return res.redirect('/blog/manage/')
   },
   /**
    * GET /blog/new

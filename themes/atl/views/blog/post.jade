@@ -20,7 +20,7 @@ block content
             a(href='/blog?tag=#{tag}') #{tag}
             | &nbsp;
       if user && (user.roles.core || user.roles.superAdmin)
-        a.float.right.btn.btn-secondary(href="/blog/#{post.slug}/edit") Edit this post
+        a.float.right.btn.btn-secondary(href="/blog/post/#{post.slug}/edit") Edit this post
       
   .row 
     if post.image
