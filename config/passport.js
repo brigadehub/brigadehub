@@ -27,7 +27,8 @@ passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_ID,
   clientSecret: process.env.GITHUB_SECRET,
   callbackURL: '/auth/github/callback',
-  passReqToCallback: true
+  passReqToCallback: true,
+  scope: ['user:email']
 }, function (req, accessToken, refreshToken, profile, done) {
   if (req.user) {
     User.findOne({ github: profile.id }, function (err, existingUser) {
@@ -39,6 +40,9 @@ passport.use(new GitHubStrategy({
         User.findById(req.user.id, function (err, user) {
           if (err) console.error(err)
           user.github = profile.id
+          user.email = profile.emails.find((email) => {
+            return email.primary === true
+          }).value
           user.username = profile.username
           user.tokens.push({ kind: 'github', accessToken: accessToken })
           user.profile.name = user.profile.name || profile.displayName
@@ -82,7 +86,9 @@ passport.use(new GitHubStrategy({
           done(err)
         } else {
           var user = new User()
-          user.email = profile._json.email
+          user.email = profile.emails.find((email) => {
+            return email.primary === true
+          }).value
           user.github = profile.id
           user.username = profile.username
           user.tokens.push({ kind: 'github', accessToken: accessToken })
@@ -117,7 +123,7 @@ passport.use(new GitHubStrategy({
 }))
 
 /**
- * Sign in with GitHub.
+ * Link Meetup account
  */
 passport.use(new MeetupStrategy({
   consumerKey: process.env.MEETUP_KEY,
