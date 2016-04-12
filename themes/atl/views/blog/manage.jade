@@ -19,10 +19,13 @@ block content
                 input(type='checkbox', name='#{post.id}[published]', id='published')
               
             a(href=(post.url !== '' ? post.url : '/blog/post/'+post.slug+'/edit'))
-              span  edit
-              
+              span  edit 
+            span
+              form(method='POST', action='/blog/post/#{post.slug}/delete')
+                input(type='hidden', name='_csrf', value=_csrf)
+                button.btn.btn-secondary(type='submit') Delete
       .form-group.row
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')
             i.fa.fa-pencilr
-            | Save Post
+            | Save Changes
