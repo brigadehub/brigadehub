@@ -203,12 +203,11 @@ module.exports = {
    * Update all Users.
    */
   postUsersManage: function (req, res) {
-    console.log(req.body)
     Users.find({}, function (err, foundUsers) {
       if (err) console.log(err)
       for (var i = 0; i < foundUsers.length; i++) {
-        var user = new Users(foundUsers[i])
-        if (req.body[user.username]) {
+        if (req.body[foundUsers[i].username]) {
+          var user = new Users(foundUsers[i])
           req.body[user.username].blogRole ? user.roles.blog = true : user.roles.blog = false
           req.body[user.username].projectRole ? user.roles.project = true : user.roles.project = false
           req.body[user.username].projectLeadRole ? user.roles.lead = true : user.roles.lead = false
