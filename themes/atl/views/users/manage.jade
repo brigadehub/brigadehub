@@ -27,6 +27,8 @@ block content
             th Super Admin?
             th github ID
         tbody
+        form.pull-right(method='POST', action='/users/manage')
+          input(type='hidden', name='_csrf', value=_csrf)
           each user in users
             tr
               td.select
@@ -35,18 +37,22 @@ block content
               td.name= user.profile.name
               td.email= user.email
               td
-                input.form-control(type='checkbox', name='#{user.username}[readrole]', checked=user.roles.read)
+                input.form-control(type='checkbox', name='#{user.username}[readRole]', checked=user.roles.read)
               td
-                input.form-control(type='checkbox', name='#{user.username}[blogrole]', checked=user.roles.blog)
+                input.form-control(type='checkbox', name='#{user.username}[blogRole]', checked=user.roles.blog)
               td
-                input.form-control(type='checkbox', name='#{user.username}[projectrole]', checked=user.roles.project)
+                input.form-control(type='checkbox', name='#{user.username}[projectRole]', checked=user.roles.project)
               td
-                input.form-control(type='checkbox', name='#{user.username}[projectleadrole]', checked=user.roles.lead)
+                input.form-control(type='checkbox', name='#{user.username}[projectLeadRole]', checked=user.roles.lead)
               td
-                input.form-control(type='checkbox', name='#{user.username}[corerole]', checked=user.roles.core)
+                input.form-control(type='checkbox', name='#{user.username}[coreRole]', checked=user.roles.core)
               td
-                input.form-control(type='checkbox', name='#{user.username}[coreleadrole]', checked=user.roles.coreLead)
+                input.form-control(type='checkbox', name='#{user.username}[coreLeadRole]', checked=user.roles.coreLead)
               td
-                input.form-control(type='checkbox', name='#{user.username}[superadmin]', checked=user.roles.superAdmin)
+                input.form-control(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin)
               td.github= user.github
+          tr
+            td
+              button.btn.btn-primary(type='submit')
+                | Submit changes
 
