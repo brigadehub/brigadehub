@@ -206,6 +206,8 @@ app.get('/blog/post/:blogId', blogCtrl.getBlogID)
 app.post('/blog/post/:blogId', passportConf.isAuthenticated, blogCtrl.postBlogIDEdit)
 app.get('/blog/post/:blogId/edit', passportConf.isAuthenticated, blogCtrl.getBlogIDEdit)
 app.post('/blog/:blogId/sync', passportConf.isAuthenticated, blogCtrl.postBlogIDSync)
+
+app.post('/blog/post/:blogId/delete', passportConf.isAuthenticated, blogCtrl.postBlogIDDelete)
 app.get('/author/:authorId', passportConf.isAuthenticated, blogCtrl.getAuthorId)
 
 /**

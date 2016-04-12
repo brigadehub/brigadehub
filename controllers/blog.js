@@ -222,6 +222,17 @@ module.exports = {
       })
     })
   },
+  postBlogIDDelete: function (req, res) {
+    Post.remove({slug: req.params.blogId}, function (err) {
+      if (err) {
+        console.log(err)
+        return res.redirect('/blog/post/'+req.params.blogId)
+      }else{
+        req.flash('success', {msg: 'Your post was deleted.'})
+        return res.redirect('/blog/')
+      }
+    })
+  },
 
   /**
    * GET /blog/:blogID
@@ -249,6 +260,8 @@ module.exports = {
       })
     })
   },
+
+
   /**
    * POST /blog/sync
    * Sync Blog.
