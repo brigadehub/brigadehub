@@ -236,20 +236,21 @@ module.exports = {
           website: req.body.website || ''
         }
         newUser.roles = {
-          read: req.read === 'read',
-          blog: req.blog === 'blog',
-          project: req.project === 'blog',
-          lead: req.lead === 'lead',
-          core: req.core === 'core',
-          coreLead: req.coreLead === 'coreLead',
-          superAdmin: req.superAdmin === 'superAdmin'
+          read: req.body.read === 'read',
+          blog: req.body.blog === 'blog',
+          project: req.body.project === 'project',
+          lead: req.body.lead === 'lead',
+          core: req.body.core === 'core',
+          coreLead: req.body.coreLead === 'coreLead',
+          superAdmin: req.body.superAdmin === 'superAdmin'
         }
 
+        console.log(newUser)
         newUser.save((err) => {
           if (err) console.error(err)
         })
         req.flash('success', {msg: 'Success! You have created a new user.'})
-        res.redirect('/users/new')
+        res.redirect('/users/manage')
       }
     })
   },
