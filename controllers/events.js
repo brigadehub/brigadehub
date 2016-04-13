@@ -71,8 +71,10 @@ module.exports = {
   postEventsNew: function (req, res) {
     var newEvent = new Events(req.body)
     newEvent.id = uuid.v1()
-    newEvent.start = Date.parse(req.body.startday + req.body.startmonth + req.body.startyear + req.body.starthour + req.body.startminute) / 1000
-    newEvent.end = Date.parse(req.body.endday + req.body.endmonth + req.body.endyear + req.body.endhour + req.body.endminute) / 1000
+    var startString = req.body.startday + req.body.startmonth + req.body.startyear + req.body.starthour + req.body.startminute
+    var endString = req.body.endday + req.body.endmonth + req.body.endyear + req.body.endhour + req.body.endminute
+    newEvent.start = moment.tz(startString, 'DD-MMM-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
+    newEvent.end = moment.tz(endString, 'DD-MMM-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
     newEvent.save(function (err) {
       if (err) console.error(err)
     })
@@ -99,12 +101,14 @@ module.exports = {
   getEventsIDSettings: function (req, res) {
     Events.find({id: req.params.eventId}, function (err, foundEvent) {
       if (err) console.log(err)
+      var startDigits = moment.unix(foundEvent[0].start).tz(res.locals.brigade.location.timezone).format('MMM, D, YYYY, HH, mm').split(',')
+      var endDigits = moment.unix(foundEvent[0].end).tz(res.locals.brigade.location.timezone).format('MMM, D, YYYY, HH, mm').split(',')
       res.render(res.locals.brigade.theme.slug + '/views/events/settings', {
         view: 'event-settings',
         event: foundEvent[0],
         title: 'Event Settings',
-        start: moment.unix(foundEvent[0].start).tz(res.locals.brigade.location.timezone).format('MM-DD-YYYY HH:mm:ss'),
-        end: moment.unix(foundEvent[0].end).tz(res.locals.brigade.location.timezone).format('MM-DD-YYYY HH:mm:ss'),
+        start: startDigits,
+        end: endDigits,
         brigade: res.locals.brigade
       })
     })
@@ -117,11 +121,14 @@ module.exports = {
     Events.find({id: req.params.eventId}, function (err, foundEvent) {
       if (err) console.log(err)
       var thisEvent = foundEvent[0]
+      var startString = req.body.startday + req.body.startmonth + req.body.startyear + req.body.starthour + req.body.startminute
+      var endString = req.body.endday + req.body.endmonth + req.body.endyear + req.body.endhour + req.body.endminute
+      console.log(startString)
       thisEvent.title = req.body.title
       thisEvent.location = req.body.location
       thisEvent.host = req.body.host
-      thisEvent.start = moment.tz(req.body.start, 'MM-DD-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
-      thisEvent.end = moment.tz(req.body.end, 'MM-DD-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
+      thisEvent.start = moment.tz(startString, 'DD-MMM-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
+      thisEvent.end = moment.tz(endString, 'DD-MMM-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
       thisEvent.url = req.body.url
       thisEvent.description = req.body.description
       thisEvent.save(function (err) {
@@ -136,13 +143,7 @@ module.exports = {
    * Sync Events.
    */
   postEventsSync: function (req, res) {
-    var meetupid
-    try {
-      meetupid = res.locals.brigade.meetup.split('.com/')[1].replace(/\//g, '')
-    } catch (err) {
-      meetupid = ''
-    }
-    var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + meetupid + '&page=50'
+    var url = 'https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=' + res.locals.brigade.meetup + '&page=50'
     Events.fetchMeetupEvents(url).then(function (value) {
       req.flash('success', {msg: 'Success! You have successfully synced events from Meetup.'})
       res.redirect('/events/manage')
