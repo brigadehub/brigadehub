@@ -44,18 +44,26 @@ block content
               td
                 input(type='checkbox', name='#{user.username}[projectLeadRole]', checked=user.roles.lead)
               td
-                if (roles.core || roles.coreLead || roles.superAdmin)
+                if (currentuser.roles.core || currentuser.roles.coreLead || currentuser.roles.superAdmin)
                   input(type='checkbox', name='#{user.username}[coreRole]', checked=user.roles.core)
                 else
                   input(type='checkbox', name='#{user.username}[coreRole]', checked=user.roles.core, disabled='disabled')
               td
-                if (roles.coreLead || roles.superAdmin)
+                if (currentuser.roles.coreLead || currentuser.roles.superAdmin)
                   input(type='checkbox', name='#{user.username}[coreLeadRole]', checked=user.roles.coreLead)
                 else
                   input(type='checkbox', name='#{user.username}[coreLeadRole]', checked=user.roles.coreLead, disabled='disabled')
               td
-                if (roles.superAdmin)
-                  input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin)
+                if (currentuser.roles.superAdmin)
+                  input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin, onclick="warning('#{user.username}')")
+                  script.
+                    function warning(name) {
+                      var userbox = document.getElementsByName('#{currentuser.username}[superAdmin]')
+                      console.log(userbox[0].checked)
+                      if (name == '#{currentuser.username}' && !userbox[0].checked) {
+                        alert('Please be careful when changing your own Super Admin rights. You will need to contact another Super Admin to reinstate your privileges if you disable yours.')
+                      }
+                    }
                 else
                   input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin, disabled='disabled')
               td.github= user.github
