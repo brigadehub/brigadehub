@@ -18,7 +18,7 @@
     "db:seed": "./scripts/database-seed",
     "develop": "nodemon app.js",
     "cleaninstall": "rm -rf node_modules && npm install",
-    "lint": "standard .",
+    "lint": "standard",
     "validate": "npm ls"
   },
   "dependencies": {
