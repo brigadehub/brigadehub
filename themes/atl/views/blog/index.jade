@@ -9,7 +9,8 @@ block content
   .row.page-header
     .col-sm-12
       h1.page-title Blog
-  a.btn.btn-secondary(href='/blog/new') New Post
+  if user && (user.roles.core || user.roles.superAdmin)
+    a.btn.btn-secondary(href='/blog/new') New Post
   .row.tags
     ul
       if query

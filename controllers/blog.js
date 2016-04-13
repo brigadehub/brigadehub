@@ -45,6 +45,11 @@ module.exports = {
   getBlogManage: function (req, res) {
     Post.find({}, function (err, posts) {
       if (err) console.error(err)
+      // User.find({}), function (err, users) {
+      //   if (err) console.log(err)
+      //   // users = users.map(function(user) { return user.username })
+      //   console.log("**************users", users);
+      // }
       res.render(res.locals.brigade.theme.slug + '/views/blog/manage', {
         view: 'blog-list-manage',
         title: 'Manage Blog',
