@@ -9,6 +9,19 @@
 
 ### Table of Contents
 
+- [Overview](#simplify-your-brigades-website-maintenence)
+- [Inspirations](#inspirations)
+- [Installation and Usage](#installation-and-usage)
+  - [Prerequisites](#prerequisites)
+  - [Install](#install)
+  - [Usage](#usage)
+- [Troubleshooting](#troubleshooting)
+- [Changelog](#changelog)
+- [Core Contributors](#core-contributors)
+- [Resources](#resources)
+- [Contributing](#contributing)
+- [License](#license)
+
 ### Simplify your brigade's website maintenence
 
 BrigadeHub is a **pre-alpha** work in progress of a Code for America Brigade website/portal. This is being built to consolidate the efforts of maintaining a brigade website into a single location, and to allow other non-developer brigade leadership to update content as needed.
@@ -102,11 +115,11 @@ npm run develop
 
 *No troubleshooting steps yet. Want to add some?*
 
-### Development
+### Changelog
 
 To see what has changed in recent versions of brigadehub, see the [CHANGELOG](./.github/CHANGELOG.md).
 
-### Core Team Members
+### Core Contributors
 
 - Trent Oswald - Project Lead - ([@therebelrobot](https://github.com/therebelrobot)) <`trentoswald``@``therebelrobot.com`>
 - Aaron Schachter [@aaronschachter](https://github.com/aaronschachter)
