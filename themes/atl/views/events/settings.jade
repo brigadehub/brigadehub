@@ -18,13 +18,55 @@ block content
           .col-sm-7
             input.form-control(type='host', name='host', id='host', value='#{event.host}')
         .form-group
-          label.col-sm-3.control-label(for='start') Event start
+          label.col-sm-3.control-label(for='start') Event start:
           .col-sm-7
-            input.form-control(type='start', name='start', id='start', value='#{start}')
+            select(id="startmonth", name="startmonth")
+              for month in ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+                option(value="#{month}-", selected=(month == start[0])) #{month}
+            select(id="startday", name="startday")
+              -for(var day = 1;day<31;day++){
+              option(value="#{day}-", selected=(day == start[1])) #{day}
+              -}
+            select(id="startyear", name="startyear")
+              -for(var year = 2016;year<2030;year++){
+              option(value="#{year} ", selected=(year == start[2])) #{year}
+              -}
+            |---
+            select(id="starthour", name="starthour")
+              -for(var hour = 0;hour<24;hour++){
+              option(value="#{hour}:", selected=(hour == start[3])) #{hour}
+              -}
+            |:
+            select(id="startminute", name="startminute")
+              -for(var min = 0;min<61;min++){
+              option(value="#{min}:00", selected=(min == start[4])) #{min < 10 ? ('0' + min) : min}
+              -}
+            <br/><br/>
         .form-group
-          label.col-sm-3.control-label(for='end') Event end
+          label.col-sm-3.control-label(for='end') Event End:
           .col-sm-7
-            input.form-control(type='end', name='end', id='end', value='#{end}')
+            select(id="endmonth", name="endmonth")
+              for month in ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+                option(value="#{month}-", selected=(month == end[0])) #{month}
+            select(id="endday", name="endday")
+              -for(var day = 1;day<31;day++){
+              option(value="#{day}-", selected=(day == end[1])) #{day}
+              -}
+            select(id="endyear", name="endyear")
+              -for(var year = 2016;year<2030;year++){
+              option(value="#{year} ", selected=(year == end[2])) #{year}
+              -}
+            |---
+            select(id="endhour", name="endhour")
+              -for(var hour = 0;hour<24;hour++){
+              option(value="#{hour}:", selected=(hour == end[3])) #{hour}
+              -}
+            |:
+            select(id="endminute", name="endminute")
+              -for(var min = 0;min<61;min++){
+              option(value="#{min}:00", selected=(min == end[4])) #{min < 10 ? ('0' + min) : min}
+              -}
+            <br/><br/>
         .form-group
           label.col-sm-3.control-label(for='url') Event URL
           .col-sm-7

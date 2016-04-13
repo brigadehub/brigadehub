@@ -1,6 +1,32 @@
 footer
-  .container.text-center
-    p.pull-left © 2016 #{ brigade.name }. All Rights Reserved
-    ul.pull-right.list-inline
-      li
-        a(href='https://github.com/#{brigade.github}') GitHub
+  .container
+    .row.partners-title
+      .col-sm-12
+        h3 Partners
+    .row.partners-logos
+      .col-sm-12.clearfix
+        each sponsor in brigade.sponsors.other
+          a(href=sponsor.link)
+            img(src=sponsor.image, alt=sponsor.name)
+    //- .row.show-partners
+    //-   .col-sm-12
+    //-     a.btn.btn-danger(href='http://codeforpoland.org/partnerzy/') Show all partners
+  .row.footer-nav
+    .col-sm-12
+      ul
+        li#menu-item-385.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-385
+          a(href='http://codeforpoland.org/')=brigade.name
+        if brigade.theme.show.events
+          li
+            a(href='/events') Events
+        if brigade.theme.show.projects
+          li
+            a(href='/projects') Projects
+        if brigade.theme.show.blog
+          li
+            a(href='/blog') Blog
+        if brigade.theme.show.about
+          li
+            a(href='/contact') Contact
+        li.float.right
+          a(href='https://github.com/sfbrigade/brigadehub') powered by brigadehub
