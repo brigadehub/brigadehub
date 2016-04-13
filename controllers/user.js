@@ -173,7 +173,7 @@ module.exports = {
    * List of User examples.
    */
   getUsers: function (req, res) {
-    Users.find({brigade: res.locals.brigade.slug}, function (err, foundUsers) {
+    Users.find({}, function (err, foundUsers) {
       if (err) console.error(err)
       res.render(res.locals.brigade.theme.slug + '/views/users/index', {
         view: 'user-list',
@@ -238,7 +238,38 @@ module.exports = {
    * Submit New Users.
    */
   postUsersNew: function (req, res) {
-    res.redirect('/users/new')
+    Users.find({username: req.body.username, 'profile.name': req.body.name}, (err, foundUser) => {
+      if (err) console.log(err)
+      else if (foundUser.length > 0) {
+        req.flash('errors', {msg: req.body.username + ' already exists'})
+        res.redirect('/users/new')
+      } else {
+        var newUser = new Users(req.body)
+        newUser.profile = {
+          name: req.body.email || '',
+          gender: req.body.gender || '',
+          position: req.body.position || '',
+          location: req.body.location || '',
+          website: req.body.website || ''
+        }
+        newUser.roles = {
+          read: req.body.read === 'read',
+          blog: req.body.blog === 'blog',
+          project: req.body.project === 'project',
+          lead: req.body.lead === 'lead',
+          core: req.body.core === 'core',
+          coreLead: req.body.coreLead === 'coreLead',
+          superAdmin: req.body.superAdmin === 'superAdmin'
+        }
+
+        console.log(newUser)
+        newUser.save((err) => {
+          if (err) console.error(err)
+        })
+        req.flash('success', {msg: 'Success! You have created a new user.'})
+        res.redirect('/users/manage')
+      }
+    })
   },
 
   /**
