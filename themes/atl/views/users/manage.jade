@@ -9,10 +9,10 @@ block content
         i.fa.fa-github
         | Fetch Users from #{ brigade.slug }
     a(href='/contact/edit')
-      button.btn.btn-default(type='button') 
+      button.btn.btn-default(type='button')
         | Manage contact page
     a(href='/users/new')
-      button.btn.btn-default.pull-right(type='button') 
+      button.btn.btn-default.pull-right(type='button')
         | Add New User
     .row
       .col-sm-6
@@ -44,11 +44,20 @@ block content
               td
                 input(type='checkbox', name='#{user.username}[projectLeadRole]', checked=user.roles.lead)
               td
-                input(type='checkbox', name='#{user.username}[coreRole]', checked=user.roles.core)
+                if (roles.core || roles.coreLead || roles.superAdmin)
+                  input(type='checkbox', name='#{user.username}[coreRole]', checked=user.roles.core)
+                else
+                  input(type='checkbox', name='#{user.username}[coreRole]', checked=user.roles.core, disabled='disabled')
               td
-                input(type='checkbox', name='#{user.username}[coreLeadRole]', checked=user.roles.coreLead)
+                if (roles.coreLead || roles.superAdmin)
+                  input(type='checkbox', name='#{user.username}[coreLeadRole]', checked=user.roles.coreLead)
+                else
+                  input(type='checkbox', name='#{user.username}[coreLeadRole]', checked=user.roles.coreLead, disabled='disabled')
               td
-                input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin)
+                if (roles.superAdmin)
+                  input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin)
+                else
+                  input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin, disabled='disabled')
               td.github= user.github
           tr
             td

@@ -191,6 +191,7 @@ module.exports = {
     Users.find({}, function (err, foundUsers) {
       if (err) console.error(err)
       res.render(res.locals.brigade.theme.slug + '/views/users/manage', {
+        roles: req.user.roles,
         view: 'user-list-manage',
         title: 'Manage Users',
         brigade: res.locals.brigade,
@@ -203,6 +204,7 @@ module.exports = {
    * Update all Users.
    */
   postUsersManage: function (req, res) {
+    console.log(req.body)
     Users.find({}, function (err, foundUsers) {
       if (err) console.log(err)
       for (var i = 0; i < foundUsers.length; i++) {
