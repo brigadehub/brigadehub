@@ -47,27 +47,26 @@ block content
                 if (currentuser.roles.core || currentuser.roles.coreLead || currentuser.roles.superAdmin)
                   input(type='checkbox', name='#{user.username}[coreRole]', checked=user.roles.core)
                 else
-                  input(type='checkbox', name='#{user.username}[coreRole]', checked=user.roles.core, disabled='disabled')
+                  input(type='checkbox', name='#{user.username}[coreRole]', checked=user.roles.core, onclick="this.checked=!this.checked")
               td
                 if (currentuser.roles.coreLead || currentuser.roles.superAdmin)
                   input(type='checkbox', name='#{user.username}[coreLeadRole]', checked=user.roles.coreLead)
                 else
-                  input(type='checkbox', name='#{user.username}[coreLeadRole]', checked=user.roles.coreLead, disabled='disabled')
+                  input(type='checkbox', name='#{user.username}[coreLeadRole]', checked=user.roles.coreLead, onclick="this.checked=!this.checked")
               td
                 if (currentuser.roles.superAdmin)
                   input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin, onclick="warning('#{user.username}')")
-                  script.
-                    function warning(name) {
-                      var userbox = document.getElementsByName('#{currentuser.username}[superAdmin]')
-                      console.log(userbox[0].checked)
-                      if (name == '#{currentuser.username}' && !userbox[0].checked) {
-                        alert('Please be careful when changing your own Super Admin rights. You will need to contact another Super Admin to reinstate your privileges if you disable yours.')
-                      }
-                    }
                 else
-                  input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin, disabled='disabled')
+                  input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin, onclick="this.checked=!this.checked")
               td.github= user.github
           tr
             td
               button.btn.btn-primary(type='submit')
                 | Submit changes
+          script.
+            function warning(name) {
+              var userbox = document.getElementsByName('#{currentuser.username}[superAdmin]')
+              if (name == '#{currentuser.username}' && !userbox[0].checked) {
+                alert('Please be careful when changing your own Super Admin rights. You will need to contact another Super Admin to reinstate your privileges if you disable yours.')
+              }
+            }
