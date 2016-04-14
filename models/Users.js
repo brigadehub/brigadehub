@@ -77,6 +77,13 @@ userSchema.methods.gravatar = function (size) {
 }
 
 /**
+ * Helper method for getting user's authorized to edit the blog.
+ */
+userSchema.methods.canEditBlog = function () {
+  return (this.roles.core || this.roles.superAdmin || this.roles.coreLead || this.roles.blog || this.roles.lead)
+}
+
+/**
  * Helper method to see if auth is authorized
  */
 userSchema.methods.checkAuth = function (authName) {
