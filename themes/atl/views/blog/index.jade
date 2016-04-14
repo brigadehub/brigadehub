@@ -9,7 +9,7 @@ block content
   .row.page-header
     .col-sm-12
       h1.page-title Blog
-  if user && (user.roles.core || user.roles.superAdmin)
+  if user && (user.roles.core || user.roles.superAdmin || user.roles.coreLead || user.roles.blog || user.roles.lead)
     a.btn.btn-secondary(href='/blog/new') New Post
   .row.tags
     ul

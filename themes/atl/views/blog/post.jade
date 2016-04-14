@@ -19,12 +19,12 @@ block content
             //- if tag === 
             a(href='/blog?tag=#{tag}') #{tag}
             | &nbsp;
-      if user && (user.roles.core || user.roles.superAdmin)
+      if user && (user.roles.core || user.roles.superAdmin || user.roles.coreLead || user.roles.blog || user.roles.lead)
         a.float.right.btn.btn-secondary(href="/blog/post/#{post.slug}/edit") Edit this post
-      span
-        form(method='POST', action='/blog/post/#{post.slug}/delete')
-          input(type='hidden', name='_csrf', value=_csrf)
-          button.float.right.btn.btn-secondary(type='submit') Delete
+        span
+          form(method='POST', action='/blog/post/#{post.slug}/delete')
+            input(type='hidden', name='_csrf', value=_csrf)
+            button.float.right.btn.btn-secondary(type='submit') Delete
       
   .row 
     if post.image

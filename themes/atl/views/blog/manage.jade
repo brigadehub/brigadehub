@@ -17,7 +17,6 @@ block content
                 input(type='checkbox', post.published ? 'checked' : '', name='#{post.id}[published]', id='published')
               else
                 input(type='checkbox', name='#{post.id}[published]', id='published')
-              
             a(href=(post.url !== '' ? post.url : '/blog/post/'+post.slug+'/edit'))
               span  edit 
             span
