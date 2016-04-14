@@ -17,12 +17,10 @@ block content
                 input(type='checkbox', post.published ? 'checked' : '', name='#{post.id}[published]', id='published')
               else
                 input(type='checkbox', name='#{post.id}[published]', id='published')
+            //- span  Delete? 
+            //-   input(type='checkbox', name='#{post.id}[delete]', id='published')
             a(href=(post.url !== '' ? post.url : '/blog/post/'+post.slug+'/edit'))
               span  edit 
-            span
-              form(method='POST', action='/blog/post/#{post.slug}/delete')
-                input(type='hidden', name='_csrf', value=_csrf)
-                button.btn.btn-secondary(type='submit') Delete
       .form-group.row
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')
