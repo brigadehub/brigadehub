@@ -37,19 +37,21 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
                 a.dropdown-item.divider
                 a.dropdown-item(href='/logout') Logout
     .row.navigation
+      button.navbar-toggler.hidden-sm-up(type='button', data-toggle='collapse', data-target='#collapsingNavbar') &#9776;
       a.navbar-brand.brigade-brand(href='/')
         img.brigade-logo(src='https://i.imgur.com/BoXEeve.png')
         span= brigade.name
-      ul.nav.navbar-nav.pull-xs-right
-        if brigade.theme.show.events
-          li.nav-item(class=title=='Events'?'active':undefined)
-            a.nav-link(href='/events') Events
-        if brigade.theme.show.projects
-          li.nav-item(class=title=='Projects'?'active':undefined)
-            a.nav-link(href='/projects') Projects
-        if brigade.theme.show.blog
-          li.nav-item(class=title=='Blog'?'active':undefined)
-            a.nav-link(href='/blog') Blog
-        if brigade.theme.show.about
-          li.nav-item(class=title=='Contact'?'active':undefined)
-            a.nav-link(href='/contact') Contact
+      .collapse.navbar-toggleable-xs#collapsingNavbar
+        ul.nav.navbar-nav.pull-xs-right
+          if brigade.theme.show.events
+            li.nav-item(class=title=='Events'?'active':undefined)
+              a.nav-link(href='/events') Events
+          if brigade.theme.show.projects
+            li.nav-item(class=title=='Projects'?'active':undefined)
+              a.nav-link(href='/projects') Projects
+          if brigade.theme.show.blog
+            li.nav-item(class=title=='Blog'?'active':undefined)
+              a.nav-link(href='/blog') Blog
+          if brigade.theme.show.about
+            li.nav-item(class=title=='Contact'?'active':undefined)
+              a.nav-link(href='/contact') Contact
