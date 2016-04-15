@@ -15,6 +15,7 @@
   - [Prerequisites](#prerequisites)
   - [Install](#install)
   - [Usage](#usage)
+- [Deploy (not recommended yet)](#deploy)
 - [Troubleshooting](#troubleshooting)
 - [Changelog](#changelog)
 - [Core Contributors](#core-contributors)
@@ -25,6 +26,8 @@
 ### Simplify your brigade's website maintenence
 
 BrigadeHub is a **pre-alpha** work in progress of a Code for America Brigade website/portal. This is being built to consolidate the efforts of maintaining a brigade website into a single location, and to allow other non-developer brigade leadership to update content as needed.
+
+***brigadehub is not production-ready. If you deploy this to your production brigade site, you do so at your own risk.***
 
 For a complete top-down view of the roadmap, take a look at our active ***[Roadmap Wiki](https://github.com/sfbrigade/brigadehub/wiki/Roadmap)***
 
@@ -110,6 +113,14 @@ or if starting for local development:
 ```bash
 npm run develop
 ```
+
+### Deploy
+
+***brigadehub is not production-ready. If you deploy this to your production brigade site, you do so at your own risk.***
+
+If you are outside Code for San Francisco and you want to get a version of brigadehub up for your brigade, fork sfbrigade/brigadehub into your own brigade's organization. Updates should be done using upstream fetches. Contributing back should be done via Pull Request back to this repository :)
+
+These instructions will be updated as the project emerges from the Alpha-release haze :P
 
 ### Troubleshooting
 
