@@ -183,6 +183,10 @@ nav.navbar {
     height: 58px;
 
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+    
+    .navbar-nav {
+      padding-top: 9px;
+    }
   }
   .navbar-brand {
     height: 100%;
