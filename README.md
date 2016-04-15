@@ -15,6 +15,7 @@
   - [Prerequisites](#prerequisites)
   - [Install](#install)
   - [Usage](#usage)
+- [Deploy (not recommended yet)](#deploy)
 - [Troubleshooting](#troubleshooting)
 - [Changelog](#changelog)
 - [Core Contributors](#core-contributors)
