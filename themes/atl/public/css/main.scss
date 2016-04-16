@@ -209,6 +209,10 @@ nav.navbar {
   .navbar-toggler {
     margin-top: 8px;
     float: right;
+    
+    &:focus {
+      outline:none;
+    }
   }
 }
 body.scroll {
