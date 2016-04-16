@@ -1,6 +1,7 @@
 <img src="/assets/rasterized/logo-banner-color-white.png" />
 
 
+
 # BrigadeHub
 
 [![Build Status](https://travis-ci.org/sfbrigade/brigadehub.svg?branch=edge)](https://travis-ci.org/sfbrigade/brigadehub)
