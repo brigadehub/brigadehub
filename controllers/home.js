@@ -15,9 +15,11 @@ exports.index = function (req, res) {
   var upcomingEvents = []
   Events.find({}, function (err, foundEvents) {
     if (err) console.error(err)
-    for (var i = 0; i < 3; i++) {
-      foundEvents[i].startDate = moment.unix(foundEvents[i].start).tz(res.locals.brigade.location.timezone).format('MMM DD')
-      upcomingEvents.push(foundEvents[i])
+    for (var i = 0; upcomingEvents.length < 3 && foundEvents[i]; i++) {
+      if (moment().unix() <= foundEvents[i].start) {
+        foundEvents[i].startDate = moment.unix(foundEvents[i].start).tz(res.locals.brigade.location.timezone).format('MMM DD')
+        upcomingEvents.push(foundEvents[i])
+      }
     }
   }).sort({start: 1})
   Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
