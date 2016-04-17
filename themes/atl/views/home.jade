@@ -10,15 +10,10 @@ block content
       #landing-events.col-sm-4
         h5 Upcoming events
         ul.list-group-item
-          li.list-group-item 
-            a.event-title(href="#")  This is the Event Title 
-              span.label.label-default  Jan. 31
-          li.list-group-item 
-            a.event-title(href="#")   This is the Event Title 
-              span.label.label-default  Jan. 20
-          li.list-group-item 
-            a.event-title(href="#")   This is the Event Title 
-            span.label.label-default  Jan. 15
+          each event in events
+            li.list-group-item
+              a.event-title(href='#{event.url}')  #{event.title}
+                span.label.label-default  #{event.startDate}
     hr
     #landing-stats.row
       .col-sm-3
@@ -87,7 +82,7 @@ block content
     hr
     #landing-projects.row
       h2.text-xs-center Projects
-      
+
       each project in projects
         // for perfect alignment, need a row on every odd instance of project. (row, col col, row, col col, etc. ) this code will look ok unitl you get a lot of description text on a project. - AB
 
@@ -95,8 +90,8 @@ block content
           #landing-project-1.landing-project
             img.img-thumbnail(src="http://placehold.it/200x200")
             a(href='/projects/#{project.id}')=project.name
-            
-            
+
+
       .col-sm-12.text-xs-center
         a.btn.btn-secondary(href="projects").center-block All Projects
     hr
@@ -106,28 +101,28 @@ block content
         #post-1.card.post
           img.card-img-top.img-fluid(src="http://placehold.it/400X250")
           .card-block
-            h4.card-title 
+            h4.card-title
               a(href="#") Blog Post Title
             p.card-text This is some text.
-            p.card-text 00 Dec. 16 
+            p.card-text 00 Dec. 16
               a(href="#") Category
       .col-sm-4
         #post-2.card.post
           img.card-img-top.img-fluid(src="http://placehold.it/400X250")
           .card-block
-            h4.card-title 
+            h4.card-title
               a(href="#") Blog Post Title
             p.card-text This is some text.
-            p.card-text 00 Dec. 16 
+            p.card-text 00 Dec. 16
               a(href="#") Blog Post Title
       .col-sm-4
         #post-3.card.post
           img.card-img-top.img-fluid(src="http://placehold.it/400X250")
           .card-block
-            h4.card-title 
+            h4.card-title
               a(href="#") Blog Post Title
             p.card-text This is some text.
-            p.card-text 00 Dec. 16 
+            p.card-text 00 Dec. 16
               a(href="#")
                 Category
       .col-sm-12.text-xs-center
