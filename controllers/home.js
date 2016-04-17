@@ -12,34 +12,33 @@ var NUM_PROJECTS_SHOWN = 6
 
 exports.index = function (req, res) {
   console.log(req.user)
-  var upcomingEvents = []
   Events.find({}, function (err, foundEvents) {
     if (err) console.error(err)
-    for (var i = 0; upcomingEvents.length < 3 && foundEvents[i]; i++) {
-      if (moment().unix() <= foundEvents[i].start) {
-        foundEvents[i].startDate = moment.unix(foundEvents[i].start).tz(res.locals.brigade.location.timezone).format('MMM DD')
-        upcomingEvents.push(foundEvents[i])
-      }
-    }
-  }).sort({start: 1})
-  Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
-    if (err) console.error(err)
-    var allKeywords = []
-    foundProjects.forEach(function (project) {
-      project.keywords.forEach(function (keyword) {
-        if (allKeywords.indexOf(keyword) < 0) {
-          allKeywords.push(keyword)
-        }
+    foundEvents = foundEvents.filter(function (event) {
+      return event.start >= moment().unix()
+    }).map(function (event) {
+      event.startDate = moment.unix(event.start).format('MMM DD')
+      return event
+    })
+    Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
+      if (err) console.error(err)
+      var allKeywords = []
+      foundProjects.forEach(function (project) {
+        project.keywords.forEach(function (keyword) {
+          if (allKeywords.indexOf(keyword) < 0) {
+            allKeywords.push(keyword)
+          }
+        })
+      })
+      res.render(res.locals.brigade.theme.slug + '/views/home', {
+        view: 'home',
+        title: 'Home',
+        brigade: res.locals.brigade,
+        projects: foundProjects.splice(0, NUM_PROJECTS_SHOWN),
+        events: foundEvents.slice(0, 3)
       })
     })
-    res.render(res.locals.brigade.theme.slug + '/views/home', {
-      view: 'home',
-      title: 'Home',
-      brigade: res.locals.brigade,
-      projects: foundProjects.splice(0, NUM_PROJECTS_SHOWN),
-      events: upcomingEvents
-    })
-  })
+  }).sort({start: 1})
 }
 
 exports.indexEdit = function (req, res) {
