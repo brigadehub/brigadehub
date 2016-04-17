@@ -1,5 +1,5 @@
-if (!window.console) window.console = {};
-if (!window.console.log) window.console.log = function () { };
+if (!window.console) window.console = {}
+if (!window.console.log) window.console.log = function () {}
 /* global SimpleMDE */
 var $ = window.jQuery
 $(document).ready(function () {
