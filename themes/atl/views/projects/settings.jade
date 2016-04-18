@@ -3,3 +3,43 @@ extends ../layout
 block content
   .page-header
     h3 Project Settings
+    form.row.form-horizontal(action='/projects/#{project.id}', method='POST')
+      input(type='hidden', name='_csrf', value=_csrf)
+      .form-group
+        label.col-sm-3.control-label(for='title') Project title
+        .col-sm-7
+          input.form-control(type='name', name='title', id='title', value='#{project.name}')
+      .form-group
+        label.col-sm-3.control-label(for='status') Status
+        .col-sm-7
+          input.form-control(type='name', name='status', id='status', value='#{project.status}')
+      .form-group
+        label.col-sm-3.control-label(for='type') Type
+        .col-sm-7
+          input.form-control(type='name', name='type', id='type', value='#{project.type}')
+      .form-group
+        label.col-sm-3.control-label(for='homepage') Homepage
+        .col-sm-7
+          input.form-control(type='name', name='homepage', id='homepage', value='#{project.homepage}')
+      .form-group
+        label.col-sm-3.control-label(for='repository') GitHub Repo
+        .col-sm-7
+          input.form-control(type='name', name='repository', id='repository', value='#{project.repository}')
+      .form-group
+        label.col-sm-3.control-label(for='contactname') Contact Person Name
+        .col-sm-7
+          input.form-control(type='name', name='contactname', id='contactname', value='#{project.contact.name}')
+      .form-group
+        label.col-sm-3.control-label(for='contactemail') Contact Person Email
+        .col-sm-7
+          input.form-control(type='name', name='contactemail', id='contactemail', value='#{project.contact.email}')
+      .form-group
+        label.col-sm-3.control-label(for='description') Description
+        .col-sm-7
+          textarea.form-control(type='name', name='description', id='description', value='#{project.description}', rows="6")
+      .form-group
+        .col-sm-offset-3.col-sm-4
+          button.btn.btn.btn-primary(type='submit')
+            i.fa.fa-pencil
+            | Update Project
+  a(href='/projects/manage') Back

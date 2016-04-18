@@ -96,11 +96,14 @@ module.exports = {
    * IDSettings Projects.
    */
   getProjectsIDSettings: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/projects/settings', {
-      view: 'project-settings',
-      projectId: req.params.projectId,
-      title: 'IDSettings Projects',
-      brigade: res.locals.brigade
+    Projects.find({'id': req.params.projectId}, function (err, foundProject) {
+      if (err) console.log(err)
+      res.render(res.locals.brigade.theme.slug + '/views/projects/settings', {
+        view: 'project-settings',
+        project: foundProject[0],
+        title: 'IDSettings Projects',
+        brigade: res.locals.brigade
+      })
     })
   },
   /**

@@ -19,7 +19,7 @@ block content
             th Project repo
             th Project Description
             th Project Homepage
-            th Project Repo
+            th Edit project
         tbody
           each project in projects
             tr
@@ -31,3 +31,5 @@ block content
               td.description= project.description
               td.homepage
                 a(href=project.homepage, target="_blank")= project.homepage
+              td.edit
+                a(href='/projects/#{project.id}/settings') Edit
