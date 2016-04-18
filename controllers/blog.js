@@ -45,11 +45,11 @@ module.exports = {
   getBlogManage: function (req, res) {
     Post.find({}, function (err, posts) {
       if (err) console.error(err)
-      // User.find({}), function (err, users) {
-      //   if (err) console.log(err)
-      //   // users = users.map(function(user) { return user.username })
-      //   console.log("**************users", users);
-      // }
+      User.find({}), function (err, users) {
+        if (err) console.log(err)
+        // users = users.map(function(user) { return user.username })
+        console.log("**************users", users);
+      }
       res.render(res.locals.brigade.theme.slug + '/views/blog/manage', {
         view: 'blog-list-manage',
         title: 'Manage Blog',
@@ -67,10 +67,15 @@ module.exports = {
     Post.find({}, function (err, posts) {
       if (err) console.error(err)
       posts.forEach(function (post) {
-        var reqPostInfo = req.body[post.id]
-        post.published = !!reqPostInfo.published
-        post.author = reqPostInfo.author
-        post.date = reqPostInfo.date
+        var postInfo = req.body[post.id]
+        if(postInfo.delete){
+          post.remove()
+          // continue
+        }
+        post.title = postInfo.title
+        post.published = !!postInfo.published
+        post.author = postInfo.author
+        post.date = postInfo.date
         post.save(function (err) {
           if (err) throw err
         })
