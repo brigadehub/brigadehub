@@ -70,7 +70,7 @@ module.exports = {
         var postInfo = req.body[post.id]
         if(postInfo.delete){
           post.remove()
-          // continue
+          return
         }
         post.title = postInfo.title
         post.published = !!postInfo.published
