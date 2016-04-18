@@ -27,7 +27,7 @@ block content
                 input.select-project(type="checkbox", value=project.slug)
               td.name= project.name
               td.id
-                a(href=project.homepage, target="_blank")= project.id
+                a(href=project.repository, target="_blank")= project.id
               td.description= project.description
               td.homepage
                 a(href=project.homepage, target="_blank")= project.homepage
