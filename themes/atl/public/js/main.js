@@ -25,7 +25,7 @@ $(document).ready(function () {
   })
   console.log(editor)
 })
-function warning(currentuser, boxname) {
+function adminWarning(currentuser, boxname) {
   var userbox = document.getElementsByName(boxname+'[superAdmin]')
   if (boxname == currentuser && !userbox[0].checked) {
     alert('Please be careful when changing your own Super Admin rights. You will need to contact another Super Admin to reinstate your privileges if you disable yours.')

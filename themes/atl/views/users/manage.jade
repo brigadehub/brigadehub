@@ -55,7 +55,7 @@ block content
                   input(type='checkbox', name='#{user.username}[coreLeadRole]', checked=user.roles.coreLead, onclick="this.checked=!this.checked")
               td
                 if (currentuser.roles.superAdmin)
-                  input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin, onclick="warning('#{currentuser.username}', '#{user.username}')")
+                  input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin, onclick="adminWarning('#{currentuser.username}', '#{user.username}')")
                 else
                   input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin, onclick="this.checked=!this.checked")
               td.github= user.github
