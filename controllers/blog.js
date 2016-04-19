@@ -117,7 +117,7 @@ module.exports = {
       date: req.body.date,
       unix: req.body.unix,
       tags: req.body.tags,
-      published: true
+      published: req.body.published
     })
     if (req.body.tags.indexOf(',') > -1) {
       req.body.tags = req.body.tags.split(',')
@@ -134,7 +134,11 @@ module.exports = {
         return res.redirect(req.session.returnTo || '/blog/new')
       } else {
         req.session.blogpostplaintextcontent = null
-        req.flash('success', { msg: 'Success! Blog post created' })
+        if(req.body.published === 'true'){
+          req.flash('success', { msg: 'Success! Blog post created.' })
+        }else{
+          req.flash('success', { msg: 'Success! Blog post saved.' })
+        }
         return res.redirect('/blog/post/' + blogpost.slug)
       }
     })

@@ -42,7 +42,11 @@ block content
         input.form-control(type='text', name='tags', id='tags')
         
     .form-group.row
-      .col-sm-offset-3.col-sm-4
-        button.btn.btn.btn-primary(type='submit')
+      .col-sm-2.col-sm-offset-3
+        button.btn.btn.btn-primary(type='submit', name='published', value='false')
           i.fa.fa-pencilr
-          | Save Post
+          | Save Draft
+      .col-sm-2
+        button.btn.btn.btn-primary(type='submit', name='published', value='true')
+          i.fa.fa-pencilr
+          | Publish
