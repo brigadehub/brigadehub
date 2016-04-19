@@ -9,11 +9,11 @@ var brigadeSchema = new mongoose.Schema({
     general: String,
     specific: String,
     geo: String,
-    timezone: String
+    timezone: {type: String, default: 'America/Los_Angeles'}
   },
   url: String,
   github: String,
-  meetup: String,
+  meetup: {type: String, default: 'Code-for-San-Francisco-Civic-Hack-Night'},
   theme: {
     slug: String,
     logo: String,
@@ -29,6 +29,14 @@ var brigadeSchema = new mongoose.Schema({
   copy: {
     tagline: String,
     description: String
+  },
+  sponsors: {
+    main: {
+      name: String,
+      url: String,
+      image: String
+    },
+    other: Array
   },
   auth: {
     github: {

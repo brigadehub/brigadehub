@@ -37,7 +37,8 @@ var userSchema = new mongoose.Schema({
     website: { type: String, default: '' },
     picture: { type: String, default: '' },
     showcontact: { type: Boolean, default: true },
-    position: { type: String, default: '' }
+    position: { type: String, default: '' },
+    contactpagerank: { type: Number, default: 1 }
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date
@@ -107,7 +108,6 @@ userSchema.statics.fetchGithubUsers = function (brigade, user, cb) {
     aggregate.forEach(function (user) {
       function buildPromise (constructedUser) {
         return new Promise(function (resolve, reject) {
-          console.log(constructedUser)
           Users.find({username: constructedUser.login}, function (err, foundUser) {
             if (err) {
               console.error(err)
@@ -183,7 +183,7 @@ function getUsers (url, aggregate, user, callback) {
 function createUpdateUserData (user, original, brigade) {
   original = original || {}
   // Standardize data
-  original.email = user.email
+  original.email = original.email || ''
   original.password = original.password || ''
   original.github = original.github || user.id
   original.username = user.login

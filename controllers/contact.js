@@ -15,7 +15,7 @@ module.exports = {
         title: 'Contact',
         brigade: res.locals.brigade
       })
-    })
+    }).sort({'profile.contactpagerank': 1})
   },
 
   /**
@@ -23,17 +23,52 @@ module.exports = {
    * Edit Contact page content.
    */
   getContactEdit: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/contact/edit', {
-      view: 'contact-manage',
-      title: 'Edit Contact',
-      brigade: res.locals.brigade
-    })
+    Users.find({$or: [{'roles.core': true}, {'roles.coreLead': true}, {'roles.superAdmin': true}]}, function (err, foundUsers) {
+      if (err) console.error(err)
+      res.render(res.locals.brigade.theme.slug + '/views/contact/edit', {
+        view: 'contact',
+        users: foundUsers,
+        title: 'Edit Contact',
+        brigade: res.locals.brigade
+      })
+    }).sort({'profile.contactpagerank': 1})
   },
   /**
    * POST /contact/edit
    * Update Contact page info
    */
   postContact: function (req, res) {
+    var uniquecheck = {}
+    for (var key in req.body) {
+      if (req.body[key].contactrank) {
+        if (!uniquecheck[req.body[key].contactrank]) {
+          uniquecheck[req.body[key].contactrank] = 'present'
+        } else {
+          req.flash('errors', {msg: 'Changes failed. Please enter unique values for contact page ranks'})
+          res.redirect('/contact/edit')
+          return
+        }
+      }
+    }
+    Users.find({$or: [{'roles.core': true}, {'roles.coreLead': true}, {'roles.superAdmin': true}]}, function (err, foundUsers) {
+      if (err) console.error(err)
+      foundUsers.forEach(function (user) {
+        var thisUser = new Users(user)
+        thisUser.profile.contactpagerank = req.body[thisUser.username].contactrank
+        if (req.body[thisUser.username].showcontact) {
+          thisUser.profile.showcontact = true
+        } else {
+          thisUser.profile.showcontact = false
+        }
+        thisUser.save(function (err) {
+          if (err) console.error(err)
+        })
+      })
+    })
+    res.redirect('/contact/edit')
+  },
+
+  postContactMessage: function (req, res) {
     req.assert('name', 'Name cannot be blank').notEmpty()
     req.assert('email', 'Email is not valid').isEmail()
     req.assert('message', 'Message cannot be blank').notEmpty()

@@ -4,6 +4,7 @@ block content
   .row
     .col-xs-12
       h2 Contact
+      a(href='/contact/edit') Manage contact page
       hr
   .row
     .col-sm-9
@@ -35,7 +36,7 @@ block content
   hr
   .row
     h5.text-xs-center Send a message to the brigade:
-    form.row.form-horizontal(action='/contact', method='POST')
+    form.row.form-horizontal(action='/contact/message/new', method='POST')
       input(type='hidden', name='_csrf', value=_csrf)
       .form-group.text-xs-right
         label.col-sm-3.control-label(for='name') Name
