@@ -106,7 +106,6 @@
   "license": "ISC",
   "pre-commit": [
     "lint",
-    "validate",
     "test"
   ]
 }

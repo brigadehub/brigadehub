@@ -4,7 +4,7 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
       a.navbar-brand(href='/')
         img(src='/logo.png')
       ul.nav.navbar-nav.pull-xs-right
-        if brigade.theme.show.login
+        if brigade.theme.page.login
           if !user
             li(class=title=='Login'?'active':undefined)
               a(href='/login') Login
@@ -41,15 +41,15 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
         img.brigade-logo(src='https://i.imgur.com/BoXEeve.png')
         span= brigade.name
       ul.nav.navbar-nav.pull-xs-right
-        if brigade.theme.show.events
+        if brigade.theme.page.events
           li.nav-item(class=title=='Events'?'active':undefined)
             a.nav-link(href='/events') Events
-        if brigade.theme.show.projects
+        if brigade.theme.page.projects
           li.nav-item(class=title=='Projects'?'active':undefined)
             a.nav-link(href='/projects') Projects
-        if brigade.theme.show.blog
+        if brigade.theme.page.blog
           li.nav-item(class=title=='Blog'?'active':undefined)
             a.nav-link(href='/blog') Blog
-        if brigade.theme.show.about
+        if brigade.theme.page.about
           li.nav-item(class=title=='Contact'?'active':undefined)
             a.nav-link(href='/contact') Contact
