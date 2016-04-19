@@ -238,6 +238,9 @@ module.exports = {
    * Submit New Users.
    */
   postUsersNew: function (req, res) {
+    console.log("************** ********** **********");
+    console.log("**************req"+req);
+    console.log("**************res"+res);
     Users.find({username: req.body.username, 'profile.name': req.body.name}, (err, foundUser) => {
       if (err) console.log(err)
       else if (foundUser.length > 0) {
@@ -245,6 +248,7 @@ module.exports = {
         res.redirect('/users/new')
       } else {
         var newUser = new Users(req.body)
+        console.log("**************"+req.body);
         newUser.profile = {
           name: req.body.email || '',
           gender: req.body.gender || '',

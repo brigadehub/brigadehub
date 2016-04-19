@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
 
 var postsSchema = new mongoose.Schema({
   slug: String, // this is the slug
-  title: String, // Display title
+  title: {type: String, required: true}, // Display title
   author: String,
   url: String, // an external link you can use to override where to go when clicking
   image: String,

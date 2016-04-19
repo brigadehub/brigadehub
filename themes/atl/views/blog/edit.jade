@@ -13,7 +13,9 @@ block content
     .form-group.row
       label.col-sm-3.control-label(for='author') Author
       .col-sm-7
-        input.form-control(type='text', name='author', id='author', value='#{post.author}')
+        select(name='author', id='author')
+          for username in usernames
+            option(selected = username===post.author) #{username}
     .form-group.row
       label.col-sm-3.control-label(for='url') Override Url (optional)
       .col-sm-7

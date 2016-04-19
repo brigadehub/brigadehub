@@ -31,12 +31,23 @@ block content
     //- unix: Number,
     //- tags: Array
     .col-sm-12
-      each post in posts
-        a.col-sm-2.col-md-4(href=(post.url !== '' ? post.url : '/blog/post/'+post.slug))
-          img(src=post.image, style="width:100%;")
+      each post, index in posts
+        // rows don't work when made smaller, fix css later
+        if index%3 === 0
+          .row
+        article.col-sm-2.col-md-4(class=post.published === true ? "" : "draft")
+          a(href=(post.url !== '' ? post.url : '/blog/post/'+post.slug))
+            img(src=post.image, style="width:100%;")
+
+            
           span.date= post.date
           | | 
-          span.author= post.author
-          h4= post.title
-          p= post.description
+          a(href="/author/#{post.author}")
+            span.author= post.author
+          if user && user.canEditBlog()
+            |  | 
+            a(href="/blog/post/#{post.slug}/edit") edit
+          a(href=(post.url !== '' ? post.url : '/blog/post/'+post.slug))
+            h4= post.title
+            p= post.description
             

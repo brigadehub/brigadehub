@@ -15,26 +15,23 @@ module.exports = {
     if (req.query.tag) {
       mongooseQuery.tags = req.query.tag
     }
-    Post.find({}, function (err, results) {
+    Post.find(mongooseQuery, function (err, posts) {
       if (err) console.error(err)
-      var tags = _.uniq(_.flatMap(results, 'tags'))
-      var blogPosts = []
-      Post.find(mongooseQuery, function (err, results) {
-        if (err) console.error(err)
-        results.forEach(function (post) {
-          if (post.published) {
-            blogPosts.push(post)
-          }
-        })
-        res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
-          title: 'Blog',
-          view: 'blog-list',
-          brigade: res.locals.brigade,
-          user: res.locals.user,
-          posts: blogPosts,
-          tags: tags,
-          query: req.query.tag
-        })
+      var tags = _.uniq(_.flatMap(posts, 'tags'))
+      if (res.locals.user && res.locals.user.canEditBlog()){
+      }else{
+        // most users only see published posts
+        posts = _.filter(posts, function(post){ return post.published })
+      }
+      posts = posts.reverse()
+      res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
+        title: 'Blog',
+        view: 'blog-list',
+        brigade: res.locals.brigade,
+        user: res.locals.user,
+        posts: posts,
+        tags: tags,
+        query: req.query.tag
       })
     })
   },
@@ -45,16 +42,17 @@ module.exports = {
   getBlogManage: function (req, res) {
     Post.find({}, function (err, posts) {
       if (err) console.error(err)
-      User.find({}), function (err, users) {
+      posts.reverse() // so that most recent are first
+      User.find({}, function (err, users) {
         if (err) console.log(err)
-        // users = users.map(function(user) { return user.username })
-        console.log("**************users", users);
-      }
-      res.render(res.locals.brigade.theme.slug + '/views/blog/manage', {
-        view: 'blog-list-manage',
-        title: 'Manage Blog',
-        brigade: res.locals.brigade,
-        posts: posts
+        var usernames = users.map(function(user){ return user.username })
+        res.render(res.locals.brigade.theme.slug + '/views/blog/manage', {
+          view: 'blog-list-manage',
+          title: 'Manage Blog',
+          brigade: res.locals.brigade,
+          posts: posts,
+          usernames: usernames
+        })
       })
     })
   },
@@ -66,6 +64,7 @@ module.exports = {
     req.flash('success', { msg: 'Success! Posts edited' })
     Post.find({}, function (err, posts) {
       if (err) console.error(err)
+      posts.reverse() // so that most recent are first
       posts.forEach(function (post) {
         var postInfo = req.body[post.id]
         if(postInfo.delete){
@@ -133,7 +132,7 @@ module.exports = {
     blogpost.slug = defaultUrl
     blogpost.save(function (err) {
       if (err) {
-        req.session.blogpostplaintextcontent = content
+        req.session.blogpostplaintextcontent = req.body.content
         req.flash('errors', { msg: err.message })
         return res.redirect(req.session.returnTo || '/blog/new')
       } else {
@@ -181,13 +180,18 @@ module.exports = {
     Post.find({slug: req.params.blogId}, function (err, post) {
       if (err) throw err
       post = post[0]
-      res.render(res.locals.brigade.theme.slug + '/views/blog/edit', {
-        view: 'blog-post-edit',
-        blogId: req.params.blogId,
-        title: 'Edit Blog',
-        brigade: res.locals.brigade,
-        user: res.locals.user,
-        post: post
+      User.find({}, function (err, users) {
+        if (err) console.log(err)
+        var usernames = users.map(function(user){ return user.username })
+        res.render(res.locals.brigade.theme.slug + '/views/blog/edit', {
+          view: 'blog-post-edit',
+          blogId: req.params.blogId,
+          title: 'Edit Blog',
+          brigade: res.locals.brigade,
+          user: res.locals.user,
+          post: post,
+          usernames: usernames
+        })
       })
     })
   },

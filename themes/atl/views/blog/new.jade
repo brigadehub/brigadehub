@@ -16,7 +16,7 @@ block content
       .col-sm-7
         select(name='author', id='author')
           for username in usernames
-            option #{username}
+            option(selected = username===user.username) #{username}
     .form-group.row
       label.col-sm-3.control-label(for='url') Override Url (optional)
       .col-sm-7

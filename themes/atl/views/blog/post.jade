@@ -7,18 +7,18 @@ block content
       | &nbsp;&nbsp;/&nbsp; 
       a(href='/blog') Blog
       | &nbsp;&nbsp;/&nbsp; 
-      a(href='/blog/#{post.slug}')= post.title
+      a(href='/blog/post/#{post.slug}')= post.title
   .row.page-header
     .col-sm-12
       h1= post.title
+  .row
+    .col-sm-12
+      | Post by 
+      a(href="/author/#{post.author}") #{post.author}
   .row 
     .col-sm-12
       .page-header.float
-        p #{post.date} |
-          each tag in post.tags
-            //- if tag === 
-            a(href='/blog?tag=#{tag}') #{tag}
-            | &nbsp;
+        p #{post.date}
       if user && user.canEditBlog()
         a.float.right.btn.btn-secondary(href="/blog/post/#{post.slug}/edit") Edit this post
         span
@@ -32,13 +32,14 @@ block content
   .row 
     .col-sm-9
       p !{post.content}
-    .col-sm-3
-      figure
-        img(src="", alt="").img-fluid.img-thumbnail
-        p= post.author
-        p
-          a(href="/author/#{post.author}").btn.btn-secondary Other Articles from the Author
-            
+
+
+    .row tags: 
+      each tag, index in post.tags
+        a(href='/blog?tag=#{tag}') #{tag}
+        //- comma inbetween all but last
+        if index !== post.tags.length-1
+          | , 
 //- slug: String, // this is the slug
 //- title: String, // Display title
 //- author: String,

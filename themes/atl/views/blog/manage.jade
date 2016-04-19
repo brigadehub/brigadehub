@@ -24,7 +24,9 @@ block content
             td
               input(type='text', name='#{post.id}[title]', value='#{post.title}')
             td(scope="row")
-              input(type='text', name='#{post.id}[author]', value='#{post.author}')
+              select(name='author', id='author')
+                for username in usernames
+                  option(selected = username===post.author) #{username}
             td(scope="row")
               input(type='text', name='#{post.id}[date]', value='#{post.date}')
             td(scope="row")
