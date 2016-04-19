@@ -92,13 +92,18 @@ module.exports = {
     for (let i = 0; i < 10; i++) {
       uniqueId += Math.floor(Math.random() * 10)
     }
-    res.render(res.locals.brigade.theme.slug + '/views/blog/new', {
-      view: 'blog-post-new',
-      title: 'New Blog',
-      brigade: res.locals.brigade,
-      user: res.locals.user,
-      plaintextcontent: req.session.blogpostplaintextcontent,
-      uniqueId: uniqueId
+    User.find({}, function (err, users) {
+      if (err) console.error(err)
+      let usernames = users.map(function(user){ return user.username})
+      res.render(res.locals.brigade.theme.slug + '/views/blog/new', {
+        view: 'blog-post-new',
+        title: 'New Blog',
+        brigade: res.locals.brigade,
+        user: res.locals.user,
+        usernames: usernames,
+        plaintextcontent: req.session.blogpostplaintextcontent,
+        uniqueId: uniqueId
+      })
     })
   },
   /**
@@ -106,7 +111,6 @@ module.exports = {
    * Submit New Blog.
    */
   postBlogNew: function (req, res) {
-    let content = req.body.content
     let blogpost = new Post({
       title: req.body.title,
       author: req.body.author,

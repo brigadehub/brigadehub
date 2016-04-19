@@ -14,7 +14,9 @@ block content
     .form-group.row
       label.col-sm-3.control-label(for='author') Author
       .col-sm-7
-        input.form-control(type='text', name='author', id='author', value=locals.user.username)
+        select(name='author', id='author')
+          for username in usernames
+            option #{username}
     .form-group.row
       label.col-sm-3.control-label(for='url') Override Url (optional)
       .col-sm-7
