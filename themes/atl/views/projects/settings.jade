@@ -34,9 +34,50 @@ block content
         .col-sm-7
           input.form-control(type='name', name='contactemail', id='contactemail', value='#{project.contact.email}')
       .form-group
+        label.col-sm-3.control-lavel(for='categories') Project categories
+        .col-sm-7
+          table.table
+            tbody
+              tr
+                td
+                  input(type='checkbox', name='categories[environment]', checked=(project.categories.indexOf('environment') > -1))
+                  |  Environment
+                td
+                  input(type='checkbox', name='categories[datascience]', checked=(project.categories.indexOf('datascience') > -1))
+                  |  Data Science
+                td
+                  input(type='checkbox', name='categories[infrastructure]', checked=(project.categories.indexOf('infrastructure') > -1))
+                  |  Brigade Infrastructure
+      .form-group
+        label.col-sm-3.control-lavel(for='categories') Project needs
+        .col-sm-7
+          table.table
+            tbody
+              tr
+                td
+                  input(type='checkbox', name='needs[designers]', checked=(project.needs.indexOf('designers') > -1))
+                  |  Designers
+                td
+                  input(type='checkbox', name='needs[developers]', checked=(project.needs.indexOf('developers') > -1))
+                  |  Developers
+                td
+                  input(type='checkbox', name='needs[documenters]', checked=(project.needs.indexOf('documenters') > -1))
+                  |  Documenters
+              tr
+                td
+                  input(type='checkbox', name='needs[testers]', checked=(project.needs.indexOf('testers') > -1))
+                  |  Testers
+                td
+                  input(type='checkbox', name='needs[projects]', checked=(project.needs.indexOf('projects') > -1))
+                  |  Project managers
+                td
+                  input(type='checkbox', name='needs[uiux]', checked=(project.needs.indexOf('uiux') > -1))
+                  |  UI/UX
+      .form-group
         label.col-sm-3.control-label(for='description') Description
         .col-sm-7
-          textarea.form-control(type='name', name='description', id='description', value='#{project.description}', rows="6")
+          textarea.form-control(name='description', id='description', rows="6")
+            |#{project.description}
       .form-group
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')

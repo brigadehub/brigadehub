@@ -81,7 +81,6 @@ module.exports = {
       id: req.params.projectId
     }, function (err, foundProject) {
       if (err) console.error(err)
-      console.log(foundProject)
       res.render(res.locals.brigade.theme.slug + '/views/projects/project', {
         view: 'project',
         projectId: req.params.projectId,
@@ -111,7 +110,37 @@ module.exports = {
    * Submit IDSettings Projects.
    */
   postProjectsIDSettings: function (req, res) {
-    res.redirect('projects/:projectID/settings')
+    Projects.find({'id': req.params.projectId}, function (err, foundProject) {
+      if (err) console.log(err)
+      var categories = []
+      var needs = []
+      var thisProject = foundProject[0]
+      thisProject.name = req.body.title || ''
+      thisProject.status = req.body.status || ''
+      thisProject.type = req.body.type || ''
+      thisProject.homepage = req.body.homepage || ''
+      thisProject.repository = req.body.repository || ''
+      thisProject.contact.name = req.body.contactname || ''
+      thisProject.contact.email = req.body.contactemail || ''
+      thisProject.description = req.body.description || ''
+      if (req.body.categories) {
+        for (var category in req.body.categories) {
+          categories.push(category)
+        }
+      }
+      if (req.body.needs) {
+        for (var need in req.body.needs) {
+          needs.push(need)
+        }
+      }
+      thisProject.categories = categories
+      thisProject.needs = needs
+      thisProject.save(function (err) {
+        if (err) console.log(err)
+      })
+    })
+    console.log(req.body)
+    res.redirect('/projects/' + req.params.projectId + '/settings')
   },
   /**
    * POST /projects/sync
