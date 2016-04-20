@@ -203,10 +203,13 @@ app.post('/blog/manage', passportConf.isAuthenticated, blogCtrl.postBlogManage)
 app.post('/blog/sync', passportConf.isAuthenticated, blogCtrl.postBlogSync)
 app.get('/blog/new', passportConf.isAuthenticated, blogCtrl.getBlogNew)
 app.post('/blog/new', passportConf.isAuthenticated, blogCtrl.postBlogNew)
-app.get('/blog/:blogId', blogCtrl.getBlogID)
-app.post('/blog/:blogId', passportConf.isAuthenticated, blogCtrl.postBlogIDEdit)
-app.get('/blog/:blogId/edit', passportConf.isAuthenticated, blogCtrl.getBlogIDEdit)
+app.get('/blog/post/:blogId', blogCtrl.getBlogID)
+app.post('/blog/post/:blogId', passportConf.isAuthenticated, blogCtrl.postBlogIDEdit)
+app.get('/blog/post/:blogId/edit', passportConf.isAuthenticated, blogCtrl.getBlogIDEdit)
 app.post('/blog/:blogId/sync', passportConf.isAuthenticated, blogCtrl.postBlogIDSync)
+
+app.post('/blog/post/:blogId/delete', passportConf.isAuthenticated, blogCtrl.postBlogIDDelete)
+app.get('/author/:authorId', passportConf.isAuthenticated, blogCtrl.getAuthorId)
 
 /**
  * Users routes.
