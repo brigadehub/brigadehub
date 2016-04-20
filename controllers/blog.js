@@ -1,6 +1,7 @@
 'use strict'
 
 var Post = require('../models/Posts')
+var User = require('../models/Users')
 var markdown = require('marked')
 var _ = require('lodash')
 
@@ -10,27 +11,38 @@ module.exports = {
    * List of Blog examples.
    */
   getBlog: function (req, res) {
+    var POSTS_PER_PAGE = 9
+    var page = 1
+
     var mongooseQuery = {}
     if (req.query.tag) {
       mongooseQuery.tags = req.query.tag
     }
-    console.log(mongooseQuery)
-    Post.find({}, function (err, results) {
+    if (req.query.page) {
+      page = req.query.page
+    }
+    Post.find(mongooseQuery, function (err, posts) {
       if (err) console.error(err)
-      var tags = _.uniq(_.flatMap(results, 'tags'))
-      Post.find(mongooseQuery, function (err, results) {
-        if (err) console.error(err)
-        var blogPosts = results || []
-        console.log(tags)
-        res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
-          title: 'Blog',
-          view: 'blog-list',
-          brigade: res.locals.brigade,
-          user: res.locals.user,
-          posts: blogPosts,
-          tags: tags,
-          query: req.query.tag
-        })
+      var tags = _.uniq(_.flatMap(posts, 'tags'))
+      if (res.locals.user && res.locals.user.canEditBlog()) {
+      } else {
+        // most users only see published posts
+        posts = _.filter(posts, function (post) { return post.published })
+      }
+      posts = posts.reverse()
+      var postStart = (page - 1) * POSTS_PER_PAGE
+      var pagePosts = posts.splice(postStart, POSTS_PER_PAGE)
+
+      res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
+        title: 'Blog',
+        view: 'blog-list',
+        brigade: res.locals.brigade,
+        user: res.locals.user,
+        posts: pagePosts,
+        tags: tags,
+        query: req.query.tag,
+        page: page,
+        selectedTag: req.query.tag
       })
     })
   },
@@ -39,10 +51,20 @@ module.exports = {
    * Manage Blog.
    */
   getBlogManage: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/blog/manage', {
-      view: 'blog-list-manage',
-      title: 'Manage Blog',
-      brigade: res.locals.brigade
+    Post.find({}, function (err, posts) {
+      if (err) console.error(err)
+      posts.reverse() // so that most recent are first
+      User.find({}, function (err, users) {
+        if (err) console.log(err)
+        var usernames = users.map(function (user) { return user.username })
+        res.render(res.locals.brigade.theme.slug + '/views/blog/manage', {
+          view: 'blog-list-manage',
+          title: 'Manage Blog',
+          brigade: res.locals.brigade,
+          posts: posts,
+          usernames: usernames
+        })
+      })
     })
   },
   /**
@@ -50,7 +72,26 @@ module.exports = {
    * Update all Blog.
    */
   postBlogManage: function (req, res) {
-    res.redirect('blog/manage')
+    req.flash('success', { msg: 'Success! Posts edited' })
+    Post.find({}, function (err, posts) {
+      if (err) console.error(err)
+      posts.reverse() // so that most recent are first
+      posts.forEach(function (post) {
+        var postInfo = req.body[post.id]
+        if (postInfo.delete) {
+          post.remove()
+          return
+        }
+        post.title = postInfo.title
+        post.published = !!postInfo.published
+        post.author = postInfo.author
+        post.date = postInfo.date
+        post.save(function (err) {
+          if (err) throw err
+        })
+      })
+    })
+    return res.redirect('/blog/manage/')
   },
   /**
    * GET /blog/new
@@ -61,14 +102,18 @@ module.exports = {
     for (let i = 0; i < 10; i++) {
       uniqueId += Math.floor(Math.random() * 10)
     }
-
-    res.render(res.locals.brigade.theme.slug + '/views/blog/new', {
-      view: 'blog-post-new',
-      title: 'New Blog',
-      brigade: res.locals.brigade,
-      user: res.locals.user,
-      plaintextcontent: req.session.blogpostplaintextcontent,
-      uniqueId: uniqueId
+    User.find({}, function (err, users) {
+      if (err) console.error(err)
+      let usernames = users.map(function (user) { return user.username })
+      res.render(res.locals.brigade.theme.slug + '/views/blog/new', {
+        view: 'blog-post-new',
+        title: 'New Blog',
+        brigade: res.locals.brigade,
+        user: res.locals.user,
+        usernames: usernames,
+        plaintextcontent: req.session.blogpostplaintextcontent,
+        uniqueId: uniqueId
+      })
     })
   },
   /**
@@ -76,23 +121,39 @@ module.exports = {
    * Submit New Blog.
    */
   postBlogNew: function (req, res) {
-    let content = req.body.blogcontent
-
     let blogpost = new Post({
-      title: req.body.blogtitle,
-      plaintextcontent: content
-    // htmlcontent: markdown.toHTML(content)
+      title: req.body.title,
+      author: req.body.author,
+      url: req.body.url,
+      image: req.body.image,
+      description: req.body.description,
+      content: req.body.content,
+      date: req.body.date,
+      unix: req.body.unix,
+      tags: req.body.tags,
+      published: req.body.published
     })
-
+    if (req.body.tags.indexOf(',') > -1) {
+      req.body.tags = req.body.tags.split(',')
+      blogpost.tags = req.body.tags.map(function (tag) {
+        return tag.trim()
+      })
+    }
+    var defaultUrl = req.body.title.toLowerCase().replace(/\s+/g, '-')
+    blogpost.slug = defaultUrl
     blogpost.save(function (err) {
       if (err) {
-        req.session.blogpostplaintextcontent = content
+        req.session.blogpostplaintextcontent = req.body.content
         req.flash('errors', { msg: err.message })
         return res.redirect(req.session.returnTo || '/blog/new')
       } else {
         req.session.blogpostplaintextcontent = null
-        req.flash('success', { msg: 'Success! Blog post created' })
-        return res.redirect('/blog')
+        if (req.body.published === 'true') {
+          req.flash('success', { msg: 'Success! Blog post created.' })
+        } else {
+          req.flash('success', { msg: 'Success! Blog post saved.' })
+        }
+        return res.redirect('/blog/post/' + blogpost.slug)
       }
     })
   },
@@ -106,8 +167,11 @@ module.exports = {
     console.log(res.locals)
     Post.find({slug: req.params.blogId}, function (err, post) {
       if (err) throw err
-      console.log(post)
       post = post[0]
+      if (post === undefined) {
+        res.sendStatus(404)
+        return
+      }
       post.content = markdown(post.content)
       res.render(res.locals.brigade.theme.slug + '/views/blog/post', {
         view: 'blog-post',
@@ -126,15 +190,19 @@ module.exports = {
   getBlogIDEdit: function (req, res) {
     Post.find({slug: req.params.blogId}, function (err, post) {
       if (err) throw err
-      console.log(post)
       post = post[0]
-      res.render(res.locals.brigade.theme.slug + '/views/blog/edit', {
-        view: 'blog-post-edit',
-        blogId: req.params.blogId,
-        title: 'Edit Blog',
-        brigade: res.locals.brigade,
-        user: res.locals.user,
-        post: post
+      User.find({}, function (err, users) {
+        if (err) console.log(err)
+        var usernames = users.map(function (user) { return user.username })
+        res.render(res.locals.brigade.theme.slug + '/views/blog/edit', {
+          view: 'blog-post-edit',
+          blogId: req.params.blogId,
+          title: 'Edit Blog',
+          brigade: res.locals.brigade,
+          user: res.locals.user,
+          post: post,
+          usernames: usernames
+        })
       })
     })
   },
@@ -178,15 +246,53 @@ module.exports = {
         if (err) {
           req.session.blogpostplaintextcontent = post.content
           req.flash('errors', { msg: err.message })
-          return res.redirect(req.session.returnTo || '/blog/' + req.params.blogId + '/edit')
+          return res.redirect(req.session.returnTo || '/blog/post/' + req.params.blogId + '/edit')
         } else {
           req.session.blogpostplaintextcontent = null
           req.flash('success', { msg: 'Success! Blog post updated' })
-          return res.redirect('/blog/' + post.slug)
+          return res.redirect('/blog/post/' + post.slug)
         }
       })
     })
   },
+  postBlogIDDelete: function (req, res) {
+    Post.remove({slug: req.params.blogId}, function (err) {
+      if (err) {
+        console.log(err)
+        return res.redirect('/blog/post/' + req.params.blogId)
+      } else {
+        req.flash('success', {msg: 'Your post was deleted.'})
+        return res.redirect('/blog/')
+      }
+    })
+  },
+  /**
+   * GET /blog/:blogID
+   * Display Blog by ID.
+   */
+  getAuthorId: function (req, res) {
+    // console.log(req.params)
+    // console.log(res.locals)
+    User.find({username: req.params.authorId}, function (err, user) {
+      if (err) throw err
+      var author = user[0]
+      if (author === undefined) {
+        res.sendStatus(404)
+        return
+      }
+      Post.find({author: req.params.authorId}, function (err, posts) {
+        if (err) throw err
+        res.render(res.locals.brigade.theme.slug + '/views/blog/author', {
+          author: author,
+          title: 'Blog',
+          brigade: res.locals.brigade,
+          user: res.locals.user,
+          posts: posts
+        })
+      })
+    })
+  },
+
   /**
    * POST /blog/sync
    * Sync Blog.

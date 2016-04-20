@@ -72,6 +72,7 @@
     "standard": "^6.0.4",
     "twilio": "^2.8.0",
     "twit": "^2.1.1",
+    "underscore": "^1.8.3",
     "uuid": "^2.0.1",
     "validator": "^4.5.0",
     "yui": "^3.18.1"
