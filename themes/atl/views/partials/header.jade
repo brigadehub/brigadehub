@@ -50,6 +50,10 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
         if brigade.theme.page.blog
           li.nav-item(class=title=='Blog'?'active':undefined)
             a.nav-link(href='/blog') Blog
+        each external in brigade.theme.page.external
+          li.nav-item
+            a.nav-link(href=external.link, target=external.target)=external.name
         if brigade.theme.page.about
           li.nav-item(class=title=='Contact'?'active':undefined)
             a.nav-link(href='/contact') Contact
+        

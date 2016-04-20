@@ -17,6 +17,9 @@ var userSchema = new mongoose.Schema({
   /* password: String,*/
   github: String,
   tokens: Array,
+  scopes: Array,
+  requestingScopes: String,
+  postAuthLink: String,
   roles: {
     read: {type: Boolean, default: true},
     blog: {type: Boolean, default: false},
