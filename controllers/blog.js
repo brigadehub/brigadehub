@@ -18,10 +18,10 @@ module.exports = {
     Post.find(mongooseQuery, function (err, posts) {
       if (err) console.error(err)
       var tags = _.uniq(_.flatMap(posts, 'tags'))
-      if (res.locals.user && res.locals.user.canEditBlog()){
-      }else{
+      if (res.locals.user && res.locals.user.canEditBlog()) {
+      } else {
         // most users only see published posts
-        posts = _.filter(posts, function(post){ return post.published })
+        posts = _.filter(posts, function (post) { return post.published })
       }
       posts = posts.reverse()
       res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
@@ -45,7 +45,7 @@ module.exports = {
       posts.reverse() // so that most recent are first
       User.find({}, function (err, users) {
         if (err) console.log(err)
-        var usernames = users.map(function(user){ return user.username })
+        var usernames = users.map(function (user) { return user.username })
         res.render(res.locals.brigade.theme.slug + '/views/blog/manage', {
           view: 'blog-list-manage',
           title: 'Manage Blog',
@@ -67,7 +67,7 @@ module.exports = {
       posts.reverse() // so that most recent are first
       posts.forEach(function (post) {
         var postInfo = req.body[post.id]
-        if(postInfo.delete){
+        if (postInfo.delete) {
           post.remove()
           return
         }
@@ -93,7 +93,7 @@ module.exports = {
     }
     User.find({}, function (err, users) {
       if (err) console.error(err)
-      let usernames = users.map(function(user){ return user.username})
+      let usernames = users.map(function (user) { return user.username })
       res.render(res.locals.brigade.theme.slug + '/views/blog/new', {
         view: 'blog-post-new',
         title: 'New Blog',
@@ -137,9 +137,9 @@ module.exports = {
         return res.redirect(req.session.returnTo || '/blog/new')
       } else {
         req.session.blogpostplaintextcontent = null
-        if(req.body.published === 'true'){
+        if (req.body.published === 'true') {
           req.flash('success', { msg: 'Success! Blog post created.' })
-        }else{
+        } else {
           req.flash('success', { msg: 'Success! Blog post saved.' })
         }
         return res.redirect('/blog/post/' + blogpost.slug)
@@ -182,7 +182,7 @@ module.exports = {
       post = post[0]
       User.find({}, function (err, users) {
         if (err) console.log(err)
-        var usernames = users.map(function(user){ return user.username })
+        var usernames = users.map(function (user) { return user.username })
         res.render(res.locals.brigade.theme.slug + '/views/blog/edit', {
           view: 'blog-post-edit',
           blogId: req.params.blogId,
