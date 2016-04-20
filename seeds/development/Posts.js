@@ -14,7 +14,7 @@ for (var i = 0; i < 30; i++) {
   var wisdom = generateWisdom()
   testPosts.push({
     'slug': wisdom.toLowerCase().replace(/\s+/g, '-'),
-    'title': wisdom,
+    'title': wisdom + i,
     'author': ['fakeUser', 'spiffysparrow', 'happyPoster'][Math.floor(Math.random() * 3)],
     'url': '',
     // there are images for all every number, so this will assign a unique consistent image for up to i = 99

@@ -11,9 +11,15 @@ module.exports = {
    * List of Blog examples.
    */
   getBlog: function (req, res) {
+    var POSTS_PER_PAGE = 9
+    var page = 1
+
     var mongooseQuery = {}
     if (req.query.tag) {
       mongooseQuery.tags = req.query.tag
+    }
+    if (req.query.page) {
+      page = req.query.page
     }
     Post.find(mongooseQuery, function (err, posts) {
       if (err) console.error(err)
@@ -24,14 +30,19 @@ module.exports = {
         posts = _.filter(posts, function (post) { return post.published })
       }
       posts = posts.reverse()
+      var postStart = (page - 1) * POSTS_PER_PAGE
+      var pagePosts = posts.splice(postStart, POSTS_PER_PAGE)
+
       res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
         title: 'Blog',
         view: 'blog-list',
         brigade: res.locals.brigade,
         user: res.locals.user,
-        posts: posts,
+        posts: pagePosts,
         tags: tags,
-        query: req.query.tag
+        query: req.query.tag,
+        page: page,
+        selectedTag: req.query.tag
       })
     })
   },
