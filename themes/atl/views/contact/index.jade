@@ -23,11 +23,9 @@ block content
                 p #{user.profile.position}
               else
                 p position placeholder
-              p
-                if user.profile.showcontact
+              if user.profile.showcontact
+                p
                   a(href="mailto: #{user.email}") email
-                else
-                  br
     .col-sm-3
       h2 See Also
       img(src="http://lorempixel.com/g/240/240/")
