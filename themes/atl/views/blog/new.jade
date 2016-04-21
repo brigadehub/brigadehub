@@ -1,36 +1,54 @@
 extends ../layout
 
-!= messages()
-
 block content
-  if !error
-    block scripts
-      script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.js')
-      script(src='//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js')
-      script(src='https://cdn.rawgit.com/showdownjs/showdown/1.3.0/dist/showdown.min.js')
+  .page-header.row
+    h3 New Blog Post
 
-    script.
-      $(document).ready(function () {
-        var converter = new showdown.Converter();
-        var simplemde = new SimpleMDE({
-          autosave: {
-            enabled: true,
-            delay: 10000,
-            uniqueId: #{uniqueId}
-          },
-          initialValue: "#{plaintextcontent}",
-          previewRender: function(plainText) {
-            return converter.makeHtml(plainText);
-          }
-        });
-      });
-
-  .page-header
-    h3 New Blog
-
-  div
-    form(id='blogsubmit', method='POST', action='/blog/new')
-      input(type="hidden", name="_csrf", value=_csrf)
-      input(type='text', value='Title..', name='blogtitle')
-      input(type='submit', value='Submit')
-      textarea(form='blogsubmit', name='blogcontent')
+    
+  form.row.form-horizontal(action='/blog/new', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row
+      label.col-sm-3.control-label(for='title') Title
+      .col-sm-7
+        input.form-control(type='text', name='title', id='title', value='#{post ? post.title : ""}')
+    .form-group.row
+      label.col-sm-3.control-label(for='author') Author
+      .col-sm-7
+        select(name='author', id='author')
+          for username in usernames
+            option(selected = username===user.username) #{username}
+    .form-group.row
+      label.col-sm-3.control-label(for='url') Override Url (optional)
+      .col-sm-7
+        input.form-control(type='text', name='url', id='url')
+    .form-group.row
+      label.col-sm-3.control-label(for='image') Image URL
+      .col-sm-7
+        input.form-control(type='text', name='image', id='image')
+      .col-sm-4.col-sm-offset-3
+    .form-group.row
+      label.col-sm-3.control-label(for='date') "Published on" date
+      .col-sm-7
+        input.form-control(type='text', name='date', id='date' value=new Date())
+    .form-group.row
+      label.col-sm-3.control-label(for='description') Short Description
+      .col-sm-7
+        input.form-control(type='text', name='description', id='description')
+    .form-group.row
+      label.col-sm-3.control-label(for='content') Post
+      .col-sm-7
+        textarea.form-control.simple-mde(name='content', id='content', rows='30')
+    .form-group.row
+      label.col-sm-3.control-label(for='tags') Tags (seperate with commas)
+      .col-sm-7
+        input.form-control(type='text', name='tags', id='tags')
+        
+    .form-group.row
+      .col-sm-2.col-sm-offset-3
+        button.btn.btn.btn-primary(type='submit', name='published', value='false')
+          i.fa.fa-pencilr
+          | Save Draft
+      .col-sm-2
+        button.btn.btn.btn-primary(type='submit', name='published', value='true')
+          i.fa.fa-pencilr
+          | Publish
