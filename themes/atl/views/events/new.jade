@@ -38,7 +38,7 @@ block content
               -}
             |:
             select(id="startminute", name="startminute")
-              -for(var min = 0;min<61;min++){
+              -for(var min = 0;min<60;min++){
               option(value="#{min}:00") #{min < 10 ? ('0' + min) : min}
               -}
             <br/><br/>
@@ -63,7 +63,7 @@ block content
               -}
             |:
             select(id="endminute", name="endminute")
-              -for(var min = 0;min<61;min++){
+              -for(var min = 0;min<60;min++){
               option(value="#{min}:00") #{min < 10 ? ('0' + min) : min}
               -}
             <br/><br/>
