@@ -23,6 +23,8 @@ body {
   padding-top: 110px;
 
   transition: padding-top $scroll-transition ease-in-out;
+
+  font-family: 'Source Sans Pro', 'Helvetica', 'Arial', sans-serif;
 }
 
 footer {
@@ -153,7 +155,7 @@ nav.navbar {
   .row.account {
 
     transition: height $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
-    
+
     img {
       transition: height $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
     }
@@ -183,7 +185,7 @@ nav.navbar {
   }
   .row.navigation {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
-    
+
     .navbar-nav {
       padding-top: 9px;
     }
@@ -205,11 +207,11 @@ nav.navbar {
       padding-top: 9px;
     }
   }
-  
+
   .navbar-toggler {
     margin-top: 8px;
     float: right;
-    
+
     &:focus {
       outline:none;
     }

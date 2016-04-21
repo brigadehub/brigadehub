@@ -56,12 +56,12 @@ exports.postBrigade = function (req, res, next) {
     } else if (req.body['theme-slug']) { // theme updated
       thisBrigade.theme.slug = req.body['theme-slug']
       thisBrigade.theme.logo = req.body.logo
-      thisBrigade.theme.show.title = req.body['show-title'] === 'on'
-      thisBrigade.theme.show.events = req.body['show-events'] === 'on'
-      thisBrigade.theme.show.projects = req.body['show-projects'] === 'on'
-      thisBrigade.theme.show.blog = req.body['show-blog'] === 'on'
-      thisBrigade.theme.show.about = req.body['show-about'] === 'on'
-      thisBrigade.theme.show.login = req.body['show-login'] === 'on'
+      thisBrigade.theme.page.title = req.body['show-title'] === 'on'
+      thisBrigade.theme.page.events = req.body['show-events'] === 'on'
+      thisBrigade.theme.page.projects = req.body['show-projects'] === 'on'
+      thisBrigade.theme.page.blog = req.body['show-blog'] === 'on'
+      thisBrigade.theme.page.about = req.body['show-about'] === 'on'
+      thisBrigade.theme.page.login = req.body['show-login'] === 'on'
     } else { // social media keys updated
       thisBrigade.auth.github.clientId = req.body['github-client-id']
       thisBrigade.auth.github.clientSecret = req.body['github-client-secret']
