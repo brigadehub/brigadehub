@@ -26,9 +26,9 @@
 
 ### Simplify your brigade's website maintenence
 
-BrigadeHub is a **pre-alpha** work in progress of a Code for America Brigade website/portal. This is being built to consolidate the efforts of maintaining a brigade website into a single location, and to allow other non-developer brigade leadership to update content as needed.
+BrigadeHub is a **pre-alpha** work in progress of a Code for America Brigade website/portal. This project is designed to simplify the process of creating and managing both a regional brigade and the individual project teams within that brigade.
 
-***brigadehub is not production-ready. If you deploy this to your production brigade site, you do so at your own risk.***
+***BrigadeHub is not production-ready. If you deploy this to your production brigade site, you do so at your own risk.***
 
 For a complete top-down view of the roadmap, take a look at our active ***[Roadmap Wiki](https://github.com/sfbrigade/brigadehub/wiki/Roadmap)***
 
@@ -44,20 +44,20 @@ In short, BrigadeHub is designed to meet some very specific goals:
 - Allow developers to hack and customize as desired
 - Allow brigades to launch with a single non-dev step to their own environment (most likely Heroku)
 
-This project is originally based on [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter), and that's where most of the deploy documents come from, but the codebase has been heavily modified to meet our needs. We're striving to match [feross/standard](https://github.com/feross/standard) javascript styling, though the original boilerplate didn't conform to that, so it's a wip.
+This project is originally based on [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter) (and that's where most of the deploy documents come from), but the codebase has been heavily modified to meet our needs. We are working on conforming to the [feross/standard](https://github.com/feross/standard) javascript styling, though the original boilerplate didn't conform to that, so it's a wip.
 
 Inspirations
 ------------
 
-Similar projects have been conceived and implemented previously, most prominently by [CodeForPhilly](https://codeforphilly.org/) in the form of [Laddr](https://github.com/CfABrigadePhiladelphia/laddr). The reason we're building a parallel system is for a few reasons:
+Similar projects have been conceived and implemented previously, most prominently by [CodeForPhilly](https://codeforphilly.org/) in the form of [Laddr](https://github.com/CfABrigadePhiladelphia/laddr), however, these implementations have limitations that make it difficult to utilize on a mass-scale. BrigadeHub overcomes these deficiencies by utilizing:
 
-- a system that isn't based in PHP, and didn't require a custom Linux VM to run
-- to utilize the cross-discipline talents of Node.js developers, who generally can move from front-back end quickly
-- a one-click deploy system, preferably to Heroku, that would make deployment of a new hub effortless
-- a platform tightly coupled with the Github API, for oauth, handling permissioning and adminning of the github repos easily
-- a system that easily lent itself to additional onboarding steps for new members.
+- A system that isn't based in PHP, and didn't require a custom Linux VM to run
+- The cross-discipline talents of Node.js developers, who generally can move from front-back end quickly
+- A one-click deployment system, preferably to Heroku, that would make deployment of a new hub effortless
+- A platform tightly coupled with the Github API, for oauth, handling permissioning and adminning of the github repos easily
+- A system that easily lends itself to additional onboarding steps for new members.
 
-Another project which this is pulling inspiration from is [CodeForAtlanta](http://www.codeforatlanta.org/)'s [Connector](https://github.com/codeforatlanta/connector). [Chime](https://github.com/chimecms/chime) was also a CMS that had similar goals, but focused on local governments, rather than brigades.
+Other projects from which we draw inspiration include [CodeForAtlanta](http://www.codeforatlanta.org/)'s [Connector](https://github.com/codeforatlanta/connector), and [Chime](https://github.com/chimecms/chime) -- the latter of which was was a CMS that focused on local governments, rather than brigades.
 
 ### Installation and usage
 #### Prerequisites
@@ -77,10 +77,9 @@ Another project which this is pulling inspiration from is [CodeForAtlanta](http:
   - `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash && echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bashrc && echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.bashrc && . $HOME/.bashrc && nvm install 4 && nvm alias default 4 && nvm use 4`
 
 
-**Note:** If you are new to Node or Express, I recommend to watch
+**Note:** If you are new to Node or Express, we recommended  watching the
 [Node.js and Express 101](https://www.youtube.com/watch?v=BN0JlMZCtNU)
-screencast by Alex Ford that teaches Node and Express from scratch. Alternatively,
-here is another great tutorial for complete beginners - [Getting Started With Node.js, Express, MongoDB](http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/).
+screencast by Alex Ford that teaches Node and Express from scratch. Another great tutorial for complete beginners is: [Getting Started With Node.js, Express, MongoDB](http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/).
 
 #### Install
 ---------------
@@ -119,13 +118,13 @@ npm run develop
 
 ***brigadehub is not production-ready. If you deploy this to your production brigade site, you do so at your own risk.***
 
-If you are outside Code for San Francisco and you want to get a version of brigadehub up for your brigade, fork sfbrigade/brigadehub into your own brigade's organization. Updates should be done using upstream fetches. Contributing back should be done via Pull Request back to this repository :)
+If you are outside Code for San Francisco and you want to get a version of brigadehub up for your brigade, fork sfbrigade/brigadehub into your own brigade's organization. Updates should be done using upstream fetches. Contributing back should be done via Pull Request back to this repository.
 
-These instructions will be updated as the project emerges from the Alpha-release haze :P
+These instructions will be updated as the project emerges from the Alpha-release haze.
 
 ### Troubleshooting
 
-*No troubleshooting steps yet. Want to add some?*
+*Have you encountered any issues that you have overcome? If so, post them here to help the community!*
 
 ### Changelog
 
@@ -136,14 +135,14 @@ To see what has changed in recent versions of brigadehub, see the [CHANGELOG](./
 - Trent Oswald - Project Lead - ([@therebelrobot](https://github.com/therebelrobot)) <`trentoswald``@``therebelrobot.com`>
 - Aaron Schachter [@aaronschachter](https://github.com/aaronschachter)
 - Andrew Bacon [@andrewmbacon](https://github.com/andrewmbacon)
-- [@davidcarvel](https://github.com/davidcarvel)
+- David Carvel [@davidcarvel](https://github.com/davidcarvel)
 - Deborah [@deborahahn](https://github.com/deborahahn)
 - Debbie Espino [@despino](https://github.com/despino)
 - Gisela [@GiselaKay](https://github.com/GiselaKay)
 - Leo Lau [@hawflau](https://github.com/hawflau)
 - Jason Durant [@jaydurant](https://github.com/jaydurant)
 - John Naulty Jr. [@jnaulty](https://github.com/jnaulty)
-- [@johngluck65](https://github.com/johngluck65)
+- John Luck [@johngluck65](https://github.com/johngluck65)
 - Jesse Szwedko [@jszwedko Owner](https://github.com/jszwedko Owner)
 - Judy5000 [@Judy5000 Owner](https://github.com/Judy5000 Owner)
 - Justin [@Juxtaposeidon](https://github.com/Juxtaposeidon)
@@ -166,7 +165,7 @@ To see what has changed in recent versions of brigadehub, see the [CHANGELOG](./
 
 ### Other questions
 
-Feel free to chat with the brigadehub core team (and many other users) on `sfbrigade` Slack in the `#brigadehub` channel ([join here](http://c4sf.me/slack)), on IRC in the [#sfbrigade](irc://irc.freenode.net/sfbrigade) channel on Freenode, or via opening a new Github Issue here in the repo.
+Feel free to chat with the brigadehub core team (and many other users) via the `sfbrigade` Slack in the `#brigadehub` channel ([join here](http://c4sf.me/slack)), on IRC in the [#sfbrigade](irc://irc.freenode.net/sfbrigade) channel on Freenode, or via opening a new Github Issue here in the repo.
 
 ## Contributing
 
