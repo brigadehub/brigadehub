@@ -88,7 +88,6 @@
     "multiline": "^1.0.2",
     "nodemon": "^1.9.1",
     "precommit-hook": "latest",
-    "require-dir": "^0.3.0",
     "seedling": "0.0.10",
     "supertest": "^1.1.0",
     "tape": "^4.5.1",
