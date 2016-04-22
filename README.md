@@ -3,7 +3,8 @@
 # BrigadeHub
 
 [![Build Status](https://travis-ci.org/sfbrigade/brigadehub.svg?branch=edge)](https://travis-ci.org/sfbrigade/brigadehub)
-[![OSS Manifesto](https://img.shields.io/badge/OSS-Manifesto-green.svg?style=flat)](http://ossmanifesto.org/)
+[![OSS Manifesto](https://img.shields.io/badge/OSS-Manifesto-orange.svg?style=flat)](http://ossmanifesto.org/)
+[![Keep A Changelog](https://img.shields.io/badge/Keep%20A-Changelog-blue.svg?style=flat)](http://keepachangelog.com/)
 [![Slack Status](https://sfbrigade-slackin.herokuapp.com/badge.svg)](https://sfbrigade-slackin.herokuapp.com/)
 [![JS Standard](https://img.shields.io/badge/JS-Standard-yellow.svg?style=flat)](https://github.com/feross/standard)
 

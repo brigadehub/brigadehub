@@ -1,4 +1,5 @@
-
+if (!window.console) window.console = {}
+if (!window.console.log) window.console.log = function () {}
 /* global SimpleMDE */
 var $ = window.jQuery
 $(document).ready(function () {
@@ -25,3 +26,9 @@ $(document).ready(function () {
   })
   console.log(editor)
 })
+function adminWarning (currentuser, boxname) { // eslint-disable-line
+  var userbox = document.getElementsByName(boxname + '[superAdmin]')
+  if (boxname === currentuser && !userbox[0].checked) {
+    window.alert('Please be careful when changing your own Super Admin rights. You will need to contact another Super Admin to reinstate your privileges if you disable yours.')
+  }
+}

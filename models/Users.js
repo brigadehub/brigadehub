@@ -17,6 +17,9 @@ var userSchema = new mongoose.Schema({
   /* password: String,*/
   github: String,
   tokens: Array,
+  scopes: Array,
+  requestingScopes: String,
+  postAuthLink: String,
   roles: {
     read: {type: Boolean, default: true},
     blog: {type: Boolean, default: false},
@@ -75,6 +78,13 @@ userSchema.methods.gravatar = function (size) {
   }
   var md5 = crypto.createHash('md5').update(this.email).digest('hex')
   return 'https://gravatar.com/avatar/' + md5 + '?s=' + size + '&d=retro'
+}
+
+/**
+ * Helper method for getting user's authorized to edit the blog.
+ */
+userSchema.methods.canEditBlog = function () {
+  return (this.roles.core || this.roles.superAdmin || this.roles.coreLead || this.roles.blog || this.roles.lead)
 }
 
 /**

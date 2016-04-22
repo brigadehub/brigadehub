@@ -20,9 +20,11 @@ html {
 
 body {
   margin-bottom: 75px;
-  padding-top: 138px;
+  padding-top: 110px;
 
   transition: padding-top $scroll-transition ease-in-out;
+
+  font-family: 'Source Sans Pro', 'Helvetica', 'Arial', sans-serif;
 }
 
 footer {
@@ -141,8 +143,6 @@ textarea {
 }
 
 nav.navbar {
-  height: 138px;
-
   transition: height $scroll-transition ease-in-out;
 
   background-color: white;
@@ -153,9 +153,13 @@ nav.navbar {
     height: 100%;
   }
   .row.account {
-    height: 66px;
 
     transition: height $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
+
+    img {
+      transition: height $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
+    }
+
     .dropdown-toggle {
       position: relative;
 
@@ -180,39 +184,41 @@ nav.navbar {
     }
   }
   .row.navigation {
-    height: 58px;
-
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+    .navbar-nav {
+      padding-top: 9px;
+    }
   }
   .navbar-brand {
-    height: 100%;
 
     white-space: nowrap;
     img {
       display: inline-block;
 
       width: auto;
-      height: 60%;
-      &.brigade-logo {
-        float: left;
-
-        height: 100%;
-      }
+      height: 35px;
     }
     span {
       display: inline-block;
-      float: left;
 
       height: 100%;
       margin-left: 10px;
       padding-top: 9px;
     }
   }
+
+  .navbar-toggler {
+    margin-top: 8px;
+    float: right;
+
+    &:focus {
+      outline:none;
+    }
+  }
 }
 body.scroll {
-  padding-top: 78px;
   .navbar {
-    height: 78px;
     padding-top: 0;
 
     box-shadow: 0 1px 1px 0 rgba(0,0,0,0.4);
@@ -222,6 +228,9 @@ body.scroll {
     .row.account {
       height: 10px;
       margin-bottom: 10px;
+        img {
+          height: 0;
+        }
       .dropdown-toggle {
         height: 10px;
         padding: 2px 0;
@@ -348,6 +357,22 @@ footer {
     }
   }
 }
+
+
+.draft:before {
+    display: block;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    content: "draft";
+    font-size: 2em;
+    color: white;
+    background: rgba(0,0,0,.8);
+  }
+
+  .tags .selected a{
+    background: yellow;
+  }
 
 /* Account page TODO: put in views/account-settings*/
 

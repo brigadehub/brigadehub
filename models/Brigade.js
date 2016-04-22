@@ -18,13 +18,14 @@ var brigadeSchema = new mongoose.Schema({
   theme: {
     slug: String,
     logo: String,
-    show: {
+    page: {
       title: Boolean,
       events: Boolean,
       projects: Boolean,
       blog: Boolean,
       about: Boolean,
-      login: Boolean
+      login: Boolean,
+      external: Array
     }
   },
   copy: {
