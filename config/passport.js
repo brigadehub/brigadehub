@@ -33,45 +33,44 @@ passport.use(new GitHubStrategy({
   if (req.user) {
     User.findOne({ github: profile.id }, function (err, existingUser) {
       if (err) console.error(err)
-      if (existingUser) {
-        req.flash('errors', { msg: 'There is already a GitHub account that belongs to you. Sign in with that account or delete it, then link it with your current account.' })
-        done(err)
-      } else {
-        User.findById(req.user.id, function (err, user) {
+      User.findById(req.user.id, function (err, user) {
+        if (err) console.error(err)
+        user.github = profile.id
+        user.email = profile.emails.find((email) => {
+          return email.primary === true
+        }).value
+        user.username = profile.username
+        user.tokens.push({ kind: 'github', accessToken: accessToken })
+        user.profile.name = user.profile.name || profile.displayName
+        user.profile.picture = user.profile.picture || profile._json.avatar_url
+        user.profile.location = user.profile.location || profile._json.location
+        user.profile.website = user.profile.website || profile._json.blog
+        if (user.requestingScopes) {
+          user.scopes = user.requestingScopes.split(',')
+          user.requestingScopes = false
+        } else {
+          user.scopes = ['user', 'public_repo']
+        }
+        User.count({}, function (err, count) {
           if (err) console.error(err)
-          user.github = profile.id
-          user.email = profile.emails.find((email) => {
-            return email.primary === true
-          }).value
-          user.username = profile.username
-          user.tokens.push({ kind: 'github', accessToken: accessToken })
-          user.profile.name = user.profile.name || profile.displayName
-          user.profile.picture = user.profile.picture || profile._json.avatar_url
-          user.profile.location = user.profile.location || profile._json.location
-          user.profile.website = user.profile.website || profile._json.blog
-          User.count({}, function (err, count) {
-            if (err) console.error(err)
-            if (!count) {
-              user.roles = {
-                read: true,
-                blog: true,
-                project: true,
-                lead: true,
-                core: true,
-                coreLead: true,
-                superAdmin: true
-              }
-              user.teams.core = ['executive']
-              user.teams.projects = ['website']
+          if (!count) {
+            user.roles = {
+              read: true,
+              blog: true,
+              project: true,
+              lead: true,
+              core: true,
+              coreLead: true,
+              superAdmin: true
             }
-            user.save(function (err) {
-              if (err) console.error(err)
-              req.flash('info', { msg: 'GitHub account has been linked.' })
-              done(err, user)
-            })
+          }
+          user.save(function (err) {
+            if (err) console.error(err)
+            req.flash('info', { msg: 'GitHub account has been linked.' })
+            done(err, user)
           })
         })
-      }
+      })
     })
   } else {
     User.findOne({ github: profile.id }, function (err, existingUser) {
@@ -206,4 +205,59 @@ exports.isAuthorized = function (req, res, next) {
   } else {
     res.redirect('/auth/' + provider)
   }
+}
+
+/* Check User role against provided roles */
+exports.checkRoles = function (roles) {
+  return function (req, res, next) {
+    console.log('checking roles', roles, req.user.roles)
+    var valid = false
+    _.forEach(roles, function (role) {
+      if (req.user.roles[role]) {
+        valid = true
+      }
+    })
+    if (!valid) {
+      res.flash('errors', { msg: 'You are not authorized to view this page.' })
+      return res.redirect(req.previousUrl)
+    }
+    next()
+  }
+}
+/* Check Github Scopes against provided scopes */
+exports.checkScopes = function (scopes) {
+  return function (req, res, next) {
+    console.log('checking scopes', scopes, req.user.scopes)
+    var valid = true
+    _.forEach(scopes, function (scope) {
+      if (req.user.scopes.indexOf(scope) < 0) {
+        valid = false
+      }
+    })
+    if (!valid) {
+      // Needs Additional scopes. Save url, auth more.
+      return User.findById(req.user.id, function (err, user) {
+        if (err) console.error(err)
+        user.postAuthLink = req.url
+        user.save(function (err) {
+          if (err) console.error(err)
+          var scopesString = scopes.join(',')
+          res.redirect('/auth/github/elevate?scopes=' + scopesString)
+        })
+      })
+    }
+    next()
+  }
+}
+
+exports.elevateScope = function (req, res, next) {
+  User.findById(req.user.id, function (err, user) {
+    if (err) console.error(err)
+    user.requestScopes = req.query.scopes
+    user.save(function (err) {
+      if (err) console.error(err)
+      var scopes = req.query.scopes.split(',')
+      return passport.authenticate('github', { scope: scopes })(req, res, next)
+    })
+  })
 }

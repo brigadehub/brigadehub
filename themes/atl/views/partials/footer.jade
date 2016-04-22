@@ -16,17 +16,21 @@ footer
       ul
         li#menu-item-385.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-385
           a(href='http://codeforpoland.org/')=brigade.name
-        if brigade.theme.show.events
+        if brigade.theme.page.events
           li
             a(href='/events') Events
-        if brigade.theme.show.projects
+        if brigade.theme.page.projects
           li
             a(href='/projects') Projects
-        if brigade.theme.show.blog
+        if brigade.theme.page.blog
           li
             a(href='/blog') Blog
-        if brigade.theme.show.about
+        each external in brigade.theme.page.external
+          li
+            a(href=external.link, target=external.target)=external.name
+        if brigade.theme.page.about
           li
             a(href='/contact') Contact
+            
         li.float.right
           a(href='https://github.com/sfbrigade/brigadehub') powered by brigadehub

@@ -62,45 +62,74 @@ block content
     h3 Theme Settings
   form.row.form-horizontal(action='/brigade', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
+    .form-group.row
       label.col-sm-3.control-label(for='theme-slug') Theme
       .col-sm-7
         input.form-control(type='text', name='theme-slug', id='theme-slug', value='#{brigade.theme.slug}')
-    .form-group
+    .form-group.row
       label.col-sm-3.control-label(for='logo') Logo
       .col-sm-7
         input.form-control(type='text', name='logo', id='logo', value='#{brigade.theme.logo}')
       .col-sm-offset-3.col-sm-4
         img(src="#{brigade.theme.logo}", class='logo')
-    .form-group
+    .form-group.row
       label.col-sm-3.control-label Enabled Sections
       .col-sm-7
         .row
           .col-sm-4.checkbox
             label
-              input.title(id="show-title", name="show-title", type="checkbox", checked=(brigade.theme.show.title ? "checked" : undefined))
+              input.title(id="show-title", name="show-title", type="checkbox", checked=(brigade.theme.page.title ? "checked" : undefined))
               | Show Brigade Name
           .col-sm-4.checkbox
             label
-              input.events(id="show-events", name="show-events", type="checkbox", checked=(brigade.theme.show.events ? "checked" : undefined))
+              input.events(id="show-events", name="show-events", type="checkbox", checked=(brigade.theme.page.events ? "checked" : undefined))
               | Show Events Pages
           .col-sm-4.checkbox
             label
-              input.projects(id="show-projects", name="show-projects", type="checkbox", checked=(brigade.theme.show.projects ? "checked" : undefined))
+              input.projects(id="show-projects", name="show-projects", type="checkbox", checked=(brigade.theme.page.projects ? "checked" : undefined))
               | Show Projects Pages
         .row
           .col-sm-4.checkbox
             label
-              input.blog(id="show-blog", name="show-blog", type="checkbox", checked=(brigade.theme.show.blog ? "checked" : undefined))
+              input.blog(id="show-blog", name="show-blog", type="checkbox", checked=(brigade.theme.page.blog ? "checked" : undefined))
               | Show Blog Pages
           .col-sm-4.checkbox
             label
-              input.about(id="show-about", name="show-about", type="checkbox", checked=(brigade.theme.show.about ? "checked" : undefined))
+              input.about(id="show-about", name="show-about", type="checkbox", checked=(brigade.theme.page.about ? "checked" : undefined))
               | Show About Page
           .col-sm-4.checkbox
             label
-              input.login(id="show-login", name="show-login", type="checkbox", checked=(brigade.theme.show.login ? "checked" : undefined))
+              input.login(id="show-login", name="show-login", type="checkbox", checked=(brigade.theme.page.login ? "checked" : undefined))
               | Show Login Page
+    each external in brigade.theme.page.external
+      .row
+        hr
+        .form-group.col-sm-12
+          label.col-sm-3.control-label(for='external-link-name') External Link Name
+          .col-sm-7
+            input.form-control(type='text', name='external-link-name', id='external-link-name', value='#{external.name}')
+        .form-group.col-sm-12
+          label.col-sm-3.control-label(for='external-link') External Link
+          .col-sm-7
+            input.form-control(type='text', name='external-link', id='external-link', value='#{external.link}')
+        .form-group.col-sm-12
+          label.col-sm-3.control-label(for='external-link-target') External Link Target
+          .col-sm-7
+            input.form-control(type='text', name='external-link-target', id='external-link-target', value='#{external.target}')
+    .row
+      hr
+      .form-group.col-sm-12
+        label.col-sm-3.control-label(for='new-external-link-name') External Link Name
+        .col-sm-7
+          input.form-control(type='text', name='new-external-link-name', id='new-external-link-name', value='', placeholder='External Link Title')
+      .form-group.col-sm-12
+        label.col-sm-3.control-label(for='new-external-link') External Link
+        .col-sm-7
+          input.form-control(type='text', name='new-external-link', id='new-external-link', value='', placeholder='http://example.com')
+      .form-group.col-sm-12
+        label.col-sm-3.control-label(for='new-external-link-target') External Link Target
+        .col-sm-7
+          input.form-control(type='text', name='new-external-link-target', id='new-external-link-target', value='', placeholder='self or _blank')
     .form-group
       .col-sm-offset-3.col-sm-4
         button.btn.btn.btn-primary(type='submit')
