@@ -112,10 +112,10 @@ module.exports = {
   postProjectsIDSettings: function (req, res) {
     Projects.find({'id': req.params.projectId}, function (err, foundProject) {
       if (err) console.log(err)
-      var categories = []
-      var needs = []
-      var contacts = []
       var thisProject = foundProject[0]
+      thisProject.categories = []
+      thisProject.needs = []
+      thisProject.contact = []
       thisProject.name = req.body.title || ''
       thisProject.status = req.body.status || ''
       thisProject.type = req.body.type || ''
@@ -124,22 +124,20 @@ module.exports = {
       thisProject.description = req.body.description || ''
       if (req.body.categories) {
         req.body.categories.split(',').forEach(function (category) {
-          categories.push(category)
+          thisProject.categories.push(category)
         })
       }
       if (req.body.contacts) {
         req.body.contacts.split(',').forEach(function (contact) {
-          contacts.push(contact)
+          thisProject.contact.push(contact)
         })
       }
       if (req.body.needs) {
         req.body.needs.split(',').forEach(function (need) {
-          needs.push(need)
+          thisProject.needs.push(need)
         })
       }
-      thisProject.categories = categories
-      thisProject.needs = needs
-      thisProject.contact = contacts
+
       thisProject.save(function (err) {
         if (err) console.log(err)
       })
