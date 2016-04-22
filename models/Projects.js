@@ -119,7 +119,7 @@ projectsSchema.statics.fetchGitHubUsers = function (users, cb) {
         if (foundUser) {
           resolve(foundUser)
         } else {
-          resolve({'name': username})
+          resolve(username)
         }
       })
     })

@@ -131,7 +131,7 @@ module.exports = {
         })
       }
       if (req.body.contacts) {
-        req.body.contacts.split(',').forEach(function (contact) {
+        req.body.contacts.replace(/\s/g, '').split(',').forEach(function (contact) {
           thisProject.contact.push(contact)
         })
       }
