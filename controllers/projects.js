@@ -114,18 +114,22 @@ module.exports = {
       if (err) console.log(err)
       var categories = []
       var needs = []
+      var contacts = []
       var thisProject = foundProject[0]
       thisProject.name = req.body.title || ''
       thisProject.status = req.body.status || ''
       thisProject.type = req.body.type || ''
       thisProject.homepage = req.body.homepage || ''
       thisProject.repository = req.body.repository || ''
-      thisProject.contact.name = req.body.contactname || ''
-      thisProject.contact.email = req.body.contactemail || ''
       thisProject.description = req.body.description || ''
       if (req.body.categories) {
         req.body.categories.split(',').forEach(function (category) {
           categories.push(category)
+        })
+      }
+      if (req.body.contacts) {
+        req.body.contacts.split(',').forEach(function (contact) {
+          contacts.push(contact)
         })
       }
       if (req.body.needs) {
@@ -135,6 +139,7 @@ module.exports = {
       }
       thisProject.categories = categories
       thisProject.needs = needs
+      thisProject.contact = contacts
       thisProject.save(function (err) {
         if (err) console.log(err)
       })

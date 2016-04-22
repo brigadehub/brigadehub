@@ -26,13 +26,9 @@ block content
         .col-sm-7
           input.form-control(type='name', name='repository', id='repository', value='#{project.repository}')
       .form-group
-        label.col-sm-3.control-label(for='contactname') Contact Person Name
+        label.col-sm-3.control-label(for='contacts') Contacts
         .col-sm-7
-          input.form-control(type='name', name='contactname', id='contactname', value='#{project.contact.name}')
-      .form-group
-        label.col-sm-3.control-label(for='contactemail') Contact Person Email
-        .col-sm-7
-          input.form-control(type='name', name='contactemail', id='contactemail', value='#{project.contact.email}')
+          input.form-control(type='name', name='contacts', id='contacts', value='#{project.contact}')
       .form-group
         label.col-sm-3.control-label(for='categories') Project Categories
         .col-sm-7
