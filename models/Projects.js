@@ -195,8 +195,8 @@ function createUpdateProjectData (project, original, brigade) {
   original.name = project.json.name || project.repo.name // Display titl
   original.description = project.json.description || project.repo.description || 'A new project.'
   original.license = project.json.license || 'MIT'
-  original.homepage = project.json.homepage || project.repo.homepage || project.repo.url
-  original.repository = project.json.repository || project.repo.url
+  original.homepage = project.json.homepage || project.repo.homepage || project.repo.html_url
+  original.repository = project.json.repository || project.repo.html_url
   original.geography = original.geography || []
   original.geography = original.geography.concat(project.json.geography)
   original.geography = _.uniq(original.geography)
