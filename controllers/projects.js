@@ -124,14 +124,14 @@ module.exports = {
       thisProject.contact.email = req.body.contactemail || ''
       thisProject.description = req.body.description || ''
       if (req.body.categories) {
-        for (var category in req.body.categories) {
+        req.body.categories.split(',').forEach(function (category) {
           categories.push(category)
-        }
+        })
       }
       if (req.body.needs) {
-        for (var need in req.body.needs) {
+        req.body.needs.split(',').forEach(function (need) {
           needs.push(need)
-        }
+        })
       }
       thisProject.categories = categories
       thisProject.needs = needs
