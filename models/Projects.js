@@ -127,8 +127,8 @@ projectsSchema.statics.fetchGitHubUsers = function (users, cb) {
   users.forEach(function (user) {
     promiseArray.push(getUser(user))
   })
-  Promise.all(promiseArray).then(function (result) {
-    cb(result)
+  Promise.all(promiseArray).then(function (contactList) {
+    cb(contactList)
   })
 //   return new Promise (function (resolve, reject) {
 //     users.map(function (user) {

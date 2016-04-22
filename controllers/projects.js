@@ -81,14 +81,14 @@ module.exports = {
       id: req.params.projectId
     }, function (err, foundProject) {
       if (err) console.error(err)
-      Projects.fetchGitHubUsers(foundProject.contact, function (result) {
+      Projects.fetchGitHubUsers(foundProject.contact, function (contactList) {
         res.render(res.locals.brigade.theme.slug + '/views/projects/project', {
           view: 'project',
           projectId: req.params.projectId,
           title: foundProject.name,
           brigade: res.locals.brigade,
           project: foundProject,
-          contacts: result
+          contacts: contactList
         })
       })
     })
