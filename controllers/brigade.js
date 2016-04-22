@@ -51,6 +51,7 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.heroImage = req.body.heroImage || 'https://i.imgur.com/m7omd0N.jpg'
       thisBrigade.copy.tagline = req.body.tagline
       thisBrigade.github = req.body.github
+      thisBrigade.slack = req.body.slack
       thisBrigade.meetup = req.body.meetupurl
       thisBrigade.copy.description = req.body.description
     } else if (req.body['theme-slug']) { // theme updated
