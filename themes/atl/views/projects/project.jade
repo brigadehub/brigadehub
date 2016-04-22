@@ -27,7 +27,7 @@ block content
             strong Born at:
             |  #{project.bornAt}
           p.project-status
-            strong Project status: 
+            strong Project status:
             if (project.status === 'proposed' || project.status === 'ideation')
               span(class="label label-info")  #{project.status}
             if (project.status === 'alpha')
@@ -59,41 +59,24 @@ block content
             strong Categories:
             |  #{project.categories}
           p.data
-            strong Data: 
+            strong Data:
             |  #{project.data}
           p.keywords
             strong keywords:
             |  #{project.keywords}
         .col-sm-4
           h4 Team
+          each contact in contacts
+            .media
+              .media-left
+                a(href="#")
+                  img(src="http://placehold.it/40x40?text=contact").media-object.media-middle
+              .media-body
+                if (contact.username)
+                  a(href="mailto:#{contact.email}") #{contact.username}
+                else
+                  |#{contact.name}
 
-
-          .media
-            .media-left
-              a(href="#")
-                img(src="http://placehold.it/40x40?text=contact").media-object.media-middle
-            .media-body
-              a(href="mailto:#{project.contact.email}") #{project.contact.name}
-          .media
-            .media-left
-              a(href="#")
-                img(src="http://placehold.it/40x40?text=contact").media-object.media-middle
-            .media-body
-              a(href="mailto:#{project.contact.email}") #{project.contact.name}
-          .media
-            .media-left
-              a(href="#")
-                img(src="http://placehold.it/40x40?text=contact").media-object.media-middle
-            .media-body
-              a(href="mailto:#{project.contact.email}") #{project.contact.name}
-          .media
-            .media-left
-              a(href="#")
-                img(src="http://placehold.it/40x40?text=contact").media-object.media-middle
-            .media-body
-              a(href="mailto:#{project.contact.email}") #{project.contact.name}
-          
-  
     .col-sm-3
         .see-also
           .links
@@ -104,7 +87,7 @@ block content
                 .card-title
                   a(href="#") Other Project A
                 .card-text
-                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             .card
               a(href="#")
                 img(src="http://placehold.it/400x400?text=other+project").card-img-top.img-fluid
@@ -112,7 +95,7 @@ block content
                 .card-title
                   a(href="#") Other Project A
                 .card-text
-                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             .card
               a(href="#")
                 img(src="http://placehold.it/400x400?text=other+project").card-img-top.img-fluid
@@ -120,4 +103,4 @@ block content
                 .card-title
                   a(href="#") Other Project A
                 .card-text
-                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit.

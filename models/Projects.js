@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
 var request = require('request')
 var _ = require('lodash')
 var linkHeaderParser = require('link-header-parser')
-
+var Users = require('./Users')
 var defaultHeaders = {
   'Accept': 'application/vnd.github.v3+json',
   'Authorization': 'token ',
@@ -110,7 +110,41 @@ projectsSchema.statics.fetchGithubRepos = function (brigade, user, cb) {
 projectsSchema.statics.publishToGithub = function (cb) {
   cb(null, 'isMatch')
 }
-
+projectsSchema.statics.fetchGitHubUsers = function (users, cb) {
+  var promiseArray = []
+  function getUser (username) {
+    return new Promise(function (resolve, reject) {
+      Users.findOne({'username': username}, function (err, foundUser) {
+        if (err) console.log(err)
+        if (foundUser) {
+          resolve(foundUser)
+        } else {
+          resolve({'name': username})
+        }
+      })
+    })
+  }
+  users.forEach(function (user) {
+    promiseArray.push(getUser(user))
+  })
+  Promise.all(promiseArray).then(function (result) {
+    cb(result)
+  })
+//   return new Promise (function (resolve, reject) {
+//     users.map(function (user) {
+//       Users.findOne({'username': user}, function (err, foundUser) {
+//         if (foundUser) {
+//           console.log('ping')
+//           user.email = foundUser.email
+//           return user.email
+//         } else {
+//           return user
+//         }
+//       })
+//     })
+//     resolve(users)
+//   })
+}
 module.exports = mongoose.model('Projects', projectsSchema)
 
 function getRepos (url, aggregate, user, callback) {
