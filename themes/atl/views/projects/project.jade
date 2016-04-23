@@ -28,7 +28,7 @@ block content
             |  #{project.bornAt}
           p.project-status
             strong Project status:
-            if (project.status === 'proposed' || project.status === 'ideation')
+            if (project.status)
               span(class="label label-info")  #{project.status}
             if (project.status === 'alpha')
               span(class="label label-danger")  #{project.status}
@@ -51,7 +51,7 @@ block content
             |  #{project.politicalEntity}
           p.types
             strong Types:
-            |  #{project.types}
+            |  #{project.type}
           p.needs
             strong Needs:
             |  #{project.needs}
@@ -73,7 +73,7 @@ block content
                   img(src="http://placehold.it/40x40?text=contact").media-object.media-middle
               .media-body
                 if (contact.username)
-                  a(href="mailto:#{contact.email}") #{contact.username}
+                  a(href="/users/#{contact.username}") #{contact.username}
                 else
                   |#{contact}
 
