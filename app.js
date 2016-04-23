@@ -131,7 +131,7 @@ app.use(lusca({
 }))
 app.use(function (req, res, next) {
   // check postAuthLink and see if going to auth callback
-  if (req.user && req.user.postAuthLink.length) {
+  if (req.user && req.user.postAuthLink && req.user.postAuthLink.length) {
     if (!(/auth\/github\/callback/i.test(req.path))) {
       return User.findById(req.user.id, function (err, user) {
         if (err) console.error(err)
@@ -396,6 +396,7 @@ app.get('/auth/github', passport.authenticate('github', {
 app.get('/auth/github/elevate', passportConf.elevateScope)
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function (req, res) {
   console.log(req.user.postAuthLink)
+  req.user.postAuthLink = req.user.postAuthLink || ''
   res.redirect(req.user.postAuthLink.length ? req.user.postAuthLink : '/')
 })
 app.get('/auth/meetup', passport.authenticate('meetup', { scope: ['basic', 'rsvp'] }))
