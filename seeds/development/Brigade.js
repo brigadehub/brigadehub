@@ -81,7 +81,7 @@ module.exports = function () {
       }
     },
     auditLog: [
-      'initial | ' + auditDate + ' | added default brigade details from `config/default-brigade.js`'
+      'initial | ' + auditDate + ' | added default brigade details from seeder'
     ]
   }]
 }

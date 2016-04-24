@@ -1,12 +1,13 @@
 var _ = require('lodash')
 var passport = require('passport')
-// var request = require('request')
+var request = require('request')
 var LocalStrategy = require('passport-local').Strategy
 var GitHubStrategy = require('passport-github').Strategy
 var MeetupStrategy = require('passport-meetup').Strategy
 // var OpenIDStrategy = require('passport-openid').Strategy
 // var OAuthStrategy = require('passport-oauth').OAuthStrategy
 // var OAuth2Strategy = require('passport-oauth').OAuth2Strategy
+var defaultHeaders = require('../config/defaultGithubAPIHeaders')
 
 var User = require('../models/Users')
 
@@ -27,67 +28,78 @@ passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_ID,
   clientSecret: process.env.GITHUB_SECRET,
   callbackURL: '/auth/github/callback',
-  passReqToCallback: true,
-  scope: ['user:email']
+  passReqToCallback: true
 }, function (req, accessToken, refreshToken, profile, done) {
-  if (req.user) {
-    User.findOne({ github: profile.id }, function (err, existingUser) {
-      if (err) console.error(err)
-      User.findById(req.user.id, function (err, user) {
-        if (err) console.error(err)
-        user.github = profile.id
-        user.email = profile.emails.find((email) => {
-          return email.primary === true
-        }).value
-        user.username = profile.username
-        user.tokens.push({ kind: 'github', accessToken: accessToken })
-        user.profile.name = user.profile.name || profile.displayName
-        user.profile.picture = user.profile.picture || profile._json.avatar_url
-        user.profile.location = user.profile.location || profile._json.location
-        user.profile.website = user.profile.website || profile._json.blog
-        if (user.requestingScopes) {
-          user.scopes = user.requestingScopes.split(',')
-          user.requestingScopes = false
-        } else {
-          user.scopes = ['user', 'public_repo']
-        }
-        User.count({}, function (err, count) {
+  var url = 'https://api.github.com/user/emails'
+  var headers = _.cloneDeep(defaultHeaders)
+  headers['Authorization'] += accessToken
+  var options = {
+    url: url,
+    headers: headers
+  }
+  request(options, function (err, response, body) {
+    if (err) console.error(err)
+    if (!err && response.statusCode === 200) {
+      var tokens = response.headers['x-oauth-scopes']
+      profile.emails = JSON.parse(body)
+      if (req.user) {
+        User.findOne({ github: profile.id }, function (err, existingUser) {
           if (err) console.error(err)
-          if (!count) {
-            user.roles = {
-              read: true,
-              blog: true,
-              project: true,
-              lead: true,
-              core: true,
-              coreLead: true,
-              superAdmin: true
-            }
-          }
-          user.save(function (err) {
+          User.findById(req.user.id, function (err, user) {
             if (err) console.error(err)
-            req.flash('info', { msg: 'GitHub account has been linked.' })
-            done(err, user)
+            user.github = profile.id
+            user.email = _.filter(profile.emails, (email) => {
+              return email.primary
+            }).email
+            user.username = profile.username
+            user.tokens.push({ kind: 'github', accessToken: accessToken })
+            user.profile.name = user.profile.name || profile.displayName
+            user.profile.picture = user.profile.picture || profile._json.avatar_url
+            user.profile.location = user.profile.location || profile._json.location
+            user.profile.website = user.profile.website || profile._json.blog
+            user.scopes = tokens
+            if (user.scopes[0].indexOf(',') > -1) {
+              user.scopes = user.scopes[0].split(', ')
+            }
+            User.count({}, function (err, count) {
+              if (err) console.error(err)
+              if (!count) {
+                user.roles = {
+                  read: true,
+                  blog: true,
+                  project: true,
+                  lead: true,
+                  core: true,
+                  coreLead: true,
+                  superAdmin: true
+                }
+              }
+              user.save(function (err) {
+                if (err) console.error(err)
+                req.flash('info', { msg: 'GitHub authorization provided.' })
+                done(err, user)
+              })
+            })
           })
         })
-      })
-    })
-  } else {
-    User.findOne({ github: profile.id }, function (err, existingUser) {
-      if (err) console.error(err)
-      if (existingUser) {
-        return done(null, existingUser)
-      }
-      User.findOne({ email: profile._json.email }, function (err, existingEmailUser) {
-        if (err) console.error(err)
-        if (existingEmailUser) {
-          req.flash('errors', { msg: 'There is already an account using this email address. Sign in to that account and link it with GitHub manually from Account Settings.' })
-          done(err)
-        } else {
+      } else {
+        User.findOne({ github: profile.id }, function (err, existingUser) {
+          if (err) console.error(err)
+          if (existingUser) {
+            // think about updating?
+            console.log('no req.user, and user exists')
+            return done(null, existingUser)
+          }
+          console.log('no req.user, and user doesn\'t exist')
+          // create this new user
           var user = new User()
-          user.email = profile.emails.find((email) => {
-            return email.primary === true
-          }).value
+          user.email = _.find(profile.emails, (email) => {
+            return email.primary
+          }).email
+          user.scopes = tokens
+          if (user.scopes[0].indexOf(',') > -1) {
+            user.scopes = user.scopes[0].split(', ')
+          }
           user.github = profile.id
           user.username = profile.username
           user.tokens.push({ kind: 'github', accessToken: accessToken })
@@ -115,10 +127,10 @@ passport.use(new GitHubStrategy({
               done(err, user)
             })
           })
-        }
-      })
-    })
-  }
+        })
+      }
+    }
+  })
 }))
 
 /**
@@ -131,7 +143,6 @@ passport.use(new MeetupStrategy({
   passReqToCallback: true
 }, function (req, accessToken, refreshToken, profile, done) {
   if (req.user) {
-    console.log('req.user exists', profile)
     User.findById(req.user.id, function (err, user) {
       if (err) console.error(err)
       user.tokens.push({ kind: 'meetup', accessToken: accessToken })
@@ -142,7 +153,6 @@ passport.use(new MeetupStrategy({
       })
     })
   } else {
-    console.log("req.user doesn't exist")
     req.flash('info', { msg: 'You must be logged in to link your Meetup account.' })
     done('ERROR')
   }
@@ -210,7 +220,6 @@ exports.isAuthorized = function (req, res, next) {
 /* Check User role against provided roles */
 exports.checkRoles = function (roles) {
   return function (req, res, next) {
-    console.log('checking roles', roles, req.user.roles)
     var valid = false
     _.forEach(roles, function (role) {
       if (req.user.roles[role]) {
@@ -227,7 +236,6 @@ exports.checkRoles = function (roles) {
 /* Check Github Scopes against provided scopes */
 exports.checkScopes = function (scopes) {
   return function (req, res, next) {
-    console.log('checking scopes', scopes, req.user.scopes)
     var valid = true
     _.forEach(scopes, function (scope) {
       if (req.user.scopes.indexOf(scope) < 0) {
@@ -251,13 +259,6 @@ exports.checkScopes = function (scopes) {
 }
 
 exports.elevateScope = function (req, res, next) {
-  User.findById(req.user.id, function (err, user) {
-    if (err) console.error(err)
-    user.requestScopes = req.query.scopes
-    user.save(function (err) {
-      if (err) console.error(err)
-      var scopes = req.query.scopes.split(',')
-      return passport.authenticate('github', { scope: scopes })(req, res, next)
-    })
-  })
+  var scopes = req.query.scopes.split(',')
+  return passport.authenticate('github', { scope: scopes })(req, res, next)
 }

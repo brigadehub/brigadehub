@@ -13,7 +13,7 @@
     "pretest": "standard",
     "test": "npm run test:unit && npm run test:e2e",
     "test:e2e": "echo 'no e2e tests available.'",
-    "test:unit": "babel-node ./node_modules/istanbul/lib/cli cover tape -- **/*.tape.js",
+    "test:unit": "echo 'no unit test available.'",
     "db:clear": "./scripts/database-clear",
     "db:seed": "./scripts/database-seed",
     "develop": "nodemon app.js",

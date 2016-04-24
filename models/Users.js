@@ -18,7 +18,6 @@ var userSchema = new mongoose.Schema({
   github: String,
   tokens: Array,
   scopes: Array,
-  requestingScopes: String,
   postAuthLink: String,
   roles: {
     read: {type: Boolean, default: true},

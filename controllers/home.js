@@ -8,7 +8,6 @@ var Projects = require('../models/Projects')
 var NUM_PROJECTS_SHOWN = 6
 
 exports.index = function (req, res) {
-  console.log(req.user)
   Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
     if (err) console.error(err)
     var allKeywords = []
@@ -30,7 +29,6 @@ exports.index = function (req, res) {
 }
 
 exports.indexEdit = function (req, res) {
-  console.log(req.user)
   res.render(res.locals.brigade.theme.slug + '/views/home', {
     view: 'home-edit',
     title: 'Edit Home',

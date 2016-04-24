@@ -3,11 +3,7 @@ var request = require('request')
 var _ = require('lodash')
 var linkHeaderParser = require('link-header-parser')
 
-var defaultHeaders = {
-  'Accept': 'application/vnd.github.v3+json',
-  'Authorization': 'token ',
-  'User-Agent': 'BridageHub'
-}
+var defaultHeaders = require('../config/defaultGithubAPIHeaders')
 
 var projectsSchema = new mongoose.Schema({
   id: String, // this is the slug - civic.sf.json + civic.dc.json

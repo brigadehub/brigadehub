@@ -67,7 +67,7 @@ var app = express()
  */
 mongoose.connect(process.env.MONGODB || process.env.MONGOLAB_URI)
 mongoose.connection.on('error', function () {
-  console.log('MongoDB Connection Error. Please make sure that MongoDB is running.')
+  console.log('new auth callback!')
   process.exit(1)
 })
 
@@ -132,7 +132,13 @@ app.use(lusca({
 app.use(function (req, res, next) {
   // check postAuthLink and see if going to auth callback
   if (req.user && req.user.postAuthLink && req.user.postAuthLink.length) {
-    if (!(/auth\/github\/callback/i.test(req.path))) {
+    console.log('req.user.postAuthLink present!', req.user.postAuthLink)
+    if (
+      !(/auth\/github\/callback/i.test(req.path)) &&
+      !(/auth\/github\/elevate/i.test(req.path))
+
+    ) {
+      console.log('path not callback or elevate!', req.path)
       return User.findById(req.user.id, function (err, user) {
         if (err) console.error(err)
         user.postAuthLink = req.user.postAuthLink = ''
@@ -395,7 +401,7 @@ app.get('/auth/github', passport.authenticate('github', {
 }))
 app.get('/auth/github/elevate', passportConf.elevateScope)
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function (req, res) {
-  console.log(req.user.postAuthLink)
+  console.log('new github callback!', req.user.postAuthLink)
   req.user.postAuthLink = req.user.postAuthLink || ''
   res.redirect(req.user.postAuthLink.length ? req.user.postAuthLink : '/')
 })
@@ -416,14 +422,12 @@ app.use(errorHandler())
 Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
   if (err) throw err
   if (!results.length) {
-    console.log('No brigade with the slug ' + process.env.BRIGADE + ' found in database. Populating with default values.')
-    var defaultBrigadeData = require('./config/default-brigade')()
+    var defaultBrigadeData = require('./seeds/development/Brigade')()[0]
     defaultBrigadeData.slug = process.env.BRIGADE
     brigadeDetails = defaultBrigadeData
     var defaultBrigade = new Brigade(defaultBrigadeData)
     defaultBrigade.save(function (err) {
       if (err) throw err
-      console.log('Default Brigade populated into database.')
       DB_INSTANTIATED = true
       startServer()
     })
@@ -444,7 +448,7 @@ function startServer () {
   app.use(favicon(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public', 'favicon.png')))
   app.use(express.static(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'), { maxAge: 31557600000 }))
   app.listen(app.get('port'), function () {
-    console.log('Express server listening on port %d in %s mode', app.get('port'), app.get('env'))
+    console.log('Brigadehub listening on port', app.get('port'))
   })
 }
 
