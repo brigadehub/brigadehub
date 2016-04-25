@@ -28,14 +28,14 @@ block content
             |  #{project.bornAt}
           p.project-status
             strong Project status:
-            if (project.status === 'proposed' || project.status === 'ideation')
-              span(class="label label-info")  #{project.status}
             if (project.status === 'alpha')
               span(class="label label-danger")  #{project.status}
-            if (project.status === 'beta')
+            else if (project.status === 'beta')
               span(class="label label-warning")  #{project.status}
-            if (project.status === 'production' || project.status === 'archival')
+            else if (project.status === 'production' || project.status === 'archival')
               span(class="label label-success")  #{project.status}
+            else if (project.status)
+              span(class="label label-info")  #{project.status}
           p.homepage
             i.fa.fa-home.fa-fw
             a(href="#{project.homepage}") #{project.homepage}
@@ -43,27 +43,34 @@ block content
             i.fa.fa-github-square.fa-fw
             a(href="#{project.repository}") #{project.repository}
           hr
-          p.geography
-            strong Geography:
-            |  #{project.geography}
-          p.political-entity
-            strong Political entity:
-            |  #{project.politicalEntity}
-          p.types
-            strong Types:
-            |  #{project.types}
-          p.needs
-            strong Needs:
-            |  #{project.needs}
-          p.categories
-            strong Categories:
-            |  #{project.categories}
-          p.data
-            strong Data:
-            |  #{project.data}
-          p.keywords
-            strong keywords:
-            |  #{project.keywords}
+          if (project.geography.length > 0)
+            p.geography
+              strong Geography:
+              |  #{project.geography}
+          if (project.politicalEntity.length > 0)
+            p.political-entity
+              strong Political entity:
+              |  #{project.politicalEntity}
+          if (project.type.length > 0)
+            p.types
+              strong Types:
+              |  #{project.type}
+          if (project.needs.length > 0)
+            p.needs
+              strong Needs:
+              |  #{project.needs}
+          if (project.categories.length > 0)
+            p.categories
+              strong Categories:
+              |  #{project.categories}
+          if (project.data.length > 0)
+            p.data
+              strong Data:
+              |  #{project.data}
+          if (project.keywords.length > 0)
+            p.keywords
+              strong keywords:
+              |  #{project.keywords}
         .col-sm-4
           h4 Team
           each contact in contacts
@@ -73,7 +80,7 @@ block content
                   img(src="http://placehold.it/40x40?text=contact").media-object.media-middle
               .media-body
                 if (contact.username)
-                  a(href="mailto:#{contact.email}") #{contact.username}
+                  a(href="/users/#{contact.username}") #{contact.username}
                 else
                   |#{contact}
 
