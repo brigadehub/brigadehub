@@ -81,14 +81,14 @@ module.exports = {
       id: req.params.projectId
     }, function (err, foundProject) {
       if (err) console.error(err)
-      Projects.fetchGitHubUsers(foundProject.contact, function (result) {
+      Projects.fetchGitHubUsers(foundProject.contact, function (contactList) {
         res.render(res.locals.brigade.theme.slug + '/views/projects/project', {
           view: 'project',
           projectId: req.params.projectId,
           title: foundProject.name,
           brigade: res.locals.brigade,
           project: foundProject,
-          contacts: result
+          contacts: contactList
         })
       })
     })
@@ -119,14 +119,18 @@ module.exports = {
       thisProject.categories = []
       thisProject.needs = []
       thisProject.contact = []
+      thisProject.data = []
+      thisProject.keywords = []
       thisProject.name = req.body.title || ''
       thisProject.status = req.body.status || ''
       thisProject.type = req.body.type || ''
+      thisProject.politicalEntity = req.body.politicalEntity || ''
+      thisProject.geography = req.body.geography || ''
       thisProject.homepage = req.body.homepage || ''
       thisProject.repository = req.body.repository || ''
       thisProject.description = req.body.description || ''
       if (req.body.categories) {
-        req.body.categories.split(',').forEach(function (category) {
+        req.body.categories.replace(/\s/g, '').split(',').forEach(function (category) {
           thisProject.categories.push(category)
         })
       }
@@ -136,11 +140,20 @@ module.exports = {
         })
       }
       if (req.body.needs) {
-        req.body.needs.split(',').forEach(function (need) {
+        req.body.needs.replace(/\s/g, '').split(',').forEach(function (need) {
           thisProject.needs.push(need)
         })
       }
-
+      if (req.body.keywords) {
+        req.body.keywords.replace(/\s/g, '').split(',').forEach(function (keyword) {
+          thisProject.keywords.push(keyword)
+        })
+      }
+      if (req.body.data) {
+        req.body.data.replace(/\s/g, '').split(',').forEach(function (datum) {
+          thisProject.data.push(datum)
+        })
+      }
       thisProject.save(function (err) {
         if (err) console.log(err)
       })
