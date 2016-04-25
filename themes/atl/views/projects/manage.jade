@@ -15,8 +15,8 @@ block content
           tr
             th
               input.select-all(type="checkbox")
-            th Project name
-            th Project repo
+            th Project Name
+            th Project Repo
             th Project Description
             th Project Homepage
             th Edit project
@@ -27,7 +27,7 @@ block content
                 input.select-project(type="checkbox", value=project.slug)
               td.name= project.name
               td.id
-                a(href=project.homepage, target="_blank")= project.id
+                a(href=project.repository, target="_blank")= project.id
               td.description= project.description
               td.homepage
                 a(href=project.homepage, target="_blank")= project.homepage

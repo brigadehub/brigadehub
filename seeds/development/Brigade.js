@@ -18,13 +18,20 @@ module.exports = function () {
     theme: {
       slug: 'atl',
       logo: '',
-      show: {
+      page: {
         title: true,
         events: true,
         projects: true,
         blog: true,
         about: true,
-        login: true
+        login: true,
+        external: [
+          {
+            name: 'External',
+            link: 'https://google.com',
+            target: '_blank'
+          }
+        ]
       }
     },
     copy: {
@@ -74,7 +81,7 @@ module.exports = function () {
       }
     },
     auditLog: [
-      'initial | ' + auditDate + ' | added default brigade details from `config/default-brigade.js`'
+      'initial | ' + auditDate + ' | added default brigade details from seeder'
     ]
   }]
 }

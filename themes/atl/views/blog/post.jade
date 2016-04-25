@@ -7,32 +7,39 @@ block content
       | &nbsp;&nbsp;/&nbsp; 
       a(href='/blog') Blog
       | &nbsp;&nbsp;/&nbsp; 
-      a(href='/blog/#{post.slug}')= post.title
+      a(href='/blog/post/#{post.slug}')= post.title
   .row.page-header
     .col-sm-12
       h1= post.title
+  .row
+    .col-sm-12
+      | Post by 
+      a(href="/author/#{post.author}") #{post.author}
   .row 
     .col-sm-12
       .page-header.float
-        p 00 January 2016 | 
-          each tag in post.tags
-            a(href='/blog?tag=#{tag}') tag
-            | &nbsp;
-      if user && (user.roles.core || user.roles.superAdmin)
-        a.float.right.btn.btn-secondary(href="/blog/#{post.slug}/edit") Edit this post
+        p #{post.date}
+      if user && user.canEditBlog()
+        a.float.right.btn.btn-secondary(href="/blog/post/#{post.slug}/edit") Edit this post
+        span
+          form(method='POST', action='/blog/post/#{post.slug}/delete')
+            input(type='hidden', name='_csrf', value=_csrf)
+            button.float.right.btn.btn-secondary(type='submit') Delete
       
   .row 
-    .col-sm-12(style="display:block; background-image:url('#{post.image}'); width:100%; height:399px; background-size:cover; background-position:center center;")
+    if post.image
+      .col-sm-12(style="display:block; background-image:url('#{post.image}'); width:100%; height:399px; background-size:cover; background-position:center center;")
   .row 
     .col-sm-9
       p !{post.content}
-    .col-sm-3
-      figure
-        img(src="", alt="").img-fluid.img-thumbnail
-        p= post.author
-        p
-          a(href="#").btn.btn-secondary Other Articles from the Author
-            
+
+
+    .row tags: 
+      each tag, index in post.tags
+        a(href='/blog?tag=#{tag}') #{tag}
+        //- comma inbetween all but last
+        if index !== post.tags.length-1
+          | , 
 //- slug: String, // this is the slug
 //- title: String, // Display title
 //- author: String,

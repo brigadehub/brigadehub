@@ -3,8 +3,10 @@
 # BrigadeHub
 
 [![Build Status](https://travis-ci.org/sfbrigade/brigadehub.svg?branch=edge)](https://travis-ci.org/sfbrigade/brigadehub)
-[![OSS Manifesto](https://img.shields.io/badge/OSS-Manifesto-green.svg?style=flat)](http://ossmanifesto.org/)
+[![npm](https://img.shields.io/npm/v/brigadehub.svg?maxAge=2592000)](https://www.npmjs.com/package/brigadehub)
 [![Slack Status](https://sfbrigade-slackin.herokuapp.com/badge.svg)](https://sfbrigade-slackin.herokuapp.com/)
+[![OSS Manifesto](https://img.shields.io/badge/OSS-Manifesto-purple.svg?style=flat)](http://ossmanifesto.org/)
+[![Keep A Changelog](https://img.shields.io/badge/Keep%20A-Changelog-blue.svg?style=flat)](http://keepachangelog.com/)
 [![JS Standard](https://img.shields.io/badge/JS-Standard-yellow.svg?style=flat)](https://github.com/feross/standard)
 
 ### Table of Contents
@@ -25,9 +27,9 @@
 
 ### Simplify your brigade's website maintenence
 
-BrigadeHub is a **pre-alpha** work in progress of a Code for America Brigade website/portal. This is being built to consolidate the efforts of maintaining a brigade website into a single location, and to allow other non-developer brigade leadership to update content as needed.
+BrigadeHub is an **alpha** work in progress of a Code for America Brigade website/portal. This is being built to consolidate the efforts of maintaining a brigade website into a single location, and to allow other non-developer brigade leadership to update content as needed.
 
-***brigadehub is not production-ready. If you deploy this to your production brigade site, you do so at your own risk.***
+***brigadehub, while deployed for Code for San Francisco, has not yet been optimized for wide adoption yet. If you deploy this to your production brigade site, you do so at your own risk.***
 
 For a complete top-down view of the roadmap, take a look at our active ***[Roadmap Wiki](https://github.com/sfbrigade/brigadehub/wiki/Roadmap)***
 
@@ -116,7 +118,7 @@ npm run develop
 
 ### Deploy
 
-***brigadehub is not production-ready. If you deploy this to your production brigade site, you do so at your own risk.***
+***brigadehub, while deployed for Code for San Francisco, has not yet been optimized for wide adoption yet. If you deploy this to your production brigade site, you do so at your own risk.***
 
 If you are outside Code for San Francisco and you want to get a version of brigadehub up for your brigade, fork sfbrigade/brigadehub into your own brigade's organization. Updates should be done using upstream fetches. Contributing back should be done via Pull Request back to this repository :)
 
