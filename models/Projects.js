@@ -202,7 +202,7 @@ function createUpdateProjectData (project, original, brigade) {
   project.json.keywords = project.json.keywords || []
   project.json.tags = project.json.tags || []
   project.json.links = project.json.links || []
-  project.json.contact = project.json.contact || {}
+  project.json.contact = project.json.contact || []
 
   original.id = project.repo.name // this is the slug - civic.sf.json + civic.dc.json
   original.brigade = brigade.slug // this is the slug - civic.sf.json + civic.dc.json
@@ -227,9 +227,7 @@ function createUpdateProjectData (project, original, brigade) {
   original.geography = original.geography || []
   original.geography = original.geography.concat(project.json.geography)
   original.geography = _.uniq(original.geography)
-  original.contact = original.contact || {}
-  original.contact.name = project.json.contact.name || project.repo.owner.login || 'unknown'
-  original.contact.email = project.json.contact.email || 'unknown'
+  original.contact = original.contact || []
   original.partners = original.partners || []
   original.partners = original.partners.concat(project.json.partners)
   original.partners = _.uniq(original.partners)

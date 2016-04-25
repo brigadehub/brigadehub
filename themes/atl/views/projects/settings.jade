@@ -14,6 +14,14 @@ block content
         .col-sm-7
           input.form-control(type='name', name='status', id='status', value='#{project.status}')
       .form-group
+        label.col-sm-3.control-label(for='geography') Geography
+        .col-sm-7
+          input.form-control(type='name', name='geography', id='geography', value='#{project.geography}')
+      .form-group
+        label.col-sm-3.control-label(for='politicalEntity') Political Entity
+        .col-sm-7
+          input.form-control(type='name', name='politicalEntity', id='politicalEntity', value='#{project.politicalEntity}')
+      .form-group
         label.col-sm-3.control-label(for='type') Type
         .col-sm-7
           input.form-control(type='name', name='type', id='type', value='#{project.type}')
@@ -36,7 +44,15 @@ block content
       .form-group
         label.col-sm-3.control-label(for='needs') Project Needs
         .col-sm-7
-          input.form-control(type='name', name='needs', id='categories', value='#{project.needs}')
+          input.form-control(type='name', name='needs', id='needs', value='#{project.needs}')
+      .form-group
+        label.col-sm-3.control-label(for='data') Project Data
+        .col-sm-7
+          input.form-control(type='name', name='data', id='data', value='#{project.data}')
+      .form-group
+        label.col-sm-3.control-label(for='keywords') Project Keywords
+        .col-sm-7
+          input.form-control(type='name', name='keywords', id='keywords', value='#{project.keywords}')
       .form-group
         label.col-sm-3.control-label(for='description') Description
         .col-sm-7
