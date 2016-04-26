@@ -327,12 +327,12 @@ app.post('/blog/new',
   passportConf.isAuthenticated,
   passportConf.checkRoles(['blog', 'lead', 'core', 'superAdmin']),
   blogCtrl.postBlogNew)
-app.get('/blog/:blogId', blogCtrl.getBlogID)
-app.post('/blog/:blogId',
+app.get('/blog/post/:blogId', blogCtrl.getBlogID)
+app.post('/blog/post/:blogId',
   passportConf.isAuthenticated,
   passportConf.checkRoles(['blog', 'lead', 'core', 'superAdmin']),
   blogCtrl.postBlogIDEdit)
-app.get('/blog/:blogId/edit',
+app.get('/blog/post/:blogId/edit',
   passportConf.isAuthenticated,
   passportConf.checkRoles(['blog', 'lead', 'core', 'superAdmin']),
   blogCtrl.getBlogIDEdit)
