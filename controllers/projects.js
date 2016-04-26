@@ -158,7 +158,7 @@ module.exports = {
         if (err) console.log(err)
       })
     })
-    console.log(req.body)
+    req.flash('success', { msg: 'Success! You have updated your project.' })
     res.redirect('/projects/' + req.params.projectId + '/settings')
   },
   /**
