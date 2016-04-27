@@ -330,16 +330,17 @@ app.post('/blog/new',
 app.get('/blog/post/:blogId', blogCtrl.getBlogID)
 app.post('/blog/post/:blogId',
   passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
+  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.postBlogIDEdit)
 app.get('/blog/post/:blogId/edit',
   passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
+  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.getBlogIDEdit)
 app.post('/blog/:blogId/sync',
   passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
+  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.postBlogIDSync)
+
 
 app.post('/blog/post/:blogId/delete', passportConf.isAuthenticated, blogCtrl.postBlogIDDelete)
 app.get('/author/:authorId', passportConf.isAuthenticated, blogCtrl.getAuthorId)

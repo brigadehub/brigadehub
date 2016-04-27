@@ -22,29 +22,32 @@ module.exports = {
       page = req.query.page
     }
     var user = res.locals.user
-    Post.find(mongooseQuery, function (err, posts) {
+    Post.find({}, function (err, posts) {
       if (err) console.error(err)
       var tags = _.uniq(_.flatMap(posts, 'tags'))
-      if (user && user.isBlogger()) {
-        posts = _.filter(posts, function (post) { return post.published || (user && post.author === user.username) })
-      } else {
-        // most users only see published posts
-        posts = _.filter(posts, function (post) { return post.published })
-      }
-      posts = posts.reverse()
-      var postStart = (page - 1) * POSTS_PER_PAGE
-      var pagePosts = posts.splice(postStart, POSTS_PER_PAGE)
+      Post.find(mongooseQuery, function (err, posts) {
 
-      res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
-        title: 'Blog',
-        view: 'blog-list',
-        brigade: res.locals.brigade,
-        user: user,
-        posts: pagePosts,
-        tags: tags,
-        query: req.query.tag,
-        page: page,
-        selectedTag: req.query.tag
+        if (user && user.isBlogger()) {
+          posts = _.filter(posts, function (post) { return post.published || (user && post.author === user.username) })
+        } else {
+          // most users only see published posts
+          posts = _.filter(posts, function (post) { return post.published })
+        }
+        posts = posts.reverse()
+        var postStart = (page - 1) * POSTS_PER_PAGE
+        var pagePosts = posts.splice(postStart, POSTS_PER_PAGE)
+
+        res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
+          title: 'Blog',
+          view: 'blog-list',
+          brigade: res.locals.brigade,
+          user: user,
+          posts: pagePosts,
+          tags: tags,
+          query: req.query.tag,
+          page: page,
+          selectedTag: req.query.tag
+        })
       })
     })
   },
