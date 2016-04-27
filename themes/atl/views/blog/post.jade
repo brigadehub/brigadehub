@@ -19,7 +19,7 @@ block content
     .col-sm-12
       .page-header.float
         p #{post.date}
-      if user && user.canEditBlog()
+      if (user.isAdmin() || user.username === post.author)
         a.float.right.btn.btn-secondary(href="/blog/post/#{post.slug}/edit") Edit this post
         span
           form(method='POST', action='/blog/post/#{post.slug}/delete')

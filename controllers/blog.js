@@ -21,10 +21,12 @@ module.exports = {
     if (req.query.page) {
       page = req.query.page
     }
+    var user = res.locals.user
     Post.find(mongooseQuery, function (err, posts) {
       if (err) console.error(err)
       var tags = _.uniq(_.flatMap(posts, 'tags'))
-      if (res.locals.user && res.locals.user.canEditBlog()) {
+      if (user && user.isBlogger()) {
+        posts = _.filter(posts, function (post) { return post.published || (user && post.author === user.username) })
       } else {
         // most users only see published posts
         posts = _.filter(posts, function (post) { return post.published })
@@ -37,7 +39,7 @@ module.exports = {
         title: 'Blog',
         view: 'blog-list',
         brigade: res.locals.brigade,
-        user: res.locals.user,
+        user: user,
         posts: pagePosts,
         tags: tags,
         query: req.query.tag,
@@ -163,8 +165,6 @@ module.exports = {
    * Display Blog by ID.
    */
   getBlogID: function (req, res) {
-    console.log(req.params)
-    console.log(res.locals)
     Post.find({slug: req.params.blogId}, function (err, post) {
       if (err) throw err
       post = post[0]

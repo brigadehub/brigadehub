@@ -9,7 +9,7 @@ block content
   .row.page-header
     .col-sm-12
       h1.page-title Blog
-  if user && user.canEditBlog()
+  if user && user.isAdmin()
     a.btn.btn-secondary(href='/blog/new') New Post
   .row.tags
     ul
@@ -44,7 +44,7 @@ block content
           | | 
           a(href="/author/#{post.author}")
             span.author= post.author
-          if user && user.canEditBlog()
+          if user && (user.isAdmin() || user.username === post.author)
             |  | 
             a(href="/blog/post/#{post.slug}/edit") edit
           a(href=(post.url !== '' ? post.url : '/blog/post/'+post.slug))
