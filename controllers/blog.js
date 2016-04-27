@@ -65,7 +65,11 @@ module.exports = {
    * Manage Blog.
    */
   getBlogManage: function (req, res) {
-    Post.find({}, function (err, posts) {
+    var mongooseQuery = {}
+    if(!res.locals.user.isAdmin()){
+      mongooseQuery.author = res.locals.user.username
+    }
+    Post.find(mongooseQuery, function (err, posts) {
       if (err) console.error(err)
       posts.reverse() // so that most recent are first
       User.find({}, function (err, users) {
@@ -87,7 +91,11 @@ module.exports = {
    */
   postBlogManage: function (req, res) {
     req.flash('success', { msg: 'Success! Posts edited' })
-    Post.find({}, function (err, posts) {
+    var mongooseQuery = {}
+    if(!res.locals.user.isAdmin()){
+      mongooseQuery.author = res.locals.user.username
+    }
+    Post.find(mongooseQuery, function (err, posts) {
       if (err) console.error(err)
       posts.reverse() // so that most recent are first
       posts.forEach(function (post) {

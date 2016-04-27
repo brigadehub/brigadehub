@@ -309,11 +309,11 @@ app.post('/events/:eventId/delete',
 app.get('/blog', blogCtrl.getBlog)
 app.get('/blog/manage',
   passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
+  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.getBlogManage)
 app.post('/blog/manage',
   passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
+  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.postBlogManage)
 app.post('/blog/sync',
   passportConf.isAuthenticated,

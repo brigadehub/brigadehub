@@ -26,7 +26,10 @@ block content
               td
                 input(type='text', name='#{post.id}[title]', value='#{post.title}')
               td
-                input(type='text', name='#{post.id}[author]', value='#{post.author}')
+                if(user.isAdmin())
+                  input(type='text', name='#{post.id}[author]', value='#{post.author}')
+                else
+                  | #{post.author}
               td
                 input(type='text', name='#{post.id}[date]', value='#{post.date}')
               td
