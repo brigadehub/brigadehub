@@ -56,8 +56,10 @@ block content
           a(href=currentUrl+(+page-1)) 
             i(class="fa fa-arrow-left" aria-hidden="true")
             | Prev 
-        | | Page #{page} | 
+          | | 
+        | Page #{page}  
         if page < totalPages
+          | | 
           a(href=currentUrl+(+page+1)) Next 
             i(class="fa fa-arrow-right" aria-hidden="true")
       
