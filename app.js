@@ -321,11 +321,11 @@ app.post('/blog/sync',
   blogCtrl.postBlogSync)
 app.get('/blog/new',
   passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
+  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.getBlogNew)
 app.post('/blog/new',
   passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
+  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.postBlogNew)
 app.get('/blog/post/:blogId', blogCtrl.getBlogID)
 app.post('/blog/post/:blogId',
