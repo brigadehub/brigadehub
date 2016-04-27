@@ -27,7 +27,9 @@ block content
         span  
           form(method='POST', action='/blog/post/#{post.slug}/delete')
             input(type='hidden', name='_csrf', value=_csrf)
-            button.float.right.btn.btn-primary(type='submit') Delete
+            button.float.right.btn.btn-primary(type='submit')
+              i(class="fa fa-trash-o" aria-hidden="true")
+              | Delete
       
   .row 
     if post.image
