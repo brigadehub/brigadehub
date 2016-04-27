@@ -33,21 +33,17 @@ function adminWarning (currentuser, boxname) { // eslint-disable-line
   }
 }
 
-
-function validate(form) {
-
-  valid = true
-
-  if(!valid) {
-    alert('Please correct the errors in the form!');
-    return false;
-  }
-  else {
+function validate (form) { // eslint-disable-line
+  var valid = true
+  if (!valid) {
+    window.alert('Please correct the errors in the form!')
+    return false
+  } else {
     var numToDelete = document.querySelectorAll('input[type="checkbox"]:checked#delete').length
-    if(numToDelete === 0){
+    if (numToDelete === 0) {
       return true
     }
     var warning = 'Are you sure you want to delete ' + numToDelete + ' post' + (numToDelete > 1 ? 's' : '') + '?'
-    return confirm(warning);
+    return window.confirm(warning)
   }
 }
