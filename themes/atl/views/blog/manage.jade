@@ -54,21 +54,3 @@ block content
             i.fa.fa-pencilr
             | Save Changes
             
-      script(type="text/javascript").
-        function validate(form) {
-
-          valid = true
-
-          if(!valid) {
-            alert('Please correct the errors in the form!');
-            return false;
-          }
-          else {
-            var numToDelete = document.querySelectorAll('input[type="checkbox"]:checked#delete').length
-            if(numToDelete === 0){
-              return true
-            }
-            var warning = 'Are you sure you want to delete ' + numToDelete + ' post' + (numToDelete > 1 ? 's' : '') + '?'
-            return confirm(warning);
-          }
-        }

@@ -8,12 +8,14 @@ block content
       a(href='/blog') Blog
       | &nbsp;&nbsp;/&nbsp; 
       a(href='/blog/post/#{post.slug}')= post.title
+      
   .row.page-header
     .col-sm-12
-      a.float.right(href="/blog/post/#{post.slug}/edit") 
-        i(class="fa fa-pencil-square-o" aria-hidden="true")
-        | Edit this post
-      h1= post.title
+      if (user && (user.isAdmin() || user.username === post.author))
+        a.float.right(href="/blog/post/#{post.slug}/edit") 
+          i(class="fa fa-pencil-square-o" aria-hidden="true")
+          | Edit this post
+        h1= post.title
         
   .row
     .col-sm-12
