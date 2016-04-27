@@ -26,7 +26,7 @@ module.exports = {
       if (err) console.error(err)
       var tags = _.uniq(_.flatMap(posts, 'tags'))
       Post.find(mongooseQuery, function (err, posts) {
-
+        if (err) console.error(err)
         if (user && user.isBlogger()) {
           posts = _.filter(posts, function (post) { return post.published || (user && post.author === user.username) })
         } else {
@@ -38,11 +38,11 @@ module.exports = {
         var totalPages = Math.ceil(posts.length / POSTS_PER_PAGE)
         var pagePosts = posts.splice(postStart, POSTS_PER_PAGE)
 
-        var currentUrl = "/blog"
-        if(req.query.tag){
-          currentUrl += "?tag=" + req.query.tag + "&" + "page="
-        }else{
-          currentUrl += "?" + "page="
+        var currentUrl = '/blog'
+        if (req.query.tag) {
+          currentUrl += '?tag=' + req.query.tag + '&' + 'page='
+        } else {
+          currentUrl += '?' + 'page='
         }
 
         res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
@@ -66,7 +66,7 @@ module.exports = {
    */
   getBlogManage: function (req, res) {
     var mongooseQuery = {}
-    if(!res.locals.user.isAdmin()){
+    if (!res.locals.user.isAdmin()) {
       mongooseQuery.author = res.locals.user.username
     }
     Post.find(mongooseQuery, function (err, posts) {
@@ -92,7 +92,7 @@ module.exports = {
   postBlogManage: function (req, res) {
     req.flash('success', { msg: 'Success! Posts edited' })
     var mongooseQuery = {}
-    if(!res.locals.user.isAdmin()){
+    if (!res.locals.user.isAdmin()) {
       mongooseQuery.author = res.locals.user.username
     }
     Post.find(mongooseQuery, function (err, posts) {

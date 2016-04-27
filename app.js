@@ -341,7 +341,6 @@ app.post('/blog/:blogId/sync',
   passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.postBlogIDSync)
 
-
 app.post('/blog/post/:blogId/delete', passportConf.isAuthenticated, blogCtrl.postBlogIDDelete)
 app.get('/author/:authorId', passportConf.isAuthenticated, blogCtrl.getAuthorId)
 

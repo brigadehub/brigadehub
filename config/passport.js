@@ -228,7 +228,7 @@ exports.checkRoles = function (roles) {
     })
     if (!valid) {
       req.flash('errors', { msg: 'You are not authorized to view this page.' })
-      var backURL = req.header('Referer') || "/"
+      var backURL = req.header('Referer') || '/'
       return res.redirect(backURL)
     }
     next()
