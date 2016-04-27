@@ -4,7 +4,7 @@ block content
   .page-header
     h3 Manage Blog Posts
 
-    form.row.form-horizontal(action='/blog/manage', method='POST')
+    form.row.form-horizontal(action='/blog/manage', method='POST', onsubmit="return validate(this);")
       input(type='hidden', name='_csrf', value=_csrf)
       table.table
         thread
@@ -18,22 +18,22 @@ block content
         tbody
           each post in posts
             tr
-              td(scope="row")
+              td
                 if post.published
                   input(type='checkbox', checked, name='#{post.id}[published]', id='published')
                 else
                   input(type='checkbox', name='#{post.id}[published]', id='published')
               td
                 input(type='text', name='#{post.id}[title]', value='#{post.title}')
-              td(scope="row")
+              td
                 input(type='text', name='#{post.id}[author]', value='#{post.author}')
-              td(scope="row")
+              td
                 input(type='text', name='#{post.id}[date]', value='#{post.date}')
-              td(scope="row")
+              td
                 a(href='/blog/post/#{post.slug}/edit')
                   span edit
-              td(scope="row")
-                input(type='checkbox', name='#{post.id}[delete]')
+              td
+                input(type='checkbox', name='#{post.id}[delete]' id="delete")
                 | 
                 i(class="fa fa-trash-o" aria-hidden="true")
 
@@ -42,3 +42,22 @@ block content
           button.btn.btn.btn-primary(type='submit')
             i.fa.fa-pencilr
             | Save Changes
+            
+      script(type="text/javascript").
+        function validate(form) {
+
+          valid = true
+
+          if(!valid) {
+            alert('Please correct the errors in the form!');
+            return false;
+          }
+          else {
+            var numToDelete = document.querySelectorAll('input[type="checkbox"]:checked#delete').length
+            if(numToDelete === 0){
+              return true
+            }
+            var warning = 'Are you sure you want to delete ' + numToDelete + ' post' + (numToDelete > 1 ? 's' : '') + '?'
+            return confirm(warning);
+          }
+        }
