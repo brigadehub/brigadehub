@@ -13,11 +13,11 @@ block content
     a.btn.btn-secondary(href='/blog/new') New Post
   .row.tags
     ul
-      if query
+      if selectedTag
         li
           a(href='?') Clear Search Tag
       each tag in tags
-        li(class=query===tag?'selected':'')
+        li(class=selectedTag===tag?'selected':'')
           a(href="?tag=#{tag}")= tag
   .row
     //- slug: String, // this is the slug
@@ -50,15 +50,14 @@ block content
           a(href=(post.url !== '' ? post.url : '/blog/post/'+post.slug))
             h4= post.title
             p= post.description
-    .row.col-md-12
-      if selectedTag
+    if totalPages > 1
+      .row.col-md-12
         if page > 1 
-          a(href="?tag=#{selectedTag}&page=#{+page-1}") previous 
-        | Page #{page}
-        a(href="?tag=#{selectedTag}&page=#{+page+1}") next
-      else
-        if page > 1 
-          a(href="?page=#{+page-1}") previous  
-        | Page #{page} 
-        a(href="?page=#{+page+1}") next
+          a(href=currentUrl+(+page-1)) 
+            i(class="fa fa-arrow-left" aria-hidden="true")
+            | Prev 
+        | | Page #{page} | 
+        if page < totalPages
+          a(href=currentUrl+(+page+1)) Next 
+            i(class="fa fa-arrow-right" aria-hidden="true")
       

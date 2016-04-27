@@ -35,7 +35,15 @@ module.exports = {
         }
         posts = posts.reverse()
         var postStart = (page - 1) * POSTS_PER_PAGE
+        var totalPages = Math.ceil(posts.length / POSTS_PER_PAGE)
         var pagePosts = posts.splice(postStart, POSTS_PER_PAGE)
+
+        var currentUrl = "/blog"
+        if(req.query.tag){
+          currentUrl += "?tag=" + req.query.tag + "&" + "page="
+        }else{
+          currentUrl += "?" + "page="
+        }
 
         res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
           title: 'Blog',
@@ -44,9 +52,10 @@ module.exports = {
           user: user,
           posts: pagePosts,
           tags: tags,
-          query: req.query.tag,
+          selectedTag: req.query.tag,
           page: page,
-          selectedTag: req.query.tag
+          totalPages: totalPages,
+          currentUrl: currentUrl
         })
       })
     })
