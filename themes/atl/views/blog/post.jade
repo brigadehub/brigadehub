@@ -10,7 +10,11 @@ block content
       a(href='/blog/post/#{post.slug}')= post.title
   .row.page-header
     .col-sm-12
+      a.float.right(href="/blog/post/#{post.slug}/edit") 
+        i(class="fa fa-pencil-square-o" aria-hidden="true")
+        | Edit this post
       h1= post.title
+        
   .row
     .col-sm-12
       | Post by 
@@ -19,12 +23,11 @@ block content
     .col-sm-12
       .page-header.float
         p #{post.date}
-      if (user.isAdmin() || user.username === post.author)
-        a.float.right.btn.btn-secondary(href="/blog/post/#{post.slug}/edit") Edit this post
-        span
+      if (user && (user.isAdmin() || user.username === post.author))
+        span  
           form(method='POST', action='/blog/post/#{post.slug}/delete')
             input(type='hidden', name='_csrf', value=_csrf)
-            button.float.right.btn.btn-secondary(type='submit') Delete
+            button.float.right.btn.btn-primary(type='submit') Delete
       
   .row 
     if post.image

@@ -1,6 +1,15 @@
 extends ../layout
 
 block content
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/blog') Blog
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/blog/post/#{post.slug}')= post.title
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/blog/post/#{post.slug}/edit') edit
   .page-header.row
     h3 Edit Blog Post
     

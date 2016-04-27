@@ -28,7 +28,9 @@ module.exports = {
       Post.find(mongooseQuery, function (err, posts) {
         if (err) console.error(err)
         if (user && user.isBlogger()) {
-          posts = _.filter(posts, function (post) { return post.published || (user && post.author === user.username) })
+          if (!user.isAdmin()) {
+            posts = _.filter(posts, function (post) { return post.published || (user && post.author === user.username) })
+          }
         } else {
           // most users only see published posts
           posts = _.filter(posts, function (post) { return post.published })
