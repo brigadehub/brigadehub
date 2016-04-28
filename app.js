@@ -309,36 +309,36 @@ app.post('/events/:eventId/delete',
 app.get('/blog', blogCtrl.getBlog)
 app.get('/blog/manage',
   passportConf.isAuthenticated,
-  passportConf.checkRoles(['blog', 'lead', 'core', 'superAdmin']),
+  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.getBlogManage)
 app.post('/blog/manage',
   passportConf.isAuthenticated,
-  passportConf.checkRoles(['blog', 'lead', 'core', 'superAdmin']),
+  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.postBlogManage)
 app.post('/blog/sync',
   passportConf.isAuthenticated,
-  passportConf.checkRoles(['blog', 'lead', 'core', 'superAdmin']),
+  passportConf.checkRoles(['core', 'superAdmin']),
   blogCtrl.postBlogSync)
 app.get('/blog/new',
   passportConf.isAuthenticated,
-  passportConf.checkRoles(['blog', 'lead', 'core', 'superAdmin']),
+  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.getBlogNew)
 app.post('/blog/new',
   passportConf.isAuthenticated,
-  passportConf.checkRoles(['blog', 'lead', 'core', 'superAdmin']),
+  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.postBlogNew)
-app.get('/blog/:blogId', blogCtrl.getBlogID)
-app.post('/blog/:blogId',
+app.get('/blog/post/:blogId', blogCtrl.getBlogID)
+app.post('/blog/post/:blogId',
   passportConf.isAuthenticated,
-  passportConf.checkRoles(['blog', 'lead', 'core', 'superAdmin']),
+  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.postBlogIDEdit)
-app.get('/blog/:blogId/edit',
+app.get('/blog/post/:blogId/edit',
   passportConf.isAuthenticated,
-  passportConf.checkRoles(['blog', 'lead', 'core', 'superAdmin']),
+  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.getBlogIDEdit)
 app.post('/blog/:blogId/sync',
   passportConf.isAuthenticated,
-  passportConf.checkRoles(['blog', 'lead', 'core', 'superAdmin']),
+  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.postBlogIDSync)
 
 app.post('/blog/post/:blogId/delete', passportConf.isAuthenticated, blogCtrl.postBlogIDDelete)
