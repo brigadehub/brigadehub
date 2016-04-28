@@ -146,6 +146,7 @@ nav.navbar {
   transition: height $scroll-transition ease-in-out;
 
   background-color: white;
+  padding-bottom:0;
   a {
     height: 100%;
   }
@@ -153,30 +154,39 @@ nav.navbar {
     height: 100%;
   }
   .row.account {
-
+    height:30px;
     transition: height $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
 
-    img {
-      transition: height $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
+    img{
+      height:22px;
     }
+
+    .navbar-brand {
+      img {
+        transition: height $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
+        width:184px;
+      }
+    }
+
 
     .dropdown-toggle {
       position: relative;
 
       width: auto;
-      padding-right: 40px;
+      padding:0;
+      padding-right: 30px;
 
       transition: height $scroll-transition ease-in-out, padding $scroll-transition ease-in-out;
       white-space: nowrap;
 
       img {
         position: absolute;
-        top: 18px;
+        top: 15px;
         right: -15px;
         bottom: auto;
         left: auto;
-
-        transition: height $scroll-transition ease-in-out;
+        width:auto;
+        transition: height $scroll-transition ease-in-out, top $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
       }
       &:after {
         display: none;
@@ -185,26 +195,30 @@ nav.navbar {
   }
   .row.navigation {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
-
+    position:relative;
     .navbar-nav {
       padding-top: 9px;
     }
-  }
-  .navbar-brand {
+    .navbar-brand {
 
-    white-space: nowrap;
-    img {
-      display: inline-block;
-
-      width: auto;
-      height: 35px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      height: 77px;
+      /* width: 167px; */
+      transform: translateX(-50%) translateY(-50%);
+      transition: height $scroll-transition ease-in-out;
+      img{
+        height:100%;
+      }
     }
-    span {
-      display: inline-block;
-
-      height: 100%;
-      margin-left: 10px;
-      padding-top: 9px;
+    .navbar-nav .nav-item{
+      height: 77px;
+      transition: height $scroll-transition ease-in-out;
+      a{
+        padding-top:20px;
+        transition: padding-top $scroll-transition ease-in-out;
+      }
     }
   }
 
@@ -228,14 +242,26 @@ body.scroll {
     .row.account {
       height: 10px;
       margin-bottom: 10px;
-        img {
-          height: 0;
-        }
+      img {
+        height: 0;
+      }
       .dropdown-toggle {
         height: 10px;
         padding: 2px 0;
         img {
           height: 0;
+          top:26px;
+        }
+      }
+    }
+    .row.navigation {
+      a.navbar-brand {
+        height: 50px;
+      }
+      .navbar-nav .nav-item{
+        height: 50px;
+        a{
+          padding-top:10px;
         }
       }
     }

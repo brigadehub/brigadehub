@@ -2,7 +2,7 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
   .container
     .row.account.clearfix
       a.navbar-brand(href='/')
-        img(src='/logo.png')
+        img(src='/cfa-banner.png')
       ul.nav.navbar-nav.pull-xs-right
         if brigade.theme.page.login
           if !user
@@ -39,8 +39,9 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
     .row.navigation
       button.navbar-toggler.hidden-sm-up(type='button', data-toggle='collapse', data-target='#collapsingNavbar') &#9776;
       a.navbar-brand.brigade-brand(href='/')
-        img.brigade-logo(src='https://i.imgur.com/BoXEeve.png')
-        span= brigade.name
+        img.brigade-logo(src=brigade.theme.logo)
+        if brigade.theme.page.title
+          span= brigade.name
       .collapse.navbar-toggleable-xs#collapsingNavbar
         ul.nav.navbar-nav.pull-xs-right
           if brigade.theme.page.events

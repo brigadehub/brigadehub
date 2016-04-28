@@ -16,7 +16,7 @@ module.exports = function () {
     url: 'http://codeforexample.org',
     github: 'codeforexample',
     theme: {
-      slug: 'atl',
+      slug: 'codeforpoland',
       logo: '',
       page: {
         title: true,
