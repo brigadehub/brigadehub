@@ -2,15 +2,15 @@
   /* Landing Page */
 
   #landing-hero {
-    position: relative;
-
-    display: block;
-
-    width: 100%;
-    height: 400px;
 
     color: white;
     background-size: cover;
+
+    margin: 0 -1.8750rem;
+
+    height: 400px;
+    position: relative;
+
     &:before {
       position: absolute;
       z-index: 1;
@@ -34,28 +34,44 @@
     }
 
     #landing-message {
+
       position: absolute;
-      bottom: 25px;
-      left: 25px;
+      bottom: 0;
+      left: 0;
+      padding: 25px;
 
       color: white;
       p {
         font-size: 24px;
+        margin-bottom: 0px;
       }
     }
     #landing-events {
-      position: absolute;
-      top: 25px;
-      right: 25px;
-      bottom: 25px;
-      left: auto;
 
-      width: 320px;
-      padding: 30px 30px;
+      margin-top: 400px;
+      padding: 25px 0;
 
-      color: white;
-      border: 2px solid #ffffff;
-      background: rgba(170,0,1,0.8);
+      @media (min-width: 768px) {
+        padding: 25px;
+        margin-top: 0px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 100%;
+        .content {
+          border: 2px solid #ffffff;
+          height: 350px;
+        }
+      }
+
+      .content {
+
+        color: white;
+        background: rgba(170,0,1,0.8);
+        padding: 30px;
+
+      }
+
       ul {
         padding: 0;
 

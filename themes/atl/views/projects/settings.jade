@@ -3,3 +3,64 @@ extends ../layout
 block content
   .page-header
     h3 Project Settings
+    form.row.form-horizontal(action='/projects/#{project.id}', method='POST')
+      input(type='hidden', name='_csrf', value=_csrf)
+      .form-group
+        label.col-sm-3.control-label(for='title') Project title
+        .col-sm-7
+          input.form-control(type='name', name='title', id='title', value='#{project.name}')
+      .form-group
+        label.col-sm-3.control-label(for='status') Status
+        .col-sm-7
+          input.form-control(type='name', name='status', id='status', value='#{project.status}')
+      .form-group
+        label.col-sm-3.control-label(for='geography') Geography
+        .col-sm-7
+          input.form-control(type='name', name='geography', id='geography', value='#{project.geography}')
+      .form-group
+        label.col-sm-3.control-label(for='politicalEntity') Political Entity
+        .col-sm-7
+          input.form-control(type='name', name='politicalEntity', id='politicalEntity', value='#{project.politicalEntity}')
+      .form-group
+        label.col-sm-3.control-label(for='type') Type
+        .col-sm-7
+          input.form-control(type='name', name='type', id='type', value='#{project.type}')
+      .form-group
+        label.col-sm-3.control-label(for='homepage') Homepage
+        .col-sm-7
+          input.form-control(type='name', name='homepage', id='homepage', value='#{project.homepage}')
+      .form-group
+        label.col-sm-3.control-label(for='repository') GitHub Repo
+        .col-sm-7
+          input.form-control(type='name', name='repository', id='repository', value='#{project.repository}')
+      .form-group
+        label.col-sm-3.control-label(for='contacts') Contacts
+        .col-sm-7
+          input.form-control(type='name', name='contacts', id='contacts', value='#{project.contact}')
+      .form-group
+        label.col-sm-3.control-label(for='categories') Project Categories
+        .col-sm-7
+          input.form-control(type='name', name='categories', id='categories', value='#{project.categories}')
+      .form-group
+        label.col-sm-3.control-label(for='needs') Project Needs
+        .col-sm-7
+          input.form-control(type='name', name='needs', id='needs', value='#{project.needs}')
+      .form-group
+        label.col-sm-3.control-label(for='data') Project Data
+        .col-sm-7
+          input.form-control(type='name', name='data', id='data', value='#{project.data}')
+      .form-group
+        label.col-sm-3.control-label(for='keywords') Project Keywords
+        .col-sm-7
+          input.form-control(type='name', name='keywords', id='keywords', value='#{project.keywords}')
+      .form-group
+        label.col-sm-3.control-label(for='description') Description
+        .col-sm-7
+          textarea.form-control(name='description', id='description', rows="6")
+            |#{project.description}
+      .form-group
+        .col-sm-offset-3.col-sm-4
+          button.btn.btn.btn-primary(type='submit')
+            i.fa.fa-pencil
+            | Update Project
+  a(href='/projects/manage') Back

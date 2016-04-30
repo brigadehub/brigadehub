@@ -19,6 +19,7 @@ block content
             th Project Repo
             th Project Description
             th Project Homepage
+            th Edit project
             th
               a(href='/projects/new') New Project
         tbody
@@ -26,9 +27,12 @@ block content
             tr
               td
                 input.select-project(type="checkbox", value=project.slug)
-              td.name= project.name
+              td.name
+               a(href='/projects/#{project.id}') #{project.name}
               td.id
-                a(href=project.repository, target="_blank")= project.id
+                a(href=project.repository, target="_blank") Link
               td.description= project.description
               td.homepage
                 a(href=project.homepage, target="_blank")= project.homepage
+              td.edit
+                a(href='/projects/#{project.id}/settings') Edit

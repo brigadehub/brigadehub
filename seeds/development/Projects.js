@@ -19,10 +19,7 @@ module.exports = [
     'keywords': [],
     'data': [],
     'partners': [],
-    'contact': {
-      'name': faker.name.firstName() + ' ' + faker.name.lastName(),
-      'email': faker.internet.email()
-    },
+    'contact': [],
     'categories': [],
     'needs': []
   },
@@ -44,10 +41,7 @@ module.exports = [
     'keywords': [],
     'data': [],
     'partners': [],
-    'contact': {
-      'name': faker.name.firstName() + ' ' + faker.name.lastName(),
-      'email': faker.internet.email()
-    },
+    'contact': [],
     'categories': [],
     'needs': []
   },
@@ -69,10 +63,7 @@ module.exports = [
     'keywords': [],
     'data': [],
     'partners': [],
-    'contact': {
-      'name': faker.name.firstName() + ' ' + faker.name.lastName(),
-      'email': faker.internet.email()
-    },
+    'contact': [],
     'categories': [],
     'needs': []
   },
@@ -94,10 +85,7 @@ module.exports = [
     'keywords': [],
     'data': [],
     'partners': [],
-    'contact': {
-      'name': faker.name.firstName() + ' ' + faker.name.lastName(),
-      'email': faker.internet.email()
-    },
+    'contact': [],
     'categories': [],
     'needs': []
   },
@@ -119,10 +107,7 @@ module.exports = [
     'keywords': [],
     'data': [],
     'partners': [],
-    'contact': {
-      'name': faker.name.firstName() + ' ' + faker.name.lastName(),
-      'email': faker.internet.email()
-    },
+    'contact': [],
     'categories': [],
     'needs': []
   }, {
@@ -143,10 +128,7 @@ module.exports = [
     'keywords': [],
     'data': [],
     'partners': [],
-    'contact': {
-      'name': faker.name.firstName() + ' ' + faker.name.lastName(),
-      'email': faker.internet.email()
-    },
+    'contact': [],
     'categories': [],
     'needs': []
   }

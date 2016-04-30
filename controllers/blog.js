@@ -21,28 +21,44 @@ module.exports = {
     if (req.query.page) {
       page = req.query.page
     }
-    Post.find(mongooseQuery, function (err, posts) {
+    var user = res.locals.user
+    Post.find({}, function (err, posts) {
       if (err) console.error(err)
       var tags = _.uniq(_.flatMap(posts, 'tags'))
-      if (res.locals.user && res.locals.user.canEditBlog()) {
-      } else {
-        // most users only see published posts
-        posts = _.filter(posts, function (post) { return post.published })
-      }
-      posts = posts.reverse()
-      var postStart = (page - 1) * POSTS_PER_PAGE
-      var pagePosts = posts.splice(postStart, POSTS_PER_PAGE)
+      Post.find(mongooseQuery, function (err, posts) {
+        if (err) console.error(err)
+        if (user && user.isBlogger()) {
+          if (!user.isAdmin()) {
+            posts = _.filter(posts, function (post) { return post.published || (user && post.author === user.username) })
+          }
+        } else {
+          // most users only see published posts
+          posts = _.filter(posts, function (post) { return post.published })
+        }
+        posts = posts.reverse()
+        var postStart = (page - 1) * POSTS_PER_PAGE
+        var totalPages = Math.ceil(posts.length / POSTS_PER_PAGE)
+        var pagePosts = posts.splice(postStart, POSTS_PER_PAGE)
 
-      res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
-        title: 'Blog',
-        view: 'blog-list',
-        brigade: res.locals.brigade,
-        user: res.locals.user,
-        posts: pagePosts,
-        tags: tags,
-        query: req.query.tag,
-        page: page,
-        selectedTag: req.query.tag
+        var currentUrl = '/blog'
+        if (req.query.tag) {
+          currentUrl += '?tag=' + req.query.tag + '&' + 'page='
+        } else {
+          currentUrl += '?' + 'page='
+        }
+
+        res.render(res.locals.brigade.theme.slug + '/views/blog/index', {
+          title: 'Blog',
+          view: 'blog-list',
+          brigade: res.locals.brigade,
+          user: user,
+          posts: pagePosts,
+          tags: tags,
+          selectedTag: req.query.tag,
+          page: page,
+          totalPages: totalPages,
+          currentUrl: currentUrl
+        })
       })
     })
   },
@@ -51,7 +67,11 @@ module.exports = {
    * Manage Blog.
    */
   getBlogManage: function (req, res) {
-    Post.find({}, function (err, posts) {
+    var mongooseQuery = {}
+    if (!res.locals.user.isAdmin()) {
+      mongooseQuery.author = res.locals.user.username
+    }
+    Post.find(mongooseQuery, function (err, posts) {
       if (err) console.error(err)
       posts.reverse() // so that most recent are first
       User.find({}, function (err, users) {
@@ -73,7 +93,11 @@ module.exports = {
    */
   postBlogManage: function (req, res) {
     req.flash('success', { msg: 'Success! Posts edited' })
-    Post.find({}, function (err, posts) {
+    var mongooseQuery = {}
+    if (!res.locals.user.isAdmin()) {
+      mongooseQuery.author = res.locals.user.username
+    }
+    Post.find(mongooseQuery, function (err, posts) {
       if (err) console.error(err)
       posts.reverse() // so that most recent are first
       posts.forEach(function (post) {
@@ -163,8 +187,6 @@ module.exports = {
    * Display Blog by ID.
    */
   getBlogID: function (req, res) {
-    console.log(req.params)
-    console.log(res.locals)
     Post.find({slug: req.params.blogId}, function (err, post) {
       if (err) throw err
       post = post[0]
