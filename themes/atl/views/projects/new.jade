@@ -6,9 +6,9 @@ block content
     form.row.form-horizontal(action='/projects/new', method='POST')
       input(type='hidden', name='_csrf', value=_csrf)
       .form-group
-        label.col-sm-3.control-label(for='title') Project title
+        label.col-sm-3.control-label(for='name') Project title
         .col-sm-7
-          input.form-control(type='name', name='title', id='title')
+          input.form-control(type='name', name='name', id='name')
       .form-group
         label.col-sm-3.control-label(for='status') Status
         .col-sm-7

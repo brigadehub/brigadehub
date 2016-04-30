@@ -29,10 +29,7 @@ var projectsSchema = new mongoose.Schema({
   // status: String, // represented above
   homepage: String,
   repository: String,
-  contact: {
-    name: String,
-    email: String
-  },
+  contact: Array,
   partners: Array, // name, email, logo?
   data: Array,
   keywords: Array, // simple strings

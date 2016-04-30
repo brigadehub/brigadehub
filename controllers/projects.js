@@ -68,7 +68,14 @@ module.exports = {
    * Submit New Projects.
    */
   postProjectsNew: function (req, res) {
-    res.redirect('projects/new')
+    var newProject = new Projects(req.body)
+    console.log(req.body)
+    newProject.brigade = res.locals.brigade.slug
+    newProject.save(function (err) {
+      if (err) console.error(err)
+    })
+    req.flash('success', {msg: 'Success! You have created a project.'})
+    res.redirect('/projects/new')
   },
 
   /**
