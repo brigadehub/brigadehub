@@ -1,0 +1,136 @@
+extends layout
+
+block content
+  .container
+    #landing-hero.row(style="background-image:url(" + brigade.heroImage + ");background-position:bottom center;")
+      #landing-message.col-md-7.col-xs-12
+        div.content
+          p
+            strong= brigade.name
+            | &nbsp;#{brigade.copy.tagline}
+      #landing-events.col-md-5.col-xs-12
+        div.content
+          h5 Upcoming events
+          ul.list-group-item
+            li.list-group-item 
+              a.event-title(href="#")  This is the Event Title 
+                span.label.label-default  Jan. 31
+            li.list-group-item 
+              a.event-title(href="#")   This is the Event Title 
+                span.label.label-default  Jan. 20
+            li.list-group-item 
+              a.event-title(href="#")   This is the Event Title 
+              span.label.label-default  Jan. 15
+    hr
+    #landing-stats.row
+      .col-sm-3
+        #landing-stat-1.landing-stat
+          .row
+            .col-sm-5
+              img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-forum.png")
+            .col-sm-7
+              p
+                strong 400
+              p.txt
+                | Slackers registered
+      .col-sm-3
+        #landing-stat-2.landing-stat
+          .row
+            .col-sm-5
+              img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-ideas.png")
+            .col-sm-7
+              p
+                strong 82
+              p.txt
+                | Ideas being discussed
+      .col-sm-3
+        #landing-stat-3.landing-stat
+          .row
+            .col-sm-5
+              img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-citylab.png")
+            .col-sm-7
+              p
+                strong 4
+              p.txt
+                | Bay Area Brigades
+      .col-sm-3
+        #landing-stat-4.landing-stat
+          .row
+            .col-sm-5
+              img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-projects.png")
+            .col-sm-7
+              p
+                strong 19
+              p.txt
+                | Active Projects
+    hr
+    #landing-ctas.row
+      .col-sm-4
+        #landing-cta-1.card.landing-cta
+          span.card-img-top(style="background-image:url('https://i.imgur.com/eat2FgN.png');background-position:bottom right;")
+          .card-block
+            h4.card-title Discuss
+            p.card-text Share your idea on the forum telling a story about needs and problems that should be resolved. Join ongoing discussions to help find solutions.
+            a.btn.btn-secondary(href="#") Join Slack
+      .col-sm-4
+        #landing-cta-2.card.landing-cta
+          span.card-img-top(style="background-image:url('https://i.imgur.com/pSBPT2n.png');background-position:bottom center;")
+          .card-block
+            h4.card-title Meet Locally
+            p.card-text Meet regularly with a group of activists. Discuss needs and ideas together with civil servants and civil society organizations. Boost project development by meeting face to face.
+            a.btn.btn-secondary(href="#") Join us on Meetup
+      .col-sm-4
+        #landing-cta-3.card.landing-cta
+          span.card-img-top(style="background-image:url('https://i.imgur.com/7JCmL7b.png');background-position:bottom right;")
+          .card-block
+            h4.card-title Build Projects
+            p.card-text Start a new project as its coordinator or join one of the existing multidisciplinary teams. Folllow project development path from the needs analysis to the country wide deployment.
+            a.btn.btn-secondary(href="#") Join Github
+    hr
+    #landing-projects.row
+      h2.text-xs-center Projects
+      
+      each project in projects
+        // for perfect alignment, need a row on every odd instance of project. (row, col col, row, col col, etc. ) this code will look ok unitl you get a lot of description text on a project. - AB
+
+        .col-sm-2
+          #landing-project-1.landing-project
+            img.img-thumbnail(src="http://placehold.it/200x200")
+            a(href='/projects/#{project.id}')=project.name
+            
+            
+      .col-sm-12.text-xs-center
+        a.btn.btn-secondary(href="projects").center-block All Projects
+    hr
+    #landing-blog.row
+      h2.text-xs-center  Blog
+      .col-sm-4
+        #post-1.card.post
+          img.card-img-top.img-fluid(src="http://placehold.it/400X250")
+          .card-block
+            h4.card-title 
+              a(href="#") Blog Post Title
+            p.card-text This is some text.
+            p.card-text 00 Dec. 16 
+              a(href="#") Category
+      .col-sm-4
+        #post-2.card.post
+          img.card-img-top.img-fluid(src="http://placehold.it/400X250")
+          .card-block
+            h4.card-title 
+              a(href="#") Blog Post Title
+            p.card-text This is some text.
+            p.card-text 00 Dec. 16 
+              a(href="#") Blog Post Title
+      .col-sm-4
+        #post-3.card.post
+          img.card-img-top.img-fluid(src="http://placehold.it/400X250")
+          .card-block
+            h4.card-title 
+              a(href="#") Blog Post Title
+            p.card-text This is some text.
+            p.card-text 00 Dec. 16 
+              a(href="#")
+                Category
+      .col-sm-12.text-xs-center
+        a.btn.btn-secondary(href="#").center-block All Posts
