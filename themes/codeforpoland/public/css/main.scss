@@ -107,6 +107,7 @@ textarea {
   margin-right: 6px;
 }
 .dropdown-menu {
+
   li {
     &.header {
       font-size: 10px;
@@ -193,6 +194,9 @@ nav.navbar {
       }
     }
     .dropdown-menu {
+      left: auto;
+      right:0px;
+      top: 25px;
       a {
         opacity:0.75;
         padding: 3px 15px;
