@@ -6,7 +6,7 @@
     "url": "https://github.com/sfbrigade/brigadehub.git"
   },
   "engines": {
-    "node": ">=4 <5"
+    "node": ">=4"
   },
   "scripts": {
     "start": "node app.js",
@@ -68,7 +68,7 @@
     "paypal-rest-sdk": "^1.6.8",
     "request": "^2.67.0",
     "require-dir": "^0.3.0",
-    "selectn": "^1.0.9",
+    "selectn": "1.0.9",
     "serve-favicon": "^2.3.0",
     "standard": "^6.0.4",
     "twilio": "^2.8.0",
