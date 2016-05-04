@@ -71,6 +71,21 @@ module.exports = {
     var newProject = new Projects(req.body)
     newProject.id = res.locals.brigade.slug + '-' + req.body.name
     newProject.brigade = res.locals.brigade.slug
+    if (req.body.categories) {
+      newProject.categories = req.body.categories.replace(/\s/g, '').split(',')
+    }
+    if (req.body.contact) {
+      newProject.contact = req.body.contact.replace(/\s/g, '').split(',')
+    }
+    if (req.body.needs) {
+      newProject.needs = req.body.needs.replace(/\s/g, '').split(',')
+    }
+    if (req.body.keywords) {
+      newProject.keywords = req.body.keywords.replace(/\s/g, '').split(',')
+    }
+    if (req.body.data) {
+      newProject.data = req.body.data.replace(/\s/g, '').split(',')
+    }
     newProject.save(function (err) {
       if (err) console.error(err)
     })
