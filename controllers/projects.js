@@ -70,7 +70,6 @@ module.exports = {
   postProjectsNew: function (req, res) {
     var newProject = new Projects(req.body)
     newProject.id = res.locals.brigade.slug + '-' + req.body.name
-    console.log(req.body)
     newProject.brigade = res.locals.brigade.slug
     newProject.save(function (err) {
       if (err) console.error(err)
