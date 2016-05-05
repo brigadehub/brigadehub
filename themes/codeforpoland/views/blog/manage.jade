@@ -1,0 +1,56 @@
+extends ../layout
+
+block content
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/blog') Blog
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/blog/manage') Manage
+      
+  .page-header
+    h3 Manage Blog Posts
+
+    form.row.form-horizontal(action='/blog/manage', method='POST', onsubmit="return validate(this);")
+      input(type='hidden', name='_csrf', value=_csrf)
+      table.table
+        thread
+          tr
+            td Published?
+            td Title
+            td Author
+            td Date Published
+            td  
+            td Delete?
+        tbody
+          each post in posts
+            tr
+              td
+                if post.published
+                  input(type='checkbox', checked, name='#{post.id}[published]', id='published')
+                else
+                  input(type='checkbox', name='#{post.id}[published]', id='published')
+              td
+                input(type='text', name='#{post.id}[title]', value='#{post.title}')
+              td
+                if(user.isAdmin())
+                  input(type='text', name='#{post.id}[author]', value='#{post.author}')
+                else
+                  | #{post.author}
+              td
+                input(type='text', name='#{post.id}[date]', value='#{post.date}')
+              td
+                a(href='/blog/post/#{post.slug}/edit')
+                  span edit
+              td
+                input(type='checkbox', name='#{post.id}[delete]' id="delete")
+                | 
+                i(class="fa fa-trash-o" aria-hidden="true")
+
+      .form-group.row
+        .col-sm-4
+          button.btn.btn.btn-primary(type='submit')
+            i.fa.fa-pencilr
+            | Save Changes
+            
