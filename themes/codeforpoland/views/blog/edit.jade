@@ -1,0 +1,71 @@
+extends ../layout
+
+block content
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/blog') Blog
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/blog/post/#{post.slug}')= post.title
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/blog/post/#{post.slug}/edit') edit
+  .page-header.row
+    h3 Edit Blog Post
+    
+  form.row.form-horizontal(action='/blog/post/#{post.slug}', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row
+      label.col-sm-3.control-label(for='title') Title
+      .col-sm-7
+        input.form-control(type='text', name='title', id='title', value='#{post.title}')
+    .form-group.row
+      label.col-sm-3.control-label(for='author') Author
+      .col-sm-7
+        if user.isAdmin()
+          input.form-control(type='text', name='author', id='author', value='#{post.author}')
+        else
+          !{post.author}
+    .form-group.row
+      label.col-sm-3.control-label(for='url') Override Url (optional)
+      .col-sm-7
+        input.form-control(type='text', name='url', id='url', value='#{post.url}')
+    .form-group.row
+      label.col-sm-3.control-label(for='image') Image URL
+      .col-sm-7
+        input.form-control(type='text', name='image', id='image', value='#{post.image}')
+      .col-sm-4.col-sm-offset-3
+        img(src="#{post.image}", class='post-image', style="width:100%")
+    .form-group.row
+      label.col-sm-3.control-label(for='date') "Published on" date
+      .col-sm-7
+        input.form-control(type='text', name='date', id='date', value='#{post.date}')
+    .form-group.row
+      label.col-sm-3.control-label(for='description') Short Description
+      .col-sm-7
+        input.form-control(type='text', name='description', id='description', value='#{post.description}')
+    .form-group.row
+      label.col-sm-3.control-label(for='content') Post
+      .col-sm-7
+        textarea.form-control.simple-mde(name='content', id='content', rows='30')
+          | #{post.content}
+    .form-group.row
+      label.col-sm-3.control-label(for='tags') Tags (seperate with commas)
+      .col-sm-7
+        input.form-control(type='text', name='tags', id='tags' value='#{post.tags}')
+    .form-group.row
+      if(post.published)
+        .col-sm-offset-3.col-sm-2
+        button.btn.btn.btn-primary(type='submit')
+          i.fa.fa-pencilr
+          | Update Post
+      else
+        .col-sm-2.col-sm-offset-3
+          button.btn.btn.btn-primary(type='submit', name='published', value='false')
+            i.fa.fa-pencilr
+            | Save Draft
+        .col-sm-2
+          button.btn.btn.btn-primary(type='submit', name='published', value='true')
+            i.fa.fa-pencilr
+            | Publish
+          
