@@ -1,0 +1,59 @@
+extends ../layout
+
+block content
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/blog') Blog
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/blog/post/#{post.slug}')= post.title
+      
+  .row.page-header
+    .col-sm-12
+      if (user && (user.isAdmin() || user.username === post.author))
+        a.float.right(href="/blog/post/#{post.slug}/edit") 
+          i(class="fa fa-pencil-square-o" aria-hidden="true")
+          | Edit this post
+        h1= post.title
+        
+  .row
+    .col-sm-12
+      | Post by 
+      a(href="/author/#{post.author}") #{post.author}
+  .row 
+    .col-sm-12
+      .page-header.float
+        p #{post.date}
+      if (user && (user.isAdmin() || user.username === post.author))
+        span  
+          form(method='POST', action='/blog/post/#{post.slug}/delete')
+            input(type='hidden', name='_csrf', value=_csrf)
+            button.float.right.btn.btn-primary(type='submit')
+              i(class="fa fa-trash-o" aria-hidden="true")
+              | Delete
+      
+  .row 
+    if post.image
+      .col-sm-12(style="display:block; background-image:url('#{post.image}'); width:100%; height:399px; background-size:cover; background-position:center center;")
+  .row 
+    .col-sm-9
+      p !{post.content}
+
+
+    .row tags: 
+      each tag, index in post.tags
+        a(href='/blog?tag=#{tag}') #{tag}
+        //- comma inbetween all but last
+        if index !== post.tags.length-1
+          | , 
+//- slug: String, // this is the slug
+//- title: String, // Display title
+//- author: String,
+//- url: String, // an external link you can use to override where to go when clicking
+//- image: String,
+//- description: String,
+//- content: String,
+//- date: String,
+//- unix: Number,
+//- tags: Array

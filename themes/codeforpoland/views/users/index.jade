@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+  .page-header
+    h3 All Users
+    .row
+        ul
+          each user in users
+            li
+              div
+                img(src=user.profile.picture, width=200, height=200)
+              div Github Username: #{user.username}
+                span
+                  if user.profile.position
+                    div position: #{user.profile.position}
+                  else
+                    div position: Team Member
+                span
+                  if user.email
+                    div email: #{user.email}
+                  else
+                    div email: N/A
+                span
+                  if user.profile.location
+                    div location: #{user.profile.location}
+                  else
+                    div location: N/A
+
+
