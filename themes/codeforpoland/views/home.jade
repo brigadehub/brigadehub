@@ -8,12 +8,13 @@ block content
           strong= brigade.name
           | &nbsp;#{brigade.copy.tagline}
       #landing-events.col-sm-4
-        h5 Upcoming events
-        ul.list-group-item
-          each event in events
-            li.list-group-item
-              a.event-title(href='#{event.url}')  #{event.title}
-                span.label.label-default  #{event.startDate}
+        div.content
+          h5 Upcoming events
+          ul.list-group-item
+            each event in events
+              li.list-group-item
+                a.event-title(href='#{event.url}')  #{event.title}
+                  span.label.label-default  #{event.startDate}
     hr
     #landing-stats.row
       .col-sm-3
