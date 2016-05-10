@@ -3,7 +3,7 @@ extends layout
 block content
   .page-header.row
     h3 Brigade Information
-
+  hr
   form.row.form-horizontal(action='/brigade', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
@@ -60,6 +60,7 @@ block content
 
   .page-header.row
     h3 Theme Settings
+  hr
   form.row.form-horizontal(action='/brigade', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group.row
@@ -101,6 +102,8 @@ block content
             label
               input.login(id="show-login", name="show-login", type="checkbox", checked=(brigade.theme.page.login ? "checked" : undefined))
               | Show Login Page
+    .row
+      h3 External Nav Links
     each external in brigade.theme.page.external
       .row
         hr
@@ -109,7 +112,7 @@ block content
           .col-sm-7
             input.form-control(type='text', name='external-link-name', id='external-link-name', value='#{external.name}')
         .form-group.col-sm-12
-          label.col-sm-3.control-label(for='external-link') External Link
+          label.col-sm-3.control-label(for='external-link') External Link URL
           .col-sm-7
             input.form-control(type='text', name='external-link', id='external-link', value='#{external.link}')
         .form-group.col-sm-12
@@ -117,17 +120,18 @@ block content
           .col-sm-7
             input.form-control(type='text', name='external-link-target', id='external-link-target', value='#{external.target}')
     .row
+      h3 New External Link
       hr
       .form-group.col-sm-12
-        label.col-sm-3.control-label(for='new-external-link-name') External Link Name
+        label.col-sm-3.control-label(for='new-external-link-name') New Link Name
         .col-sm-7
           input.form-control(type='text', name='new-external-link-name', id='new-external-link-name', value='', placeholder='External Link Title')
       .form-group.col-sm-12
-        label.col-sm-3.control-label(for='new-external-link') External Link
+        label.col-sm-3.control-label(for='new-external-link') New Link URL
         .col-sm-7
           input.form-control(type='text', name='new-external-link', id='new-external-link', value='', placeholder='http://example.com')
       .form-group.col-sm-12
-        label.col-sm-3.control-label(for='new-external-link-target') External Link Target
+        label.col-sm-3.control-label(for='new-external-link-target') New Link Target
         .col-sm-7
           input.form-control(type='text', name='new-external-link-target', id='new-external-link-target', value='', placeholder='self or _blank')
     .form-group
@@ -135,10 +139,11 @@ block content
         button.btn.btn.btn-primary(type='submit')
           i.fa.fa-pencil
           | Update Theme
-  .page-header.row
-    h3 Social Media Sign-in and Links
-
+  .row
+    hr
   form.row.form-horizontal(action='/brigade', method='POST')
+    h3 Social Media Sign-in and Links
+    hr
     input(type='hidden', name='_csrf', value=_csrf)
     .row
       h4 Github Oauth keys

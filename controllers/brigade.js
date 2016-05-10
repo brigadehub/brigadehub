@@ -34,7 +34,6 @@ exports.postBrigade = function (req, res, next) {
   res.locals.brigade.url = req.body.url
   res.locals.brigade.heroImage = req.body.heroImage
   res.locals.brigade.copy.tagline = req.body.tagline
-  res.locals.brigade.github = req.body.github
   res.locals.brigade.theme.logo = req.body.logo
   res.locals.brigade.theme.slug = req.body['theme-slug']
   Brigade.find({slug: res.locals.brigade.slug}, function (err, results) {
@@ -50,8 +49,9 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.url = req.body.url
       thisBrigade.heroImage = req.body.heroImage || 'https://i.imgur.com/m7omd0N.jpg'
       thisBrigade.copy.tagline = req.body.tagline
-      thisBrigade.github = req.body.github
       thisBrigade.slack = req.body.slack
+      thisBrigade.github = req.body.github.toLowerCase()
+      thisBrigade.slug = req.body.github.toLowerCase()
       thisBrigade.meetup = req.body.meetupurl
       thisBrigade.copy.description = req.body.description
     } else if (req.body['theme-slug']) { // theme updated

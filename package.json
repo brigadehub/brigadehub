@@ -1,19 +1,19 @@
 {
   "name": "brigadehub",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/sfbrigade/brigadehub.git"
   },
   "engines": {
-    "node": ">=4 <5"
+    "node": ">=4"
   },
   "scripts": {
     "start": "node app.js",
     "pretest": "standard",
     "test": "npm run test:unit && npm run test:e2e",
     "test:e2e": "echo 'no e2e tests available.'",
-    "test:unit": "babel-node ./node_modules/istanbul/lib/cli cover tape -- **/*.tape.js",
+    "test:unit": "echo 'no unit test available.'",
     "db:clear": "./scripts/database-clear",
     "db:seed": "./scripts/database-seed",
     "develop": "nodemon app.js",
@@ -37,6 +37,7 @@
     "express-flash": "^0.0.2",
     "express-session": "^1.13.0",
     "express-validator": "^2.18.0",
+    "faker": "^3.1.0",
     "fbgraph": "^1.1.0",
     "github-api": "^0.10.7",
     "glob": "^7.0.3",
@@ -67,7 +68,7 @@
     "paypal-rest-sdk": "^1.6.8",
     "request": "^2.67.0",
     "require-dir": "^0.3.0",
-    "selectn": "^1.0.9",
+    "selectn": "1.0.9",
     "serve-favicon": "^2.3.0",
     "standard": "^6.0.4",
     "twilio": "^2.8.0",
@@ -81,14 +82,12 @@
     "blessed": "^0.1.81",
     "blue-tape": "^0.2.0",
     "chai": "^3.4.1",
-    "faker": "^3.1.0",
     "goosestrap": "^1.0.0",
     "mocha": "^2.3.4",
     "mongodb": "^2.1.7",
     "multiline": "^1.0.2",
     "nodemon": "^1.9.1",
     "precommit-hook": "latest",
-    "require-dir": "^0.3.0",
     "seedling": "0.0.10",
     "supertest": "^1.1.0",
     "tape": "^4.5.1",

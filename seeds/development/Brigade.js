@@ -16,10 +16,10 @@ module.exports = function () {
     url: 'http://codeforexample.org',
     github: 'codeforexample',
     theme: {
-      slug: 'atl',
-      logo: '',
+      slug: 'codeforpoland',
+      logo: 'http://i.imgur.com/v5naij3.png',
       page: {
-        title: true,
+        title: false,
         events: true,
         projects: true,
         blog: true,
@@ -81,7 +81,7 @@ module.exports = function () {
       }
     },
     auditLog: [
-      'initial | ' + auditDate + ' | added default brigade details from `config/default-brigade.js`'
+      'initial | ' + auditDate + ' | added default brigade details from seeder'
     ]
   }]
 }
