@@ -35,7 +35,10 @@ block content
               td #{event.host}
               td #{event.location}
               td
-                a(href='#{event.url}', class="mu-rsvp-btn") RSVP
+                if (event.url.indexOf('meetup.com') > -1)
+                  a(href='#{event.url}', class="mu-rsvp-btn") RSVP
+                else
+                  a(href='#{event.url}', class="btn btn-primary btn-sm") Link
   script.
     ! function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
