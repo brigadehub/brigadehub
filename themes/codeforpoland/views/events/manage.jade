@@ -8,11 +8,6 @@ block content
       button.btn.btn-primary(type='submit')
         i.fa.fa-refresh
         | Fetch Meetup Events
-    form.pull-right(method='POST', action='/events/delete')
-      input(type='hidden', name='_csrf', value=_csrf)
-      button.btn.btn-primary(type='submit')
-        i.fa.fa-refresh
-        | Delete All Events
   .row
     h1 All events
     table.table
@@ -39,3 +34,9 @@ block content
                 input(type='hidden', name='_csrf', value=_csrf)
                 button(type='submit')
                   | Delete
+  .row
+    form.pull-right(method='POST', action='/events/delete')
+      input(type='hidden', name='_csrf', value=_csrf)
+      button.btn.btn-primary(type='submit')
+        i.fa.fa-refresh
+        | Delete All Events

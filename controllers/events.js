@@ -77,6 +77,11 @@ module.exports = {
     var endString = req.body.endday + req.body.endmonth + req.body.endyear + req.body.endhour + req.body.endminute
     newEvent.start = moment.tz(startString, 'DD-MMM-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
     newEvent.end = moment.tz(endString, 'DD-MMM-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
+    if (newEvent.end < newEvent.start) {
+      req.flash('errors', {msg: 'You can not create an event with an end time earlier than its start time.'})
+      res.redirect('/events/new')
+      return
+    }
     newEvent.save(function (err) {
       if (err) console.error(err)
     })
