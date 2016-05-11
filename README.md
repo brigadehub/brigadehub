@@ -68,14 +68,13 @@ There are two methods of install at the moment: via [cloning the source repo](#s
 	<tbody>
 		<tr>
 			<td>
-				<a href="#source" style="color:#555; text-decoration:none;position:relative;top:-8px;font-weight:bold;padding:30px;display:inline-block;font-family:'Source Sans Pro', Helvetica, Arial, sans-serif;text-transform:uppercase; letter-spacing:1px;white-space:nowrap;">
-					<img style="position:relative;top:12px;" src="http://i.imgur.com/W8FS7gn.png" />
-					Source
+				<a href="#source">
+					<img height="125" src="http://i.imgur.com/QBu6ZWo.png" alt="source"/>
 				</a>
 			</td>
 			<td> 
 				<a style="padding:30px;display:inline-block" href="#docker">
-					<img src="http://i.imgur.com/V1AkaBu.png" width="200"/>
+					<img src="http://i.imgur.com/MM5RT5W.png" height="125" alt="docker"/>
 				</a>
 			</td>
 		</tr>
