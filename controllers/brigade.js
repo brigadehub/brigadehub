@@ -49,6 +49,7 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.url = req.body.url
       thisBrigade.heroImage = req.body.heroImage || 'https://i.imgur.com/m7omd0N.jpg'
       thisBrigade.copy.tagline = req.body.tagline
+      thisBrigade.slack = req.body.slack
       thisBrigade.github = req.body.github.toLowerCase()
       thisBrigade.slug = req.body.github.toLowerCase()
       thisBrigade.meetup = req.body.meetupurl
