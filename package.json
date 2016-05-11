@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "pretest": "standard",
+    "pretest": "npm run lint",
     "test": "npm run test:unit && npm run test:e2e",
     "test:e2e": "echo 'no e2e tests available.'",
     "test:unit": "echo 'no unit test available.'",
@@ -19,7 +19,13 @@
     "develop": "nodemon app.js",
     "cleaninstall": "rm -rf node_modules && npm install",
     "lint": "standard",
-    "validate": "npm ls"
+    "validate": "npm ls",
+    "build:docker": "docker build -t sfbrigade/brigadehub .",
+    "build:docker:run": "docker run -d --name brigadehub -p 80:5465 -e MONGODB=mongodb://192.168.99.100:27017/brigadehub-docker sfbrigade/brigadehub",
+    "build:docker:images": "docker images sfbrigade/brigadehub",
+    "build:docker:tag": "echo 'docker tag hash sfbrigade/brigadehub:release'",
+    "build:docker:push": "docker push sfbrigade/brigadehub",
+    "build:docker:untag": "echo 'docker rmi sfbrigade/brigadehub:release'"
   },
   "dependencies": {
     "async": "^1.5.2",

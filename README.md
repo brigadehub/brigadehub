@@ -61,7 +61,28 @@ Similar projects have been conceived and implemented previously, most prominentl
 Another project which this is pulling inspiration from is [CodeForAtlanta](http://www.codeforatlanta.org/)'s [Connector](https://github.com/codeforatlanta/connector). [Chime](https://github.com/chimecms/chime) was also a CMS that had similar goals, but focused on local governments, rather than brigades.
 
 ### Installation and usage
-#### Prerequisites
+
+There are two methods of install at the moment: via [cloning the source repo](#source) or [docker](#docker). The prerequisites for each change depending on which you choose to use.
+
+<table>
+	<tbody>
+		<tr>
+			<td>
+				<a href="#source">
+					<img height="125" src="http://i.imgur.com/QBu6ZWo.png" alt="source"/>
+				</a>
+			</td>
+			<td> 
+				<a style="padding:30px;display:inline-block" href="#docker">
+					<img src="http://i.imgur.com/MM5RT5W.png" height="125" alt="docker"/>
+				</a>
+			</td>
+		</tr>
+	</tbody>
+<table>
+
+#### Source
+##### Prerequisites
 
 - Command Line Tools
  - <img src="http://deluge-torrent.org/images/apple-logo.gif" height="17">&nbsp;**Mac OS X:**
@@ -73,9 +94,23 @@ Another project which this is pulling inspiration from is [CodeForAtlanta](http:
  - <img src="https://en.opensuse.org/images/b/be/Logo-geeko_head.png" height="17">&nbsp;**OpenSUSE:** `sudo zypper install --type pattern devel_basis`
 - [MongoDB](https://www.mongodb.org/downloads)
   - <img src="http://deluge-torrent.org/images/apple-logo.gif" height="17">&nbsp;**Mac OS X:** `brew install mongodb`
-- [Node.js](http://nodejs.org) v4.x.x (Easiest install is via [NVM](https://github.com/creationix/nvm))
-  - Uninstall any previously installed Node versions (if you don't already have `nvm` installed)
-  - `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash && echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bashrc && echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.bashrc && . $HOME/.bashrc && nvm install 4 && nvm alias default 4 && nvm use 4`
+  - run by typing in `mongod`
+  - If you get a permissions error when running, you may need to make additional changes to your system post install:
+    - type in `whoami` and note the username of the computer you're working on
+    - `sudo mkdir /data /data/db`
+    - `sudo chown USERNAME:staff /data /data/db`
+    - You should be able to now run `mongod` without a permissions error.
+- [Node.js](http://nodejs.org) v4+
+  - **Standard Install**
+    - Download the binary from the [Node.js website](http://nodejs.org) that corresponds to your system
+    - Follow the accompanying installation instructions to install 
+  - **via [NVM](https://github.com/creationix/nvm)**
+    - *NVM gives you the a few extra nice-to-haves that makes development in Node a lot easier:
+      - User Sandboxing
+      - No need for `sudo`
+      - Ability to run parallel versions of Node separate from each other
+    - Uninstall any previously installed Node versions (if you don't already have `nvm` installed)
+    - Install NVM using the script found on the [nvm repo](https://github.com/creationix/nvm)), or the following: `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash && echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bashrc && echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.bashrc && . $HOME/.bashrc && nvm install 6 && nvm alias default 6 && nvm use 6`
 
 
 **Note:** If you are new to Node or Express, I recommend to watch
@@ -83,10 +118,7 @@ Another project which this is pulling inspiration from is [CodeForAtlanta](http:
 screencast by Alex Ford that teaches Node and Express from scratch. Alternatively,
 here is another great tutorial for complete beginners - [Getting Started With Node.js, Express, MongoDB](http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/).
 
-#### Install
----------------
-
-The easiest way to get started is to clone the repo:
+##### Install (source)
 
 ```bash
 # Get the latest snapshot
@@ -115,6 +147,38 @@ or if starting for local development:
 ```bash
 npm run develop
 ```
+
+#### Docker
+
+##### Prerequisites
+
+- [Docker Engine](https://docs.docker.com/)
+  - or if you're on <img src="http://deluge-torrent.org/images/apple-logo.gif" height="17">&nbsp;**Mac OS X:** [Docker Machine](https://docs.docker.com/)
+- A working MongoDB docker container or externally accessible install
+
+##### Install (Docker):
+
+Run the following to retrieve and configure your brigadehub container:
+
+```
+docker run -d --name brigadehub \
+-p port:5465 \
+-e MONGODB=mongourl \
+sfbrigade/brigadehub
+```
+
+where `port` is the desired external port to access the install (e.g. `80`), and `mongourl` is the externally accessible mongodb instance (e.g. `mongodb://localhost:27017/brigadehub-docker`)
+
+All put together, an example of how it should look:
+
+```
+docker run -d --name brigadehub \
+-p 80:5465 \
+-e MONGODB=mongodb://localhost:27017/brigadehub-docker \
+sfbrigade/brigadehub
+```
+
+This will download the image and start the instance.
 
 ### Deploy
 
