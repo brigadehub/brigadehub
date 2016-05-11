@@ -1,6 +1,6 @@
 FROM node:6-onbuild
 MAINTAINER Trent Oswald (@therebelrobot) <trentoswald@therebelrobot.com>
-RUN npm install --production
+RUN npm run install:clean --production
 
 EXPOSE 5465
 
