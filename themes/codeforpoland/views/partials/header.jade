@@ -11,7 +11,7 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
           else
             li.nav-item.dropdown(class=title=='Account Management'?'active':undefined)
               a.nav-link.dropdown-toggle(href='javascript:void(0)', data-toggle='dropdown')
-                | #{user.profile.name || user.email || user.id}
+                | #{user.profile.name || user.email || user.username}
                 if user.profile.picture
                   img(src='#{user.profile.picture}',width='32')
                 else
@@ -20,23 +20,23 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
                 if user.roles.blog || user.roles.lead || user.roles.core || user.roles.superAdmin
                   a.dropdown-item.header Management
                 if user.roles.blog || user.roles.lead || user.roles.core || user.roles.superAdmin
-                  a.dropdown-item(href='/blog/manage') 
+                  a.dropdown-item(href='/blog/manage')
                     i.fa.fa-th
                     | Manage Blog Posts
                 if user.roles.core || user.roles.superAdmin
-                  a.dropdown-item(href='/events/manage') 
+                  a.dropdown-item(href='/events/manage')
                     i.fa.fa-calendar
                     | Manage Events
                 if user.roles.lead || user.roles.core || user.roles.superAdmin
-                  a.dropdown-item(href='/projects/manage') 
+                  a.dropdown-item(href='/projects/manage')
                     i.fa.fa-wrench
                     | Manage Projects
                 if user.roles.core || user.roles.superAdmin
-                  a.dropdown-item(href='/users/manage') 
+                  a.dropdown-item(href='/users/manage')
                     i.fa.fa-users
                     | Manage Users
                 if user.roles.superAdmin
-                  a.dropdown-item(href='/brigade') 
+                  a.dropdown-item(href='/brigade')
                     i.fa.fa-home
                     | Manage Brigade
                 if user.roles.project
@@ -46,10 +46,10 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
                     a.dropdown-item(href='/projects/'+project)=project
                 a.dropdown-item.divider
                 a.dropdown-item.header Account
-                a.dropdown-item(href='/account') 
-                  i.fa.fa-cog 
+                a.dropdown-item(href='/account')
+                  i.fa.fa-cog
                   | Settings
-                a.dropdown-item(href='/logout') 
+                a.dropdown-item(href='/logout')
                   i.fa.fa-sign-out
                   | Logout
     .row.navigation

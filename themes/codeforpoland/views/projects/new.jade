@@ -3,3 +3,63 @@ extends ../layout
 block content
   .page-header
     h3 New Project
+    form.row.form-horizontal(action='/projects/new', method='POST')
+      input(type='hidden', name='_csrf', value=_csrf)
+      .form-group
+        label.col-sm-3.control-label(for='name') Project title
+        .col-sm-7
+          input.form-control(type='name', name='name', id='name')
+      .form-group
+        label.col-sm-3.control-label(for='status') Status
+        .col-sm-7
+          input.form-control(type='name', name='status', id='status')
+      .form-group
+        label.col-sm-3.control-label(for='geography') Geography
+        .col-sm-7
+          input.form-control(type='name', name='geography', id='geography')
+      .form-group
+        label.col-sm-3.control-label(for='politicalEntity') Political Entity
+        .col-sm-7
+          input.form-control(type='name', name='politicalEntity', id='politicalEntity')
+      .form-group
+        label.col-sm-3.control-label(for='type') Type
+        .col-sm-7
+          input.form-control(type='name', name='type', id='type')
+      .form-group
+        label.col-sm-3.control-label(for='homepage') Homepage
+        .col-sm-7
+          input.form-control(type='name', name='homepage', id='homepage')
+      .form-group
+        label.col-sm-3.control-label(for='repository') GitHub Repo
+        .col-sm-7
+          input.form-control(type='name', name='repository', id='repository')
+      .form-group
+        label.col-sm-3.control-label(for='contact') Contacts
+        .col-sm-7
+          input.form-control(type='name', name='contact', id='contact')
+      .form-group
+        label.col-sm-3.control-label(for='categories') Project Categories
+        .col-sm-7
+          input.form-control(type='name', name='categories', id='categories')
+      .form-group
+        label.col-sm-3.control-label(for='needs') Project Needs
+        .col-sm-7
+          input.form-control(type='name', name='needs', id='needs')
+      .form-group
+        label.col-sm-3.control-label(for='data') Project Data
+        .col-sm-7
+          input.form-control(type='name', name='data', id='data')
+      .form-group
+        label.col-sm-3.control-label(for='keywords') Project Keywords
+        .col-sm-7
+          input.form-control(type='name', name='keywords', id='keywords')
+      .form-group
+        label.col-sm-3.control-label(for='description') Description
+        .col-sm-7
+          textarea.form-control(name='description', id='description', rows="6")
+      .form-group
+        .col-sm-offset-3.col-sm-4
+          button.btn.btn.btn-primary(type='submit')
+            i.fa.fa-pencil
+            | Add Project
+  a(href='/projects/manage') Back

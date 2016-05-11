@@ -23,7 +23,7 @@ block content
                 p #{user.profile.position}
               else
                 p position placeholder
-              if user.profile.showcontact
+              if (user.profile.showcontact && user.email)
                 p
                   a(href="mailto: #{user.email}") email
     .col-sm-3
