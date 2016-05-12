@@ -2,16 +2,16 @@ module.exports = {
   'step one': function (browser) {
     browser
       .url('http://www.google.com')
-      .waitForElementVisible('body', 1000)
-      .setValue('input[type=text]', 'nightwatch')
-      .waitForElementVisible('button[name=btnG]', 1000)
+      .waitForElementVisible('input[name="q"]', 1000)
+      .setValue('input[name="q"]', 'nightwatch')
+      .waitForElementVisible('input[value="Google Search"]', 1000)
   },
 
   'step two': function (browser) {
     browser
-      .click('button[name=btnG]')
+      .click('input[value="Google Search"]')
       .pause(1000)
-      .assert.containsText('#main', 'Night Watch')
+      .assert.containsText('body', 'nightwatch')
       .end()
   }
 }

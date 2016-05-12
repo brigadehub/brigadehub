@@ -12,7 +12,7 @@
     "start": "node app.js",
     "pretest": "standard",
     "test": "npm run test:unit",
-    "test:e2e": "npm run selenium:stop && npm run selenium:install && npm run selenium:start && npm run nightwatch",
+    "test:e2e": "npm run selenium:install && npm run selenium:start && npm run nightwatch",
     "test:unit": "babel-node ./node_modules/istanbul/lib/cli cover tape -- **/*.tape.js",
     "db:clear": "./scripts/database-clear",
     "db:seed": "./scripts/database-seed",
@@ -22,8 +22,8 @@
     "validate": "npm ls",
     "selenium:install": "./node_modules/selenium-standalone/bin/selenium-standalone install",
     "selenium:start": "./node_modules/selenium-standalone/bin/selenium-standalone start&",
-    "selenium:stop": "./node_modules/selenium-standalone/bin/selenium-standalone stop",
-    "nightwatch": "./node_modules/nightwatch"
+    "selenium:stop": "pkill -f selenium-standalone",
+    "nightwatch": "./node_modules/nightwatch/bin/nightwatch"
   },
   "dependencies": {
     "async": "^1.5.2",
@@ -92,8 +92,8 @@
     "multiline": "^1.0.2",
     "nightwatch": "latest",
     "nodemon": "^1.9.1",
+    "phantomjs-prebuilt": "latest",
     "precommit-hook": "latest",
-    "require-dir": "^0.3.0",
     "seedling": "0.0.10",
     "selenium-standalone": "latest",
     "supertest": "^1.1.0",
