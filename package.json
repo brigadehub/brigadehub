@@ -1,29 +1,36 @@
 {
   "name": "brigadehub",
-  "version": "0.1.0-0",
+  "version": "1.0.0-alpha.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/sfbrigade/brigadehub.git"
   },
   "engines": {
-    "node": ">=4 <5"
+    "node": ">=4"
   },
   "scripts": {
     "start": "node app.js",
-    "pretest": "standard",
+    "pretest": "npm run lint",
     "test": "npm run test:unit",
     "test:e2e": "npm run selenium:install && npm run selenium:start && npm run nightwatch",
-    "test:unit": "babel-node ./node_modules/istanbul/lib/cli cover tape -- **/*.tape.js",
+    "test:unit": "echo 'no unit test available.'",
     "db:clear": "./scripts/database-clear",
     "db:seed": "./scripts/database-seed",
     "develop": "nodemon app.js",
-    "cleaninstall": "rm -rf node_modules && npm install",
+    "install:clean": "rm -rf node_modules && npm install",
     "lint": "standard",
     "validate": "npm ls",
     "selenium:install": "./node_modules/selenium-standalone/bin/selenium-standalone install",
     "selenium:start": "./node_modules/selenium-standalone/bin/selenium-standalone start&",
     "selenium:stop": "pkill -f selenium-standalone",
     "nightwatch": "./node_modules/nightwatch/bin/nightwatch"
+
+    "build:docker": "docker build -t sfbrigade/brigadehub .",
+    "build:docker:run": "docker run -d --name brigadehub -p 80:5465 -e MONGODB=mongodb://192.168.99.100:27017/brigadehub-docker sfbrigade/brigadehub",
+    "build:docker:images": "docker images sfbrigade/brigadehub",
+    "build:docker:tag": "echo 'docker tag hash sfbrigade/brigadehub:release'",
+    "build:docker:push": "docker push sfbrigade/brigadehub",
+    "build:docker:untag": "echo 'docker rmi sfbrigade/brigadehub:release'"
   },
   "dependencies": {
     "async": "^1.5.2",
@@ -41,6 +48,7 @@
     "express-flash": "^0.0.2",
     "express-session": "^1.13.0",
     "express-validator": "^2.18.0",
+    "faker": "^3.1.0",
     "fbgraph": "^1.1.0",
     "github-api": "^0.10.7",
     "glob": "^7.0.3",
@@ -71,13 +79,13 @@
     "paypal-rest-sdk": "^1.6.8",
     "request": "^2.67.0",
     "require-dir": "^0.3.0",
-    "selectn": "^1.0.9",
+    "selectn": "1.0.9",
     "serve-favicon": "^2.3.0",
     "standard": "^6.0.4",
     "twilio": "^2.8.0",
     "twit": "^2.1.1",
+    "underscore": "^1.8.3",
     "uuid": "^2.0.1",
-    "validator": "^4.5.0",
     "yui": "^3.18.1"
   },
   "devDependencies": {
@@ -85,7 +93,6 @@
     "blessed": "^0.1.81",
     "blue-tape": "^0.2.0",
     "chai": "^3.4.1",
-    "faker": "^3.1.0",
     "goosestrap": "^1.0.0",
     "mocha": "^2.3.4",
     "mongodb": "^2.1.7",
@@ -112,7 +119,6 @@
   "license": "ISC",
   "pre-commit": [
     "lint",
-    "validate",
     "test"
   ]
 }

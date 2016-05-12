@@ -2,12 +2,8 @@ var mongoose = require('mongoose')
 var request = require('request')
 var _ = require('lodash')
 var linkHeaderParser = require('link-header-parser')
-
-var defaultHeaders = {
-  'Accept': 'application/vnd.github.v3+json',
-  'Authorization': 'token ',
-  'User-Agent': 'BridageHub'
-}
+var Users = require('./Users')
+var defaultHeaders = require('../config/defaultGithubAPIHeaders')
 
 var projectsSchema = new mongoose.Schema({
   id: String, // this is the slug - civic.sf.json + civic.dc.json
@@ -33,10 +29,7 @@ var projectsSchema = new mongoose.Schema({
   // status: String, // represented above
   homepage: String,
   repository: String,
-  contact: {
-    name: String,
-    email: String
-  },
+  contact: Array,
   partners: Array, // name, email, logo?
   data: Array,
   keywords: Array, // simple strings
@@ -113,7 +106,41 @@ projectsSchema.statics.fetchGithubRepos = function (brigade, user, cb) {
 projectsSchema.statics.publishToGithub = function (cb) {
   cb(null, 'isMatch')
 }
-
+projectsSchema.statics.fetchGitHubUsers = function (users, cb) {
+  var promiseArray = []
+  function getUser (username) {
+    return new Promise(function (resolve, reject) {
+      Users.findOne({'username': username}, function (err, foundUser) {
+        if (err) console.log(err)
+        if (foundUser) {
+          resolve(foundUser)
+        } else {
+          resolve(username)
+        }
+      })
+    })
+  }
+  users.forEach(function (user) {
+    promiseArray.push(getUser(user))
+  })
+  Promise.all(promiseArray).then(function (result) {
+    cb(result)
+  })
+//   return new Promise (function (resolve, reject) {
+//     users.map(function (user) {
+//       Users.findOne({'username': user}, function (err, foundUser) {
+//         if (foundUser) {
+//           console.log('ping')
+//           user.email = foundUser.email
+//           return user.email
+//         } else {
+//           return user
+//         }
+//       })
+//     })
+//     resolve(users)
+//   })
+}
 module.exports = mongoose.model('Projects', projectsSchema)
 
 function getRepos (url, aggregate, user, callback) {
@@ -175,7 +202,7 @@ function createUpdateProjectData (project, original, brigade) {
   project.json.keywords = project.json.keywords || []
   project.json.tags = project.json.tags || []
   project.json.links = project.json.links || []
-  project.json.contact = project.json.contact || {}
+  project.json.contact = project.json.contact || []
 
   original.id = project.repo.name // this is the slug - civic.sf.json + civic.dc.json
   original.brigade = brigade.slug // this is the slug - civic.sf.json + civic.dc.json
@@ -195,14 +222,12 @@ function createUpdateProjectData (project, original, brigade) {
   original.name = project.json.name || project.repo.name // Display titl
   original.description = project.json.description || project.repo.description || 'A new project.'
   original.license = project.json.license || 'MIT'
-  original.homepage = project.json.homepage || project.repo.homepage || project.repo.url
-  original.repository = project.json.repository || project.repo.url
+  original.homepage = project.json.homepage || project.repo.homepage || project.repo.html_url
+  original.repository = project.json.repository || project.repo.html_url
   original.geography = original.geography || []
   original.geography = original.geography.concat(project.json.geography)
   original.geography = _.uniq(original.geography)
-  original.contact = original.contact || {}
-  original.contact.name = project.json.contact.name || project.repo.owner.login || 'unknown'
-  original.contact.email = project.json.contact.email || 'unknown'
+  original.contact = original.contact || []
   original.partners = original.partners || []
   original.partners = original.partners.concat(project.json.partners)
   original.partners = _.uniq(original.partners)

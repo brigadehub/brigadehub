@@ -68,7 +68,29 @@ module.exports = {
    * Submit New Projects.
    */
   postProjectsNew: function (req, res) {
-    res.redirect('projects/new')
+    var newProject = new Projects(req.body)
+    newProject.id = res.locals.brigade.slug + '-' + req.body.name
+    newProject.brigade = res.locals.brigade.slug
+    if (req.body.categories) {
+      newProject.categories = req.body.categories.replace(/\s/g, '').split(',')
+    }
+    if (req.body.contact) {
+      newProject.contact = req.body.contact.replace(/\s/g, '').split(',')
+    }
+    if (req.body.needs) {
+      newProject.needs = req.body.needs.replace(/\s/g, '').split(',')
+    }
+    if (req.body.keywords) {
+      newProject.keywords = req.body.keywords.replace(/\s/g, '').split(',')
+    }
+    if (req.body.data) {
+      newProject.data = req.body.data.replace(/\s/g, '').split(',')
+    }
+    newProject.save(function (err) {
+      if (err) console.error(err)
+    })
+    req.flash('success', {msg: 'Success! You have created a project.'})
+    res.redirect('/projects/new')
   },
 
   /**
@@ -81,13 +103,15 @@ module.exports = {
       id: req.params.projectId
     }, function (err, foundProject) {
       if (err) console.error(err)
-      console.log(foundProject)
-      res.render(res.locals.brigade.theme.slug + '/views/projects/project', {
-        view: 'project',
-        projectId: req.params.projectId,
-        title: foundProject.name,
-        brigade: res.locals.brigade,
-        project: foundProject
+      Projects.fetchGitHubUsers(foundProject.contact, function (contactList) {
+        res.render(res.locals.brigade.theme.slug + '/views/projects/project', {
+          view: 'project',
+          projectId: req.params.projectId,
+          title: foundProject.name,
+          brigade: res.locals.brigade,
+          project: foundProject,
+          contacts: contactList
+        })
       })
     })
   },
@@ -96,11 +120,14 @@ module.exports = {
    * IDSettings Projects.
    */
   getProjectsIDSettings: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/projects/settings', {
-      view: 'project-settings',
-      projectId: req.params.projectId,
-      title: 'IDSettings Projects',
-      brigade: res.locals.brigade
+    Projects.find({'id': req.params.projectId}, function (err, foundProject) {
+      if (err) console.log(err)
+      res.render(res.locals.brigade.theme.slug + '/views/projects/settings', {
+        view: 'project-settings',
+        project: foundProject[0],
+        title: 'IDSettings Projects',
+        brigade: res.locals.brigade
+      })
     })
   },
   /**
@@ -108,7 +135,53 @@ module.exports = {
    * Submit IDSettings Projects.
    */
   postProjectsIDSettings: function (req, res) {
-    res.redirect('projects/:projectID/settings')
+    Projects.find({'id': req.params.projectId}, function (err, foundProject) {
+      if (err) console.log(err)
+      var thisProject = foundProject[0]
+      thisProject.categories = []
+      thisProject.needs = []
+      thisProject.contact = []
+      thisProject.data = []
+      thisProject.keywords = []
+      thisProject.name = req.body.title || ''
+      thisProject.status = req.body.status || ''
+      thisProject.type = req.body.type || ''
+      thisProject.politicalEntity = req.body.politicalEntity || ''
+      thisProject.geography = req.body.geography || ''
+      thisProject.homepage = req.body.homepage || ''
+      thisProject.repository = req.body.repository || ''
+      thisProject.description = req.body.description || ''
+      if (req.body.categories) {
+        req.body.categories.replace(/\s/g, '').split(',').forEach(function (category) {
+          thisProject.categories.push(category)
+        })
+      }
+      if (req.body.contacts) {
+        req.body.contacts.replace(/\s/g, '').split(',').forEach(function (contact) {
+          thisProject.contact.push(contact)
+        })
+      }
+      if (req.body.needs) {
+        req.body.needs.replace(/\s/g, '').split(',').forEach(function (need) {
+          thisProject.needs.push(need)
+        })
+      }
+      if (req.body.keywords) {
+        req.body.keywords.replace(/\s/g, '').split(',').forEach(function (keyword) {
+          thisProject.keywords.push(keyword)
+        })
+      }
+      if (req.body.data) {
+        req.body.data.replace(/\s/g, '').split(',').forEach(function (datum) {
+          thisProject.data.push(datum)
+        })
+      }
+      thisProject.save(function (err) {
+        if (err) console.log(err)
+      })
+    })
+    req.flash('success', { msg: 'Success! You have updated your project.' })
+    res.redirect('/projects/' + req.params.projectId + '/settings')
   },
   /**
    * POST /projects/sync
