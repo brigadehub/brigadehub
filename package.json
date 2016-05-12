@@ -11,15 +11,19 @@
   "scripts": {
     "start": "node app.js",
     "pretest": "standard",
-    "test": "npm run test:unit && npm run test:e2e",
-    "test:e2e": "echo 'no e2e tests available.'",
+    "test": "npm run test:unit",
+    "test:e2e": "npm run selenium:stop && npm run selenium:install && npm run selenium:start && npm run nightwatch",
     "test:unit": "babel-node ./node_modules/istanbul/lib/cli cover tape -- **/*.tape.js",
     "db:clear": "./scripts/database-clear",
     "db:seed": "./scripts/database-seed",
     "develop": "nodemon app.js",
     "cleaninstall": "rm -rf node_modules && npm install",
     "lint": "standard",
-    "validate": "npm ls"
+    "validate": "npm ls",
+    "selenium:install": "./node_modules/selenium-standalone/bin/selenium-standalone install",
+    "selenium:start": "./node_modules/selenium-standalone/bin/selenium-standalone start&",
+    "selenium:stop": "./node_modules/selenium-standalone/bin/selenium-standalone stop",
+    "nightwatch": "./node_modules/nightwatch"
   },
   "dependencies": {
     "async": "^1.5.2",
@@ -86,10 +90,12 @@
     "mocha": "^2.3.4",
     "mongodb": "^2.1.7",
     "multiline": "^1.0.2",
+    "nightwatch": "latest",
     "nodemon": "^1.9.1",
     "precommit-hook": "latest",
     "require-dir": "^0.3.0",
     "seedling": "0.0.10",
+    "selenium-standalone": "latest",
     "supertest": "^1.1.0",
     "tape": "^4.5.1",
     "tape-catch": "^1.0.4"
