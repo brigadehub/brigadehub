@@ -23,8 +23,8 @@
     "selenium:install": "./node_modules/selenium-standalone/bin/selenium-standalone install",
     "selenium:start": "./node_modules/selenium-standalone/bin/selenium-standalone start&",
     "selenium:stop": "pkill -f selenium-standalone",
-    "nightwatch": "./node_modules/nightwatch/bin/nightwatch"
-
+    "nightwatch": "./node_modules/nightwatch/bin/nightwatch",
+    
     "build:docker": "docker build -t sfbrigade/brigadehub .",
     "build:docker:run": "docker run -d --name brigadehub -p 80:5465 -e MONGODB=mongodb://192.168.99.100:27017/brigadehub-docker sfbrigade/brigadehub",
     "build:docker:images": "docker images sfbrigade/brigadehub",
