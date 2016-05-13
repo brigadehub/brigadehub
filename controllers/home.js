@@ -6,6 +6,7 @@
 var Projects = require('../models/Projects')
 var Events = require('../models/Events')
 var moment = require('moment')
+var Posts = require('../models/Posts')
 require('moment-timezone')
 
 var NUM_PROJECTS_SHOWN = 6
@@ -30,13 +31,17 @@ exports.index = function (req, res) {
           }
         })
       })
-      res.render(res.locals.brigade.theme.slug + '/views/home', {
-        view: 'home',
-        title: 'Home',
-        brigade: res.locals.brigade,
-        projects: foundProjects.splice(0, NUM_PROJECTS_SHOWN),
-        events: foundEvents.slice(0, 3)
-      })
+      Posts.find({}, function (err, foundPosts) {
+        if (err) console.error(err)
+        res.render(res.locals.brigade.theme.slug + '/views/home', {
+          view: 'home',
+          title: 'Home',
+          brigade: res.locals.brigade,
+          projects: foundProjects.splice(0, NUM_PROJECTS_SHOWN),
+          events: foundEvents.slice(0, 3),
+          posts: foundPosts.slice(0, 3)
+        })
+      }).sort({unix: -1})
     })
   }).sort({start: 1})
 }
