@@ -1,9 +1,6 @@
 var gulp = require('gulp')
 var exec = require('child_process').exec
-
-gulp.task('test', function () {
-  console.log('test')
-})
+var watch = require('gulp-watch') // eslint-disable-line
 
 gulp.task('launch', function () {
   exec('nodemon app.js', function (err, stdout, stderr) {
@@ -12,3 +9,13 @@ gulp.task('launch', function () {
     console.log(err)
   })
 })
+
+gulp.task('watch', function () {
+  gulp.watch('./*', ['logging'])
+})
+
+gulp.task('logging', function () {
+  console.log('change noted')
+})
+
+gulp.task('default', ['launch', 'watch'])
