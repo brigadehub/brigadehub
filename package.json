@@ -92,7 +92,9 @@
     "babel-cli": "^6.6.5",
     "blessed": "^0.1.81",
     "blue-tape": "^0.2.0",
+    "careful": "^1.0.2",
     "chai": "^3.4.1",
+    "ghooks": "^1.2.1",
     "goosestrap": "^1.0.0",
     "mocha": "^2.3.4",
     "mongodb": "^2.1.7",
@@ -105,7 +107,8 @@
     "selenium-standalone": "latest",
     "supertest": "^1.1.0",
     "tape": "^4.5.1",
-    "tape-catch": "^1.0.4"
+    "tape-catch": "^1.0.4",
+    "validate-commit-msg": "^2.6.1"
   },
   "standard": {
     "globals": [
@@ -116,9 +119,40 @@
       "after"
     ]
   },
-  "license": "ISC",
-  "pre-commit": [
-    "lint",
-    "test"
-  ]
+  "config": {
+    "validate-commit-msg": {
+      "helpMessage": "Commit message \n\n\t%s\nis not following this project's commit standards. Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#default-commit-message-format) for more details."
+    },
+    "careful": {
+      "prefixes": [
+        "feature",
+        "hotfix",
+        "release",
+        "bugfix",
+        "docs"
+      ],
+      "suggestions": {
+        "features": "feature",
+        "feat": "feature",
+        "fix": "bugfix",
+        "releases": "release"
+      },
+      "skip": [
+        "demo"
+      ],
+      "disallowed": [
+        "edge",
+        "master"
+      ],
+      "banned": [
+        "wip"
+      ],
+      "seperator": "/"
+    },
+    "ghooks": {
+      "pre-commit": "npm test && careful",
+      "commit-msg": "validate-commit-msg"
+    }
+  },
+  "license": "ISC"
 }
