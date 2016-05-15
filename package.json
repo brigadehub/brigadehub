@@ -154,7 +154,7 @@
       "msgSeperatorRequired": "Branch must have an appropriate prefix (feature, hotfix, bugfix, docs). Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#branch-naming-format) for more details."
     },
     "ghooks": {
-      "pre-commit": "npm test && careful",
+      "pre-commit": "npm pretest && npm test && careful",
       "commit-msg": "validate-commit-msg"
     }
   },
