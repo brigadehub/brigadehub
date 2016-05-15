@@ -180,6 +180,16 @@ sfbrigade/brigadehub
 
 This will download the image and start the instance.
 
+### Testing
+* Linting and unit testing will happen in a precommit hook
+* For end-to-end testing, we are using a Selenium standalone server, PhantomJS headless browser, and Nightwatch.  To get this to work, do the following
+```
+npm run selenium:install
+npm run selenium:start
+npm run nightwatch"
+```
+Note: the application should be started locally as well, otherwise there will be nothing to test :)
+
 ### Deploy
 
 ***brigadehub, while deployed for Code for San Francisco, has not yet been optimized for wide adoption yet. If you deploy this to your production brigade site, you do so at your own risk.***
@@ -208,7 +218,7 @@ To see what has changed in recent versions of brigadehub, see the [CHANGELOG](./
 - Leo Lau [@hawflau](https://github.com/hawflau)
 - Jason Durant [@jaydurant](https://github.com/jaydurant)
 - John Naulty Jr. [@jnaulty](https://github.com/jnaulty)
-- [@johngluck65](https://github.com/johngluck65)
+- John Gluck [@johngluck65](https://github.com/johngluck65)
 - Jesse Szwedko [@jszwedko Owner](https://github.com/jszwedko Owner)
 - Judy5000 [@Judy5000 Owner](https://github.com/Judy5000 Owner)
 - Justin [@Juxtaposeidon](https://github.com/Juxtaposeidon)
