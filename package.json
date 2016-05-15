@@ -100,7 +100,6 @@
     "nightwatch": "latest",
     "nodemon": "^1.9.1",
     "phantomjs-prebuilt": "latest",
-    "precommit-hook": "latest",
     "seedling": "0.0.10",
     "selenium-standalone": "latest",
     "supertest": "^1.1.0",
@@ -156,13 +155,8 @@
     "ghooks": {
       "pre-commit": "npm pretest && npm test && careful",
       "commit-msg": "validate-commit-msg"
-      
+
     }
   },
-  "license": "ISC",
-  "pre-commit": [
-    "lint",
-    "validate",
-    "test"
-  ]
+  "license": "ISC"
 }
