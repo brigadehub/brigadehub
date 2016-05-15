@@ -183,8 +183,7 @@ This will download the image and start the instance.
 ### Testing
 * Linting and unit testing will happen in a precommit hook
 * For end-to-end testing, we are using a Selenium standalone server, PhantomJS headless browser, and Nightwatch.  To get this to work, do the following
-```
-
+```bash
 # this is only needed the first time after a fresh build
 npm run selenium:install
 
