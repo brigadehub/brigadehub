@@ -249,7 +249,7 @@ ghdc="open Applications/GitHub\ Desktop.app/Contents/MacOS/GitHub\ Desktop"
 ```
 And instead of opening your client from an alias in applications
 
-1. open a terminal, and cd to the sfbrigadehub repo root
+1. open a terminal,
 1. cd to the sfbrigadehub repo root
 1. run your alias
 
