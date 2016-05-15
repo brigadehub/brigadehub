@@ -155,8 +155,12 @@
     "ghooks": {
       "pre-commit": "npm pretest && npm test && careful",
       "commit-msg": "validate-commit-msg"
-
     }
   },
-  "license": "ISC"
+  "license": "ISC",
+  "pre-commit": [
+    "lint",
+    "validate",
+    "test"
+  ]
 }
