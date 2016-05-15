@@ -133,10 +133,13 @@
         "features": "feature",
         "feat": "feature",
         "fix": "bugfix",
-        "releases": "release"
+        "bug": "bugfix",
+        "releases": "release",
+        "doc": "docs"
       },
       "skip": [
-        "demo"
+        "demo",
+        "develop"
       ],
       "disallowed": [
         "edge",
@@ -145,12 +148,20 @@
       "banned": [
         "wip"
       ],
-      "seperator": "/"
+      "seperator": "/",
+      "msgBranchBanned": "Branch name %s banned from push usage. Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#branch-naming-format) for more details.",
+      "msgPrefixNotAllowed": "Branch must have an appropriate prefix (feature, hotfix, bugfix, docs). Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#branch-naming-format) for more details.",
+      "msgSeperatorRequired": "Branch must have an appropriate prefix (feature, hotfix, bugfix, docs). Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#branch-naming-format) for more details."
     },
     "ghooks": {
       "pre-commit": "npm test && careful",
       "commit-msg": "validate-commit-msg"
     }
   },
-  "license": "ISC"
+  "license": "ISC",
+  "pre-commit": [
+    "lint",
+    "validate",
+    "test"
+  ]
 }
