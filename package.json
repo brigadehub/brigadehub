@@ -92,6 +92,7 @@
     "blue-tape": "^0.2.0",
     "careful": "^1.0.2",
     "chai": "^3.4.1",
+    "cz-conventional-changelog": "^1.1.6",
     "ghooks": "^1.2.1",
     "goosestrap": "^1.0.0",
     "mocha": "^2.3.4",
@@ -100,7 +101,6 @@
     "nightwatch": "latest",
     "nodemon": "^1.9.1",
     "phantomjs-prebuilt": "latest",
-    "precommit-hook": "latest",
     "seedling": "0.0.10",
     "selenium-standalone": "latest",
     "supertest": "^1.1.0",
@@ -156,12 +156,11 @@
     "ghooks": {
       "pre-commit": "npm test && careful",
       "commit-msg": "validate-commit-msg"
+    },
+
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "license": "ISC",
-  "pre-commit": [
-    "lint",
-    "validate",
-    "test"
-  ]
+  "license": "ISC"
 }
