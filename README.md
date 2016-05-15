@@ -186,7 +186,7 @@ This will download the image and start the instance.
 ```
 npm run selenium:install
 npm run selenium:start
-npm run nightwatch"
+npm run test:e2e"
 ```
 Note: the application should be started locally as well, otherwise there will be nothing to test :)
 
