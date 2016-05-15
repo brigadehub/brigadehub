@@ -33,13 +33,17 @@ exports.index = function (req, res) {
       })
       Posts.find({}, function (err, foundPosts) {
         if (err) console.error(err)
+        foundPosts = foundPosts.slice(0, 3).map(function (post) {
+          post.date = moment.unix(post.unix).format('MMMM DD, YYYY')
+          return post
+        })
         res.render(res.locals.brigade.theme.slug + '/views/home', {
           view: 'home',
           title: 'Home',
           brigade: res.locals.brigade,
           projects: foundProjects.splice(0, NUM_PROJECTS_SHOWN),
           events: foundEvents.slice(0, 3),
-          posts: foundPosts.slice(0, 3)
+          posts: foundPosts
         })
       }).sort({unix: -1})
     })
