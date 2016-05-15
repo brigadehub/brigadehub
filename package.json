@@ -12,7 +12,7 @@
     "start": "node app.js",
     "pretest": "npm run lint",
     "test": "npm run test:unit",
-    "test:e2e": "npm run nightwatch",
+    "test:e2e": "nightwatch",
     "test:unit": "echo 'no unit test available.'",
     "db:clear": "./scripts/database-clear",
     "db:seed": "./scripts/database-seed",
@@ -23,8 +23,7 @@
     "selenium:install": "selenium-standalone install",
     "selenium:start": "selenium-standalone start&",
     "selenium:stop": "pkill -f selenium-standalone",
-    "nightwatch": "nightwatch",
-    
+
     "build:docker": "docker build -t sfbrigade/brigadehub .",
     "build:docker:run": "docker run -d --name brigadehub -p 80:5465 -e MONGODB=mongodb://192.168.99.100:27017/brigadehub-docker sfbrigade/brigadehub",
     "build:docker:images": "docker images sfbrigade/brigadehub",
