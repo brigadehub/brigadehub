@@ -17,8 +17,8 @@
   - [Prerequisites](#prerequisites)
   - [Install](#install)
   - [Usage](#usage)
-- [Deploy (not recommended yet)](#deploy)
 - [Testing](#testing)
+- [Deploy (not recommended yet)](#deploy)
 - [Troubleshooting](#troubleshooting)
 - [Changelog](#changelog)
 - [Core Contributors](#core-contributors)
@@ -221,6 +221,11 @@ When you are ready to run e2e tests, you'll need to run the following commands i
 - `npm run test:e2e`
 
 To stop the selenium server after the tests, run `npm run selenium:stop`.
+
+If for some reason, you need to stop the selenium server
+```
+npm selenium:stop
+```
 
 ### Deploy
 
