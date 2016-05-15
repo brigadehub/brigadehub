@@ -162,5 +162,10 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "license": "ISC"
+  "license": "ISC",
+  "pre-commit": [
+    "lint",
+    "validate",
+    "test"
+  ]
 }
