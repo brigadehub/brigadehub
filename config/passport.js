@@ -52,6 +52,7 @@ passport.use(new GitHubStrategy({
               return email.primary
             }).email
             user.username = profile.username
+            user.tokens = _.reject(user.tokens, {kind: 'github'})
             user.tokens.push({ kind: 'github', accessToken: accessToken })
             user.profile.name = user.profile.name || profile.displayName
             user.profile.picture = user.profile.picture || profile._json.avatar_url
@@ -90,7 +91,7 @@ passport.use(new GitHubStrategy({
             console.log('no req.user, and user exists')
             return done(null, existingUser)
           }
-          console.log('no req.user, and user doesn\'t exist')
+          console.log("no req.user, and user doesn't exist")
           // create this new user
           var user = new User()
           user.email = _.find(profile.emails, (email) => {
