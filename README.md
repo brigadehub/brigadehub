@@ -184,8 +184,10 @@ This will download the image and start the instance.
 * Linting and unit testing will happen in a precommit hook
 * For end-to-end testing, we are using a Selenium standalone server, PhantomJS headless browser, and Nightwatch.  To get this to work, do the following
 ```
-#this is only needed the first time after a fresh build
+
+# this is only needed the first time after a fresh build
 npm run selenium:install
+
 # this is only needed when there is no selenium server running.  Subsequent runs will warn that a selenium server is already running
 npm run selenium:start
 npm run test:e2e"
