@@ -92,6 +92,7 @@
     "blue-tape": "^0.2.0",
     "careful": "^1.0.2",
     "chai": "^3.4.1",
+    "cz-conventional-changelog": "^1.1.6",
     "ghooks": "^1.2.1",
     "goosestrap": "^1.0.0",
     "mocha": "^2.3.4",
@@ -153,10 +154,18 @@
       "msgSeperatorRequired": "Branch must have an appropriate prefix (feature, hotfix, bugfix, docs). Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#branch-naming-format) for more details."
     },
     "ghooks": {
-      "pre-commit": "npm pretest && npm test && careful",
+      "pre-commit": "npm test && careful",
       "commit-msg": "validate-commit-msg"
-
+    },
+    
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "license": "ISC"
+  "license": "ISC",
+  "pre-commit": [
+    "lint",
+    "validate",
+    "test"
+  ]
 }
