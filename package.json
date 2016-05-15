@@ -157,15 +157,10 @@
       "pre-commit": "npm test && careful",
       "commit-msg": "validate-commit-msg"
     },
-    
+
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "license": "ISC",
-  "pre-commit": [
-    "lint",
-    "validate",
-    "test"
-  ]
+  "license": "ISC"
 }
