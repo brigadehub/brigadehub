@@ -187,7 +187,8 @@ This will download the image and start the instance.
 # this is only needed the first time after a fresh build
 npm run selenium:install
 
-# this is only needed when there is no selenium server running.  Subsequent runs will warn that a selenium server is already running
+# this is only needed when there is no selenium server running.
+# Subsequent runs will warn that a selenium server is already running
 npm run selenium:start
 npm run test:e2e"
 ```
