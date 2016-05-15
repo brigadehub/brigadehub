@@ -12,7 +12,7 @@
     "start": "node app.js",
     "pretest": "npm run lint",
     "test": "npm run test:unit",
-    "test:e2e": "npm run selenium:install && npm run selenium:start && npm run nightwatch",
+    "test:e2e": "npm run nightwatch",
     "test:unit": "echo 'no unit test available.'",
     "db:clear": "./scripts/database-clear",
     "db:seed": "./scripts/database-seed",
