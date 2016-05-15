@@ -238,7 +238,8 @@ These instructions will be updated as the project emerges from the Alpha-release
 ### Troubleshooting
 
 *Using a SCM client with Mac OS*
-There are issues, because of the way Mac OS and Node work together, or don't.  (Here's an example of people having problems)[https://github.com/gtramontina/ghooks/issues/40]
+
+There are issues, because of the way Mac OS and Node work together, or don't.  [Here's an example of people having problems](https://github.com/gtramontina/ghooks/issues/40)
 
 The most effective way of solving this, besides learning how to use the git CLI, would be to create an alias in your .bash_profile
 
