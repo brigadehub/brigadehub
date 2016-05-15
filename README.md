@@ -18,6 +18,7 @@
   - [Install](#install)
   - [Usage](#usage)
 - [Deploy (not recommended yet)](#deploy)
+- [Testing](#testing)
 - [Troubleshooting](#troubleshooting)
 - [Changelog](#changelog)
 - [Core Contributors](#core-contributors)
@@ -181,14 +182,45 @@ sfbrigade/brigadehub
 This will download the image and start the instance.
 
 ### Testing
-* Linting and unit testing will happen in a precommit hook
-* For end-to-end testing, we are using a Selenium standalone server, PhantomJS headless browser, and Nightwatch.  To get this to work, do the following
+#### Linting
+
+[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
+For details on our linting / js coding style, visit [`feross/standard'](https://github.com/feross/standard). Linting occurs automatically on commit, but you can run it manually by running:
+
+```
+npm run lint
+```
+
+#### Unit tests
+
+Unit tests are being run via [`tap`](). Any file with the `*.tap.js` naming scheme will be run in unit tests. We are sorely lacking on unit testing, so anyone willing to take these on are very welcome. Unit tests are run automatically on commit, but you can run them manually anytime by running:
+
+```
+npm run test:unit
+```
+
+To run linting and unit tests together, you can run `npm test`.
+
+#### End to end (e2e) tests
+
+For end-to-end testing, we are using a Selenium standalone server, PhantomJS headless browser, and Nightwatch. Since end to end tests involve testing all aspects of the application, including UI interactions, all three of these services need to be running simultaneously to the development server.
+
+##### Installing Selenium
+
 ```
 npm run selenium:install
-npm run selenium:start
-npm run nightwatch"
 ```
-Note: the application should be started locally as well, otherwise there will be nothing to test :)
+
+##### Runnning e2e tests
+
+When you are ready to run e2e tests, you'll need to run the following commands in separate terminals:
+
+- `npm run selenium:start`
+- `npm run develop`
+- `npm run test:e2e`
+
+To stop the selenium server after the tests, run `npm run selenium:stop`.
 
 ### Deploy
 
