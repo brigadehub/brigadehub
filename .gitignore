@@ -31,3 +31,6 @@ coverage
 
 main.css
 main.css.map
+.jshintrc
+.jshintignore
+phantomjsdriver.log

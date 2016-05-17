@@ -10,15 +10,10 @@ block content
       #landing-events.col-sm-4
         h5 Upcoming events
         ul.list-group-item
-          li.list-group-item 
-            a.event-title(href="#")  This is the Event Title 
-              span.label.label-default  Jan. 31
-          li.list-group-item 
-            a.event-title(href="#")   This is the Event Title 
-              span.label.label-default  Jan. 20
-          li.list-group-item 
-            a.event-title(href="#")   This is the Event Title 
-            span.label.label-default  Jan. 15
+          each event in events
+            li.list-group-item
+              a.event-title(href='#{event.url}')  #{event.title}
+                span.label.label-default  #{event.startDate}
     hr
     #landing-stats.row
       .col-sm-3
@@ -69,25 +64,25 @@ block content
           .card-block
             h4.card-title Discuss
             p.card-text Share your idea on the forum telling a story about needs and problems that should be resolved. Join ongoing discussions to help find solutions.
-            a.btn.btn-secondary(href="#") Join Slack
+            a.btn.btn-secondary(href="#{brigade.slack}") Join Slack
       .col-sm-4
         #landing-cta-2.card.landing-cta
           span.card-img-top(style="background-image:url('https://i.imgur.com/pSBPT2n.png');background-position:bottom center;")
           .card-block
             h4.card-title Meet Locally
             p.card-text Meet regularly with a group of activists. Discuss needs and ideas together with civil servants and civil society organizations. Boost project development by meeting face to face.
-            a.btn.btn-secondary(href="#") Join us on Meetup
+            a.btn.btn-secondary(href="http://www.meetup.com/#{brigade.meetup}") Join us on Meetup
       .col-sm-4
         #landing-cta-3.card.landing-cta
           span.card-img-top(style="background-image:url('https://i.imgur.com/7JCmL7b.png');background-position:bottom right;")
           .card-block
             h4.card-title Build Projects
             p.card-text Start a new project as its coordinator or join one of the existing multidisciplinary teams. Folllow project development path from the needs analysis to the country wide deployment.
-            a.btn.btn-secondary(href="#") Join Github
+            a.btn.btn-secondary(href="http://www.github.com/#{brigade.github}") Join Github
     hr
     #landing-projects.row
       h2.text-xs-center Projects
-      
+
       each project in projects
         // for perfect alignment, need a row on every odd instance of project. (row, col col, row, col col, etc. ) this code will look ok unitl you get a lot of description text on a project. - AB
 
@@ -95,8 +90,8 @@ block content
           #landing-project-1.landing-project
             img.img-thumbnail(src="http://placehold.it/200x200")
             a(href='/projects/#{project.id}')=project.name
-            
-            
+
+
       .col-sm-12.text-xs-center
         a.btn.btn-secondary(href="projects").center-block All Projects
     hr
@@ -106,28 +101,28 @@ block content
         #post-1.card.post
           img.card-img-top.img-fluid(src="http://placehold.it/400X250")
           .card-block
-            h4.card-title 
+            h4.card-title
               a(href="#") Blog Post Title
             p.card-text This is some text.
-            p.card-text 00 Dec. 16 
+            p.card-text 00 Dec. 16
               a(href="#") Category
       .col-sm-4
         #post-2.card.post
           img.card-img-top.img-fluid(src="http://placehold.it/400X250")
           .card-block
-            h4.card-title 
+            h4.card-title
               a(href="#") Blog Post Title
             p.card-text This is some text.
-            p.card-text 00 Dec. 16 
+            p.card-text 00 Dec. 16
               a(href="#") Blog Post Title
       .col-sm-4
         #post-3.card.post
           img.card-img-top.img-fluid(src="http://placehold.it/400X250")
           .card-block
-            h4.card-title 
+            h4.card-title
               a(href="#") Blog Post Title
             p.card-text This is some text.
-            p.card-text 00 Dec. 16 
+            p.card-text 00 Dec. 16
               a(href="#")
                 Category
       .col-sm-12.text-xs-center

@@ -12,7 +12,9 @@ module.exports = {
     Events.find({}, function (err, foundEvents) {
       if (err) console.error(err)
       var userzone = moment.tz.guess()
-      var mappedEvents = foundEvents.map(function (event) {
+      var mappedEvents = foundEvents.filter(function (event) {
+        return event.start > moment().unix()
+      }).map(function (event) {
         event.convertedstart = moment.unix(event.start).tz(userzone).format('ha z MMMM DD, YYYY')
         event.localstart = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('ha z MMMM DD, YYYY')
         event.start = moment.unix(event.start).format()
@@ -75,6 +77,11 @@ module.exports = {
     var endString = req.body.endday + req.body.endmonth + req.body.endyear + req.body.endhour + req.body.endminute
     newEvent.start = moment.tz(startString, 'DD-MMM-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
     newEvent.end = moment.tz(endString, 'DD-MMM-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
+    if (newEvent.end < newEvent.start) {
+      req.flash('errors', {msg: 'You can not create an event with an end time earlier than its start time.'})
+      res.redirect('/events/new')
+      return
+    }
     newEvent.save(function (err) {
       if (err) console.error(err)
     })
