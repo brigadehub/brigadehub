@@ -73,7 +73,7 @@ There are two methods of install at the moment: via [cloning the source repo](#s
 					<img height="125" src="http://i.imgur.com/QBu6ZWo.png" alt="source"/>
 				</a>
 			</td>
-			<td> 
+			<td>
 				<a style="padding:30px;display:inline-block" href="#docker">
 					<img src="http://i.imgur.com/MM5RT5W.png" height="125" alt="docker"/>
 				</a>
@@ -104,7 +104,7 @@ There are two methods of install at the moment: via [cloning the source repo](#s
 - [Node.js](http://nodejs.org) v4+
   - **Standard Install**
     - Download the binary from the [Node.js website](http://nodejs.org) that corresponds to your system
-    - Follow the accompanying installation instructions to install 
+    - Follow the accompanying installation instructions to install
   - **via [NVM](https://github.com/creationix/nvm)**
     - *NVM gives you the a few extra nice-to-haves that makes development in Node a lot easier:
       - User Sandboxing
@@ -153,33 +153,31 @@ npm run develop
 
 ##### Prerequisites
 
-- [Docker Engine](https://docs.docker.com/)
-  - or if you're on <img src="http://deluge-torrent.org/images/apple-logo.gif" height="17">&nbsp;**Mac OS X:** [Docker Machine](https://docs.docker.com/)
-- A working MongoDB docker container or externally accessible install
+###### Mac and Windows
+- [Docker Toolbox](https://www.docker.com/products/docker-toolbox)
 
-##### Install (Docker):
+###### Linux
+- [Docker Engine](https://docs.docker.com/engine)
+- [Docker Compose](https://docs.docker.com/compose)
 
-Run the following to retrieve and configure your brigadehub container:
 
+##### Running
+
+Simply run the following to get up and running:
 ```
-docker run -d --name brigadehub \
--p port:5465 \
--e MONGODB=mongourl \
-sfbrigade/brigadehub
-```
-
-where `port` is the desired external port to access the install (e.g. `80`), and `mongourl` is the externally accessible mongodb instance (e.g. `mongodb://localhost:27017/brigadehub-docker`)
-
-All put together, an example of how it should look:
-
-```
-docker run -d --name brigadehub \
--p 80:5465 \
--e MONGODB=mongodb://localhost:27017/brigadehub-docker \
-sfbrigade/brigadehub
+docker-compose up
 ```
 
-This will download the image and start the instance.
+##### Building
+Let's say you want to build a new image of brigadehub to use locally.
+
+First run `docker-compose build`
+Then, `docker-compose kill app`
+Finally, `docker-compose up `
+
+##### DIY
+
+You can always use `docker run` and pass your own environment variables and port exposures via the [command line arguments](https://docs.docker.com/engine/reference/run/)
 
 ### Testing
 #### Linting

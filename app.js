@@ -66,8 +66,9 @@ var app = express()
  * Connect to MongoDB.
  */
 mongoose.connect(process.env.MONGODB || process.env.MONGOLAB_URI)
-mongoose.connection.on('error', function () {
-  console.log('new auth callback!')
+mongoose.connection.on('error', function (err) {
+  console.log('Error when connecting with MongoDB!')
+  console.log(err)
   process.exit(1)
 })
 
