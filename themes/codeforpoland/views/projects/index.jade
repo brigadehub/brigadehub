@@ -20,7 +20,7 @@ block content
         //parent list
         ul
           mixin sidebarItem('Keywords',keywords)
-      //Add projects    
+      //Add projects
       .col-sm-9
         .row
         each project in projects
@@ -28,7 +28,7 @@ block content
           .col-sm-6
             .card
                 a(href='/projects/#{project.id}')
-                  img(src='http://placehold.it/200x200' alt='placeholder').img-fluid.card-img-top
+                  img(src='#{project.thumbnailUrl}').img-fluid.card-img-top
                 .card-block
                   h3.card-title
                     a(href='/projects/#{project.id}')
