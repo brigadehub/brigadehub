@@ -12,7 +12,8 @@ var projectsSchema = new mongoose.Schema({
   /* Standard BetaNYC civic.json, used by CFAPI */
 
   status: String, // civic.json + civic.dc.json - proposed, ideation, alpha, beta, production, archival
-  thumbnailUrl: String,
+  thumbnailUrl: {type: String, default: 'http://placehold.it/200x200'},
+  bannerUrl: {type: String, default: 'http://placehold.it/1000x200?text=banner'},
   bornAt: String,
   geography: String,
   politicalEntity: String,
