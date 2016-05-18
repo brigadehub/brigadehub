@@ -5,7 +5,7 @@ var postsSchema = new mongoose.Schema({
   title: {type: String, required: true}, // Display title
   author: String,
   url: String, // an external link you can use to override where to go when clicking
-  image: String,
+  image: {type: String, default: 'http://i.imgur.com/MRgvL1K.png'},
   description: String,
   content: String,
   date: String,

@@ -413,16 +413,6 @@ footer {
 }
 
 
-.draft:before {
-    display: block;
-    position: absolute;
-    text-align: center;
-    width: 100%;
-    content: "draft";
-    font-size: 2em;
-    color: white;
-    background: rgba(0,0,0,.8);
-  }
 
   .tags .selected a{
     background: yellow;
