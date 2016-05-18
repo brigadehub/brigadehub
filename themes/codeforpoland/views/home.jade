@@ -89,7 +89,7 @@ block content
 
         .col-sm-2
           #landing-project-1.landing-project
-            img.img-thumbnail(src="http://placehold.it/200x200")
+            img.img-thumbnail(src="#{ project.thumbnailUrl }")
             a(href='/projects/#{project.id}')=project.name
 
 
@@ -101,7 +101,7 @@ block content
       for post in posts
         .col-sm-4
           #post-1.card.post
-            img.card-img-top.img-fluid(src="http://placehold.it/400X250")
+            span.thumbnail(style='background-image:url(#{post.image});').img-fluid.card-img-top
             .card-block
               h4.card-title
                 a(href="/blog/post/#{post.slug}") #{post.title}
