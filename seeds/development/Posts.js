@@ -17,8 +17,7 @@ for (var i = 0; i < 30; i++) {
     'title': wisdom + i,
     'author': ['fakeUser', 'spiffysparrow', 'happyPoster'][Math.floor(Math.random() * 3)],
     'url': '',
-    // there are images for all every number, so this will assign a unique consistent image for up to i = 99
-    'image': 'https://avatars3.githubusercontent.com/u/27888' + (i + 10),
+    'image': 'http://i.imgur.com/MRgvL1K.png',
     'description': faker.lorem.sentence(30),
     'content': '# Example post\n\nThis is a test post\n\n- one\n- two\n\ntest | test2\n---- | -----\ntester | tester2\n\n',
     'date': 'Wed Mar 30 2016 18:51:00 GMT-0700 (PDT)',
