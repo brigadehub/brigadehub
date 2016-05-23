@@ -125,15 +125,15 @@ block content
       .form-group.col-sm-12
         label.col-sm-3.control-label(for='new-external-link-name') New Link Name
         .col-sm-7
-          input.form-control(type='text', name='new-external-link-name', id='new-external-link-name', value='', placeholder='External Link Title')
+          input.form-control(type='text', name='new-external[name]', id='new-external-link-name', value='', placeholder='External Link Title')
       .form-group.col-sm-12
         label.col-sm-3.control-label(for='new-external-link') New Link URL
         .col-sm-7
-          input.form-control(type='text', name='new-external-link', id='new-external-link', value='', placeholder='http://example.com')
+          input.form-control(type='text', name='new-external[link]', id='new-external-link', value='', placeholder='http://example.com')
       .form-group.col-sm-12
         label.col-sm-3.control-label(for='new-external-link-target') New Link Target
         .col-sm-7
-          input.form-control(type='text', name='new-external-link-target', id='new-external-link-target', value='', placeholder='self or _blank')
+          input.form-control(type='text', name='new-external[target]', id='new-external-link-target', value='', placeholder='self or _blank')
     .form-group
       .col-sm-offset-3.col-sm-4
         button.btn.btn.btn-primary(type='submit')
