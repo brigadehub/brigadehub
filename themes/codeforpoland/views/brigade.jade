@@ -104,21 +104,21 @@ block content
               | Show Login Page
     .row
       h3 External Nav Links
-    each external in brigade.theme.page.external
+    each external, index in brigade.theme.page.external
       .row
         hr
         .form-group.col-sm-12
           label.col-sm-3.control-label(for='external-link-name') External Link Name
           .col-sm-7
-            input.form-control(type='text', name='external-link-name', id='external-link-name', value='#{external.name}')
+            input.form-control(type='text', name='externals[#{index}][name]', id='external-link-name', value='#{external.name}')
         .form-group.col-sm-12
           label.col-sm-3.control-label(for='external-link') External Link URL
           .col-sm-7
-            input.form-control(type='text', name='external-link', id='external-link', value='#{external.link}')
+            input.form-control(type='text', name='externals[#{index}][link]', id='external-link', value='#{external.link}')
         .form-group.col-sm-12
           label.col-sm-3.control-label(for='external-link-target') External Link Target
           .col-sm-7
-            input.form-control(type='text', name='external-link-target', id='external-link-target', value='#{external.target}')
+            input.form-control(type='text', name='externals[#{index}][target]', id='external-link-target', value='#{external.target}')
     .row
       h3 New External Link
       hr

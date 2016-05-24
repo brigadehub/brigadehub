@@ -28,7 +28,7 @@ exports.postBrigade = function (req, res, next) {
     req.flash('errors', errors)
     return res.redirect('/brigade')
   } */
-  console.log(req.body)
+  // console.log(req.body)
   res.locals.brigade.name = req.body.name
   res.locals.brigade.location.general = req.body.location
   res.locals.brigade.url = req.body.url
@@ -63,6 +63,7 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.theme.page.blog = req.body['show-blog'] === 'on'
       thisBrigade.theme.page.about = req.body['show-about'] === 'on'
       thisBrigade.theme.page.login = req.body['show-login'] === 'on'
+      thisBrigade.theme.page.external = (req.body['externals'])
       if (req.body['new-external'].name || req.body['new-external'].link || req.body['new-external'].target) {
         if (!(req.body['new-external'].name) || !(req.body['new-external'].link) || !(req.body['new-external'].target)) {
           req.flash('errors', { msg: 'Please make sure that all three fields for your new external link are filled out.' })
