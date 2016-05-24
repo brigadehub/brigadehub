@@ -55,7 +55,6 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.meetup = req.body.meetupurl
       thisBrigade.copy.description = req.body.description
     } else if (req.body['theme-slug']) { // theme updated
-      console.log(req.body)
       thisBrigade.theme.slug = req.body['theme-slug']
       thisBrigade.theme.logo = req.body.logo
       thisBrigade.theme.page.title = req.body['show-title'] === 'on'
@@ -69,7 +68,6 @@ exports.postBrigade = function (req, res, next) {
           return link
         }
       })
-      console.log(links)
       thisBrigade.theme.page.external = links
       if (req.body['new-external'].name || req.body['new-external'].link || req.body['new-external'].target) {
         if (!(req.body['new-external'].name) || !(req.body['new-external'].link) || !(req.body['new-external'].target)) {
