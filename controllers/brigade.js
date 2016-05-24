@@ -55,6 +55,7 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.meetup = req.body.meetupurl
       thisBrigade.copy.description = req.body.description
     } else if (req.body['theme-slug']) { // theme updated
+      console.log(req.body)
       thisBrigade.theme.slug = req.body['theme-slug']
       thisBrigade.theme.logo = req.body.logo
       thisBrigade.theme.page.title = req.body['show-title'] === 'on'
@@ -63,7 +64,13 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.theme.page.blog = req.body['show-blog'] === 'on'
       thisBrigade.theme.page.about = req.body['show-about'] === 'on'
       thisBrigade.theme.page.login = req.body['show-login'] === 'on'
-      thisBrigade.theme.page.external = (req.body['externals'])
+      var links = req.body['externals'].filter(function (link) {
+        if (!link.delete) {
+          return link
+        }
+      })
+      console.log(links)
+      thisBrigade.theme.page.external = links
       if (req.body['new-external'].name || req.body['new-external'].link || req.body['new-external'].target) {
         if (!(req.body['new-external'].name) || !(req.body['new-external'].link) || !(req.body['new-external'].target)) {
           req.flash('errors', { msg: 'Please make sure that all three fields for your new external link are filled out.' })

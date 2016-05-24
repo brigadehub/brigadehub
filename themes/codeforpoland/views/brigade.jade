@@ -119,7 +119,10 @@ block content
           label.col-sm-3.control-label(for='external-link-target') External Link Target
           .col-sm-7
             input.form-control(type='text', name='externals[#{index}][target]', id='external-link-target', value='#{external.target}')
+        input(type='checkbox', name='externals[#{index}][delete]')
+        |  Delete Link?
     .row
+      br
       h3 New External Link
       hr
       .form-group.col-sm-12
