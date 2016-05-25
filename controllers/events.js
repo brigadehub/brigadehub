@@ -136,6 +136,11 @@ module.exports = {
       thisEvent.host = req.body.host
       thisEvent.start = moment.tz(startString, 'DD-MMM-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
       thisEvent.end = moment.tz(endString, 'DD-MMM-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
+      if (thisEvent.end < thisEvent.start) {
+        req.flash('errors', {msg: 'You can not have an event with an end time earlier than its start time.'})
+        res.redirect('/events/' + req.params.eventId + '/settings')
+        return
+      }
       thisEvent.url = req.body.url
       thisEvent.description = req.body.description
       thisEvent.save(function (err) {

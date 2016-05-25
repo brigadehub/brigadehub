@@ -54,6 +54,14 @@ block content
         .col-sm-7
           input.form-control(type='name', name='keywords', id='keywords', value='#{project.keywords}')
       .form-group
+        label.col-sm-3.control-label(for='thumbnailUrl') Project Thumbnail Image URL
+        .col-sm-7
+          input.form-control(type='name', name='thumbnailUrl', id='thumbnailUrl', value='#{project.thumbnailUrl}')
+      .form-group
+        label.col-sm-3.control-label(for='bannerUrl') Project Banner Image URL
+        .col-sm-7
+          input.form-control(type='name', name='bannerUrl', id='bannerUrl', value='#{project.bannerUrl}')
+      .form-group
         label.col-sm-3.control-label(for='description') Description
         .col-sm-7
           textarea.form-control(name='description', id='description', rows="6")

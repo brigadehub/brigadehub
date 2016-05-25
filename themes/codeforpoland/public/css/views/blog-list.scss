@@ -28,4 +28,25 @@
       }
     }
   }
+
+.draft:before {
+    display: block;
+    position: absolute;
+    text-align: center;
+    width: 33.3%;
+    content: "draft";
+    font-size: 2em;
+    color: white;
+    background: rgba(0,0,0,.8);
+  }
+  .blog-list-card {
+    span.thumbnail {
+      display:block;
+      width:370px;
+      height:200px;
+      background-size:cover;
+      background-position:center center;
+      background-repeat:no-repeat;
+    }
+  }
 }

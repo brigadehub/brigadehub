@@ -12,7 +12,8 @@ var projectsSchema = new mongoose.Schema({
   /* Standard BetaNYC civic.json, used by CFAPI */
 
   status: String, // civic.json + civic.dc.json - proposed, ideation, alpha, beta, production, archival
-  thumbnailUrl: String,
+  thumbnailUrl: {type: String, default: 'http://placehold.it/370x200'},
+  bannerUrl: {type: String, default: 'http://placehold.it/1000x200?text=banner'},
   bornAt: String,
   geography: String,
   politicalEntity: String,
@@ -123,8 +124,8 @@ projectsSchema.statics.fetchGitHubUsers = function (users, cb) {
   users.forEach(function (user) {
     promiseArray.push(getUser(user))
   })
-  Promise.all(promiseArray).then(function (result) {
-    cb(result)
+  Promise.all(promiseArray).then(function (contactList) {
+    cb(contactList)
   })
 //   return new Promise (function (resolve, reject) {
 //     users.map(function (user) {
