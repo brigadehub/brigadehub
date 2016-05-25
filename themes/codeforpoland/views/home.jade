@@ -89,7 +89,7 @@ block content
 
         .col-sm-2
           #landing-project-1.landing-project
-            img.img-thumbnail(src="http://placehold.it/200x200")
+            img.img-thumbnail(src="#{ project.thumbnailUrl }")
             a(href='/projects/#{project.id}')=project.name
 
 
@@ -98,33 +98,14 @@ block content
     hr
     #landing-blog.row
       h2.text-xs-center  Blog
-      .col-sm-4
-        #post-1.card.post
-          img.card-img-top.img-fluid(src="http://placehold.it/400X250")
-          .card-block
-            h4.card-title
-              a(href="#") Blog Post Title
-            p.card-text This is some text.
-            p.card-text 00 Dec. 16
-              a(href="#") Category
-      .col-sm-4
-        #post-2.card.post
-          img.card-img-top.img-fluid(src="http://placehold.it/400X250")
-          .card-block
-            h4.card-title
-              a(href="#") Blog Post Title
-            p.card-text This is some text.
-            p.card-text 00 Dec. 16
-              a(href="#") Blog Post Title
-      .col-sm-4
-        #post-3.card.post
-          img.card-img-top.img-fluid(src="http://placehold.it/400X250")
-          .card-block
-            h4.card-title
-              a(href="#") Blog Post Title
-            p.card-text This is some text.
-            p.card-text 00 Dec. 16
-              a(href="#")
-                Category
+      for post in posts
+        .col-sm-4
+          #post-1.card.post
+            span.thumbnail(style='background-image:url(#{post.image});').img-fluid.card-img-top
+            .card-block
+              h4.card-title
+                a(href="/blog/post/#{post.slug}") #{post.title}
+              p.card-text #{post.description}
+              p.card-text #{post.date}
       .col-sm-12.text-xs-center
         a.btn.btn-secondary(href="/blog").center-block All Posts

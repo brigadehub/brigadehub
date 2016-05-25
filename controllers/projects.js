@@ -2,6 +2,9 @@
  * Split into declaration and initialization for better startup performance.
  */
 
+var slug = require('slug')
+var markdown = require('marked')
+
 var Projects = require('../models/Projects')
 
 module.exports = {
@@ -103,16 +106,28 @@ module.exports = {
       id: req.params.projectId
     }, function (err, foundProject) {
       if (err) console.error(err)
-      Projects.fetchGitHubUsers(foundProject.contact, function (contactList) {
+      foundProject.content = markdown(foundProject.content)
+      if (foundProject.contact.length) {
+        Projects.fetchGitHubUsers(foundProject.contact, function (contactList) {
+          res.render(res.locals.brigade.theme.slug + '/views/projects/project', {
+            view: 'project',
+            projectId: req.params.projectId,
+            title: foundProject.name,
+            brigade: res.locals.brigade,
+            project: foundProject,
+            contacts: contactList
+          })
+        })
+      } else {
         res.render(res.locals.brigade.theme.slug + '/views/projects/project', {
           view: 'project',
           projectId: req.params.projectId,
           title: foundProject.name,
           brigade: res.locals.brigade,
           project: foundProject,
-          contacts: contactList
+          contacts: []
         })
-      })
+      }
     })
   },
   /**
@@ -138,50 +153,53 @@ module.exports = {
     Projects.find({'id': req.params.projectId}, function (err, foundProject) {
       if (err) console.log(err)
       var thisProject = foundProject[0]
-      thisProject.categories = []
-      thisProject.needs = []
-      thisProject.contact = []
-      thisProject.data = []
-      thisProject.keywords = []
-      thisProject.name = req.body.title || ''
-      thisProject.status = req.body.status || ''
-      thisProject.type = req.body.type || ''
-      thisProject.politicalEntity = req.body.politicalEntity || ''
-      thisProject.geography = req.body.geography || ''
-      thisProject.homepage = req.body.homepage || ''
-      thisProject.repository = req.body.repository || ''
-      thisProject.description = req.body.description || ''
-      if (req.body.categories) {
-        req.body.categories.replace(/\s/g, '').split(',').forEach(function (category) {
-          thisProject.categories.push(category)
+      if (thisProject) {
+        console.log(req.body)
+        thisProject.categories = []
+        thisProject.needs = []
+        thisProject.contact = []
+        thisProject.data = []
+        thisProject.keywords = []
+        thisProject.name = req.body.title || ''
+        thisProject.id = slug(thisProject.name)
+        thisProject.status = req.body.status || ''
+        thisProject.politicalEntity = req.body.politicalEntity || ''
+        thisProject.geography = req.body.geography || ''
+        thisProject.homepage = req.body.homepage || ''
+        thisProject.repository = req.body.repository || ''
+        thisProject.description = req.body.description || ''
+        thisProject.content = req.body.content || ''
+        thisProject.thumbnailUrl = req.body.thumbnailUrl || ''
+        thisProject.bannerUrl = req.body.bannerUrl || ''
+        if (req.body.categories) {
+          req.body.categories.replace(/\s/g, '').split(',').forEach(function (category) {
+            thisProject.categories.push(category)
+          })
+        }
+        if (req.body.contacts) {
+          req.body.contacts.replace(/\s/g, '').split(',').forEach(function (contact) {
+            thisProject.contact.push(contact)
+          })
+        }
+        if (req.body.needs) {
+          req.body.needs.replace(/\s/g, '').split(',').forEach(function (need) {
+            thisProject.needs.push(need)
+          })
+        }
+        if (req.body.keywords) {
+          req.body.keywords.replace(/\s/g, '').split(',').forEach(function (keyword) {
+            thisProject.keywords.push(keyword)
+          })
+        }
+        return thisProject.save(function (err) {
+          if (err) console.log(err)
+          req.flash('success', { msg: 'Success! You have updated your project.' })
+          res.redirect('/projects/' + thisProject.id + '/settings')
         })
       }
-      if (req.body.contacts) {
-        req.body.contacts.replace(/\s/g, '').split(',').forEach(function (contact) {
-          thisProject.contact.push(contact)
-        })
-      }
-      if (req.body.needs) {
-        req.body.needs.replace(/\s/g, '').split(',').forEach(function (need) {
-          thisProject.needs.push(need)
-        })
-      }
-      if (req.body.keywords) {
-        req.body.keywords.replace(/\s/g, '').split(',').forEach(function (keyword) {
-          thisProject.keywords.push(keyword)
-        })
-      }
-      if (req.body.data) {
-        req.body.data.replace(/\s/g, '').split(',').forEach(function (datum) {
-          thisProject.data.push(datum)
-        })
-      }
-      thisProject.save(function (err) {
-        if (err) console.log(err)
-      })
+      req.flash('errors', { msg: 'Could not find project with id ' + req.params.projectId })
+      res.redirect('/projects/manage')
     })
-    req.flash('success', { msg: 'Success! You have updated your project.' })
-    res.redirect('/projects/' + req.params.projectId + '/settings')
   },
   /**
    * POST /projects/sync

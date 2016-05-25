@@ -20,15 +20,15 @@ block content
         //parent list
         ul
           mixin sidebarItem('Keywords',keywords)
-      //Add projects    
+      //Add projects
       .col-sm-9
         .row
         each project in projects
           // for perfect alignment, need a row on every odd instance of project. (row, col col, row, col col, etc. ) this code will look ok unitl you get a lot of description text on a project. - AB
           .col-sm-6
-            .card
+            .card.project-list-card
                 a(href='/projects/#{project.id}')
-                  img(src='http://placehold.it/200x200' alt='placeholder').img-fluid.card-img-top
+                  span.thumbnail(style='background-image:url(#{project.thumbnailUrl});').img-fluid.card-img-top
                 .card-block
                   h3.card-title
                     a(href='/projects/#{project.id}')
