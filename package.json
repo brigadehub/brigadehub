@@ -67,7 +67,9 @@
     "require-dir": "^0.3.0",
     "selectn": "1.0.9",
     "serve-favicon": "^2.3.0",
-    "standard": "^6.0.4"
+    "slug": "^0.9.1",
+    "standard": "^6.0.4",
+    "uuid": "^2.0.1"
   },
   "devDependencies": {
     "careful": "^1.0.2",
