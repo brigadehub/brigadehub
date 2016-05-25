@@ -5,68 +5,83 @@ block content
     h3 Project Settings
     form.row.form-horizontal(action='/projects/#{project.id}', method='POST')
       input(type='hidden', name='_csrf', value=_csrf)
-      .form-group
+      .form-group.row
         label.col-sm-3.control-label(for='title') Project title
         .col-sm-7
-          input.form-control(type='name', name='title', id='title', value='#{project.name}')
-      .form-group
+          input.form-control(type='text', name='title', id='title', value='#{project.name}', placeholder='Awesome Project Name')
+      .form-group.row
+        label.col-sm-3.control-label(for='title') Project Id (based off title)
+        .col-sm-7
+          pre
+            code=project.id
+      .form-group.row
+        label.col-sm-3.control-label(for='description') Project Description
+        .col-sm-7
+          input.form-control(type='text', name='description', id='description', value='#{project.description}', placeholder='This project is the best thing ever.')
+      .form-group.row
         label.col-sm-3.control-label(for='status') Status
         .col-sm-7
-          input.form-control(type='name', name='status', id='status', value='#{project.status}')
-      .form-group
+          select.form-control(id="status", name="status")
+            for status in ['proposed', 'discovery', 'alpha', 'beta', 'live', 'prototype', 'mvp' ]
+              option(value="#{status}", selected=(status == project.status)) #{status}
+      .form-group.row
         label.col-sm-3.control-label(for='geography') Geography
         .col-sm-7
-          input.form-control(type='name', name='geography', id='geography', value='#{project.geography}')
-      .form-group
+          input.form-control(type='text', name='geography', id='geography', value='#{project.geography}', placeholder='Awesome town, USA')
+      .form-group.row
         label.col-sm-3.control-label(for='politicalEntity') Political Entity
         .col-sm-7
-          input.form-control(type='name', name='politicalEntity', id='politicalEntity', value='#{project.politicalEntity}')
-      .form-group
-        label.col-sm-3.control-label(for='type') Type
-        .col-sm-7
-          input.form-control(type='name', name='type', id='type', value='#{project.type}')
-      .form-group
+          input.form-control(type='text', name='politicalEntity', id='politicalEntity', value='#{project.politicalEntity}', placeholder='City of Awesome, LLC')
+      .form-group.row
         label.col-sm-3.control-label(for='homepage') Homepage
         .col-sm-7
-          input.form-control(type='name', name='homepage', id='homepage', value='#{project.homepage}')
-      .form-group
+          input.form-control(type='text', name='homepage', id='homepage', value='#{project.homepage}')
+      .form-group.row
+        label.col-sm-3.control-label(for='githubSlug') GitHub Slug
+        .col-sm-7
+          input.form-control(type='text', name='githubSlug', id='githubSlug', value='#{project.githubSlug}')
+      .form-group.row
         label.col-sm-3.control-label(for='repository') GitHub Repo
         .col-sm-7
-          input.form-control(type='name', name='repository', id='repository', value='#{project.repository}')
-      .form-group
+          input.form-control(type='text', name='repository', id='repository', value='#{project.repository}')
+      .form-group.row
         label.col-sm-3.control-label(for='contacts') Contacts
         .col-sm-7
-          input.form-control(type='name', name='contacts', id='contacts', value='#{project.contact}')
-      .form-group
+          input.form-control(type='text', name='contacts', id='contacts', value='#{project.contact}', placeholder='username1, username2, etc.')
+      .form-group.row
         label.col-sm-3.control-label(for='categories') Project Categories
         .col-sm-7
-          input.form-control(type='name', name='categories', id='categories', value='#{project.categories}')
-      .form-group
+          input.form-control(type='text', name='categories', id='categories', value='#{project.categories}', placeholder='homelessness, transit, etc.')
+      .form-group.row
         label.col-sm-3.control-label(for='needs') Project Needs
         .col-sm-7
-          input.form-control(type='name', name='needs', id='needs', value='#{project.needs}')
-      .form-group
-        label.col-sm-3.control-label(for='data') Project Data
-        .col-sm-7
-          input.form-control(type='name', name='data', id='data', value='#{project.data}')
-      .form-group
+          input.form-control(type='text', name='needs', id='needs', value='#{project.needs}', placeholder='UX, frontend design, etc.')
+      .form-group.row
         label.col-sm-3.control-label(for='keywords') Project Keywords
         .col-sm-7
-          input.form-control(type='name', name='keywords', id='keywords', value='#{project.keywords}')
-      .form-group
+          input.form-control(type='text', name='keywords', id='keywords', value='#{project.keywords}', placeholder='cms, mobile, etc.')
+      .form-group.row
         label.col-sm-3.control-label(for='thumbnailUrl') Project Thumbnail Image URL
         .col-sm-7
-          input.form-control(type='name', name='thumbnailUrl', id='thumbnailUrl', value='#{project.thumbnailUrl}')
-      .form-group
+          input.form-control(type='text', name='thumbnailUrl', id='thumbnailUrl', value='#{project.thumbnailUrl}')
+      .form-group.row
+        .col-sm-7.col-sm-offset-3
+          img(src="#{project.thumbnailUrl}")
+      .form-group.row
         label.col-sm-3.control-label(for='bannerUrl') Project Banner Image URL
         .col-sm-7
-          input.form-control(type='name', name='bannerUrl', id='bannerUrl', value='#{project.bannerUrl}')
-      .form-group
-        label.col-sm-3.control-label(for='description') Description
+          input.form-control(type='text', name='bannerUrl', id='bannerUrl', value='#{project.bannerUrl}')
+      .form-group.row
+        .col-sm-7.col-sm-offset-3
+          img(src="#{project.bannerUrl}")
+      .form-group.row
+        label.col-sm-3.control-label(for='content') Profile Content &nbsp;
+          a(href='https://guides.github.com/features/mastering-markdown/#syntax')
+            img(src='https://cdn.rawgit.com/dcurtis/markdown-mark/master/svg/markdown-mark.svg', width='25')
         .col-sm-7
-          textarea.form-control(name='description', id='description', rows="6")
-            |#{project.description}
-      .form-group
+          textarea.form-control(name='content', id='content', rows="6")
+            |#{project.content}
+      .form-group.row
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')
             i.fa.fa-pencil

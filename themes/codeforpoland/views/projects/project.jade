@@ -11,9 +11,12 @@ extends ../layout
 block content
   .row
     .col-sm-12
-      h1.page-header= project.name
+      h1.page-header
+        img(src='#{project.thumbnailUrl}', height='50')
+        | &nbsp;
+        =project.name
   .row
-    .col-sm-9
+    .col-sm-12
       .banner(style="margin-bottom: 50px;")
         span.project-banner(style='background-image:url(#{project.bannerUrl});').img-fluid
       .row
@@ -71,6 +74,7 @@ block content
             p.keywords
               strong keywords:
               |  #{project.keywords}
+          p !{project.content}
         .col-sm-4
           h4 Team
           each contact in contacts
@@ -84,30 +88,30 @@ block content
                 else
                   |#{contact}
 
-    .col-sm-3
-        .see-also
-          .links
-            .card
-              a(href="#")
-                img(src="http://placehold.it/400x400?text=other+project").card-img-top.img-fluid
-              .card-block
-                .card-title
-                  a(href="#") Other Project A
-                .card-text
-                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            .card
-              a(href="#")
-                img(src="http://placehold.it/400x400?text=other+project").card-img-top.img-fluid
-              .card-block
-                .card-title
-                  a(href="#") Other Project A
-                .card-text
-                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            .card
-              a(href="#")
-                img(src="http://placehold.it/400x400?text=other+project").card-img-top.img-fluid
-              .card-block
-                .card-title
-                  a(href="#") Other Project A
-                .card-text
-                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    //- .col-sm-3
+    //-     .see-also
+    //-       .links
+    //-         .card
+    //-           a(href="#")
+    //-             img(src="http://placehold.it/400x400?text=other+project").card-img-top.img-fluid
+    //-           .card-block
+    //-             .card-title
+    //-               a(href="#") Other Project A
+    //-             .card-text
+    //-               p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    //-         .card
+    //-           a(href="#")
+    //-             img(src="http://placehold.it/400x400?text=other+project").card-img-top.img-fluid
+    //-           .card-block
+    //-             .card-title
+    //-               a(href="#") Other Project A
+    //-             .card-text
+    //-               p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    //-         .card
+    //-           a(href="#")
+    //-             img(src="http://placehold.it/400x400?text=other+project").card-img-top.img-fluid
+    //-           .card-block
+    //-             .card-title
+    //-               a(href="#") Other Project A
+    //-             .card-text
+    //-               p Lorem ipsum dolor sit amet, consectetur adipiscing elit.

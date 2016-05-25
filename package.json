@@ -79,6 +79,7 @@
     "require-dir": "^0.3.0",
     "selectn": "1.0.9",
     "serve-favicon": "^2.3.0",
+    "slug": "^0.9.1",
     "standard": "^6.0.4",
     "twilio": "^2.8.0",
     "twit": "^2.1.1",
