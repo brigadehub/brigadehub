@@ -4,6 +4,7 @@ var _ = require('lodash')
 var linkHeaderParser = require('link-header-parser')
 var Users = require('./Users')
 var defaultHeaders = require('../config/defaultGithubAPIHeaders')
+var slug = require('slug')
 
 var projectsSchema = new mongoose.Schema({
   id: String, // this is the slug - civic.sf.json + civic.dc.json
@@ -12,8 +13,8 @@ var projectsSchema = new mongoose.Schema({
   /* Standard BetaNYC civic.json, used by CFAPI */
 
   status: String, // civic.json + civic.dc.json - proposed, ideation, alpha, beta, production, archival
-  thumbnailUrl: {type: String, default: 'http://placehold.it/370x200'},
-  bannerUrl: {type: String, default: 'http://placehold.it/1000x200?text=banner'},
+  thumbnailUrl: {type: String, default: 'http://i.imgur.com/MRgvL1K.png'},
+  bannerUrl: {type: String, default: 'http://i.imgur.com/MRgvL1K.png'},
   bornAt: String,
   geography: String,
   politicalEntity: String,
@@ -26,10 +27,12 @@ var projectsSchema = new mongoose.Schema({
   // id: String, // represented above
   name: String, // Display title
   description: String,
+  content: String,
   license: String,
   // status: String, // represented above
   homepage: String,
   repository: String,
+  githubSlug: String,
   contact: Array,
   partners: Array, // name, email, logo?
   data: Array,
@@ -64,7 +67,7 @@ projectsSchema.statics.fetchGithubRepos = function (brigade, user, cb) {
         results.forEach(function (project) {
           function buildPromise (project) {
             return new Promise(function (resolve, reject) {
-              Projects.find({id: project.repo.name, brigade: brigade.slug}, function (err, foundProject) {
+              Projects.find({githubSlug: project.repo.name, brigade: brigade.slug}, function (err, foundProject) {
                 if (err) console.error(err)
                 if (!foundProject.length) {
                   console.log('creating', project.repo.name)
@@ -205,11 +208,13 @@ function createUpdateProjectData (project, original, brigade) {
   project.json.links = project.json.links || []
   project.json.contact = project.json.contact || []
 
-  original.id = project.repo.name // this is the slug - civic.sf.json + civic.dc.json
+  original.id = original.id ? slug(original.id) : slug(project.repo.name) // this is the slug - civic.sf.json + civic.dc.json
+  original.githubSlug = project.repo.name // this is the slug - civic.sf.json + civic.dc.json
   original.brigade = brigade.slug // this is the slug - civic.sf.json + civic.dc.json
   original.status = project.json.status ? project.json.status.toLowerCase() : 'proposed' // civic.json + civic.dc.json - proposed, ideation, alpha, beta, production, archival
 
-  original.thumbnailUrl = project.json.thumbnailUrl || 'https://placeholdit.imgix.net/~text?txtsize=15&txt=thumbnail&w=100&h=100'
+  original.thumbnailUrl = project.json.thumbnailUrl || 'http://i.imgur.com/MRgvL1K.png'
+  original.bannerUrl = project.json.bannerUrl || 'http://i.imgur.com/MRgvL1K.png'
   original.bornAt = project.json.bornAt || brigade.name
   original.geography = project.json.geography || brigade.location.general
   original.politicalEntity = project.json.politicalEntity || ''
