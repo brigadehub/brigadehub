@@ -8,9 +8,6 @@ footer
         each sponsor in brigade.sponsors.other
           a(href=sponsor.link)
             img(src=sponsor.image, alt=sponsor.name)
-    //- .row.show-partners
-    //-   .col-sm-12
-    //-     a.btn.btn-danger(href='http://codeforpoland.org/partnerzy/') Show all partners
   .row.footer-nav
     .col-sm-12
       ul
@@ -31,6 +28,6 @@ footer
         if brigade.theme.page.about
           li
             a(href='/contact') Contact
-            
+
         li.float.right
           a(href='https://github.com/sfbrigade/brigadehub') powered by brigadehub
