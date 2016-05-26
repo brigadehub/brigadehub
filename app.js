@@ -24,7 +24,6 @@ var expressValidator = require('express-validator')
 var sass = require('node-sass-middleware')
 var path = require('path')
 var requireDir = require('require-dir')
-/* var _ = require('lodash') */
 
 var DB_INSTANTIATED
 
