@@ -17,7 +17,6 @@
     "db:clear": "./scripts/database-clear",
     "db:seed": "./scripts/database-seed",
     "develop": "nodemon app.js",
-    "install:clean": "rm -rf node_modules && npm install",
     "lint": "standard",
     "validate": "npm ls",
     "selenium:install": "selenium-standalone install",
@@ -68,8 +67,7 @@
     "selectn": "1.0.9",
     "serve-favicon": "^2.3.0",
     "slug": "^0.9.1",
-    "standard": "^6.0.4",
-    "uuid": "^2.0.1"
+    "standard": "^6.0.4"
   },
   "devDependencies": {
     "careful": "^1.0.2",
