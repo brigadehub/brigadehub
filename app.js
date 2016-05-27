@@ -24,7 +24,12 @@ var expressValidator = require('express-validator')
 var sass = require('node-sass-middleware')
 var path = require('path')
 var requireDir = require('require-dir')
+var pkg = require('./package.json')
+require('colors')
 /* var _ = require('lodash') */
+
+console.log('                      \u2590\u2593\u2580\u2593\u2580\u2593\u2580\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593              \u2584\u2584\u2584                 \r\n                      \u2590\u2593\u2584\u2593\u2584\u2593\u2584\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593            \u2584\u2593\u2593\u2593                 \r\n              \u2593\u2593\u2593\u2593\u2593   \u2590\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593           \u2553\u2593\u2593\u2593   \u2552\u2593\u2593\u2584\u2584          \r\n          \u2584\u2593\u2593\u2593\u2593\u2593\u2593     \u2590\u2593\u2593\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2593\u2593\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2593\u2593\u2593          \u2554\u2593\u2593\u2593     \u2580\u2588\u2593\u2593\u2593\u2593\u2584\u2584      \r\n      \u2584\u2584\u2593\u2593\u2593\u2593\u2588\u2580\u2518       \u2590\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593          \u2590\u2593\u2593         \u2584\u2593\u2593\u2588         \u2559\u2580\u2588\u2593\u2593\u2593\u2593\u2584\u2584  \r\n    \u2593\u2593\u2593\u2593\u2593\u2593\u2593           \u2590\u2593\u2593\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2593\u2593          \u2590\u2593\u2593        \u2584\u2593\u2593\u2588              \u2559\u2593\u2593\u2593\u2593\u2593\u2593\r\n      \u2580\u2588\u2593\u2593\u2593\u2593\u2593\u2584        \u2590\u2593\u2593\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2593\u2593          \u2590\u2593\u2593       \u2584\u2593\u2593\u2588            ;\u2584\u2593\u2593\u2593\u2593\u2588\u2580\u2559 \r\n          \u2580\u2588\u2593\u2593\u2593\u2593\u2593\u2584    \u2590\u2593\u2593\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2593\u2593\u2593      \u2584\u2593\u2593\u2588         ,\u2584\u2593\u2593\u2593\u2593\u2588\u2580\u2580     \r\n              \u2593\u2593\u2593\u2593\u258C   \u2590\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593     \u2584\u2593\u2593\u2588         \u2590\u2593\u2593\u2593\u2580\u2580.        \r\n                      \u2590\u2593\u2593\u2593\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2593\u2593\u2593    \u2584\u2593\u2593\u2588            \u00AC            \r\n                      \u2590\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593   \u2588\u2580\u2580                          \r\n __                                      __          __               __        \r\n\/\\ \\             __                     \/\\ \\        \/\\ \\             \/\\ \\       \r\n\\ \\ \\____  _ __ \/\\_\\     __      __     \\_\\ \\     __\\ \\ \\___   __  __\\ \\ \\____  \r\n \\ \\ \'__`\\\/\\`\'__\\\/\\ \\  \/\'_ `\\  \/\'__`\\   \/\'_` \\  \/\'__`\\ \\  _ `\\\/\\ \\\/\\ \\\\ \\ \'__`\\ \r\n  \\ \\ \\L\\ \\ \\ \\\/ \\ \\ \\\/\\ \\L\\ \\\/\\ \\L\\.\\_\/\\ \\L\\ \\\/\\  __\/\\ \\ \\ \\ \\ \\ \\_\\ \\\\ \\ \\L\\ \\\r\n   \\ \\_,__\/\\ \\_\\  \\ \\_\\ \\____ \\ \\__\/.\\_\\ \\___,_\\ \\____\\\\ \\_\\ \\_\\ \\____\/ \\ \\_,__\/\r\n    \\\/___\/  \\\/_\/   \\\/_\/\\\/___L\\ \\\/__\/\\\/_\/\\\/__,_ \/\\\/____\/ \\\/_\/\\\/_\/\\\/___\/   \\\/___\/ \r\n                         \/\\____\/                                                \r\n                         \\_\/__\/      ')
+console.log('[Brigadehub]'.yellow+' v'+pkg.version)
 
 var DB_INSTANTIATED
 
@@ -65,10 +70,12 @@ var app = express()
 /**
  * Connect to MongoDB.
  */
-mongoose.connect(process.env.MONGODB || process.env.MONGOLAB_URI)
-mongoose.connection.on('error', function () {
-  console.log('new auth callback!')
-  process.exit(1)
+mongoose.connect(process.env.MONGODB || process.env.MONGOLAB_URI, function(err){
+  if (err) throw new Error(err)
+})
+mongoose.connection.on('error', function (err) {
+  console.log('There was an error while trying to connect!')
+  throw new Error(err)
 })
 
 /**
@@ -117,6 +124,7 @@ app.use(function (req, res, next) {
     if (!results.length) throw new Error('BRIGADE NOT IN DATABASE')
     res.locals = res.locals || {}
     res.locals.brigade = results[0]
+    res.locals.brigade.buildVersion = pkg.version
     helpers.tokenLoader(passport, res.locals.brigade.auth)
     next()
   })
@@ -448,7 +456,7 @@ function startServer () {
   app.use(favicon(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public', 'favicon.png')))
   app.use(express.static(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'), { maxAge: 31557600000 }))
   app.listen(app.get('port'), function () {
-    console.log('Brigadehub listening on port', app.get('port'))
+    console.log('[Brigadehub]'.yellow+' Server listening on port', app.get('port'))
   })
 }
 
