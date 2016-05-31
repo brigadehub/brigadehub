@@ -35,11 +35,9 @@ block content
         // rows don't work when made smaller, fix css later
         if index%3 === 0
           .row
-        article.col-sm-2.col-md-4(class=post.published === true ? "" : "draft")
+        article.col-sm-2.col-md-4(class=post.published === true ? "" : "draft").blog-list-card
           a(href=(post.url !== '' ? post.url : '/blog/post/'+post.slug))
-            img(src=post.image, style="width:100%;")
-
-            
+            span.thumbnail(style='background-image:url(#{post.image});').img-fluid.card-img-top
           span.date= post.date
           | | 
           a(href="/author/#{post.author}")

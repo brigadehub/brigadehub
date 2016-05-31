@@ -1,6 +1,6 @@
 {
   "name": "brigadehub",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/sfbrigade/brigadehub.git"
@@ -11,8 +11,8 @@
   "scripts": {
     "start": "node app.js",
     "pretest": "npm run lint",
-    "test": "npm run test:unit && npm run test:e2e",
-    "test:e2e": "echo 'no e2e tests available.'",
+    "test": "npm run test:unit",
+    "test:e2e": "nightwatch",
     "test:unit": "echo 'no unit test available.'",
     "db:clear": "./scripts/database-clear",
     "db:seed": "./scripts/database-seed",
@@ -20,6 +20,9 @@
     "install:clean": "rm -rf node_modules && npm install",
     "lint": "standard",
     "validate": "npm ls",
+    "selenium:install": "selenium-standalone install",
+    "selenium:start": "selenium-standalone start&",
+    "selenium:stop": "pkill -f selenium-standalone",
     "build:docker": "docker build -t sfbrigade/brigadehub .",
     "build:docker:run": "docker run -d --name brigadehub -p 80:5465 -e MONGODB=mongodb://192.168.99.100:27017/brigadehub-docker sfbrigade/brigadehub",
     "build:docker:images": "docker images sfbrigade/brigadehub",
@@ -91,17 +94,23 @@
     "babel-cli": "^6.6.5",
     "blessed": "^0.1.81",
     "blue-tape": "^0.2.0",
+    "careful": "^1.0.2",
     "chai": "^3.4.1",
+    "cz-conventional-changelog": "^1.1.6",
+    "ghooks": "^1.2.1",
     "goosestrap": "^1.0.0",
     "mocha": "^2.3.4",
     "mongodb": "^2.1.7",
     "multiline": "^1.0.2",
+    "nightwatch": "latest",
     "nodemon": "^1.9.1",
-    "precommit-hook": "latest",
+    "phantomjs-prebuilt": "latest",
     "seedling": "0.0.10",
+    "selenium-standalone": "latest",
     "supertest": "^1.1.0",
     "tape": "^4.5.1",
-    "tape-catch": "^1.0.4"
+    "tape-catch": "^1.0.4",
+    "validate-commit-msg": "^2.6.1"
   },
   "standard": {
     "globals": [
@@ -112,9 +121,49 @@
       "after"
     ]
   },
-  "license": "ISC",
-  "pre-commit": [
-    "lint",
-    "test"
-  ]
+  "config": {
+    "validate-commit-msg": {
+      "helpMessage": "Commit message \n\n\t%s\nis not following this project's commit standards. Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#default-commit-message-format) for more details."
+    },
+    "careful": {
+      "prefixes": [
+        "feature",
+        "hotfix",
+        "release",
+        "bugfix",
+        "docs"
+      ],
+      "suggestions": {
+        "features": "feature",
+        "feat": "feature",
+        "fix": "bugfix",
+        "bug": "bugfix",
+        "releases": "release",
+        "doc": "docs"
+      },
+      "skip": [
+        "demo",
+        "develop"
+      ],
+      "disallowed": [
+        "edge",
+        "master"
+      ],
+      "banned": [
+        "wip"
+      ],
+      "seperator": "/",
+      "msgBranchBanned": "Branch name %s banned from push usage. Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#branch-naming-format) for more details.",
+      "msgPrefixNotAllowed": "Branch must have an appropriate prefix (feature, hotfix, bugfix, docs). Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#branch-naming-format) for more details.",
+      "msgSeperatorRequired": "Branch must have an appropriate prefix (feature, hotfix, bugfix, docs). Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#branch-naming-format) for more details."
+    },
+    "ghooks": {
+      "pre-commit": "npm test && careful",
+      "commit-msg": "validate-commit-msg"
+    },
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "license": "ISC"
 }

@@ -17,6 +17,7 @@
   - [Prerequisites](#prerequisites)
   - [Install](#install)
   - [Usage](#usage)
+- [Testing](#testing)
 - [Deploy (not recommended yet)](#deploy)
 - [Troubleshooting](#troubleshooting)
 - [Changelog](#changelog)
@@ -180,6 +181,52 @@ sfbrigade/brigadehub
 
 This will download the image and start the instance.
 
+### Testing
+#### Linting
+
+[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
+For details on our linting / js coding style, visit [`feross/standard'](https://github.com/feross/standard). Linting occurs automatically on commit, but you can run it manually by running:
+
+```
+npm run lint
+```
+
+#### Unit tests
+
+Unit tests are being run via [`tap`](). Any file with the `*.tap.js` naming scheme will be run in unit tests. We are sorely lacking on unit testing, so anyone willing to take these on are very welcome. Unit tests are run automatically on commit, but you can run them manually anytime by running:
+
+```
+npm run test:unit
+```
+
+To run linting and unit tests together, you can run `npm test`.
+
+#### End to end (e2e) tests
+
+For end-to-end testing, we are using a Selenium standalone server, PhantomJS headless browser, and Nightwatch. Since end to end tests involve testing all aspects of the application, including UI interactions, all three of these services need to be running simultaneously to the development server.
+
+##### Installing Selenium
+
+```
+npm run selenium:install
+```
+
+##### Runnning e2e tests
+
+When you are ready to run e2e tests, you'll need to run the following commands in separate terminals:
+
+- `npm run selenium:start`
+- `npm run develop`
+- `npm run test:e2e`
+
+To stop the selenium server after the tests, run `npm run selenium:stop`.
+
+If for some reason, you need to stop the selenium server
+```
+npm selenium:stop
+```
+
 ### Deploy
 
 ***brigadehub, while deployed for Code for San Francisco, has not yet been optimized for wide adoption yet. If you deploy this to your production brigade site, you do so at your own risk.***
@@ -190,7 +237,21 @@ These instructions will be updated as the project emerges from the Alpha-release
 
 ### Troubleshooting
 
-*No troubleshooting steps yet. Want to add some?*
+*Using a SCM client with Mac OS*
+
+There are issues, because of the way Mac OS and Node work together, or don't.  [Here's an example of people having problems](https://github.com/gtramontina/ghooks/issues/40)
+
+The most effective way of solving this, besides learning how to use the git CLI, would be to create an alias in your .bash_profile
+
+Something like this
+```
+ghdc="open Applications/GitHub\ Desktop.app/Contents/MacOS/GitHub\ Desktop"
+```
+And instead of opening your client from an alias in applications
+
+1. open a terminal,
+1. cd to the sfbrigadehub repo root
+1. run your alias
 
 ### Changelog
 
@@ -208,7 +269,7 @@ To see what has changed in recent versions of brigadehub, see the [CHANGELOG](./
 - Leo Lau [@hawflau](https://github.com/hawflau)
 - Jason Durant [@jaydurant](https://github.com/jaydurant)
 - John Naulty Jr. [@jnaulty](https://github.com/jnaulty)
-- [@johngluck65](https://github.com/johngluck65)
+- John Gluck [@johngluck65](https://github.com/johngluck65)
 - Jesse Szwedko [@jszwedko Owner](https://github.com/jszwedko Owner)
 - Judy5000 [@Judy5000 Owner](https://github.com/Judy5000 Owner)
 - Justin [@Juxtaposeidon](https://github.com/Juxtaposeidon)

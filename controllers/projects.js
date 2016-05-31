@@ -151,6 +151,8 @@ module.exports = {
       thisProject.homepage = req.body.homepage || ''
       thisProject.repository = req.body.repository || ''
       thisProject.description = req.body.description || ''
+      thisProject.thumbnailUrl = req.body.thumbnailUrl || ''
+      thisProject.bannerUrl = req.body.bannerUrl || ''
       if (req.body.categories) {
         req.body.categories.replace(/\s/g, '').split(',').forEach(function (category) {
           thisProject.categories.push(category)
