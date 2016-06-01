@@ -15,6 +15,7 @@ var brigadeSchema = new mongoose.Schema({
   github: String,
   slack: {type: String, default: 'http://c4a.me/cfsfslack'},
   meetup: {type: String, default: 'Code-for-San-Francisco-Civic-Hack-Night'},
+  redirects: Array,
   theme: {
     slug: String,
     logo: String,

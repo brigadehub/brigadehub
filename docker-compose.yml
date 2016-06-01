@@ -1,0 +1,19 @@
+db:
+  image: mongo
+  ports:
+    - "27017:27017"
+
+app:
+  build: .
+  command: npm run develop
+  volumes:
+    - .:/usr/src/app
+    - /usr/src/app/node_modules
+  ports:
+    - "8080:5465"
+  links:
+    - db
+  environment:
+    MONGODB: mongodb://db:27017/brigadehub-docker
+    GITHUB_ID: githubid
+    GITHUB_SECRET: githubsecret

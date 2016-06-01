@@ -28,7 +28,7 @@ exports.postBrigade = function (req, res, next) {
     req.flash('errors', errors)
     return res.redirect('/brigade')
   } */
-  console.log(req.body)
+  // console.log(req.body)
   res.locals.brigade.name = req.body.name
   res.locals.brigade.location.general = req.body.location
   res.locals.brigade.url = req.body.url
@@ -63,6 +63,36 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.theme.page.blog = req.body['show-blog'] === 'on'
       thisBrigade.theme.page.about = req.body['show-about'] === 'on'
       thisBrigade.theme.page.login = req.body['show-login'] === 'on'
+      console.log(req.body['externals'], req.body['new-external'])
+      req.body['externals'] = req.body['externals'] || []
+      var links = req.body['externals'].filter(function (link) {
+        if (!link.delete) {
+          return link
+        }
+      })
+      thisBrigade.theme.page.external = links
+      if (req.body['new-external'].name.length || req.body['new-external'].link.length) {
+        if (!(req.body['new-external'].name) || !(req.body['new-external'].link)) {
+          req.flash('errors', { msg: 'Please make sure that all three fields for your new external link are filled out.' })
+        } else {
+          thisBrigade.theme.page.external.push(req.body['new-external'])
+        }
+      }
+      console.log(req.body.redirects)
+      req.body['redirects'] = req.body['redirects'] || []
+      var redirects = req.body['redirects'].filter(function (link) {
+        if (!link.delete) {
+          return link
+        }
+      })
+      thisBrigade.redirects = redirects
+      if (req.body['new-redirect'].endpoint.length || req.body['new-redirect'].destination.length) {
+        if (!(req.body['new-redirect'].endpoint) || !(req.body['new-redirect'].destination)) {
+          req.flash('errors', { msg: 'Please make sure that all fields for your new redirect link are filled out.' })
+        } else {
+          thisBrigade.redirects.push(req.body['new-redirect'])
+        }
+      }
     } else { // social media keys updated
       thisBrigade.auth.github.clientId = req.body['github-client-id']
       thisBrigade.auth.github.clientSecret = req.body['github-client-secret']

@@ -1,6 +1,6 @@
 {
   "name": "brigadehub",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/sfbrigade/brigadehub.git"
@@ -33,11 +33,11 @@
   "dependencies": {
     "async": "^1.5.2",
     "bcrypt-nodejs": "^0.0.3",
-    "bitgo": "0.11.64",
     "body-parser": "^1.14.2",
     "browserify": "^13.0.1",
     "cheerio": "^0.19.0",
     "clockwork": "^0.1.0",
+    "colors": "^1.1.2",
     "compression": "^1.6.0",
     "connect-mongo": "^1.1.0",
     "cookie-parser": "^1.4.1",
@@ -48,8 +48,6 @@
     "express-session": "^1.13.0",
     "express-validator": "^2.18.0",
     "faker": "^3.1.0",
-    "fbgraph": "^1.1.0",
-    "github-api": "^0.10.7",
     "glob": "^7.0.3",
     "gulp": "^3.9.1",
     "gulp-sass": "^2.3.1",
@@ -57,9 +55,7 @@
     "gulp-watch": "^4.3.5",
     "istanbul": "^0.4.2",
     "jade": "^1.11.0",
-    "lastfm": "^0.9.2",
     "link-header-parser": "0.0.2",
-    "lob": "^3.7.0",
     "lodash": "^4.0.0",
     "lusca": "^1.3.0",
     "marked": "^0.3.5",
@@ -67,7 +63,6 @@
     "moment": "^2.11.1",
     "moment-timezone": "^0.5.3",
     "mongoose": "^4.3.5",
-    "mongoose-unique-validator": "^1.0.2",
     "morgan": "^1.6.1",
     "node-sass-middleware": "^0.9.7",
     "node-uuid": "^1.4.7",
@@ -77,25 +72,21 @@
     "passport-github": "^1.0.0",
     "passport-local": "^1.0.0",
     "passport-meetup": "^1.0.0",
-    "passport-oauth": "^1.0.0",
-    "passport-openid": "^0.4.0",
-    "paypal-rest-sdk": "^1.6.8",
     "request": "^2.67.0",
     "require-dir": "^0.3.0",
     "selectn": "1.0.9",
     "serve-favicon": "^2.3.0",
+    "slug": "^0.9.1",
     "standard": "^6.0.4",
     "twilio": "^2.8.0",
     "twit": "^2.1.1",
     "underscore": "^1.8.3",
     "uuid": "^2.0.1",
     "vinyl-source-stream": "^1.1.0",
-    "yui": "^3.18.1"
+    "yui": "^3.18.1",
+    "uuid": "^2.0.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.6.5",
-    "blessed": "^0.1.81",
-    "blue-tape": "^0.2.0",
     "careful": "^1.0.2",
     "chai": "^3.4.1",
     "cz-conventional-changelog": "^1.1.6",
@@ -103,15 +94,11 @@
     "goosestrap": "^1.0.0",
     "mocha": "^2.3.4",
     "mongodb": "^2.1.7",
-    "multiline": "^1.0.2",
     "nightwatch": "latest",
     "nodemon": "^1.9.1",
     "phantomjs-prebuilt": "latest",
     "seedling": "0.0.10",
     "selenium-standalone": "latest",
-    "supertest": "^1.1.0",
-    "tape": "^4.5.1",
-    "tape-catch": "^1.0.4",
     "validate-commit-msg": "^2.6.1"
   },
   "standard": {
@@ -121,6 +108,9 @@
       "describe",
       "afterEach",
       "after"
+    ],
+    "ignore": [
+      "**/js/lib/"
     ]
   },
   "config": {
@@ -160,8 +150,9 @@
       "msgSeperatorRequired": "Branch must have an appropriate prefix (feature, hotfix, bugfix, docs). Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#branch-naming-format) for more details."
     },
     "ghooks": {
-      "pre-commit": "npm test && careful",
-      "commit-msg": "validate-commit-msg"
+      "pre-commit": "careful",
+      "commit-msg": "validate-commit-msg",
+      "pre-push": "npm test"
     },
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"

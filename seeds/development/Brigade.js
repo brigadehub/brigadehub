@@ -15,6 +15,21 @@ module.exports = function () {
     heroImage: faker.image.city(1080, 399),
     url: 'http://codeforexample.org',
     github: 'codeforexample',
+    redirects: [
+      {
+        endpoint: '/temp',
+        destination: 'https://google.com',
+        method: 'GET',
+        type: 'temporary'
+      },
+
+      {
+        endpoint: '/perm/',
+        destination: 'https://google.com',
+        method: 'GET',
+        type: 'permanent'
+      }
+    ],
     theme: {
       slug: 'codeforpoland',
       logo: 'http://i.imgur.com/v5naij3.png',
@@ -27,7 +42,7 @@ module.exports = function () {
         login: true,
         external: [
           {
-            name: 'External',
+            name: 'Google',
             link: 'https://google.com',
             target: '_blank'
           }

@@ -102,43 +102,112 @@ block content
             label
               input.login(id="show-login", name="show-login", type="checkbox", checked=(brigade.theme.page.login ? "checked" : undefined))
               | Show Login Page
-    .row
+    .row.row-title
       h3 External Nav Links
-    each external in brigade.theme.page.external
-      .row
-        hr
-        .form-group.col-sm-12
-          label.col-sm-3.control-label(for='external-link-name') External Link Name
-          .col-sm-7
-            input.form-control(type='text', name='external-link-name', id='external-link-name', value='#{external.name}')
-        .form-group.col-sm-12
-          label.col-sm-3.control-label(for='external-link') External Link URL
-          .col-sm-7
-            input.form-control(type='text', name='external-link', id='external-link', value='#{external.link}')
-        .form-group.col-sm-12
-          label.col-sm-3.control-label(for='external-link-target') External Link Target
-          .col-sm-7
-            input.form-control(type='text', name='external-link-target', id='external-link-target', value='#{external.target}')
-    .row
-      h3 New External Link
-      hr
-      .form-group.col-sm-12
-        label.col-sm-3.control-label(for='new-external-link-name') New Link Name
-        .col-sm-7
-          input.form-control(type='text', name='new-external-link-name', id='new-external-link-name', value='', placeholder='External Link Title')
-      .form-group.col-sm-12
-        label.col-sm-3.control-label(for='new-external-link') New Link URL
-        .col-sm-7
-          input.form-control(type='text', name='new-external-link', id='new-external-link', value='', placeholder='http://example.com')
-      .form-group.col-sm-12
-        label.col-sm-3.control-label(for='new-external-link-target') New Link Target
-        .col-sm-7
-          input.form-control(type='text', name='new-external-link-target', id='new-external-link-target', value='', placeholder='self or _blank')
-    .form-group
-      .col-sm-offset-3.col-sm-4
-        button.btn.btn.btn-primary(type='submit')
-          i.fa.fa-pencil
-          | Update Theme
+    .row.row-body
+      table.table
+        thead
+          tr
+            th Name
+            th Destination
+            th Target
+            th Actions
+        tbody
+          each external, index in brigade.theme.page.external
+            tr
+              td
+                span.static=external.name
+                input.update.hidden.form-control(type='text', name='externals[#{index}][name]', id='external-link-name', value='#{external.name}')
+              td
+                span.static=external.link
+                input.update.hidden.form-control(type='text', name='externals[#{index}][link]', id='external-link-link', value='#{external.link}')
+              td
+                span.static=external.target
+                select.update.hidden.form-control(name='externals[#{index}][target]', id='external-link-target')
+                  option(value='self', selected=(external.target==='self')) self
+                  option(value='_blank', selected=(external.target==='_blank')) _blank
+              td 
+                button.edit-settings-row.btn.btn-primary(type='button')
+                  i.static.fa.fa-pencil
+                  i.update.hidden.fa.fa-close
+                label.delete-checkbox(for='externals-#{index}-delete')
+                  input.hidden(type='checkbox', name='externals[#{index}][delete]', id='externals-#{index}-delete')
+                  span.btn.btn-danger(type='button')
+                    i.fa.fa-trash
+         tr
+            td
+              input.form-control(name='new-external[name]', id='new-external-name', value='', placeholder='Name (shows in Nav Bar)')
+            td
+              input.form-control(name='new-external[link]', id='new-external-link', value='', placeholder='Destination Link')
+            td
+              select.form-control(name='new-external[target]', id='new-external-target')
+                option(value='self', selected) self
+                option(value='_blank') _blank
+            td
+              button.btn.btn-primary(type='submit') Save Changes
+    .row.row-title
+      h3 Dynamic Redirects
+    .row.row-body
+      table.table
+        thead
+          tr
+            th Endpoint
+            th Destination
+            th Method
+            th Type
+            th Actions
+        tbody
+          each redirect, index in brigade.redirects
+            tr
+              td
+                span.static=redirect.endpoint
+                input.update.hidden.form-control(name='redirects[#{index}][endpoint]', id='redirects-endpoint', value='#{redirect.endpoint}', placeholder='/endpoint')
+              td
+                span.static=redirect.destination
+                input.update.hidden.form-control(name='redirects[#{index}][destination]', id='redirects-destination', value='#{redirect.destination}', placeholder='https://destination.example.com')
+              td
+                span.static=redirect.method
+                select.update.hidden.form-control(name='redirects[#{index}][method]', id='redirects-method')
+                  option(value='GET', selected=(redirect.method==='GET')) GET
+                  option(value='POST', selected=(redirect.method==='POST')) POST
+                  option(value='PUT', selected=(redirect.method==='PUT')) PUT
+                  option(value='PATCH', selected=(redirect.method==='PATCH')) PATCH
+                  option(value='HEAD', selected=(redirect.method==='HEAD')) HEAD
+                  option(value='OPTIONS', selected=(redirect.method==='OPTIONS')) OPTIONS
+                  option(value='DELETE', selected=(redirect.method==='DELETE')) DELETE
+              td
+                span.static=redirect.type
+                select.update.hidden.form-control(name='redirects[#{index}][type]', id='redirects-type')
+                  option(value='temporary', selected=(redirect.type==='temporary')) Temporary
+                  option(value='permanent', selected=(redirect.type==='permanent')) Permanent
+              td 
+                button.edit-settings-row.btn.btn-primary(type='button')
+                  i.static.fa.fa-pencil
+                  i.update.hidden.fa.fa-close
+                label.delete-checkbox(for='redirects-#{index}-delete')
+                  input.hidden(type='checkbox', name='redirects[#{index}][delete]', id="redirects-#{index}-delete")
+                  span.btn.btn-danger(type='button')
+                    i.fa.fa-trash
+         tr
+            td
+              input.form-control(name='new-redirect[endpoint]', id='new-redirect-endpoint', value='', placeholder='/endpoint')
+            td
+              input.form-control(name='new-redirect[destination]', id='new-redirect-destination', value='', placeholder='https://destination.example.com')
+            td
+              select.form-control(name='new-redirect[method]', id='new-redirect-method')
+                option(value='GET', selected) GET
+                option(value='POST') POST
+                option(value='PUT') PUT
+                option(value='PATCH') PATCH
+                option(value='HEAD') HEAD
+                option(value='OPTIONS') OPTIONS
+                option(value='DELETE') DELETE
+            td
+              select.form-control(name='new-redirect[type]', id='new-redirect-type')
+                option(value='temporary', selected) Temporary
+                option(value='permanent') Permanent
+            td
+              button.btn.btn-primary(type='submit') Save Changes
   .row
     hr
   form.row.form-horizontal(action='/brigade', method='POST')
