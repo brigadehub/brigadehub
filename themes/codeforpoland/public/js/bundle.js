@@ -19,12 +19,9 @@ module.exports = {
       var warning = 'Are you sure you want to delete ' + numToDelete + ' post' + (numToDelete > 1 ? 's' : '') + '?'
       return window.confirm(warning)
     }
-  },
-
-  test: function () {
-    alert('hi')
   }
 }
+
 },{}],2:[function(require,module,exports){
 if (!window.console) window.console = {}
 if (!window.console.log) window.console.log = function () {}
@@ -33,8 +30,11 @@ var $ = window.jQuery
 var webfunctions = require('./functions.js')
 $(document).ready(function () {
   console.log('running')
-  $('.adminButton').click(function(){
+  $('.adminButton').click(function () {
     webfunctions.adminWarning(window._currentUser, $(this).context.name.split('[')[0])
+  })
+  $('#blogform').submit(function () {
+    webfunctions.validate($(this))
   })
   if (window._events) {
     console.log(window._events)

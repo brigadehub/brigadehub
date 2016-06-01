@@ -8,6 +8,9 @@ $(document).ready(function () {
   $('.adminButton').click(function () {
     webfunctions.adminWarning(window._currentUser, $(this).context.name.split('[')[0])
   })
+  $('#blogform').submit(function () {
+    webfunctions.validate($(this))
+  })
   if (window._events) {
     console.log(window._events)
     $('#events-calendar').fullCalendar({
