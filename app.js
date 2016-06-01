@@ -7,6 +7,7 @@ require('node-version-checker')
  * Module dependencies.
  */
 var express = require('express')
+var _ = require('lodash')
 var cookieParser = require('cookie-parser')
 var compress = require('compression')
 var favicon = require('serve-favicon')
@@ -453,6 +454,16 @@ function startServer () {
     sourceMap: true,
     outputStyle: 'expanded'
   }))
+  app.use(function (req, res, next) {
+    if (_.filter(res.locals.brigade.redirects, {endpoint: req.path}).length) {
+      var redirect = _.filter(res.locals.brigade.redirects, {endpoint: req.path})[0]
+      if (redirect.type === 'permanent') {
+        return res.redirect(301, redirect.destination)
+      }
+      return res.redirect(redirect.destination)
+    }
+    next()
+  })
   app.use(favicon(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public', 'favicon.png')))
   app.use(express.static(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'), { maxAge: 31557600000 }))
   app.listen(app.get('port'), function () {
