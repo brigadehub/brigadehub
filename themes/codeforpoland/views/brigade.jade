@@ -127,9 +127,10 @@ block content
                   option(value='self', selected=(external.target==='self')) self
                   option(value='_blank', selected=(external.target==='_blank')) _blank
               td 
-                button.static.btn.btn-primary(type='button')
-                  i.fa.fa-pencil
-                label(for='externals-#{index}-delete')
+                button.edit-settings-row.btn.btn-primary(type='button')
+                  i.static.fa.fa-pencil
+                  i.update.hidden.fa.fa-close
+                label.delete-checkbox(for='externals-#{index}-delete')
                   input.hidden(type='checkbox', name='externals[#{index}][delete]', id='externals-#{index}-delete')
                   span.btn.btn-danger(type='button')
                     i.fa.fa-trash
@@ -180,9 +181,10 @@ block content
                   option(value='temporary', selected=(redirect.type==='temporary')) Temporary
                   option(value='permanent', selected=(redirect.type==='permanent')) Permanent
               td 
-                button.btn.btn-primary(type='button')
-                  i.fa.fa-pencil
-                label(for='redirects-#{index}-delete')
+                button.edit-settings-row.btn.btn-primary(type='button')
+                  i.static.fa.fa-pencil
+                  i.update.hidden.fa.fa-close
+                label.delete-checkbox(for='redirects-#{index}-delete')
                   input.hidden(type='checkbox', name='redirects[#{index}][delete]', id="redirects-#{index}-delete")
                   span.btn.btn-danger(type='button')
                     i.fa.fa-trash

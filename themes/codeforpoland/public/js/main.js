@@ -48,12 +48,19 @@ $(document).ready(function () {
       ]
     })
   })
-  // $('form button[type!="submit"]').each(function(){
-  //   $(this).off('click')
-  //   $(this).on('click', function(event){
-  //     event.preventDefault()
-  //   })
-  // })
+  $('.edit-settings-row').each(function () {
+    $(this).off('click')
+    $(this).on('click', function (event) {
+      console.log('clicked')
+      var $parent = $(this).closest('tr')
+      $parent.find('.static').each(function () {
+        $(this).toggleClass('hidden')
+      })
+      $parent.find('.update').each(function () {
+        $(this).toggleClass('hidden')
+      })
+    })
+  })
 })
 function adminWarning (currentuser, boxname) { // eslint-disable-line
   var userbox = document.getElementsByName(boxname + '[superAdmin]')

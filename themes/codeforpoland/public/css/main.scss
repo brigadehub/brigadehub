@@ -446,6 +446,13 @@ nav + .container{
   display:none;
 }
 
+.delete-checkbox {
+  input:checked + .btn {
+    background:white;
+    color:#D9534F;
+  }
+}
+
 // Import view specific styles
 
 @import 'views/account-settings';
