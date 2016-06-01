@@ -48,6 +48,12 @@ $(document).ready(function () {
       ]
     })
   })
+  // $('form button[type!="submit"]').each(function(){
+  //   $(this).off('click')
+  //   $(this).on('click', function(event){
+  //     event.preventDefault()
+  //   })
+  // })
 })
 function adminWarning (currentuser, boxname) { // eslint-disable-line
   var userbox = document.getElementsByName(boxname + '[superAdmin]')
