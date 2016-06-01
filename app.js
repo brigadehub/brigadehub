@@ -7,6 +7,7 @@ require('node-version-checker')
  * Module dependencies.
  */
 var express = require('express')
+var _ = require('lodash')
 var cookieParser = require('cookie-parser')
 var compress = require('compression')
 var favicon = require('serve-favicon')
@@ -437,15 +438,15 @@ Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
     defaultBrigade.save(function (err) {
       if (err) throw err
       DB_INSTANTIATED = true
-      startServer()
+      startServer(brigadeDetails)
     })
   } else {
     DB_INSTANTIATED = true
     brigadeDetails = results[0]
-    startServer()
+    startServer(brigadeDetails)
   }
 })
-function startServer () {
+function startServer (brigadeDetails) {
   app.use(sass({
     src: path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'),
     dest: path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'),
@@ -453,6 +454,16 @@ function startServer () {
     sourceMap: true,
     outputStyle: 'expanded'
   }))
+  if (brigadeDetails.redirects.length) {
+    _.forEach(brigadeDetails.redirects, function (redirect) {
+      app[redirect.method.toLowerCase()](redirect.endpoint, function (req, res, next) {
+        if (redirect.type === 'permanent') {
+          return res.redirect(301, redirect.destination)
+        }
+        res.redirect(redirect.destination)
+      })
+    })
+  }
   app.use(favicon(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public', 'favicon.png')))
   app.use(express.static(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'), { maxAge: 31557600000 }))
   app.listen(app.get('port'), function () {
