@@ -1,6 +1,6 @@
 module.exports = {
-  adminWarning: function (currentuser, boxname) { // eslint-disable-line
-    if (boxname === currentuser) {
+  adminWarning: function (currentuser, boxname, checked) { // eslint-disable-line
+    if (boxname === currentuser && !checked) {
       window.alert('Please be careful when changing your own Super Admin rights. You will need to contact another Super Admin to reinstate your privileges if you disable yours.')
     }
   },
