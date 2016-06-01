@@ -438,15 +438,15 @@ Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
     defaultBrigade.save(function (err) {
       if (err) throw err
       DB_INSTANTIATED = true
-      startServer(brigadeDetails)
+      startServer()
     })
   } else {
     DB_INSTANTIATED = true
     brigadeDetails = results[0]
-    startServer(brigadeDetails)
+    startServer()
   }
 })
-function startServer (brigadeDetails) {
+function startServer () {
   app.use(sass({
     src: path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'),
     dest: path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'),
@@ -454,16 +454,16 @@ function startServer (brigadeDetails) {
     sourceMap: true,
     outputStyle: 'expanded'
   }))
-  if (brigadeDetails.redirects.length) {
-    _.forEach(brigadeDetails.redirects, function (redirect) {
-      app[redirect.method.toLowerCase()](redirect.endpoint, function (req, res, next) {
-        if (redirect.type === 'permanent') {
-          return res.redirect(301, redirect.destination)
-        }
-        res.redirect(redirect.destination)
-      })
-    })
-  }
+  app.use(function (req, res, next) {
+    if (_.filter(res.locals.brigade.redirects, {endpoint: req.path}).length) {
+      var redirect = _.filter(res.locals.brigade.redirects, {endpoint: req.path})[0]
+      if (redirect.type === 'permanent') {
+        return res.redirect(301, redirect.destination)
+      }
+      return res.redirect(redirect.destination)
+    }
+    next()
+  })
   app.use(favicon(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public', 'favicon.png')))
   app.use(express.static(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'), { maxAge: 31557600000 }))
   app.listen(app.get('port'), function () {

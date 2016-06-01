@@ -15,14 +15,12 @@ $(document).ready(function () {
   console.log('%c-------------------------------------------------------------------------------------------', 'color:' + window.__bh.colors.label)
 
   if (window._events) {
-    console.log(window._events)
     $('#events-calendar').fullCalendar({
       events: window._events
     })
   }
   $(window).on('scroll', function (event) {
     var scroll = $(window).scrollTop()
-    console.log(scroll)
     if (scroll > 10) {
       $('body').addClass('scroll')
     } else {
@@ -51,7 +49,6 @@ $(document).ready(function () {
   $('.edit-settings-row').each(function () {
     $(this).off('click')
     $(this).on('click', function (event) {
-      console.log('clicked')
       var $parent = $(this).closest('tr')
       $parent.find('.static').each(function () {
         $(this).toggleClass('hidden')
