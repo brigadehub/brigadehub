@@ -138,8 +138,8 @@ module.exports = {
   getProjectsIDSettings: function (req, res) {
     Projects.find({'id': req.params.projectId}, function (err, foundProject) {
       if (err) console.log(err)
-      Users.find({}, function(err, allUsers){
-        if(err) console.error(err)
+      Users.find({}, function (err, allUsers) {
+        if (err) console.error(err)
         res.render(res.locals.brigade.theme.slug + '/views/projects/settings', {
           view: 'project-settings',
           project: foundProject[0],
@@ -148,7 +148,6 @@ module.exports = {
           brigade: res.locals.brigade
         })
       })
-      
     })
   },
   /**
