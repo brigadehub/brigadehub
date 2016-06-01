@@ -6,6 +6,7 @@ var slug = require('slug')
 var markdown = require('marked')
 
 var Projects = require('../models/Projects')
+var Users = require('../models/Users')
 
 module.exports = {
   /**
@@ -137,11 +138,15 @@ module.exports = {
   getProjectsIDSettings: function (req, res) {
     Projects.find({'id': req.params.projectId}, function (err, foundProject) {
       if (err) console.log(err)
-      res.render(res.locals.brigade.theme.slug + '/views/projects/settings', {
-        view: 'project-settings',
-        project: foundProject[0],
-        title: 'IDSettings Projects',
-        brigade: res.locals.brigade
+      Users.find({}, function (err, allUsers) {
+        if (err) console.error(err)
+        res.render(res.locals.brigade.theme.slug + '/views/projects/settings', {
+          view: 'project-settings',
+          project: foundProject[0],
+          users: allUsers,
+          title: 'IDSettings Projects',
+          brigade: res.locals.brigade
+        })
       })
     })
   },

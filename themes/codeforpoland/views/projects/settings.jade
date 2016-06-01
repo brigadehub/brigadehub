@@ -25,11 +25,11 @@ block content
             for status in ['proposed', 'discovery', 'alpha', 'beta', 'live', 'prototype', 'mvp' ]
               option(value="#{status}", selected=(status == project.status)) #{status}
       .form-group.row
-        label.col-sm-3.control-label(for='geography') Geography
+        label.col-sm-3.control-label(for='geography') Location
         .col-sm-7
           input.form-control(type='text', name='geography', id='geography', value='#{project.geography}', placeholder='Awesome town, USA')
       .form-group.row
-        label.col-sm-3.control-label(for='politicalEntity') Political Entity
+        label.col-sm-3.control-label(for='politicalEntity') Community Partner
         .col-sm-7
           input.form-control(type='text', name='politicalEntity', id='politicalEntity', value='#{project.politicalEntity}', placeholder='City of Awesome, LLC')
       .form-group.row
@@ -45,9 +45,15 @@ block content
         .col-sm-7
           input.form-control(type='text', name='repository', id='repository', value='#{project.repository}')
       .form-group.row
-        label.col-sm-3.control-label(for='contacts') Contacts
+        label.col-sm-3.control-label(for='contacts') Project Team
         .col-sm-7
-          input.form-control(type='text', name='contacts', id='contacts', value='#{project.contact}', placeholder='username1, username2, etc.')
+          select.form-control.input-tags-target(name='contacts', id='contacts', multiple=true, data-role="tagsinput")
+            for user in users
+              if user.profile.name
+                option(value="#{user.username}", selected=(project.contact.indexOf(user.username) >-1), label='') #{user.profile.name} - #{user.username}
+              else
+                option(value="#{user.username}", selected=(project.contact.indexOf(user.username) >-1)) #{user.username}
+          //- input.form-control(type='text', name='contacts', id='contacts', value='#{project.contact}', placeholder='username1, username2, etc.')
       .form-group.row
         label.col-sm-3.control-label(for='categories') Project Categories
         .col-sm-7

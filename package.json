@@ -34,6 +34,7 @@
     "async": "^1.5.2",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.14.2",
+    "colors": "^1.1.2",
     "compression": "^1.6.0",
     "connect-mongo": "^1.1.0",
     "cookie-parser": "^1.4.1",
@@ -93,6 +94,9 @@
       "describe",
       "afterEach",
       "after"
+    ],
+    "ignore": [
+      "**/js/lib/"
     ]
   },
   "config": {
@@ -132,8 +136,9 @@
       "msgSeperatorRequired": "Branch must have an appropriate prefix (feature, hotfix, bugfix, docs). Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#branch-naming-format) for more details."
     },
     "ghooks": {
-      "pre-commit": "npm test && careful",
-      "commit-msg": "validate-commit-msg"
+      "pre-commit": "careful",
+      "commit-msg": "validate-commit-msg",
+      "pre-push": "npm test"
     },
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
