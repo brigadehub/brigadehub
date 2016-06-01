@@ -41,11 +41,8 @@
 
 ### Checklist
 
-- [ ] This Pull Request template has actually been modified with relevant data ;)
 - [ ] This PR passes Linting tests (see below)
-- [ ] This PR does not contain merge conflicts with `edge` (see below)
+- [ ] This PR does not contain merge conflicts with `develop` (see below)
 - [ ] This PR does not contain:
   - Additional Dependencies in `package.json` that are not used
   - Frontend JS in Jade templates (unless absolutely necessary)
-  - Any functionality which depends on frontend JS being enabled (unless already discussed as a team)
-- [ ] This PR, if overlapping with another open PR in scope, has been tested with those code changes and verified to play nice with it
