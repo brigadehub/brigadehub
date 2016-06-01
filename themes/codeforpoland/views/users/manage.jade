@@ -1,6 +1,8 @@
 extends ../layout
 
 block content
+  script.
+    window._currentUser = '#{currentuser.username}'
   .page-header
     h3 Manage users and roles
     form.pull-right(method='POST', action='/users/sync')
@@ -55,7 +57,7 @@ block content
                   input(type='checkbox', name='#{user.username}[coreLeadRole]', checked=user.roles.coreLead, onclick="this.checked=!this.checked")
               td
                 if (currentuser.roles.superAdmin)
-                  input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin, onclick="adminWarning('#{currentuser.username}', '#{user.username}')")
+                  input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin, class="adminButton")
                 else
                   input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin, onclick="this.checked=!this.checked")
               td.github= user.github

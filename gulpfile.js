@@ -15,7 +15,7 @@ gulp.task('launch', function () {
 })
 
 gulp.task('frontjswatch', function () {
-  gulp.watch('themes/' + 'codeforpoland' + '/public/js/main.js', ['frontjscomp'])
+  gulp.watch(['themes/codeforpoland/public/js/main.js', 'themes/codeforpoland/public/js/functions.js'], ['frontjscomp'])
 })
 
 gulp.task('frontjscomp', function () {
