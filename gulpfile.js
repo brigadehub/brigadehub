@@ -12,13 +12,18 @@ gulp.task('launch', function () {
     console.log(stderr)
     console.log(err)
   })
+  exec('mongod', function (err, stdout, stderr) {
+    console.log(stdout)
+    console.log(stderr)
+    console.log(err)
+  })
 })
 
-gulp.task('frontjswatch', function () {
-  gulp.watch(['themes/codeforpoland/public/js/main.js', 'themes/codeforpoland/public/js/functions.js'], ['frontjscomp'])
+gulp.task('browserjswatch', function () {
+  gulp.watch(['themes/codeforpoland/public/js/main.js', 'themes/codeforpoland/public/js/functions.js'], ['browserjscomp'])
 })
 
-gulp.task('frontjscomp', function () {
+gulp.task('browserjscomp', function () {
   return browserify('themes/codeforpoland/public/js/main.js')
     .bundle()
     .pipe(source('bundle.js'))
@@ -26,7 +31,7 @@ gulp.task('frontjscomp', function () {
 })
 
 gulp.task('csswatch', function () {
-  gulp.watch('themes/' + 'codeforpoland' + '/public/css/main.scss', ['csscomp', 'sourcemapcomp'])
+  gulp.watch('themes/codeforpoland/public/css/main.scss', ['csscomp', 'sourcemapcomp'])
 })
 
 gulp.task('csscomp', function () {
@@ -43,4 +48,4 @@ gulp.task('sourcemapcomp', function () {
   .pipe(gulp.dest('themes/codeforpoland/public/css'))
 })
 
-gulp.task('default', ['launch', 'frontjswatch', 'frontjscomp', 'csswatch', 'csscomp', 'sourcemapcomp'])
+gulp.task('start', ['launch', 'browserjswatch', 'browserjscomp', 'csswatch', 'csscomp', 'sourcemapcomp'])
