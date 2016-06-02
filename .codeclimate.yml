@@ -25,6 +25,3 @@ ratings:
 exclude_paths:
 - config/
 - test/
-- **.png
-- **.svg
-- **.otf
