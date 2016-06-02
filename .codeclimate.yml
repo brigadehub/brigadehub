@@ -1,4 +1,3 @@
----
 engines:
   scss-lint:
     enabled: true
@@ -10,11 +9,11 @@ engines:
       languages:
       - javascript
   eslint:
-    enabled: true
+    enabled: false
   fixme:
     enabled: true
   nodesecurity:
-    enabled: true
+    enabled: false
 ratings:
   paths:
   - "**.css"
@@ -25,6 +24,6 @@ ratings:
 exclude_paths:
 - config/
 - test/
-- **.png
-- **.svg
-- **.otf
+- "**.png"
+- "**.svg"
+- "**.otf"
