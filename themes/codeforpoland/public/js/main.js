@@ -3,6 +3,7 @@ if (!window.console.log) window.console.log = function () {}
 /* global SimpleMDE */
 var $ = window.jQuery
 var webfunctions = require('./functions.js')
+var moment = require('moment')
 window.__bh.colors = {
   label: '#EDAB43',
   text: '#8C8C8C'
