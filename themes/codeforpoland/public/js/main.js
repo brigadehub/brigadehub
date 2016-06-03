@@ -4,6 +4,8 @@ if (!window.console.log) window.console.log = function () {}
 var $ = window.jQuery
 var webfunctions = require('./functions.js')
 var moment = require('moment')
+require('moment-timezone')
+
 window.__bh.colors = {
   label: '#EDAB43',
   text: '#8C8C8C'
@@ -22,9 +24,15 @@ $(document).ready(function () {
   console.log('%c[Brigadehub]' + "%c Welcome hackers! We'd love to get your help in developing Brigadehub further!", 'color:' + window.__bh.colors.label, 'color:' + window.__bh.colors.text)
   console.log('%c             visit https://github.com/sfbrigade/brigadehub to find the code and learn more!', 'color:' + window.__bh.colors.text)
   console.log('%c-------------------------------------------------------------------------------------------', 'color:' + window.__bh.colors.label)
+  var timearray = []
   if (window._events) {
     $('#events-calendar').fullCalendar({
       events: window._events
+    })
+    var userzone = moment.tz.guess()
+    window._events.forEach(function (event) {
+      var m = moment.tz(event.start, 'Atlantic/Azores').tz(userzone).format('ha z MMMM DD, YYYY')
+      timearray.push(m)
     })
   }
   $(window).on('scroll', function (event) {
