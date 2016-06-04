@@ -53,13 +53,7 @@ module.exports = function () {
       tagline: 'is a community searching for technological solutions to social challenges.',
       description: "We're a bunch of civic-minded technologists, designers, and topic experts using our skills to improve Example and the world."
     },
-    sponsors: {
-      main: {
-        name: 'Code for America',
-        url: 'http://codeforamerica.org',
-        image: '/logo.png'
-      },
-      other: [
+    sponsors: [
         {
           name: 'Microsoft',
           url: 'http://microsoft.com',
@@ -75,8 +69,7 @@ module.exports = function () {
           url: 'http://zenhub.io',
           image: 'https://i.imgur.com/jdbLl87.png'
         }
-      ]
-    },
+      ],
     auth: {
       github: {
         clientId: process.env.GITHUB_ID,

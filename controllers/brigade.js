@@ -70,12 +70,12 @@ exports.postBrigade = function (req, res, next) {
           return sponsor
         }
       })
-      thisBrigade.sponsors.other = sponsors
+      thisBrigade.sponsors = sponsors
       if (req.body['new-sponsor'].name.length || req.body['new-sponsor'].link.length || req.body['new-sponsor'].image.length) {
         if (!(req.body['new-sponsor'].name) || !(req.body['new-sponsor'].link) || !(req.body['new-sponsor'].image)) {
           req.flash('errors', { msg: 'Please make sure that all three fields for your new sponsor link are filled out.' })
         } else {
-          thisBrigade.sponsors.other.push(req.body['new-sponsor'])
+          thisBrigade.sponsors.push(req.body['new-sponsor'])
         }
       }
       req.body['externals'] = req.body['externals'] || []
@@ -92,7 +92,6 @@ exports.postBrigade = function (req, res, next) {
           thisBrigade.theme.page.external.push(req.body['new-external'])
         }
       }
-      console.log(req.body.redirects)
       req.body['redirects'] = req.body['redirects'] || []
       var redirects = req.body['redirects'].filter(function (link) {
         if (!link.delete) {

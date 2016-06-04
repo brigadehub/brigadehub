@@ -150,7 +150,7 @@ block content
                 option(value='_blank') _blank
             td
               button.btn.btn-primary(type='submit') Save Changes
-      h3 Brigade Sponsors
+      h3 Brigade Sponsors (footer)
       .row.row-body
         table.table
           thead
@@ -159,8 +159,9 @@ block content
               th Destination
               th Banner image
               th Actions
+              th Main Sponsor
           tbody
-            each sponsor, index in brigade.sponsors.other
+            each sponsor, index in brigade.sponsors
               tr
                 td
                   span.static=sponsor.name
@@ -179,9 +180,11 @@ block content
                     input.hidden(type='checkbox', name='sponsors[#{index}][delete]', id='sponsors-#{index}-delete')
                     span.btn.btn-danger(type='button')
                       i.fa.fa-trash
+                td
+                  input(type="radio", name="sponsor[#{index}][main]", value="1")
            tr
               td
-                input.form-control(name='new-sponsor[name]', id='new-sponsor-name', value='', placeholder='Name (shows in footer)')
+                input.form-control(name='new-sponsor[name]', id='new-sponsor-name', value='', placeholder='Name')
               td
                 input.form-control(name='new-sponsor[link]', id='new-sponsor-link', value='', placeholder='Destination Link')
               td
