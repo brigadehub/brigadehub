@@ -66,10 +66,11 @@ exports.postBrigade = function (req, res, next) {
       console.log(req.body['new-external'], req.body['sponsors'])
       req.body['sponsors'] = req.body['sponsors'] || []
       var sponsors = req.body['sponsors'].filter(function (sponsor, index) {
-        if (req.body['mainsponsor'] == index) {
+        if (req.body['mainsponsor'] === index) {
           sponsor.main = true
         }
-        else {
+        else
+        {
           sponsor.main = false
         }
         if (!sponsor.delete) {
