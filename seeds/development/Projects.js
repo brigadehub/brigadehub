@@ -4,7 +4,7 @@ module.exports = [
   {
     'id': 'Test-Empty-Project',
     'brigade': 'codeforexample',
-    'status': 'proposed',
+    'status': 'discovery',
     'thumbnailUrl': 'http://i.imgur.com/MRgvL1K.png',
     'bannerUrl': 'http://i.imgur.com/MRgvL1K.png',
     'bornAt': 'Code for Example',
@@ -17,17 +17,44 @@ module.exports = [
     'homepage': 'https://github.com/codeforexample/Test-Empty-Project',
     'repository': 'https://github.com/codeforexample/Test-Empty-Project',
     'links': [],
-    'keywords': [],
-    'data': [],
+    'videos': [],
+    'keywords': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
     'partners': [],
     'contact': [],
-    'categories': [],
-    'needs': []
+    'team': [
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      }
+    ],
+    'needs': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
+    'content': '# This Project! \n\n This is sub info.\n\n' + faker.lorem.paragraph() + '\n\n' + faker.lorem.paragraph() + '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   },
   {
     'id': 'really-empty-project',
     'brigade': 'codeforexample',
-    'status': 'proposed',
+    'status': 'beta',
     'thumbnailUrl': 'http://i.imgur.com/MRgvL1K.png',
     'bannerUrl': 'http://i.imgur.com/MRgvL1K.png',
     'bornAt': 'Code for Example',
@@ -40,17 +67,48 @@ module.exports = [
     'homepage': 'https://github.com/codeforexample/really-empty-project',
     'repository': 'https://github.com/codeforexample/really-empty-project',
     'links': [],
-    'keywords': [],
-    'data': [],
+    'videos': [],
+    'keywords': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
     'partners': [],
     'contact': [],
-    'categories': [],
-    'needs': []
+    'team': [
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      }
+    ],
+    'needs': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
+    'content': '# This Project! \n\n This is sub info.\n\n' + faker.lorem.paragraph() + '\n\n' + faker.lorem.paragraph() + '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   },
   {
     'id': 'forked-project-kong',
     'brigade': 'codeforexample',
-    'status': 'proposed',
+    'status': 'alpha',
     'thumbnailUrl': 'http://i.imgur.com/MRgvL1K.png',
     'bannerUrl': 'http://i.imgur.com/MRgvL1K.png',
     'bornAt': 'Code for Example',
@@ -63,17 +121,49 @@ module.exports = [
     'homepage': 'https://getkong.org/install',
     'repository': 'https://github.com/codeforexample/forked-project-kong',
     'links': [],
-    'keywords': [],
-    'data': [],
+    'videos': [],
+    'keywords': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
     'partners': [],
     'contact': [],
-    'categories': [],
-    'needs': []
+    'team': [
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      }
+
+    ],
+    'needs': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
+    'content': '# This Project! \n\n This is sub info.\n\n' + faker.lorem.paragraph() + '\n\n' + faker.lorem.paragraph() + '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   },
   {
     'id': 'mirrored-project-hackathon-starter',
     'brigade': 'codeforexample',
-    'status': 'proposed',
+    'status': 'live',
     'thumbnailUrl': 'http://i.imgur.com/MRgvL1K.png',
     'bannerUrl': 'http://i.imgur.com/MRgvL1K.png',
     'bornAt': 'Code for Example',
@@ -86,17 +176,49 @@ module.exports = [
     'homepage': 'https://github.com/codeforexample/mirrored-project-hackathon-starter',
     'repository': 'https://github.com/codeforexample/mirrored-project-hackathon-starter',
     'links': [],
-    'keywords': [],
-    'data': [],
+    'videos': [],
+    'keywords': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
     'partners': [],
     'contact': [],
-    'categories': [],
-    'needs': []
+    'team': [
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      }
+
+    ],
+    'needs': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
+    'content': '# This Project! \n\n This is sub info.\n\n' + faker.lorem.paragraph() + '\n\n' + faker.lorem.paragraph() + '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   },
   {
     'id': 'mirrored-project-mirror',
     'brigade': 'codeforexample',
-    'status': 'proposed',
+    'status': 'mvp',
     'thumbnailUrl': 'http://i.imgur.com/MRgvL1K.png',
     'bannerUrl': 'http://i.imgur.com/MRgvL1K.png',
     'bornAt': 'Code for Example',
@@ -109,12 +231,44 @@ module.exports = [
     'homepage': 'https://github.com/codeforexample/mirrored-project-mirror',
     'repository': 'https://github.com/codeforexample/mirrored-project-mirror',
     'links': [],
-    'keywords': [],
-    'data': [],
+    'videos': [],
+    'keywords': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
     'partners': [],
     'contact': [],
-    'categories': [],
-    'needs': []
+    'team': [
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      }
+
+    ],
+    'needs': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
+    'content': '# This Project! \n\n This is sub info.\n\n' + faker.lorem.paragraph() + '\n\n' + faker.lorem.paragraph() + '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   }, {
     'id': 'mirrored-project-mirror',
     'brigade': 'codeforexample',
@@ -131,11 +285,43 @@ module.exports = [
     'homepage': 'https://github.com/codeforexample/mirrored-project-mirror',
     'repository': 'https://github.com/codeforexample/mirrored-project-mirror',
     'links': [],
-    'keywords': [],
-    'data': [],
+    'videos': [],
+    'keywords': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
     'partners': [],
     'contact': [],
-    'categories': [],
-    'needs': []
+    'team': [
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      }
+
+    ],
+    'needs': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
+    'content': '# This Project! \n\n This is sub info.\n\n' + faker.lorem.paragraph() + '\n\n' + faker.lorem.paragraph() + '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   }
 ]
