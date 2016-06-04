@@ -63,7 +63,7 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.theme.page.blog = req.body['show-blog'] === 'on'
       thisBrigade.theme.page.about = req.body['show-about'] === 'on'
       thisBrigade.theme.page.login = req.body['show-login'] === 'on'
-      console.log(req.body['externals'], req.body['new-external'])
+      console.log(req.body['new-external'], req.body['sponsors'])
       req.body['sponsors'] = req.body['sponsors'] || []
       var sponsors = req.body['sponsors'].filter(function (sponsor) {
         if (!sponsor.delete) {
@@ -72,7 +72,7 @@ exports.postBrigade = function (req, res, next) {
       })
       thisBrigade.sponsors.other = sponsors
       if (req.body['new-sponsor'].name.length || req.body['new-sponsor'].link.length || req.body['new-sponsor'].image.length) {
-        if (!(req.body['new-sponsor'].name) || !(req.body['new-sponsor'].link) || !(req.body['new-sponsor'].image.length)) {
+        if (!(req.body['new-sponsor'].name) || !(req.body['new-sponsor'].link) || !(req.body['new-sponsor'].image)) {
           req.flash('errors', { msg: 'Please make sure that all three fields for your new sponsor link are filled out.' })
         } else {
           thisBrigade.sponsors.other.push(req.body['new-sponsor'])
