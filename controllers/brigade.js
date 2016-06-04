@@ -63,10 +63,9 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.theme.page.blog = req.body['show-blog'] === 'on'
       thisBrigade.theme.page.about = req.body['show-about'] === 'on'
       thisBrigade.theme.page.login = req.body['show-login'] === 'on'
-      console.log(req.body['new-external'], req.body['sponsors'])
       req.body['sponsors'] = req.body['sponsors'] || []
       var sponsors = req.body['sponsors'].filter(function (sponsor, index) {
-        if (req.body['mainsponsor'] === index) {
+        if (req.body['mainsponsor'] === String(index)) {
           sponsor.main = true
         } else {
           sponsor.main = false
@@ -75,9 +74,8 @@ exports.postBrigade = function (req, res, next) {
           return sponsor
         }
       })
-      console.log(sponsors)
       thisBrigade.sponsors = sponsors
-      if (req.body['new-sponsor'].name.length || req.body['new-sponsor'].link.length || req.body['new-sponsor'].image.length) {
+      if (req.body['new-sponsor'].name || req.body['new-sponsor'].link || req.body['new-sponsor'].image) {
         if (!(req.body['new-sponsor'].name) || !(req.body['new-sponsor'].link) || !(req.body['new-sponsor'].image)) {
           req.flash('errors', { msg: 'Please make sure that all three fields for your new sponsor link are filled out.' })
         } else {
@@ -91,7 +89,7 @@ exports.postBrigade = function (req, res, next) {
         }
       })
       thisBrigade.theme.page.external = links
-      if (req.body['new-external'].name.length || req.body['new-external'].link.length) {
+      if (req.body['new-external'].name || req.body['new-external'].link) {
         if (!(req.body['new-external'].name) || !(req.body['new-external'].link)) {
           req.flash('errors', { msg: 'Please make sure that all three fields for your new external link are filled out.' })
         } else {
