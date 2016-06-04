@@ -24,7 +24,5 @@ ratings:
   - "**.module"
 exclude_paths:
 - config/
+- node_modules
 - test/
-- **.png
-- **.svg
-- **.otf
