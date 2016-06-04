@@ -65,5 +65,8 @@ $(document).ready(function () {
       })
     })
   })
+  if ($('#blogtime').length) {
+    $('#blogtime').val(moment().format('MMMM Do YYYY, h:mm:ss a'))
+  }
 })
 
