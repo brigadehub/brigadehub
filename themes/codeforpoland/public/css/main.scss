@@ -453,6 +453,25 @@ nav + .container{
   }
 }
 
+table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  th, td {
+    padding: .75rem;
+    line-height: 1.5;
+    vertical-align: top;
+    border-top: 1px solid hsl(200, 9%, 93%);
+  }
+  thead{
+    th{
+      vertical-align: bottom;
+      border-bottom: 2px solid hsl(200, 9%, 93%);
+      font-weight:bold;
+    }
+  }
+}
+
 // Import view specific styles
 
 @import 'views/account-settings';
