@@ -181,7 +181,7 @@ block content
                     span.btn.btn-danger(type='button')
                       i.fa.fa-trash
                 td
-                  input(type="radio", name="sponsor[#{index}][main]", value="1")
+                  input(type="radio", name="mainsponsor", value="#{index}", checked=sponsor.main==true)
            tr
               td
                 input.form-control(name='new-sponsor[name]', id='new-sponsor-name', value='', placeholder='Name')

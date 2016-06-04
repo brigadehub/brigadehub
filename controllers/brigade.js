@@ -65,11 +65,18 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.theme.page.login = req.body['show-login'] === 'on'
       console.log(req.body['new-external'], req.body['sponsors'])
       req.body['sponsors'] = req.body['sponsors'] || []
-      var sponsors = req.body['sponsors'].filter(function (sponsor) {
+      var sponsors = req.body['sponsors'].filter(function (sponsor, index) {
+        if (req.body['mainsponsor'] == index) {
+          sponsor.main = true
+        }
+        else {
+          sponsor.main = false
+        }
         if (!sponsor.delete) {
           return sponsor
         }
       })
+      console.log(sponsors)
       thisBrigade.sponsors = sponsors
       if (req.body['new-sponsor'].name.length || req.body['new-sponsor'].link.length || req.body['new-sponsor'].image.length) {
         if (!(req.body['new-sponsor'].name) || !(req.body['new-sponsor'].link) || !(req.body['new-sponsor'].image)) {
