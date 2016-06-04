@@ -68,8 +68,7 @@ exports.postBrigade = function (req, res, next) {
       var sponsors = req.body['sponsors'].filter(function (sponsor, index) {
         if (req.body['mainsponsor'] === index) {
           sponsor.main = true
-        }
-        else {
+        } else {
           sponsor.main = false
         }
         if (!sponsor.delete) {
