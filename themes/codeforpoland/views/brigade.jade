@@ -131,7 +131,7 @@ block content
                 select.update.hidden.form-control(name='externals[#{index}][target]', id='external-link-target')
                   option(value='self', selected=(external.target==='self')) self
                   option(value='_blank', selected=(external.target==='_blank')) _blank
-              td 
+              td
                 button.edit-settings-row.btn.btn-primary(type='button')
                   i.static.fa.fa-pencil
                   i.update.hidden.fa.fa-close
@@ -150,6 +150,44 @@ block content
                 option(value='_blank') _blank
             td
               button.btn.btn-primary(type='submit') Save Changes
+      h3 Brigade Sponsors
+      .row.row-body
+        table.table
+          thead
+            tr
+              th Name
+              th Destination
+              th Banner image
+              th Actions
+          tbody
+            each sponsor, index in brigade.sponsors.other
+              tr
+                td
+                  span.static=sponsor.name
+                  input.update.hidden.form-control(type='text', name='sponsors[#{index}][name]', id='sponsor-link-name', value='#{sponsor.name}')
+                td
+                  span.static=sponsor.link
+                  input.update.hidden.form-control(type='text', name='sponsors[#{index}][link]', id='sponsor-link-link', value='#{sponsor.link}')
+                td
+                  span.static=sponsor.link
+                  input.update.hidden.form-control(type='text', name='sponsors[#{index}][image]', id='sponsor-link-image', value='#{sponsor.image}')
+                td
+                  button.edit-settings-row.btn.btn-primary(type='button')
+                    i.static.fa.fa-pencil
+                    i.update.hidden.fa.fa-close
+                  label.delete-checkbox(for='sponsors-#{index}-delete')
+                    input.hidden(type='checkbox', name='sponsors[#{index}][delete]', id='sponsors-#{index}-delete')
+                    span.btn.btn-danger(type='button')
+                      i.fa.fa-trash
+           tr
+              td
+                input.form-control(name='new-sponsor[name]', id='new-sponsor-name', value='', placeholder='Name (shows in footer)')
+              td
+                input.form-control(name='new-sponsor[link]', id='new-sponsor-link', value='', placeholder='Destination Link')
+              td
+                input.form-control(name='new-sponsor[image]', id='new-sponsor-image', value='', placeholder='Sponsor image')
+              td
+                button.btn.btn-primary(type='submit') Save Changes
     .row.row-title
       h3 Dynamic Redirects
     .row.row-body
@@ -185,7 +223,7 @@ block content
                 select.update.hidden.form-control(name='redirects[#{index}][type]', id='redirects-type')
                   option(value='temporary', selected=(redirect.type==='temporary')) Temporary
                   option(value='permanent', selected=(redirect.type==='permanent')) Permanent
-              td 
+              td
                 button.edit-settings-row.btn.btn-primary(type='button')
                   i.static.fa.fa-pencil
                   i.update.hidden.fa.fa-close
