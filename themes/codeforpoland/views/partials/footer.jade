@@ -6,8 +6,9 @@ footer
     .row.partners-logos
       .col-sm-12.clearfix
         each sponsor in brigade.sponsors
-          a(href=sponsor.link)
-            img(src=sponsor.image, alt=sponsor.name)
+          if (!(sponsor.main))
+            a(href=sponsor.link)
+              img(src=sponsor.image, alt=sponsor.name)
     //- .row.show-partners
     //-   .col-sm-12
     //-     a.btn.btn-danger(href='http://codeforpoland.org/partnerzy/') Show all partners
