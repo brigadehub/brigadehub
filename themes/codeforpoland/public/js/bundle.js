@@ -5295,13 +5295,14 @@ $(document).ready(function () {
   console.log('%c             visit https://github.com/sfbrigade/brigadehub to find the code and learn more!', 'color:' + window.__bh.colors.text)
   console.log('%c-------------------------------------------------------------------------------------------', 'color:' + window.__bh.colors.label)
   if (window._events) {
-    $('#events-calendar').fullCalendar({
-      events: window._events
-    })
     var userzone = moment.tz.guess()
-    window._events.forEach(function (event, i) {
-      var m = moment.tz(event.start, 'Atlantic/Azores').tz(userzone).format('ha z MMMM DD, YYYY')
-      $('.event' + i.toString()).html(m)
+    var eventsarray = window._events.map(function (event, i) {
+      event.start = moment.unix(event.start).tz(userzone).format()
+      $('.event' + i.toString()).html(moment.tz(event.start, userzone).format('ha z MMMM DD, YYYY'))
+      return event
+    })
+    $('#events-calendar').fullCalendar({
+      events: eventsarray
     })
   }
   $(window).on('scroll', function (event) {
