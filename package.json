@@ -34,6 +34,7 @@
     "async": "^1.5.2",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.14.2",
+    "browserify": "^13.0.1",
     "colors": "^1.1.2",
     "compression": "^1.6.0",
     "connect-mongo": "^1.1.0",
@@ -46,6 +47,10 @@
     "express-validator": "^2.18.0",
     "faker": "^3.1.0",
     "glob": "^7.0.3",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-watch": "^4.3.6",
     "jade": "^1.11.0",
     "link-header-parser": "0.0.2",
     "lodash": "^4.0.0",
@@ -70,7 +75,8 @@
     "serve-favicon": "^2.3.0",
     "slug": "^0.9.1",
     "standard": "^6.0.4",
-    "uuid": "^2.0.1"
+    "uuid": "^2.0.1",
+    "vinyl-source-stream": "^1.1.0"
   },
   "devDependencies": {
     "careful": "^1.0.2",

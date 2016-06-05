@@ -34,3 +34,4 @@ main.css.map
 .jshintrc
 .jshintignore
 phantomjsdriver.log
+bundle.js

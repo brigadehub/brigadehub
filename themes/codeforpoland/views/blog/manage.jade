@@ -4,15 +4,15 @@ block content
   .row.breadcrumbs
     .col-sm-12
       a(href='/')= brigade.name
-      | &nbsp;&nbsp;/&nbsp; 
+      | &nbsp;&nbsp;/&nbsp;
       a(href='/blog') Blog
-      | &nbsp;&nbsp;/&nbsp; 
+      | &nbsp;&nbsp;/&nbsp;
       a(href='/blog/manage') Manage
-      
+
   .page-header
     h3 Manage Blog Posts
 
-    form.row.form-horizontal(action='/blog/manage', method='POST', onsubmit="return validate(this);")
+    form.row.form-horizontal(action='/blog/manage', method='POST', id='blogform')
       input(type='hidden', name='_csrf', value=_csrf)
       table.table
         thread
@@ -21,7 +21,7 @@ block content
             td Title
             td Author
             td Date Published
-            td  
+            td
             td Delete?
         tbody
           each post in posts
@@ -45,7 +45,6 @@ block content
                   span edit
               td
                 input(type='checkbox', name='#{post.id}[delete]' id="delete")
-                | 
                 i(class="fa fa-trash-o" aria-hidden="true")
 
       .form-group.row
@@ -53,4 +52,4 @@ block content
           button.btn.btn.btn-primary(type='submit')
             i.fa.fa-pencilr
             | Save Changes
-            
+

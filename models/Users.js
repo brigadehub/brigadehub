@@ -13,12 +13,12 @@ var defaultHeaders = {
 
 var userSchema = new mongoose.Schema({
   username: { type: String, unique: true },
-  email: String,
-  /* password: String,*/
-  github: String,
-  tokens: Array,
-  scopes: Array,
-  postAuthLink: String,
+  email: {type: String, default: ''},
+  /* password: {type:String, default:''},*/
+  github: {type: String, default: ''},
+  tokens: {type: Array, default: []},
+  scopes: {type: Array, default: []},
+  postAuthLink: {type: String, default: ''},
   roles: {
     read: {type: Boolean, default: true},
     blog: {type: Boolean, default: false},
@@ -41,9 +41,7 @@ var userSchema = new mongoose.Schema({
     showcontact: { type: Boolean, default: true },
     position: { type: String, default: '' },
     contactpagerank: { type: Number, default: 1 }
-  },
-  resetPasswordToken: String,
-  resetPasswordExpires: Date
+  }
 })
 
 /**
