@@ -58,6 +58,16 @@ $(document).ready(function () {
       })
     })
   })
+  $('#nav-toggle').on('click touchstart', function(event) {
+    event.preventDefault()
+    $('#nav-toggle, .nav-menu').toggleClass('active')
+    $('.login-toggle, .account-menu').removeClass('active')
+    $('body').toggleClass('fixed')
+  })
+  $('.login-toggle').on('click touchstart', function(event) {
+    event.preventDefault()
+    $('.login-toggle, .account-menu').toggleClass('active')
+  })
 })
 function adminWarning (currentuser, boxname) { // eslint-disable-line
   var userbox = document.getElementsByName(boxname + '[superAdmin]')

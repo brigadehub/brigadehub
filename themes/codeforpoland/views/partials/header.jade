@@ -1,6 +1,6 @@
 nav.navbar.navbar-light.bg-faded.navbar-fixed-top
   .container
-    .row.account.clearfix
+    .row.account.hidden-sm-down.clearfix
       a.navbar-brand(href='/')
         img(src='/cfa-banner.png')
       ul.nav.navbar-nav.pull-xs-right
@@ -9,7 +9,7 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
             li(class=title=='Login'?'active':undefined)
               a(href='/login') Login
           else
-            li.nav-item.dropdown(class=title=='Account Management'?'active':undefined)
+            li.nav-item(class=title=='Account Management'?'active':undefined)
               a.nav-link.dropdown-toggle(href='javascript:void(0)', data-toggle='dropdown')
                 | #{user.profile.name || user.email || user.username}
                 if user.profile.picture
@@ -39,7 +39,7 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
                   a.dropdown-item(href='/brigade')
                     i.fa.fa-home
                     | Manage Brigade
-                if user.roles.project
+                if user.roles.project && user.teams.project.length !== 0
                   a.dropdown-item.divider
                   a.dropdown-item.header Projects
                   each project in user.teams.project
@@ -53,25 +53,102 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
                   i.fa.fa-sign-out
                   | Logout
     .row.navigation
-      button.navbar-toggler.hidden-sm-up(type='button', data-toggle='collapse', data-target='#collapsingNavbar') &#9776;
+      .navbar.hidden-md-up
+        a.navbar-toggler#nav-toggle
+          span
       a.navbar-brand.brigade-brand(href='/')
         img.brigade-logo(src=brigade.theme.logo)
         if brigade.theme.page.title
           span= brigade.name
-      .collapse.navbar-toggleable-xs#collapsingNavbar
-        ul.nav.navbar-nav.pull-xs-right
-          if brigade.theme.page.events
-            li.nav-item(class=title=='Events'?'active':undefined)
-              a.nav-link(href='/events') Events
-          if brigade.theme.page.projects
-            li.nav-item(class=title=='Projects'?'active':undefined)
-              a.nav-link(href='/projects') Projects
-          if brigade.theme.page.blog
-            li.nav-item(class=title=='Blog'?'active':undefined)
-              a.nav-link(href='/blog') Blog
-          each external in brigade.theme.page.external
-            li.nav-item
-              a.nav-link(href=external.link, target=external.target)=external.name
-          if brigade.theme.page.about
-            li.nav-item(class=title=='Contact'?'active':undefined)
-              a.nav-link(href='/contact') Contact
+      .ul.nav.navbar-nav.hidden-sm-down.pull-right
+        if brigade.theme.page.events
+          li.nav-item(class=title=='Events'?'active':undefined)
+            a.nav-link(href='/events') Events
+        if brigade.theme.page.projects
+          li.nav-item(class=title=='Projects'?'active':undefined)
+            a.nav-link(href='/projects') Projects
+        if brigade.theme.page.blog
+          li.nav-item(class=title=='Blog'?'active':undefined)
+            a.nav-link(href='/blog') Blog
+        each external in brigade.theme.page.external
+          li.nav-item
+            a.nav-link(href=external.link, target=external.target)=external.name
+        if brigade.theme.page.about
+          li.nav-item(class=title=='Contact'?'active':undefined)
+            a.nav-link(href='/contact') Contact
+      .nav-menu.hidden-md-up
+        ul.nav.navbar-nav
+          if brigade.theme.page.login
+            if !user
+              li.nav-item(class=title=='Login'?'active':undefined)
+                a.nav-link(href='/login')
+                  i.fa.fa-user
+                  | Login
+            else
+              .login-toggle.user(class=title=='Account Management'?'active':undefined)
+                if user.profile.picture
+                  img(src='#{user.profile.picture}',width='32')
+                else
+                  img(src='#{user.gravatar(32)}')
+                | #{user.profile.name || user.email || user.username}
+                i.fa.fa-caret-down
+              .account-menu
+                if user.roles.blog || user.roles.lead || user.roles.core || user.roles.superAdmin
+                  li.nav-item
+                    .header Management
+                if user.roles.blog || user.roles.lead || user.roles.core || user.roles.superAdmin
+                  li.nav-item
+                    a.nav-link(href='/blog/manage')
+                      i.fa.fa-th
+                      | Manage Blog Posts
+                if user.roles.core || user.roles.superAdmin
+                  li.nav-item
+                    a.nav-link(href='/events/manage')
+                      i.fa.fa-calendar
+                      | Manage Events
+                if user.roles.lead || user.roles.core || user.roles.superAdmin
+                  li.nav-item
+                    a.nav-link(href='/projects/manage')
+                      i.fa.fa-wrench
+                      | Manage Projects
+                if user.roles.core || user.roles.superAdmin
+                  li.nav-item
+                    a.nav-link(href='/users/manage')
+                      i.fa.fa-users
+                      | Manage Users
+                if user.roles.superAdmin
+                  li.nav-item
+                    a.nav-link(href='/brigade')
+                      i.fa.fa-home
+                      | Manage Brigade
+                if user.roles.project && user.teams.project.length !== 0
+                  li.nav-item
+                    .header Projects
+                  each project in user.teams.project
+                    li.nav-item
+                      a.nav-link(href='/projects/'+project)=project
+                li.nav-item
+                  .header Account
+                  li.nav-item
+                    a.nav-link(href='/account')
+                      i.fa.fa-cog
+                      | Settings
+                    a.nav-link(href='/logout')
+                      i.fa.fa-sign-out
+                      | Logout
+          .nav-main
+            if brigade.theme.page.events
+              li.nav-item(class=title=='Events'?'active':undefined)
+                a.nav-link(href='/events') Events
+            if brigade.theme.page.projects
+              li.nav-item(class=title=='Projects'?'active':undefined)
+                a.nav-link(href='/projects') Projects
+            if brigade.theme.page.blog
+              li.nav-item(class=title=='Blog'?'active':undefined)
+                a.nav-link(href='/blog') Blog
+            each external in brigade.theme.page.external
+              li.nav-item
+                a.nav-link(href=external.link, target=external.target)=external.name
+            if brigade.theme.page.about
+              li.nav-item(class=title=='Contact'?'active':undefined)
+                a.nav-link(href='/contact') Contact
