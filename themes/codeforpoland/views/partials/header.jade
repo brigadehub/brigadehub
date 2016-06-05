@@ -81,8 +81,8 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
           if brigade.theme.page.login
             if !user
               li.nav-item(class=title=='Login'?'active':undefined)
-                a.nav-link(href='/login')
-                  i.fa.fa-user
+                a.nav-link.login-icon(href='/login')
+                  img(src='img/login-icon.svg',width='32')
                   | Login
             else
               .login-toggle.user(class=title=='Account Management'?'active':undefined)
