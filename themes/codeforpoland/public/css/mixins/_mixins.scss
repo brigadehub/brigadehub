@@ -1,0 +1,21 @@
+@mixin mobile {
+  @media (max-width: 47.9em) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 47.9em) {
+    @content;
+  }
+}
+
+@mixin animation($property, $duration, $effect) {
+  transition: $property $duration $effect;
+}
+
+@mixin row-nav {
+  .row.navigation {
+    @content;
+  }
+}
