@@ -90,13 +90,13 @@ $(document).ready(function () {
       })
     })
   })
-  $('#nav-toggle').on('click touchstart', function(event) {
+  $('#nav-toggle').on('click touchstart', function (event) {
     event.preventDefault()
     $('#nav-toggle, .nav-menu').toggleClass('active')
     $('.login-toggle, .account-menu').removeClass('active')
     $('body').toggleClass('fixed')
   })
-  $('.login-toggle').on('click touchstart', function(event) {
+  $('.login-toggle').on('click touchstart', function (event) {
     event.preventDefault()
     $('.login-toggle, .account-menu').toggleClass('active')
   })
