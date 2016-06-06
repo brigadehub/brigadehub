@@ -47,19 +47,19 @@ module.exports = [
       faker.company.bsBuzz(),
       faker.company.bsBuzz()
     ],
-    'content': '# This Project! \n\n This is sub info.\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
+    'content': '# This Project! \n\n This is sub info.\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   },
   {
     'id': 'really-empty-project',
@@ -111,19 +111,19 @@ module.exports = [
       faker.company.bsBuzz(),
       faker.company.bsBuzz()
     ],
-    'content': '# This Project! \n\n This is sub info.\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
+    'content': '# This Project! \n\n This is sub info.\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   },
   {
     'id': 'forked-project-kong',
@@ -176,19 +176,19 @@ module.exports = [
       faker.company.bsBuzz(),
       faker.company.bsBuzz()
     ],
-    'content': '# This Project! \n\n This is sub info.\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
+    'content': '# This Project! \n\n This is sub info.\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   },
   {
     'id': 'mirrored-project-hackathon-starter',
@@ -241,19 +241,19 @@ module.exports = [
       faker.company.bsBuzz(),
       faker.company.bsBuzz()
     ],
-    'content': '# This Project! \n\n This is sub info.\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
+    'content': '# This Project! \n\n This is sub info.\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   },
   {
     'id': 'mirrored-project-mirror',
@@ -306,19 +306,19 @@ module.exports = [
       faker.company.bsBuzz(),
       faker.company.bsBuzz()
     ],
-    'content': '# This Project! \n\n This is sub info.\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
+    'content': '# This Project! \n\n This is sub info.\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   }, {
     'id': 'mirrored-project-mirror',
     'brigade': 'codeforexample',
@@ -370,18 +370,18 @@ module.exports = [
       faker.company.bsBuzz(),
       faker.company.bsBuzz()
     ],
-    'content': '# This Project! \n\n This is sub info.\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n' + 
-        faker.lorem.paragraph() + 
-        '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
+    'content': '# This Project! \n\n This is sub info.\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   }
 ]
