@@ -41,8 +41,8 @@ footer {
 }
 
 .row {
-  margin-left:0;
-  margin-right:0;
+  margin-right: 0;
+  margin-left: 0;
 }
 // Input Fields
 // -------------------------
@@ -420,7 +420,7 @@ footer {
   }
 }
 
-.form-group{
+.form-group {
   @extend .clearfix;
 }
 
@@ -439,21 +439,23 @@ img {
   max-width: 100%;
 }
 
-nav + .container{
+nav + .container {
   .row {
+    display: block;
+
+    width: 100%;
+
     @extend .clearfix;
-    display:block;
-    width:100%;
   }
 }
 .hidden {
-  display:none;
+  display: none;
 }
 
 .delete-checkbox {
   input:checked + .btn {
-    background:white;
-    color:#D9534F;
+    color: #d9534f;
+    background: white;
   }
 }
 
@@ -462,20 +464,44 @@ table {
   max-width: 100%;
   margin-bottom: 1rem;
   th, td {
-    padding: .75rem;
     line-height: 1.5;
+
+    padding: 0.75rem;
+
     vertical-align: top;
+
     border-top: 1px solid hsl(200, 9%, 93%);
   }
-  thead{
-    th{
+  thead {
+    th {
+      font-weight: bold;
+
       vertical-align: bottom;
+
       border-bottom: 2px solid hsl(200, 9%, 93%);
-      font-weight:bold;
     }
   }
 }
 
+input {
+  font-size: 1rem;
+  line-height: 1.5;
+
+  display: block;
+
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+
+  color: hsl(206, 4%, 35%);
+  border: 1px solid hsl(0, 0%, 80%);
+  border-radius: 0.25rem;
+  background-color: hsl(0, 0%, 100%);
+  background-image: none;
+}
+
+.bootstrap-tagsinput {
+  width:100%;
+}
 // Import view specific styles
 
 @import 'views/account-settings';
