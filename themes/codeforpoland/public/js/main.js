@@ -76,7 +76,8 @@ $(document).ready(function () {
     })
   })
   if ($('#blogtime').length) {
-    $('#blogtime').val(moment().format('MMMM Do YYYY, h:mm:ss a'))
+    var userzone = moment.tz.guess()
+    $('#blogtime').val(moment().tz(userzone).format('MMMM Do YYYY, h:mm:ss a'))
   }
 })
 
