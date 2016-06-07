@@ -148,7 +148,7 @@ module.exports = {
     let blogpost = new Post({
       title: req.body.title,
       author: req.body.author,
-      url: req.body.url,
+      url: '/blog/post/' + req.body.url,
       image: req.body.image,
       description: req.body.description,
       content: req.body.content,
