@@ -3,10 +3,14 @@ if (!window.console.log) window.console.log = function () {}
 /* global SimpleMDE */
 var $ = window.jQuery
 var webfunctions = require('./functions.js')
+var moment = require('moment')
+require('moment-timezone')
+
 window.__bh.colors = {
   label: '#EDAB43',
   text: '#8C8C8C'
 }
+
 $(document).ready(function () {
   $('.adminButton').click(function () {
     console.log($(this))
@@ -22,8 +26,14 @@ $(document).ready(function () {
   console.log('%c             visit https://github.com/sfbrigade/brigadehub to find the code and learn more!', 'color:' + window.__bh.colors.text)
   console.log('%c-------------------------------------------------------------------------------------------', 'color:' + window.__bh.colors.label)
   if (window._events) {
+    var userzone = moment.tz.guess()
+    var eventsarray = window._events.map(function (event, i) {
+      event.start = moment.unix(event.start).tz(userzone).format()
+      $('.event' + i.toString()).html(moment.tz(event.start, userzone).format('ha z MMMM DD, YYYY'))
+      return event
+    })
     $('#events-calendar').fullCalendar({
-      events: window._events
+      events: eventsarray
     })
   }
   $(window).on('scroll', function (event) {
