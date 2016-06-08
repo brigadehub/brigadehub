@@ -34,10 +34,12 @@ var projectsSchema = new mongoose.Schema({
   repository: {type: String, default: ''},
   githubSlug: {type: String, default: ''},
   contact: {type: Array, default: []},
+  team: {type: Array, default: []},
   partners: {type: Array, default: []}, // name, email, logo?
   data: {type: Array, default: []},
   keywords: {type: Array, default: []}, // simple strings
-  links: {type: Array, default: []}
+  links: {type: Array, default: []}, // simple strings
+  videos: {type: Array, default: []}
 })
 
 projectsSchema.statics.fetchGithubRepos = function (brigade, user, cb) {

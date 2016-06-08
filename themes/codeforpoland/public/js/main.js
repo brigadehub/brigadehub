@@ -45,6 +45,7 @@ $(document).ready(function () {
     }
   })
   if ($('.simple-mde').length) {
+    console.log('SIMPLE MDE PRESENT', $('.simple-mde'))
     var editor = new SimpleMDE({ // eslint-disable-line no-unused-vars
       element: $('.simple-mde')[0],
       forceSync: true,
