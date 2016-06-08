@@ -6,6 +6,7 @@
 @import 'vendors/simplemde.min';
 
 @import 'themes/default/default';
+@import 'mixins/mixins';
 
 // Scaffolding
 // -------------------------
@@ -20,6 +21,8 @@ html {
 
 body {
   font-family: 'Source Sans Pro', 'Helvetica', 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
 
   margin-bottom: 75px;
   padding-top: 126px;
@@ -46,18 +49,6 @@ footer {
 textarea {
   resize: vertical;
 }
-
-// Navbar
-// -------------------------
-
-.navbar-nav img {
-  width: 30px;
-  height: 30px;
-  margin: -15px 15px -15px;
-}
-
-// Navbar
-// -------------------------
 
 .sidebar {
   ul {
@@ -105,23 +96,7 @@ textarea {
 .fa {
   margin-right: 6px;
 }
-.dropdown-menu {
-  li {
-    &.header {
-      font-size: 10px;
-      font-weight: 500;
 
-      min-height: 0;
-      padding: 8px 10px 3px 10px;
-
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-
-      color: hsl(200, 4%, 73%);
-      background: none;
-    }
-  }
-}
 .float {
   display: block;
   float: left;
@@ -138,167 +113,6 @@ textarea {
     clear: both;
 
     content: '';
-  }
-}
-
-nav.navbar {
-  padding-bottom: 0;
-
-  transition: height $scroll-transition ease-in-out;
-
-  background-color: white;
-  a {
-    height: 100%;
-  }
-  ul {
-    height: 100%;
-  }
-  .row.account {
-    height: 30px;
-
-    transition: height $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
-    img {
-      height: 22px;
-    }
-    .navbar-brand {
-      img {
-        width: 184px;
-
-        transition: height $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
-      }
-    }
-    .dropdown-toggle {
-      position: relative;
-
-      width: auto;
-      padding: 0;
-      padding-right: 30px;
-
-      transition: height $scroll-transition ease-in-out, padding $scroll-transition ease-in-out;
-      white-space: nowrap;
-      img {
-        position: absolute;
-        top: 15px;
-        right: -15px;
-        bottom: auto;
-        left: auto;
-
-        width: auto;
-
-        transition: height $scroll-transition ease-in-out, top $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
-      }
-      &:after {
-        display: none;
-      }
-    }
-    .dropdown-menu {
-      top: 25px;
-      right: 0;
-      left: auto;
-      a {
-        padding: 3px 15px;
-
-        opacity: 0.75;
-        &:hover {
-          opacity: 1;
-        }
-        &.header {
-          font-size: 11px;
-          font-weight: bold;
-
-          height: 22px;
-          padding: 3px 15px;
-
-          cursor: default;
-          letter-spacing: 1px;
-          text-transform: uppercase;
-
-          opacity: 0.6;
-          background-color: hsl(0, 0%, 90%);
-          &:hover {
-            opacity: 0.6;
-            background-color: hsl(0, 0%, 90%);
-          }
-        }
-      }
-    }
-  }
-  .row.navigation {
-    position: relative;
-
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    .navbar-nav {
-      padding-top: 9px;
-    }
-    .navbar-brand {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-
-      height: 77px;
-
-      transition: height $scroll-transition ease-in-out;
-      /* width: 167px; */
-      transform: translateX(-50%) translateY(-50%);
-      img {
-        height: 100%;
-      }
-    }
-    .navbar-nav .nav-item {
-      height: 77px;
-
-      transition: height $scroll-transition ease-in-out;
-      a {
-        padding-top: 20px;
-
-        transition: padding-top $scroll-transition ease-in-out;
-      }
-    }
-  }
-  .navbar-toggler {
-    float: right;
-
-    margin-top: 8px;
-    &:focus {
-      outline: none;
-    }
-  }
-}
-body.scroll {
-  .navbar {
-    padding-top: 0;
-
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.4);
-    .row.navigation {
-      border-top: none;
-    }
-    .row.account {
-      height: 10px;
-      margin-bottom: 10px;
-      img {
-        height: 0;
-      }
-      .dropdown-toggle {
-        height: 10px;
-        padding: 2px 0;
-        img {
-          top: 26px;
-
-          height: 0;
-        }
-      }
-    }
-    .row.navigation {
-      a.navbar-brand {
-        height: 50px;
-      }
-      .navbar-nav .nav-item {
-        height: 50px;
-        a {
-          padding-top: 10px;
-        }
-      }
-    }
   }
 }
 
@@ -500,3 +314,4 @@ table {
 @import 'views/user-new';
 @import 'views/user-settings';
 @import 'views/user';
+@import 'partials/nav';

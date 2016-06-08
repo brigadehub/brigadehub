@@ -1,0 +1,366 @@
+// body
+.fixed {
+  overflow: hidden;
+}
+
+// Desktop Navigation
+.navbar-nav img {
+  width: 30px;
+  height: 30px;
+  margin: -15px 15px -15px;
+}
+
+.dropdown-menu {
+  li {
+    &.header {
+      font-size: 10px;
+      font-weight: 500;
+
+      min-height: 0;
+      padding: 8px 10px 3px 10px;
+
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+
+      color: hsl(200, 4%, 73%);
+      background: none;
+    }
+  }
+}
+
+nav.navbar {
+  padding-bottom: 0;
+
+  transition: height $scroll-transition ease-in-out;
+
+  background-color: white;
+
+  @include row-nav {
+    position: relative;
+
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    .navbar-nav {
+      padding-top: 9px;
+    }
+    .navbar-brand {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+
+      height: 77px;
+
+      transform: translateX(-50%) translateY(-50%);
+
+      @include animation(height, $scroll-transition, ease-in-out);
+      @include mobile {
+        left: 10%;
+      }
+      img {
+        height: 100%;
+      }
+    }
+    .navbar-nav .nav-item {
+      @include desktop {
+        height: 77px;
+
+        @include animation(height, $scroll-transition, ease-in-out);
+        a {
+          padding-top: 20px;
+
+          @include animation(padding-top, $scroll-transition, ease-in-out);
+        }
+      }
+    }
+  }
+  a {
+    height: 100%;
+  }
+  ul {
+    height: 100%;
+  }
+  .row.account {
+    height: 30px;
+
+    transition: height $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
+    img {
+      height: 22px;
+    }
+    .navbar-brand {
+      img {
+        width: 184px;
+
+        transition: height $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
+      }
+    }
+    .dropdown-toggle {
+      position: relative;
+
+      width: auto;
+      padding: 0;
+      padding-right: 30px;
+
+      transition: height $scroll-transition ease-in-out, padding $scroll-transition ease-in-out;
+      white-space: nowrap;
+      img {
+        position: absolute;
+        top: 15px;
+        right: -15px;
+        bottom: auto;
+        left: auto;
+
+        width: auto;
+
+        transition: height $scroll-transition ease-in-out, top $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
+      }
+      &:after {
+        display: none;
+      }
+    }
+    .dropdown-menu {
+      top: 36px;
+      right: 30px;
+      left: auto;
+      a {
+        padding: 3px 15px;
+
+        opacity: 0.75;
+        &:hover {
+          opacity: 1;
+        }
+        &.header {
+          font-size: 11px;
+          font-weight: bold;
+
+          height: 22px;
+          padding: 3px 15px;
+
+          cursor: default;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+
+          opacity: 0.6;
+          background-color: hsl(0, 0%, 90%);
+          &:hover {
+            opacity: 0.6;
+            background-color: hsl(0, 0%, 90%);
+          }
+        }
+      }
+    }
+  }
+}
+
+body.scroll {
+  @include desktop {
+    .navbar {
+      padding-top: 0;
+
+      box-shadow: 0 1px 1px 0 rgba(0,0,0,0.4);
+
+      @include row-nav {
+        a.navbar-brand {
+          height: 50px;
+        }
+        .navbar-nav .nav-item {
+          height: 50px;
+          a {
+            padding-top: 10px;
+          }
+        }
+      }
+      .row.navigation {
+        border-top: none;
+      }
+      .row.account {
+        height: 10px;
+        margin-bottom: 10px;
+        img {
+          height: 0;
+        }
+        .dropdown-toggle {
+          height: 10px;
+          padding: 2px 0;
+          img {
+            top: 26px;
+
+            height: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Mobile Navigation
+nav.navbar {
+  @include mobile {
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.4);
+  }
+  @include row-nav {
+    @include mobile {
+      height: 77px;
+
+      border-top: none;
+      a.navbar-brand {
+        height: 50px;
+      }
+    }
+    #nav-toggle span, #nav-toggle span:before, #nav-toggle span:after {
+      position: absolute;
+      top: 10px;
+
+      display: block;
+
+      width: 30px;
+      height: 3px;
+
+      content: '';
+      cursor: pointer;
+
+      border-radius: 1px;
+      background: #000000;
+    }
+    #nav-toggle span {
+      &:before {
+        top: -10px;
+      }
+      &:after {
+        bottom: -10px;
+      }
+    }
+    .nav-menu, #nav-toggle span, #nav-toggle span:before, #nav-toggle span:after, .account-menu, .login-toggle {
+      @include animation(all, 0.5s, ease-in-out);
+    }
+    #nav-toggle.active span {
+      width: 0;
+
+      background-color: transparent;
+      &:before {
+        top: 0;
+
+        width: 20px;
+
+        transform: rotate(45deg);
+      }
+      &:after {
+        top: 0;
+
+        width: 20px;
+
+        transform: rotate(-45deg);
+      }
+    }
+    .navbar-toggler {
+      position: absolute;
+      top: 50%;
+      right: 10%;
+
+      margin-top: 10px;
+
+      cursor: pointer;
+      &:focus {
+        outline: none;
+      }
+    }
+    .nav-menu {
+      position: fixed;
+      top: 85px;
+      right: -100%;
+
+      display: block;
+
+      width: 100%;
+      height: 100%;
+
+      color: #ffffff;
+      background: url('/img/black_denim.png');
+      text-shadow: 1px 1px 1px #000000;
+
+      @include mobile {
+        .navbar-nav {
+          .header {
+            margin-top: 10px;
+          }
+        }
+        .navbar-nav li {
+          float: none;
+          &:hover {
+            background: none;
+          }
+        }
+        .nav-main {
+          padding-bottom: 90px;
+          li {
+            margin-left: 0;
+          }
+        }
+        .navbar-nav .nav-item {
+          display: block;
+          float: none;
+          .user {
+            margin-left: 1rem;
+            img {
+              padding-bottom: 1rem;
+            }
+          }
+          a {
+            display: block;
+
+            margin: 0 10px;
+            padding: 15px 15px 15px 2px;
+
+            color: #ffffff;
+            border-bottom: 1px solid rgba(255,255,255,0.25);
+            &:hover {
+              background-color: rgba(255,255,255,0.2);
+            }
+          }
+          .login-icon {
+            margin: -15px 15px 1rem 0;
+            margin-bottom: 0;
+            border-bottom: none;
+          }
+        }
+        .login-toggle {
+          margin-bottom: 1rem;
+
+          cursor: pointer;
+          i {
+            margin-left: 5px;
+
+            @include animation(all, 0.4s, ease-in-out);
+          }
+          &.active {
+            i {
+              transform: rotate(-180deg);
+            }
+          }
+        }
+      }
+      &.active {
+        right: 0;
+
+        overflow: auto;
+      }
+    }
+    .account-menu {
+      overflow: hidden;
+
+      width: 100%;
+      max-height: 0;
+
+      transition: max-height 0.7s ease-in-out;
+      .nav-item:first-child {
+        margin-left: 1rem;
+      }
+      &.active {
+        top: 0;
+
+        overflow: auto;
+
+        height: auto;
+        max-height: 2000px;
+      }
+    }
+  }
+}
