@@ -2,7 +2,7 @@
 
 var Post = require('../models/Posts')
 var User = require('../models/Users')
-var markdown = require('marked')
+var Markdown = require('markdown-it')
 var _ = require('lodash')
 
 module.exports = {
@@ -194,7 +194,9 @@ module.exports = {
         res.sendStatus(404)
         return
       }
-      post.content = markdown(post.content)
+      var md = new Markdown()
+
+      post.content = md.render(post.content)
       res.render(res.locals.brigade.theme.slug + '/views/blog/post', {
         view: 'blog-post',
         blogId: req.params.blogId,

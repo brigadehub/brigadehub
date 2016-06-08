@@ -18,11 +18,12 @@ engines:
 ratings:
   paths:
   - "**.css"
-  - "**.inc"
+  - "**.scss"
   - "**.js"
-  - "**.jsx"
-  - "**.module"
+  - "npm-shrinkwrap.json"
 exclude_paths:
 - config/
 - node_modules
 - test/
+- themes/codeforpoland/public/css/vendors
+- themes/codeforpoland/public/js/lib

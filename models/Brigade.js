@@ -33,14 +33,7 @@ var brigadeSchema = new mongoose.Schema({
     tagline: {type: String, default: ''},
     description: {type: String, default: ''}
   },
-  sponsors: {
-    main: {
-      name: {type: String, default: ''},
-      url: {type: String, default: ''},
-      image: {type: String, default: ''}
-    },
-    other: {type: Array, default: []}
-  },
+  sponsors: {type: Array, default: []},
   auth: {
     github: {
       clientId: {type: String, default: ''},

@@ -1,8 +1,10 @@
 nav.navbar.navbar-light.bg-faded.navbar-fixed-top
   .container
     .row.account.hidden-sm-down.clearfix
-      a.navbar-brand(href='/')
-        img(src='/cfa-banner.png')
+      each sponsor in brigade.sponsors
+        if (sponsor.main)
+          a(href=sponsor.link)
+            img(src=sponsor.image, alt=sponsor.name)
       ul.nav.navbar-nav.pull-xs-right
         if brigade.theme.page.login
           if !user
