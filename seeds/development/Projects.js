@@ -4,138 +4,384 @@ module.exports = [
   {
     'id': 'Test-Empty-Project',
     'brigade': 'codeforexample',
-    'status': 'proposed',
-    'thumbnailUrl': 'http://i.imgur.com/MRgvL1K.png',
-    'bannerUrl': 'http://i.imgur.com/MRgvL1K.png',
+    'status': 'discovery',
+    'thumbnailUrl': faker.image.city(360, 360, false),
+    'bannerUrl': faker.image.people(),
     'bornAt': 'Code for Example',
     'geography': faker.address.city(),
     'politicalEntity': '',
-    'type': '',
     'name': 'Test-Empty-Project',
-    'description': 'this is an empty repo. WOOO!',
+    'description': faker.hacker.phrase(),
     'license': 'MIT',
     'homepage': 'https://github.com/codeforexample/Test-Empty-Project',
     'repository': 'https://github.com/codeforexample/Test-Empty-Project',
     'links': [],
-    'keywords': [],
-    'data': [],
+    'videos': [],
+    'keywords': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
     'partners': [],
-    'contact': [],
-    'categories': [],
-    'needs': []
+    'team': [
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      }
+    ],
+    'needs': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
+    'content': '# This Project! \n\n This is sub info.\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   },
   {
     'id': 'really-empty-project',
     'brigade': 'codeforexample',
-    'status': 'proposed',
-    'thumbnailUrl': 'http://i.imgur.com/MRgvL1K.png',
-    'bannerUrl': 'http://i.imgur.com/MRgvL1K.png',
+    'status': 'beta',
+    'thumbnailUrl': faker.image.city(360, 360, false),
+    'bannerUrl': faker.image.people(),
     'bornAt': 'Code for Example',
     'geography': faker.address.city(),
     'politicalEntity': '',
-    'type': '',
     'name': 'really-empty-project',
-    'description': "this repo doesn't even have a readme! WOOOO!",
+    'description': faker.hacker.phrase(),
     'license': 'MIT',
     'homepage': 'https://github.com/codeforexample/really-empty-project',
     'repository': 'https://github.com/codeforexample/really-empty-project',
     'links': [],
-    'keywords': [],
-    'data': [],
+    'videos': [],
+    'keywords': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
     'partners': [],
-    'contact': [],
-    'categories': [],
-    'needs': []
+    'team': [
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      }
+    ],
+    'needs': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
+    'content': '# This Project! \n\n This is sub info.\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   },
   {
     'id': 'forked-project-kong',
     'brigade': 'codeforexample',
-    'status': 'proposed',
-    'thumbnailUrl': 'http://i.imgur.com/MRgvL1K.png',
-    'bannerUrl': 'http://i.imgur.com/MRgvL1K.png',
+    'status': 'alpha',
+    'thumbnailUrl': faker.image.city(360, 360, false),
+    'bannerUrl': faker.image.people(),
     'bornAt': 'Code for Example',
     'geography': faker.address.city(),
     'politicalEntity': '',
-    'type': '',
     'name': 'forked-project-kong',
-    'description': ':monkey: Open-source, Microservice & API Management Layer built on top of NGINX',
+    'description': faker.hacker.phrase(),
     'license': 'MIT',
     'homepage': 'https://getkong.org/install',
     'repository': 'https://github.com/codeforexample/forked-project-kong',
     'links': [],
-    'keywords': [],
-    'data': [],
+    'videos': [],
+    'keywords': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
     'partners': [],
-    'contact': [],
-    'categories': [],
-    'needs': []
+    'team': [
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      }
+
+    ],
+    'needs': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
+    'content': '# This Project! \n\n This is sub info.\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   },
   {
     'id': 'mirrored-project-hackathon-starter',
     'brigade': 'codeforexample',
-    'status': 'proposed',
-    'thumbnailUrl': 'http://i.imgur.com/MRgvL1K.png',
-    'bannerUrl': 'http://i.imgur.com/MRgvL1K.png',
+    'status': 'live',
+    'thumbnailUrl': faker.image.city(360, 360, false),
+    'bannerUrl': faker.image.people(),
     'bornAt': 'Code for Example',
     'geography': faker.address.city(),
     'politicalEntity': '',
-    'type': '',
     'name': 'mirrored-project-hackathon-starter',
-    'description': 'A new project.',
+    'description': faker.hacker.phrase(),
     'license': 'MIT',
     'homepage': 'https://github.com/codeforexample/mirrored-project-hackathon-starter',
     'repository': 'https://github.com/codeforexample/mirrored-project-hackathon-starter',
     'links': [],
-    'keywords': [],
-    'data': [],
+    'videos': [],
+    'keywords': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
     'partners': [],
-    'contact': [],
-    'categories': [],
-    'needs': []
+    'team': [
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      }
+
+    ],
+    'needs': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
+    'content': '# This Project! \n\n This is sub info.\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   },
   {
     'id': 'mirrored-project-mirror',
     'brigade': 'codeforexample',
-    'status': 'proposed',
-    'thumbnailUrl': 'http://i.imgur.com/MRgvL1K.png',
-    'bannerUrl': 'http://i.imgur.com/MRgvL1K.png',
+    'status': 'mvp',
+    'thumbnailUrl': faker.image.city(360, 360, false),
+    'bannerUrl': faker.image.people(),
     'bornAt': 'Code for Example',
     'geography': faker.address.city(),
     'politicalEntity': '',
-    'type': '',
     'name': 'mirrored-project-mirror',
-    'description': 'A new project.',
+    'description': faker.hacker.phrase(),
     'license': 'MIT',
     'homepage': 'https://github.com/codeforexample/mirrored-project-mirror',
     'repository': 'https://github.com/codeforexample/mirrored-project-mirror',
     'links': [],
-    'keywords': [],
-    'data': [],
+    'videos': [],
+    'keywords': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
     'partners': [],
-    'contact': [],
-    'categories': [],
-    'needs': []
+    'team': [
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      }
+
+    ],
+    'needs': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
+    'content': '# This Project! \n\n This is sub info.\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   }, {
     'id': 'mirrored-project-mirror',
     'brigade': 'codeforexample',
     'status': 'proposed',
-    'thumbnailUrl': 'http://i.imgur.com/MRgvL1K.png',
-    'bannerUrl': 'http://i.imgur.com/MRgvL1K.png',
+    'thumbnailUrl': faker.image.city(360, 360, false),
+    'bannerUrl': faker.image.people(),
     'bornAt': 'Code for Example',
     'geography': faker.address.city(),
     'politicalEntity': '',
-    'type': '',
     'name': 'mirrored-project-mirror',
-    'description': 'A new project.',
+    'description': faker.hacker.phrase(),
     'license': 'MIT',
     'homepage': 'https://github.com/codeforexample/mirrored-project-mirror',
     'repository': 'https://github.com/codeforexample/mirrored-project-mirror',
     'links': [],
-    'keywords': [],
-    'data': [],
+    'videos': [],
+    'keywords': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
     'partners': [],
-    'contact': [],
-    'categories': [],
-    'needs': []
+    'team': [
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      },
+      {
+        avatar: faker.internet.avatar(),
+        username: faker.internet.userName()
+      }
+
+    ],
+    'needs': [
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz(),
+      faker.company.bsBuzz()
+    ],
+    'content': '# This Project! \n\n This is sub info.\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n' +
+      faker.lorem.paragraph() +
+      '\n\n| Table | Info | Goes | Here |\n| --- | --- | --- | --- |\n| foo | bar | lorem | ipsum |'
   }
 ]
