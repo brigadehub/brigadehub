@@ -63,7 +63,25 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.theme.page.blog = req.body['show-blog'] === 'on'
       thisBrigade.theme.page.about = req.body['show-about'] === 'on'
       thisBrigade.theme.page.login = req.body['show-login'] === 'on'
-      console.log(req.body['externals'], req.body['new-external'])
+      req.body['sponsors'] = req.body['sponsors'] || []
+      var sponsors = req.body['sponsors'].filter(function (sponsor, index) {
+        if (req.body['mainsponsor'] === String(index)) {
+          sponsor.main = true
+        } else {
+          sponsor.main = false
+        }
+        if (!sponsor.delete) {
+          return sponsor
+        }
+      })
+      thisBrigade.sponsors = sponsors
+      if (req.body['new-sponsor'].name || req.body['new-sponsor'].link || req.body['new-sponsor'].image) {
+        if (!(req.body['new-sponsor'].name) || !(req.body['new-sponsor'].link) || !(req.body['new-sponsor'].image)) {
+          req.flash('errors', { msg: 'Please make sure that all three fields for your new sponsor link are filled out.' })
+        } else {
+          thisBrigade.sponsors.push(req.body['new-sponsor'])
+        }
+      }
       req.body['externals'] = req.body['externals'] || []
       var links = req.body['externals'].filter(function (link) {
         if (!link.delete) {
@@ -71,14 +89,13 @@ exports.postBrigade = function (req, res, next) {
         }
       })
       thisBrigade.theme.page.external = links
-      if (req.body['new-external'].name.length || req.body['new-external'].link.length) {
+      if (req.body['new-external'].name || req.body['new-external'].link) {
         if (!(req.body['new-external'].name) || !(req.body['new-external'].link)) {
           req.flash('errors', { msg: 'Please make sure that all three fields for your new external link are filled out.' })
         } else {
           thisBrigade.theme.page.external.push(req.body['new-external'])
         }
       }
-      console.log(req.body.redirects)
       req.body['redirects'] = req.body['redirects'] || []
       var redirects = req.body['redirects'].filter(function (link) {
         if (!link.delete) {
