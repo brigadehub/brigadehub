@@ -25,8 +25,8 @@ $(document).ready(function () {
   console.log('%c[Brigadehub]' + "%c Welcome hackers! We'd love to get your help in developing Brigadehub further!", 'color:' + window.__bh.colors.label, 'color:' + window.__bh.colors.text)
   console.log('%c             visit https://github.com/sfbrigade/brigadehub to find the code and learn more!', 'color:' + window.__bh.colors.text)
   console.log('%c-------------------------------------------------------------------------------------------', 'color:' + window.__bh.colors.label)
+  var userzone = moment.tz.guess()
   if (window._events) {
-    var userzone = moment.tz.guess()
     var eventsarray = window._events.map(function (event, i) {
       event.start = moment.unix(event.start).tz(userzone).format()
       $('.event' + i.toString()).html(moment.tz(event.start, userzone).format('ha z MMMM DD, YYYY'))
@@ -76,6 +76,9 @@ $(document).ready(function () {
       })
     })
   })
+  if ($('#blogtime').length) {
+    $('#blogtime').val(moment().tz(userzone).format('MMMM Do YYYY, h:mm:ss a'))
+  }
   $('#nav-toggle').on('click touchstart', function (event) {
     event.preventDefault()
     $('#nav-toggle, .nav-menu').toggleClass('active')
