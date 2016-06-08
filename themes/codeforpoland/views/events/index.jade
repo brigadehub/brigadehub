@@ -25,11 +25,11 @@ block content
             th Address
             th
         tbody
-          each event in upcomingevents
+          each event, i in upcomingevents
             tr
               td #{event.title}
               td
-                |Local event time: #{event.localstart}
+                |Local event time: <span class = event#{i}></span>
                 br
                 |User converted time: #{event.convertedstart}
               td #{event.host}
