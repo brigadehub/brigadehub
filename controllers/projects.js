@@ -3,7 +3,7 @@
  */
 
 var slug = require('slug')
-var markdown = require('marked')
+var Markdown = require('markdown-it')
 
 var Projects = require('../models/Projects')
 var Users = require('../models/Users')
@@ -107,7 +107,9 @@ module.exports = {
       id: req.params.projectId
     }, function (err, foundProject) {
       if (err) console.error(err)
-      foundProject.content = markdown(foundProject.content)
+
+      var md = new Markdown()
+      foundProject.content = md.render(foundProject.content)
       if (foundProject.contact.length) {
         Projects.fetchGitHubUsers(foundProject.contact, function (contactList) {
           res.render(res.locals.brigade.theme.slug + '/views/projects/project', {
