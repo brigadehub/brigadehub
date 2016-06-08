@@ -9,6 +9,25 @@ mixin sidebarItem(name,subItems)
 
 
 block content
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/projects') Projects
+  .row.page-header
+    .col-sm-12
+      h1.page-title Projects
+  if user && user.isProjectLead()
+    a.btn.btn-secondary(href='/projects/new') New Project
+  .row.tags
+    ul
+      if selectedKeyword
+        li
+          a(href='?') Clear Search Tag
+      each keyword in keywords
+        li(class=selectedKeyword===keyword?'selected':'')
+          a(href="?keyword=#{keyword}")= keyword
+  .row
   .container
     .row
       .col-sm-12
