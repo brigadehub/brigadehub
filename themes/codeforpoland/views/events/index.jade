@@ -3,9 +3,16 @@ extends ../layout
 //- http://fullcalendar.io/docs/usage/
 
 block content
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/events') Events
   .row.page-header
     .col-sm-12
-      h1 Events
+      h1.page-title Events
+  if user && user.isAdmin()
+    a.btn.btn-secondary(href='/events/new') New Event
   .row
     .col-sm-12
       p

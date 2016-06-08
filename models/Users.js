@@ -81,11 +81,15 @@ userSchema.methods.gravatar = function (size) {
  * Helper method for getting user's authorized to edit the blog.
  */
 userSchema.methods.isAdmin = function () {
-  return (this.roles.superAdmin || this.roles.coreLead)
+  return (this.roles.superAdmin || this.roles.core)
 }
 
 userSchema.methods.isBlogger = function () {
-  return (this.roles.core || this.roles.superAdmin || this.roles.coreLead || this.roles.blog || this.roles.lead)
+  return (this.roles.core || this.roles.superAdmin || this.roles.blog || this.roles.lead)
+}
+
+userSchema.methods.isProjectLead = function () {
+  return (this.roles.core || this.roles.superAdmin || this.roles.lead)
 }
 
 /**

@@ -14,7 +14,15 @@ module.exports = {
    * List of Project examples.
    */
   getProjects: function (req, res) {
-    Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
+    var mongooseQuery = {brigade: res.locals.brigade.slug}
+    // var page
+    if (req.query.keyword) {
+      mongooseQuery.keywords = req.query.keyword
+    }
+    // if (req.query.page) {
+    //   page = req.query.page
+    // }
+    Projects.find({}, function (err, foundProjects) {
       if (err) console.error(err)
       var allKeywords = []
       foundProjects.forEach(function (project) {
@@ -24,12 +32,16 @@ module.exports = {
           }
         })
       })
-      res.render(res.locals.brigade.theme.slug + '/views/projects/index', {
-        view: 'project-list',
-        title: 'Projects',
-        brigade: res.locals.brigade,
-        projects: foundProjects,
-        keywords: allKeywords.sort()
+      Projects.find(mongooseQuery, function (err, foundProjects) {
+        if (err) console.error(err)
+        res.render(res.locals.brigade.theme.slug + '/views/projects/index', {
+          view: 'project-list',
+          title: 'Projects',
+          brigade: res.locals.brigade,
+          projects: foundProjects,
+          selectedKeyword: req.query.keyword,
+          keywords: allKeywords.sort()
+        })
       })
     })
   },
