@@ -49,6 +49,6 @@ gulp.task('sourcemapcomp', function () {
   .pipe(gulp.dest('themes/codeforpoland/public/css'))
 })
 
-gulp.tast('build', ['browserjscomp', 'csscomp', 'sourcemapcomp'])
+gulp.task('build', ['browserjscomp', 'csscomp', 'sourcemapcomp'])
 gulp.task('start', ['launch:node', 'launch:mongodb', 'browserjswatch', 'browserjscomp', 'csswatch', 'csscomp', 'sourcemapcomp'])
 gulp.task('start:nomongo', ['launch:node', 'browserjswatch', 'browserjscomp', 'csswatch', 'csscomp', 'sourcemapcomp'])
