@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-var request = require('request')
+// var request = require('request')
 var ghls = require('gh-ls')
 var getGhFile = require('github-get')
 var _ = require('lodash')
@@ -15,10 +15,10 @@ var postsSchema = new mongoose.Schema({
   date: {type: String, default: ''},
   published: {type: Boolean, default: ''},
   unix: {type: Number, default: 0},
-  sync:{
-    jekyll: {type:String, default:''},
-    wordpress: {type:String, default:''},
-    medium: {type:String, default:''}
+  sync: {
+    jekyll: {type: String, default: ''},
+    wordpress: {type: String, default: ''},
+    medium: {type: String, default: ''}
   },
   tags: {type: Array, default: []}
 })
@@ -50,7 +50,7 @@ postsSchema.statics.syncJekyll = function (blogLocation, accessToken) {
       Promise.all(fileCallPromises).then(function (results) {
         console.log(results)
 
-        // TODO: save these results
+      // TODO: save these results
       }).catch(function (err) {
         reject(err)
       })

@@ -324,14 +324,14 @@ module.exports = {
   postBlogSync: function (req, res) {
     var type = req.params.type
 
-    if(type ==='jekyll'){
+    if (type === 'jekyll') {
       var blogLocation = res.locals.brigade.blog.jekyll
       console.log(blogLocation)
       // recursively list md files in _posts folder
-      Post.syncJekyll(blogLocation).then(function(results){
+      Post.syncJekyll(blogLocation).then(function (results) {
         console.log(results)
         res.redirect('/brigade')
-      }).catch(function(err){
+      }).catch(function (err) {
         throw err
       })
     }
