@@ -19,16 +19,25 @@ module.exports = {
     if (req.query.keyword) {
       mongooseQuery.keywords = req.query.keyword
     }
+    if (req.query.need) {
+      mongooseQuery.needs = req.query.need
+    }
     // if (req.query.page) {
     //   page = req.query.page
     // }
     Projects.find({}, function (err, foundProjects) {
       if (err) console.error(err)
       var allKeywords = []
+      var allNeeds = []
       foundProjects.forEach(function (project) {
         project.keywords.forEach(function (keyword) {
           if (allKeywords.indexOf(keyword) < 0) {
             allKeywords.push(keyword)
+          }
+        })
+        project.needs.forEach(function (need) {
+          if (allNeeds.indexOf(need) < 0) {
+            allNeeds.push(need)
           }
         })
       })
@@ -40,7 +49,9 @@ module.exports = {
           brigade: res.locals.brigade,
           projects: foundProjects,
           selectedKeyword: req.query.keyword,
-          keywords: allKeywords.sort()
+          selectedNeed: req.query.need,
+          keywords: allKeywords.sort(),
+          needs: allNeeds.sort()
         })
       })
     })
