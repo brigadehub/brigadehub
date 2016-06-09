@@ -9,7 +9,7 @@
     "node": ">=4"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "gulp build && node app.js",
     "pretest": "npm run lint",
     "test": "npm run test:unit",
     "test:e2e": "nightwatch",
