@@ -318,11 +318,23 @@ module.exports = {
   },
 
   /**
-   * POST /blog/sync
+   * POST /blog/sync/:type
    * Sync Blog.
    */
   postBlogSync: function (req, res) {
-    res.redirect('blog/manage')
+    var type = req.params.type
+
+    if(type ==='jekyll'){
+      var blogLocation = res.locals.brigade.blog.jekyll
+      console.log(blogLocation)
+      // recursively list md files in _posts folder
+      Post.syncJekyll(blogLocation).then(function(results){
+        console.log(results)
+        res.redirect('/brigade')
+      }).catch(function(err){
+        throw err
+      })
+    }
   },
   /**
    * POST /blog/:blogID/edit

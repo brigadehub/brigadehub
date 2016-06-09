@@ -47,6 +47,8 @@
     "express-session": "^1.13.0",
     "express-validator": "^2.18.0",
     "faker": "^3.1.0",
+    "gh-ls": "^1.0.0",
+    "github-get": "^0.3.1",
     "glob": "^7.0.3",
     "gulp": "^3.9.1",
     "gulp-sass": "^2.3.1",
