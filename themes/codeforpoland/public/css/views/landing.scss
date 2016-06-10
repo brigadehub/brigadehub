@@ -1,6 +1,5 @@
 [data-view='home'] {
   /* Landing Page */
-
   #landing-hero {
 
     color: white;
@@ -124,9 +123,24 @@
       overflow: hidden;
 
       width: 338px;
+      max-width:100%;
       height: 211px;
 
       background-size: cover;
+      background-position:center center;
+      background-repeat:no-repeat;
+    }
+  }
+  #landing-blog{
+    .card.post{
+      span.thumbnail {
+      display:block;
+      width:100%;
+      height:200px;
+      background-size:cover;
+      background-position:center center;
+      background-repeat:no-repeat;
+    }
     }
   }
 }

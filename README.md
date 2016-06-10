@@ -17,6 +17,7 @@
   - [Prerequisites](#prerequisites)
   - [Install](#install)
   - [Usage](#usage)
+- [Testing](#testing)
 - [Deploy (not recommended yet)](#deploy)
 - [Troubleshooting](#troubleshooting)
 - [Changelog](#changelog)
@@ -61,7 +62,28 @@ Similar projects have been conceived and implemented previously, most prominentl
 Another project which this is pulling inspiration from is [CodeForAtlanta](http://www.codeforatlanta.org/)'s [Connector](https://github.com/codeforatlanta/connector). [Chime](https://github.com/chimecms/chime) was also a CMS that had similar goals, but focused on local governments, rather than brigades.
 
 ### Installation and usage
-#### Prerequisites
+
+There are two methods of install at the moment: via [cloning the source repo](#source) or [docker](#docker). The prerequisites for each change depending on which you choose to use.
+
+<table>
+	<tbody>
+		<tr>
+			<td>
+				<a href="#source">
+					<img height="125" src="http://i.imgur.com/QBu6ZWo.png" alt="source"/>
+				</a>
+			</td>
+			<td>
+				<a style="padding:30px;display:inline-block" href="#docker">
+					<img src="http://i.imgur.com/MM5RT5W.png" height="125" alt="docker"/>
+				</a>
+			</td>
+		</tr>
+	</tbody>
+<table>
+
+#### Source
+##### Prerequisites
 
 - Command Line Tools
  - <img src="http://deluge-torrent.org/images/apple-logo.gif" height="17">&nbsp;**Mac OS X:**
@@ -73,9 +95,23 @@ Another project which this is pulling inspiration from is [CodeForAtlanta](http:
  - <img src="https://en.opensuse.org/images/b/be/Logo-geeko_head.png" height="17">&nbsp;**OpenSUSE:** `sudo zypper install --type pattern devel_basis`
 - [MongoDB](https://www.mongodb.org/downloads)
   - <img src="http://deluge-torrent.org/images/apple-logo.gif" height="17">&nbsp;**Mac OS X:** `brew install mongodb`
-- [Node.js](http://nodejs.org) v4.x.x (Easiest install is via [NVM](https://github.com/creationix/nvm))
-  - Uninstall any previously installed Node versions (if you don't already have `nvm` installed)
-  - `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash && echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bashrc && echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.bashrc && . $HOME/.bashrc && nvm install 4 && nvm alias default 4 && nvm use 4`
+  - run by typing in `mongod`
+  - If you get a permissions error when running, you may need to make additional changes to your system post install:
+    - type in `whoami` and note the username of the computer you're working on
+    - `sudo mkdir /data /data/db`
+    - `sudo chown USERNAME:staff /data /data/db`
+    - You should be able to now run `mongod` without a permissions error.
+- [Node.js](http://nodejs.org) v4+
+  - **Standard Install**
+    - Download the binary from the [Node.js website](http://nodejs.org) that corresponds to your system
+    - Follow the accompanying installation instructions to install
+  - **via [NVM](https://github.com/creationix/nvm)**
+    - *NVM gives you the a few extra nice-to-haves that makes development in Node a lot easier:
+      - User Sandboxing
+      - No need for `sudo`
+      - Ability to run parallel versions of Node separate from each other
+    - Uninstall any previously installed Node versions (if you don't already have `nvm` installed)
+    - Install NVM using the script found on the [nvm repo](https://github.com/creationix/nvm)), or the following: `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash && echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bashrc && echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.bashrc && . $HOME/.bashrc && nvm install 6 && nvm alias default 6 && nvm use 6`
 
 
 **Note:** If you are new to Node or Express, I recommend to watch
@@ -83,10 +119,7 @@ Another project which this is pulling inspiration from is [CodeForAtlanta](http:
 screencast by Alex Ford that teaches Node and Express from scratch. Alternatively,
 here is another great tutorial for complete beginners - [Getting Started With Node.js, Express, MongoDB](http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/).
 
-#### Install
----------------
-
-The easiest way to get started is to clone the repo:
+##### Install (source)
 
 ```bash
 # Get the latest snapshot
@@ -116,6 +149,75 @@ or if starting for local development:
 npm run develop
 ```
 
+#### Docker
+
+##### Prerequisites
+
+###### Mac and Windows
+- [Docker Toolbox](https://www.docker.com/products/docker-toolbox)
+
+###### Linux
+- [Docker Engine](https://docs.docker.com/engine)
+- [Docker Compose](https://docs.docker.com/compose)
+
+
+##### Running
+
+Simply run the following:
+
+```
+docker-compose up
+```
+
+This will build up a docker app and a dockerized mongodb and connect the two together. The docker compose file also runs nodemon, which will also listen to changes in your code and redeploy those changes in your docker container. 
+
+
+### Testing
+#### Linting
+
+[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
+For details on our linting / js coding style, visit [`feross/standard'](https://github.com/feross/standard). Linting occurs automatically on commit, but you can run it manually by running:
+
+```
+npm run lint
+```
+
+#### Unit tests
+
+Unit tests are being run via [`tap`](). Any file with the `*.tap.js` naming scheme will be run in unit tests. We are sorely lacking on unit testing, so anyone willing to take these on are very welcome. Unit tests are run automatically on commit, but you can run them manually anytime by running:
+
+```
+npm run test:unit
+```
+
+To run linting and unit tests together, you can run `npm test`.
+
+#### End to end (e2e) tests
+
+For end-to-end testing, we are using a Selenium standalone server, PhantomJS headless browser, and Nightwatch. Since end to end tests involve testing all aspects of the application, including UI interactions, all three of these services need to be running simultaneously to the development server.
+
+##### Installing Selenium
+
+```
+npm run selenium:install
+```
+
+##### Runnning e2e tests
+
+When you are ready to run e2e tests, you'll need to run the following commands in separate terminals:
+
+- `npm run selenium:start`
+- `npm run develop`
+- `npm run test:e2e`
+
+To stop the selenium server after the tests, run `npm run selenium:stop`.
+
+If for some reason, you need to stop the selenium server
+```
+npm selenium:stop
+```
+
 ### Deploy
 
 ***brigadehub, while deployed for Code for San Francisco, has not yet been optimized for wide adoption yet. If you deploy this to your production brigade site, you do so at your own risk.***
@@ -126,7 +228,21 @@ These instructions will be updated as the project emerges from the Alpha-release
 
 ### Troubleshooting
 
-*No troubleshooting steps yet. Want to add some?*
+*Using a SCM client with Mac OS*
+
+There are issues, because of the way Mac OS and Node work together, or don't.  [Here's an example of people having problems](https://github.com/gtramontina/ghooks/issues/40)
+
+The most effective way of solving this, besides learning how to use the git CLI, would be to create an alias in your .bash_profile
+
+Something like this
+```
+ghdc="open Applications/GitHub\ Desktop.app/Contents/MacOS/GitHub\ Desktop"
+```
+And instead of opening your client from an alias in applications
+
+1. open a terminal,
+1. cd to the sfbrigadehub repo root
+1. run your alias
 
 ### Changelog
 
@@ -144,7 +260,7 @@ To see what has changed in recent versions of brigadehub, see the [CHANGELOG](./
 - Leo Lau [@hawflau](https://github.com/hawflau)
 - Jason Durant [@jaydurant](https://github.com/jaydurant)
 - John Naulty Jr. [@jnaulty](https://github.com/jnaulty)
-- [@johngluck65](https://github.com/johngluck65)
+- John Gluck [@johngluck65](https://github.com/johngluck65)
 - Jesse Szwedko [@jszwedko Owner](https://github.com/jszwedko Owner)
 - Judy5000 [@Judy5000 Owner](https://github.com/Judy5000 Owner)
 - Justin [@Juxtaposeidon](https://github.com/Juxtaposeidon)

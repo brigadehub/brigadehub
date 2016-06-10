@@ -1,67 +1,62 @@
 var mongoose = require('mongoose')
 
 var brigadeSchema = new mongoose.Schema({
-  name: String,
-  slug: String,
-  heroImage: String,
-  recoveryEmail: String,
+  name: {type: String, default: ''},
+  slug: {type: String, default: ''},
+  heroImage: {type: String, default: ''},
+  recoveryEmail: {type: String, default: ''},
   location: {
-    general: String,
-    specific: String,
-    geo: String,
+    general: {type: String, default: ''},
+    specific: {type: String, default: ''},
+    geo: {type: String, default: ''},
     timezone: {type: String, default: 'America/Los_Angeles'}
   },
-  url: String,
-  github: String,
+  url: {type: String, default: ''},
+  github: {type: String, default: ''},
+  slack: {type: String, default: 'http://c4a.me/cfsfslack'},
   meetup: {type: String, default: 'Code-for-San-Francisco-Civic-Hack-Night'},
+  redirects: {type: Array, default: []},
   theme: {
-    slug: String,
-    logo: String,
+    slug: {type: String, default: ''},
+    logo: {type: String, default: ''},
     page: {
-      title: Boolean,
-      events: Boolean,
-      projects: Boolean,
-      blog: Boolean,
-      about: Boolean,
-      login: Boolean,
-      external: Array
+      title: {type: Boolean, default: false},
+      events: {type: Boolean, default: true},
+      projects: {type: Boolean, default: true},
+      blog: {type: Boolean, default: true},
+      about: {type: Boolean, default: true},
+      login: {type: Boolean, default: true},
+      external: {type: Array, default: []}
     }
   },
   copy: {
-    tagline: String,
-    description: String
+    tagline: {type: String, default: ''},
+    description: {type: String, default: ''}
   },
-  sponsors: {
-    main: {
-      name: String,
-      url: String,
-      image: String
-    },
-    other: Array
-  },
+  sponsors: {type: Array, default: []},
   auth: {
     github: {
-      clientId: String,
-      clientSecret: String
+      clientId: {type: String, default: ''},
+      clientSecret: {type: String, default: ''}
     },
     slack: {
-      clientId: String,
-      clientSecret: String
+      clientId: {type: String, default: ''},
+      clientSecret: {type: String, default: ''}
     },
     meetup: {
-      consumerKey: String,
-      consumerSecret: String
+      consumerKey: {type: String, default: ''},
+      consumerSecret: {type: String, default: ''}
     },
     google: {
-      clientId: String,
-      clientSecret: String
+      clientId: {type: String, default: ''},
+      clientSecret: {type: String, default: ''}
     },
     email: {
-      user: String,
-      password: String
+      user: {type: String, default: ''},
+      password: {type: String, default: ''}
     }
   },
-  auditLog: Array
+  auditLog: {type: Array, default: []}
 })
 
 module.exports = mongoose.model('Brigade', brigadeSchema)

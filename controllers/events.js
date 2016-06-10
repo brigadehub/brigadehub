@@ -16,8 +16,6 @@ module.exports = {
         return event.start > moment().unix()
       }).map(function (event) {
         event.convertedstart = moment.unix(event.start).tz(userzone).format('ha z MMMM DD, YYYY')
-        event.localstart = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('ha z MMMM DD, YYYY')
-        event.start = moment.unix(event.start).format()
         return event
       })
       res.render(res.locals.brigade.theme.slug + '/views/events/index', {
@@ -77,6 +75,11 @@ module.exports = {
     var endString = req.body.endday + req.body.endmonth + req.body.endyear + req.body.endhour + req.body.endminute
     newEvent.start = moment.tz(startString, 'DD-MMM-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
     newEvent.end = moment.tz(endString, 'DD-MMM-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
+    if (newEvent.end < newEvent.start) {
+      req.flash('errors', {msg: 'You can not create an event with an end time earlier than its start time.'})
+      res.redirect('/events/new')
+      return
+    }
     newEvent.save(function (err) {
       if (err) console.error(err)
     })
@@ -131,6 +134,11 @@ module.exports = {
       thisEvent.host = req.body.host
       thisEvent.start = moment.tz(startString, 'DD-MMM-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
       thisEvent.end = moment.tz(endString, 'DD-MMM-YYYY HH:mm:ss', res.locals.brigade.location.timezone).format('X')
+      if (thisEvent.end < thisEvent.start) {
+        req.flash('errors', {msg: 'You can not have an event with an end time earlier than its start time.'})
+        res.redirect('/events/' + req.params.eventId + '/settings')
+        return
+      }
       thisEvent.url = req.body.url
       thisEvent.description = req.body.description
       thisEvent.save(function (err) {

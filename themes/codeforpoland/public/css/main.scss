@@ -6,6 +6,7 @@
 @import 'vendors/simplemde.min';
 
 @import 'themes/default/default';
+@import 'mixins/mixins';
 
 // Scaffolding
 // -------------------------
@@ -19,12 +20,14 @@ html {
 }
 
 body {
+  font-family: 'Source Sans Pro', 'Helvetica', 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
+
   margin-bottom: 75px;
   padding-top: 126px;
 
   transition: padding-top $scroll-transition ease-in-out;
-
-  font-family: 'Source Sans Pro', 'Helvetica', 'Arial', sans-serif;
 }
 
 footer {
@@ -35,30 +38,21 @@ footer {
 
   width: 100%;
   height: 45px;
-
   p, ul {
     margin-bottom: 0;
   }
 }
 
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
 // Input Fields
 // -------------------------
 
 textarea {
   resize: vertical;
 }
-
-// Navbar
-// -------------------------
-
-.navbar-nav img {
-  width: 30px;
-  height: 30px;
-  margin: -15px 15px -15px;
-}
-
-// Navbar
-// -------------------------
 
 .sidebar {
   ul {
@@ -106,24 +100,7 @@ textarea {
 .fa {
   margin-right: 6px;
 }
-.dropdown-menu {
 
-  li {
-    &.header {
-      font-size: 10px;
-      font-weight: 500;
-
-      min-height: 0;
-      padding: 8px 10px 3px 10px;
-
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-
-      color: hsl(200, 4%, 73%);
-      background: none;
-    }
-  }
-}
 .float {
   display: block;
   float: left;
@@ -140,159 +117,6 @@ textarea {
     clear: both;
 
     content: '';
-  }
-}
-
-nav.navbar {
-  transition: height $scroll-transition ease-in-out;
-
-  background-color: white;
-  padding-bottom:0;
-  a {
-    height: 100%;
-  }
-  ul {
-    height: 100%;
-  }
-  .row.account {
-    height:30px;
-    transition: height $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
-
-    img{
-      height:22px;
-    }
-
-    .navbar-brand {
-      img {
-        transition: height $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
-        width:184px;
-      }
-    }
-
-
-    .dropdown-toggle {
-      position: relative;
-
-      width: auto;
-      padding:0;
-      padding-right: 30px;
-
-      transition: height $scroll-transition ease-in-out, padding $scroll-transition ease-in-out;
-      white-space: nowrap;
-
-      img {
-        position: absolute;
-        top: 15px;
-        right: -15px;
-        bottom: auto;
-        left: auto;
-        width:auto;
-        transition: height $scroll-transition ease-in-out, top $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
-      }
-      &:after {
-        display: none;
-      }
-    }
-    .dropdown-menu {
-      left: auto;
-      right:0px;
-      top: 25px;
-      a {
-        opacity:0.75;
-        padding: 3px 15px;
-        &:hover{
-          opacity:1;
-        }
-        &.header{
-          opacity:0.6;
-          font-size: 11px;
-          font-weight:bold;
-          letter-spacing:1px;
-          height: 22px;
-          padding: 3px 15px;
-          text-transform:uppercase;
-          cursor:default;
-          background-color: hsl(0, 0%, 90%);
-          &:hover{
-            opacity:0.6;
-            background-color: hsl(0, 0%, 90%);
-          }
-        }
-      }
-    }
-  }
-  .row.navigation {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    position:relative;
-    .navbar-nav {
-      padding-top: 9px;
-    }
-    .navbar-brand {
-
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      height: 77px;
-      /* width: 167px; */
-      transform: translateX(-50%) translateY(-50%);
-      transition: height $scroll-transition ease-in-out;
-      img{
-        height:100%;
-      }
-    }
-    .navbar-nav .nav-item{
-      height: 77px;
-      transition: height $scroll-transition ease-in-out;
-      a{
-        padding-top:20px;
-        transition: padding-top $scroll-transition ease-in-out;
-      }
-    }
-  }
-
-  .navbar-toggler {
-    margin-top: 8px;
-    float: right;
-
-    &:focus {
-      outline:none;
-    }
-  }
-}
-body.scroll {
-  .navbar {
-    padding-top: 0;
-
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.4);
-    .row.navigation {
-      border-top: none;
-    }
-    .row.account {
-      height: 10px;
-      margin-bottom: 10px;
-      img {
-        height: 0;
-      }
-      .dropdown-toggle {
-        height: 10px;
-        padding: 2px 0;
-        img {
-          height: 0;
-          top:26px;
-        }
-      }
-    }
-    .row.navigation {
-      a.navbar-brand {
-        height: 50px;
-      }
-      .navbar-nav .nav-item{
-        height: 50px;
-        a{
-          padding-top:10px;
-        }
-      }
-    }
   }
 }
 
@@ -355,7 +179,6 @@ footer {
       }
     }
   }
-
   .partners-logos {
     a {
       position: relative;
@@ -363,16 +186,15 @@ footer {
       display: block;
       float: left;
 
+      width: 200px;
       height: 200px;
-      width:200px;
       margin: 0 20px;
-
       img {
         position: absolute;
         top: 50%;
         left: 50%;
 
-        width:100%;
+        width: 100%;
 
         -webkit-transform: translate(-50%, -50%);
             -ms-transform: translate(-50%, -50%);
@@ -380,9 +202,8 @@ footer {
       }
     }
   }
-
-  .show-partners{
-    text-align:center;
+  .show-partners {
+    text-align: center;
   }
   .footer-nav {
     position: relative;
@@ -392,8 +213,9 @@ footer {
 
     background: #2f3030;
     ul {
+      padding-right: 40px;
+
       list-style-type: none;
-      padding-right:40px;
       li {
         display: inline-block;
 
@@ -412,21 +234,13 @@ footer {
   }
 }
 
+.form-group {
+  @extend .clearfix;
+}
 
-.draft:before {
-    display: block;
-    position: absolute;
-    text-align: center;
-    width: 100%;
-    content: "draft";
-    font-size: 2em;
-    color: white;
-    background: rgba(0,0,0,.8);
-  }
-
-  .tags .selected a{
-    background: yellow;
-  }
+.tags .selected a {
+  background: yellow;
+}
 
 /* Account page TODO: put in views/account-settings*/
 
@@ -435,6 +249,73 @@ footer {
 }
 
 
+img {
+  max-width: 100%;
+}
+
+nav + .container {
+  .row {
+    display: block;
+
+    width: 100%;
+
+    @extend .clearfix;
+  }
+}
+.hidden {
+  display: none;
+}
+
+.delete-checkbox {
+  input:checked + .btn {
+    color: #d9534f;
+    background: white;
+  }
+}
+
+table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  th, td {
+    line-height: 1.5;
+
+    padding: 0.75rem;
+
+    vertical-align: top;
+
+    border-top: 1px solid hsl(200, 9%, 93%);
+  }
+  thead {
+    th {
+      font-weight: bold;
+
+      vertical-align: bottom;
+
+      border-bottom: 2px solid hsl(200, 9%, 93%);
+    }
+  }
+}
+
+input {
+  font-size: 1rem;
+  line-height: 1.5;
+
+  display: block;
+
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+
+  color: hsl(206, 4%, 35%);
+  border: 1px solid hsl(0, 0%, 80%);
+  border-radius: 0.25rem;
+  background-color: hsl(0, 0%, 100%);
+  background-image: none;
+}
+
+.bootstrap-tagsinput {
+  width:100%;
+}
 // Import view specific styles
 
 @import 'views/account-settings';
@@ -463,3 +344,4 @@ footer {
 @import 'views/user-new';
 @import 'views/user-settings';
 @import 'views/user';
+@import 'partials/nav';

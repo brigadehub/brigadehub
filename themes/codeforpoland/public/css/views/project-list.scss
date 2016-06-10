@@ -1,3 +1,91 @@
 [data-view='project-list'] {
+  .tags {
+    margin: 20px 0 30px;
+    ul {
+      list-style-type: none;
+      padding:0;
+      li {
+        display: inline-block;
+        a {
+          font-size: 18px;
+          font-weight: 700;
 
+          display: inline-block;
+
+          padding-right: 15px;
+
+          transition: 0.2s linear all;
+          text-decoration: none;
+
+          color: #000000;
+          &:hover {
+            text-decoration: none;
+
+            color: #d20a11;
+            outline: none;
+          }
+        }
+      }
+    }
+  }
+  ul[data-sidebar]{
+    li{
+      display:inline-block;
+      padding:2.5px;
+      &.selected{
+        font-weight:bold;
+        background: #eee;
+      }
+    }
+  }
+  .project-list-card {
+    width:100%;
+    span.thumbnail {
+      display:block;
+      width:370px;
+      height:200px;
+      background-size:cover;
+      background-position:center center;
+      background-repeat:no-repeat;
+    }
+    .badge{
+      display:inline-block;
+      padding:3px 5px;
+      margin-right:3px;
+      margin-bottom:3px;
+      border:solid 1px #eee;
+      border-radius:3px;
+      cursor:pointer;
+      color:white;
+      opacity:0.75;
+      &:hover{
+        opacity:1;
+        text-decoration:none;
+      }
+    }
+    p.card-keywords {
+      span {
+        display:block;
+        font-size:12px;
+        text-transform:uppercase;
+        opacity:65;
+        letter-spacing:0.5px;
+      }
+      .badge {
+        background:hsl(200, 63%, 52%);
+      }
+    }
+    p.card-needs {
+      span {
+        display:block;
+        font-size:12px;
+        text-transform:uppercase;
+        opacity:65;
+        letter-spacing:0.5px;
+      }
+      .badge {
+        background:hsl(0, 63%, 52%);
+      }
+    }
+  }
 }
