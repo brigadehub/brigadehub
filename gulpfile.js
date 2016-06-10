@@ -10,7 +10,7 @@ var nodemon = require('gulp-nodemon')
 gulp.task('launch:node', function () {
   nodemon({
     script: 'app.js',
-    ignore: ['node_modules/*'],
+    ignore: ['node_modules/*']
   })
 })
 gulp.task('launch:mongodb', function () {
