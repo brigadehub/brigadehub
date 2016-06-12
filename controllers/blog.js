@@ -4,7 +4,7 @@ var Post = require('../models/Posts')
 var User = require('../models/Users')
 var markdown = require('markdown-it')
 var mdnh = require('markdown-it-named-headers')
-var md = markdown().use(mdnh)
+var md = markdown({ html: true }).use(mdnh)
 var _ = require('lodash')
 
 module.exports = {

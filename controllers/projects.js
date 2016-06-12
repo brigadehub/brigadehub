@@ -5,7 +5,7 @@
 var slug = require('slug')
 var markdown = require('markdown-it')
 var mdnh = require('markdown-it-named-headers')
-var md = markdown().use(mdnh)
+var md = markdown({ html: true }).use(mdnh)
 // markdown()
 
 var Projects = require('../models/Projects')
