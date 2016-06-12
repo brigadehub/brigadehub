@@ -3,11 +3,6 @@ extends ../layout
 block content
   .row.page-header
     h3.pull-left Manage Projects
-    form.pull-right(method='POST', action='/projects/sync')
-      input(type='hidden', name='_csrf', value=_csrf)
-      button.btn.btn-primary(type='submit')
-        i.fa.fa-refresh
-        | Fetch Projects with Github
   .row
     .col-sm-12
       table.table
