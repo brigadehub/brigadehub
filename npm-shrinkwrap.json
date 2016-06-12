@@ -384,6 +384,11 @@
       "from": "breakable@>=1.0.0 <1.1.0",
       "resolved": "https://registry.npmjs.org/breakable/-/breakable-1.0.0.tgz"
     },
+    "broca": {
+      "version": "0.1.1",
+      "from": "broca@latest",
+      "resolved": "https://registry.npmjs.org/broca/-/broca-0.1.1.tgz"
+    },
     "brorand": {
       "version": "1.0.5",
       "from": "brorand@>=1.0.1 <2.0.0",
@@ -847,6 +852,48 @@
       "from": "crypto-browserify@>=3.0.0 <4.0.0",
       "resolved": "https://registry.npmjs.org/crypto-browserify/-/crypto-browserify-3.11.0.tgz"
     },
+    "cson-safe": {
+      "version": "0.1.1",
+      "from": "cson-safe@>=0.1.1 <0.2.0",
+      "resolved": "https://registry.npmjs.org/cson-safe/-/cson-safe-0.1.1.tgz",
+      "dependencies": {
+        "coffee-script-redux": {
+          "version": "2.0.0-beta8",
+          "from": "coffee-script-redux@2.0.0-beta8",
+          "resolved": "https://registry.npmjs.org/coffee-script-redux/-/coffee-script-redux-2.0.0-beta8.tgz"
+        },
+        "cscodegen": {
+          "version": "0.1.0",
+          "from": "git://github.com/michaelficarra/cscodegen.git#73fd7202ac086c26f18c9d56f025b18b3c6f5383",
+          "resolved": "git://github.com/michaelficarra/cscodegen.git#73fd7202ac086c26f18c9d56f025b18b3c6f5383"
+        },
+        "escodegen": {
+          "version": "0.0.28",
+          "from": "escodegen@>=0.0.24 <0.1.0",
+          "resolved": "https://registry.npmjs.org/escodegen/-/escodegen-0.0.28.tgz"
+        },
+        "esprima": {
+          "version": "1.0.4",
+          "from": "esprima@>=1.0.2 <1.1.0",
+          "resolved": "https://registry.npmjs.org/esprima/-/esprima-1.0.4.tgz"
+        },
+        "estraverse": {
+          "version": "1.3.2",
+          "from": "estraverse@>=1.3.0 <1.4.0",
+          "resolved": "https://registry.npmjs.org/estraverse/-/estraverse-1.3.2.tgz"
+        },
+        "nopt": {
+          "version": "2.1.2",
+          "from": "nopt@>=2.1.2 <2.2.0",
+          "resolved": "https://registry.npmjs.org/nopt/-/nopt-2.1.2.tgz"
+        },
+        "source-map": {
+          "version": "0.1.11",
+          "from": "source-map@0.1.11",
+          "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.1.11.tgz"
+        }
+      }
+    },
     "css": {
       "version": "1.0.8",
       "from": "css@>=1.0.8 <1.1.0",
@@ -1307,6 +1354,42 @@
       "from": "eslint-plugin-standard@>=1.3.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/eslint-plugin-standard/-/eslint-plugin-standard-1.3.2.tgz"
     },
+    "esmangle": {
+      "version": "0.0.17",
+      "from": "esmangle@>=0.0.8 <0.1.0",
+      "resolved": "https://registry.npmjs.org/esmangle/-/esmangle-0.0.17.tgz",
+      "dependencies": {
+        "escodegen": {
+          "version": "0.0.28",
+          "from": "escodegen@>=0.0.28 <0.1.0"
+        },
+        "escope": {
+          "version": "1.0.3",
+          "from": "escope@>=1.0.0 <1.1.0",
+          "resolved": "https://registry.npmjs.org/escope/-/escope-1.0.3.tgz",
+          "dependencies": {
+            "estraverse": {
+              "version": "2.0.0",
+              "from": "estraverse@>=2.0.0 <3.0.0",
+              "resolved": "https://registry.npmjs.org/estraverse/-/estraverse-2.0.0.tgz"
+            }
+          }
+        },
+        "esprima": {
+          "version": "1.0.4",
+          "from": "esprima@>=1.0.2 <1.1.0"
+        },
+        "estraverse": {
+          "version": "1.3.2",
+          "from": "estraverse@>=1.3.2 <1.4.0"
+        },
+        "source-map": {
+          "version": "0.1.43",
+          "from": "source-map@>=0.1.8 <0.2.0",
+          "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.1.43.tgz"
+        }
+      }
+    },
     "espree": {
       "version": "3.1.5",
       "from": "espree@>=3.0.0 <4.0.0",
@@ -1333,6 +1416,29 @@
           "version": "4.1.1",
           "from": "estraverse@>=4.1.0 <4.2.0",
           "resolved": "https://registry.npmjs.org/estraverse/-/estraverse-4.1.1.tgz"
+        }
+      }
+    },
+    "esshorten": {
+      "version": "0.0.2",
+      "from": "esshorten@>=0.0.2 <0.1.0",
+      "resolved": "https://registry.npmjs.org/esshorten/-/esshorten-0.0.2.tgz",
+      "dependencies": {
+        "escope": {
+          "version": "1.0.3",
+          "from": "escope@>=1.0.0 <1.1.0",
+          "dependencies": {
+            "estraverse": {
+              "version": "2.0.0",
+              "from": "estraverse@>=2.0.0 <3.0.0",
+              "resolved": "https://registry.npmjs.org/estraverse/-/estraverse-2.0.0.tgz"
+            }
+          }
+        },
+        "estraverse": {
+          "version": "1.2.0",
+          "from": "estraverse@>=1.2.0 <1.3.0",
+          "resolved": "https://registry.npmjs.org/estraverse/-/estraverse-1.2.0.tgz"
         }
       }
     },
@@ -4664,6 +4770,11 @@
       "version": "0.2.2",
       "from": "stringmap@>=0.2.2 <0.3.0",
       "resolved": "https://registry.npmjs.org/stringmap/-/stringmap-0.2.2.tgz"
+    },
+    "StringScanner": {
+      "version": "0.0.3",
+      "from": "StringScanner@>=0.0.3 <0.1.0",
+      "resolved": "https://registry.npmjs.org/StringScanner/-/StringScanner-0.0.3.tgz"
     },
     "stringset": {
       "version": "0.2.1",

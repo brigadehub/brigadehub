@@ -326,13 +326,13 @@ module.exports = {
 
     if (type === 'jekyll') {
       var blogLocation = res.locals.brigade.blog.jekyll
-      console.log(blogLocation)
       // recursively list md files in _posts folder
-      Post.syncJekyll(blogLocation).then(function (results) {
-        console.log(results)
-        res.redirect('/brigade')
+      Post.syncJekyll(blogLocation, res.locals.user.tokens[0].accessToken).then(function (results) {
+        req.flash('success', {msg: 'Successfully synced posts from Jekyll!'})
+        res.redirect('/blog/manage')
       }).catch(function (err) {
-        throw err
+        req.flash('errors', {msg: 'Unable to sync: ' + err})
+        res.redirect('/brigade')
       })
     }
   },
