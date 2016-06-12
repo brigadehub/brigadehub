@@ -4,8 +4,8 @@ footer
       .col-sm-12
         h3 Partners
     .row.partners-logos
-      .col-sm-12.clearfix
-        each sponsor in brigade.sponsors.other
+      each sponsor in brigade.sponsors.other
+        .col-md-4
           a(href=sponsor.link)
             img(src=sponsor.image, alt=sponsor.name)
     //- .row.show-partners
@@ -31,6 +31,6 @@ footer
         if brigade.theme.page.about
           li
             a(href='/contact') Contact
-            
+
         li.float.right
           a(href='https://github.com/sfbrigade/brigadehub') powered by brigadehub

@@ -21,25 +21,16 @@ html {
 
 body {
   font-family: 'Source Sans Pro', 'Helvetica', 'Arial', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizelegibility;
 
   margin-bottom: 75px;
   padding-top: 126px;
 
   transition: padding-top $scroll-transition ease-in-out;
-}
 
-footer {
-  line-height: 45px;
-
-  position: absolute;
-  bottom: 0;
-
-  width: 100%;
-  height: 45px;
-  p, ul {
-    margin-bottom: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
+  @media (max-width: 47.9rem) {
+    padding-top: 85px;
   }
 }
 
@@ -131,106 +122,7 @@ h1.page-title {
   color: #b8b8b8;
 }
 
-
-footer {
-  .partners-title {
-    .col-sm-12 {
-      font-weight: 700;
-
-      position: relative;
-
-      text-align: center;
-      text-transform: uppercase;
-
-      color: #383737;
-      &:after {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-
-        width: 550px;
-        max-width: 100vw;
-        height: 5px;
-
-        content: '';
-        -webkit-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-
-        background: #e7e7e7;
-      }
-      h3 {
-        font-size: 1.5rem;
-
-        position: relative;
-        z-index: 9;
-
-        display: inline-block;
-
-        min-width: 200px;
-        margin: 0 auto;
-        padding: 0 30px;
-
-        background: #ffffff;
-      }
-    }
-  }
-  .partners-logos {
-    a {
-      position: relative;
-
-      display: block;
-      float: left;
-
-      width: 200px;
-      height: 200px;
-      margin: 0 20px;
-      img {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-
-        width: 100%;
-
-        -webkit-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-      }
-    }
-  }
-  .show-partners {
-    text-align: center;
-  }
-  .footer-nav {
-    position: relative;
-
-    margin-top: 40px;
-    padding-bottom: 50px;
-
-    background: #2f3030;
-    ul {
-      padding-right: 40px;
-
-      list-style-type: none;
-      li {
-        display: inline-block;
-
-        padding: 10px;
-        a {
-          font-size: 12px;
-
-          position: relative;
-
-          display: block;
-
-          color: #ffffff;
-        }
-      }
-    }
-  }
-}
-
-.form-group{
+.form-group {
   @extend .clearfix;
 }
 
@@ -249,21 +141,23 @@ img {
   max-width: 100%;
 }
 
-nav + .container{
+nav + .container {
   .row {
+    display: block;
+
+    width: 100%;
+
     @extend .clearfix;
-    display:block;
-    width:100%;
   }
 }
 .hidden {
-  display:none;
+  display: none;
 }
 
 .delete-checkbox {
   input:checked + .btn {
-    background:white;
-    color:#D9534F;
+    color: #d9534f;
+    background: white;
   }
 }
 
@@ -296,3 +190,5 @@ nav + .container{
 @import 'views/user-settings';
 @import 'views/user';
 @import 'partials/nav';
+@import 'partials/footer'
+
