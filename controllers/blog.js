@@ -2,7 +2,9 @@
 
 var Post = require('../models/Posts')
 var User = require('../models/Users')
-var Markdown = require('markdown-it')
+var markdown = require('markdown-it')
+var mdnh = require('markdown-it-named-headers')
+var md = markdown({ html: true }).use(mdnh)
 var _ = require('lodash')
 
 module.exports = {
@@ -194,8 +196,6 @@ module.exports = {
         res.sendStatus(404)
         return
       }
-      var md = new Markdown()
-
       post.content = md.render(post.content)
       res.render(res.locals.brigade.theme.slug + '/views/blog/post', {
         view: 'blog-post',

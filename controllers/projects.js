@@ -3,7 +3,10 @@
  */
 
 var slug = require('slug')
-var Markdown = require('markdown-it')
+var markdown = require('markdown-it')
+var mdnh = require('markdown-it-named-headers')
+var md = markdown({ html: true }).use(mdnh)
+// markdown()
 
 var Projects = require('../models/Projects')
 var Users = require('../models/Users')
@@ -131,7 +134,6 @@ module.exports = {
     }, function (err, foundProject) {
       if (err) console.error(err)
 
-      var md = new Markdown()
       foundProject.content = md.render(foundProject.content)
       if (foundProject.contact.length) {
         Projects.fetchGitHubUsers(foundProject.contact, function (contactList) {
