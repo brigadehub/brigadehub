@@ -15,6 +15,11 @@ var brigadeSchema = new mongoose.Schema({
   github: {type: String, default: ''},
   slack: {type: String, default: 'http://c4a.me/cfsfslack'},
   meetup: {type: String, default: 'Code-for-San-Francisco-Civic-Hack-Night'},
+  blog: {
+    jekyll: {type: String, default: ''},
+    wordpress: {type: String, default: ''},
+    medium: {type: String, default: ''}
+  },
   redirects: {type: Array, default: []},
   theme: {
     slug: {type: String, default: ''},

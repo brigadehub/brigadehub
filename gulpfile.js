@@ -5,12 +5,12 @@ var browserify = require('browserify')
 var source = require('vinyl-source-stream')
 var sass = require('gulp-sass')
 var sourcemaps = require('gulp-sourcemaps')
+var nodemon = require('gulp-nodemon')
 
 gulp.task('launch:node', function () {
-  exec('nodemon app.js', function (err, stdout, stderr) {
-    console.log(stdout)
-    console.log(stderr)
-    console.log(err)
+  nodemon({
+    script: 'app.js',
+    ignore: ['node_modules/*']
   })
 })
 gulp.task('launch:mongodb', function () {
@@ -50,5 +50,5 @@ gulp.task('sourcemapcomp', function () {
 })
 
 gulp.task('build', ['browserjscomp', 'csscomp', 'sourcemapcomp'])
-gulp.task('start', ['launch:node', 'launch:mongodb', 'browserjswatch', 'browserjscomp', 'csswatch', 'csscomp', 'sourcemapcomp'])
 gulp.task('start:nomongo', ['launch:node', 'browserjswatch', 'browserjscomp', 'csswatch', 'csscomp', 'sourcemapcomp'])
+gulp.task('start', ['launch:node', 'launch:mongodb', 'browserjswatch', 'browserjscomp', 'csswatch', 'csscomp', 'sourcemapcomp'])

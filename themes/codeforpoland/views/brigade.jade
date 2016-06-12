@@ -48,6 +48,10 @@ block content
       .col-sm-7
         input.form-control(type='text', name='slack', id='slack', value='#{brigade.slack}')
     .form-group
+      label.col-sm-3.control-label(for='slack') Github/Jekyll Blog
+      .col-sm-7
+        input.form-control(type='text', name='blog-jekyll', id='blog-jekyll', value='#{brigade.blog.jekyll}', placeholder='account/repo')
+    .form-group
       label.col-sm-3.control-label(for='meetupurl') Meetup Group URL:
       .col-sm-5
         |http://www.meetup.com/
@@ -57,7 +61,31 @@ block content
         button.btn.btn.btn-primary(type='submit')
           i.fa.fa-pencil
           | Update Brigade
-
+  
+  .page-header.row
+    h3 Sync Content
+  hr
+  .row
+    form.col-sm-3(method='POST', action='/projects/sync')
+      input(type='hidden', name='_csrf', value=_csrf)
+      button.btn.btn-primary(type='submit')
+        i.fa.fa-code-fork
+        | Sync Projects with Github
+    form.col-sm-3(method='POST', action='/users/sync')
+      input(type='hidden', name='_csrf', value=_csrf)
+      button.btn.btn-primary(type='submit')
+        i.fa.fa-github-alt
+        | Sync Users with Github
+    form.col-sm-3(method='POST', action='/events/sync')
+      input(type='hidden', name='_csrf', value=_csrf)
+      button.btn.btn-primary(type='submit')
+        i.fa.fa-calendar-plus-o
+        | Sync Events with Meetup
+    form.col-sm-3(method='POST', action='/blog/sync/jekyll')
+      input(type='hidden', name='_csrf', value=_csrf)
+      button.btn.btn-primary(type='submit')
+        i.fa.fa-rss-square
+        | Sync Blog with Jekyll Site
   .page-header.row
     h3 Theme Settings
   hr
