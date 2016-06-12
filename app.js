@@ -90,6 +90,15 @@ var User = require('./models/Users')
  */
 app.set('port', process.env.PORT || 5465)
 app.set('views', path.join(__dirname, 'themes'))
+app.locals.capitalize = function (value) {
+  return value.charAt(0).toUpperCase() + value.slice(1)
+}
+app.locals.plural = function (value) {
+  if (value[value.length - 1] === 's') {
+    return value + 'es'
+  }
+  return value + 's'
+}
 app.set('view engine', 'jade')
 app.use(compress())
 

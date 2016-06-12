@@ -11,7 +11,9 @@ block content
 
   .page-header
     h3 Manage Blog Posts
-
+    if user && user.isBlogger()
+      a.btn.btn-secondary(href='/blog/new') New Post
+    |&nbsp;&nbsp;&nbsp;
     form.row.form-horizontal(action='/blog/manage', method='POST', id='blogform')
       input(type='hidden', name='_csrf', value=_csrf)
       table.table

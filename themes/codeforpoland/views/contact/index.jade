@@ -1,11 +1,16 @@
 extends ../layout
 
 block content
-  .row
-    .col-xs-12
-      h2 Contact
-      a(href='/contact/edit') Manage contact page
-      hr
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/contact') Contact
+  .row.page-header
+    .col-sm-12
+      h1.page-title Contact
+  if user && user.isAdmin()
+    a.btn.btn-secondary(href='/contact/edit') Manage Contact page
   .row
     .col-sm-9
       .row

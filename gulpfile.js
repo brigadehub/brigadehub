@@ -6,19 +6,20 @@ var source = require('vinyl-source-stream')
 var sass = require('gulp-sass')
 var sourcemaps = require('gulp-sourcemaps')
 
-gulp.task('launch', function () {
+gulp.task('launch:node', function () {
   exec('nodemon app.js', function (err, stdout, stderr) {
     console.log(stdout)
     console.log(stderr)
     console.log(err)
   })
+})
+gulp.task('launch:mongodb', function () {
   exec('mongod', function (err, stdout, stderr) {
     console.log(stdout)
     console.log(stderr)
     console.log(err)
   })
 })
-
 gulp.task('browserjswatch', function () {
   gulp.watch(['themes/codeforpoland/public/js/main.js', 'themes/codeforpoland/public/js/functions.js'], ['browserjscomp'])
 })
@@ -48,4 +49,5 @@ gulp.task('sourcemapcomp', function () {
   .pipe(gulp.dest('themes/codeforpoland/public/css'))
 })
 
-gulp.task('start', ['launch', 'browserjswatch', 'browserjscomp', 'csswatch', 'csscomp', 'sourcemapcomp'])
+gulp.task('start', ['launch:node', 'launch:mongodb', 'browserjswatch', 'browserjscomp', 'csswatch', 'csscomp', 'sourcemapcomp'])
+gulp.task('start:nomongo', ['launch:node', 'browserjswatch', 'browserjscomp', 'csswatch', 'csscomp', 'sourcemapcomp'])

@@ -34,6 +34,10 @@ body {
   }
 }
 
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
 // Input Fields
 // -------------------------
 
@@ -161,6 +165,49 @@ nav + .container {
   }
 }
 
+table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  th, td {
+    line-height: 1.5;
+
+    padding: 0.75rem;
+
+    vertical-align: top;
+
+    border-top: 1px solid hsl(200, 9%, 93%);
+  }
+  thead {
+    th {
+      font-weight: bold;
+
+      vertical-align: bottom;
+
+      border-bottom: 2px solid hsl(200, 9%, 93%);
+    }
+  }
+}
+
+input {
+  font-size: 1rem;
+  line-height: 1.5;
+
+  display: block;
+
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+
+  color: hsl(206, 4%, 35%);
+  border: 1px solid hsl(0, 0%, 80%);
+  border-radius: 0.25rem;
+  background-color: hsl(0, 0%, 100%);
+  background-image: none;
+}
+
+.bootstrap-tagsinput {
+  width: 100%;
+}
 // Import view specific styles
 
 @import 'views/account-settings';
@@ -190,5 +237,4 @@ nav + .container {
 @import 'views/user-settings';
 @import 'views/user';
 @import 'partials/nav';
-@import 'partials/footer'
-
+@import 'partials/footer';

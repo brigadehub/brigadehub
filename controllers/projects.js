@@ -3,7 +3,7 @@
  */
 
 var slug = require('slug')
-var markdown = require('marked')
+var Markdown = require('markdown-it')
 
 var Projects = require('../models/Projects')
 var Users = require('../models/Users')
@@ -14,22 +14,45 @@ module.exports = {
    * List of Project examples.
    */
   getProjects: function (req, res) {
-    Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
+    var mongooseQuery = {brigade: res.locals.brigade.slug}
+    // var page
+    if (req.query.keyword) {
+      mongooseQuery.keywords = req.query.keyword
+    }
+    if (req.query.need) {
+      mongooseQuery.needs = req.query.need
+    }
+    // if (req.query.page) {
+    //   page = req.query.page
+    // }
+    Projects.find({}, function (err, foundProjects) {
       if (err) console.error(err)
       var allKeywords = []
+      var allNeeds = []
       foundProjects.forEach(function (project) {
         project.keywords.forEach(function (keyword) {
           if (allKeywords.indexOf(keyword) < 0) {
             allKeywords.push(keyword)
           }
         })
+        project.needs.forEach(function (need) {
+          if (allNeeds.indexOf(need) < 0) {
+            allNeeds.push(need)
+          }
+        })
       })
-      res.render(res.locals.brigade.theme.slug + '/views/projects/index', {
-        view: 'project-list',
-        title: 'Projects',
-        brigade: res.locals.brigade,
-        projects: foundProjects,
-        keywords: allKeywords.sort()
+      Projects.find(mongooseQuery, function (err, foundProjects) {
+        if (err) console.error(err)
+        res.render(res.locals.brigade.theme.slug + '/views/projects/index', {
+          view: 'project-list',
+          title: 'Projects',
+          brigade: res.locals.brigade,
+          projects: foundProjects,
+          selectedKeyword: req.query.keyword,
+          selectedNeed: req.query.need,
+          keywords: allKeywords.sort(),
+          needs: allNeeds.sort()
+        })
       })
     })
   },
@@ -107,7 +130,9 @@ module.exports = {
       id: req.params.projectId
     }, function (err, foundProject) {
       if (err) console.error(err)
-      foundProject.content = markdown(foundProject.content)
+
+      var md = new Markdown()
+      foundProject.content = md.render(foundProject.content)
       if (foundProject.contact.length) {
         Projects.fetchGitHubUsers(foundProject.contact, function (contactList) {
           res.render(res.locals.brigade.theme.slug + '/views/projects/project', {

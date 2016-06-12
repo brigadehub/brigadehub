@@ -3,10 +3,14 @@ if (!window.console.log) window.console.log = function () {}
 /* global SimpleMDE */
 var $ = window.jQuery
 var webfunctions = require('./functions.js')
+var moment = require('moment')
+require('moment-timezone')
+
 window.__bh.colors = {
   label: '#EDAB43',
   text: '#8C8C8C'
 }
+
 $(document).ready(function () {
   $('.adminButton').click(function () {
     console.log($(this))
@@ -21,9 +25,15 @@ $(document).ready(function () {
   console.log('%c[Brigadehub]' + "%c Welcome hackers! We'd love to get your help in developing Brigadehub further!", 'color:' + window.__bh.colors.label, 'color:' + window.__bh.colors.text)
   console.log('%c             visit https://github.com/sfbrigade/brigadehub to find the code and learn more!', 'color:' + window.__bh.colors.text)
   console.log('%c-------------------------------------------------------------------------------------------', 'color:' + window.__bh.colors.label)
+  var userzone = moment.tz.guess()
   if (window._events) {
+    var eventsarray = window._events.map(function (event, i) {
+      event.start = moment.unix(event.start).tz(userzone).format()
+      $('.event' + i.toString()).html(moment.tz(event.start, userzone).format('ha z MMMM DD, YYYY'))
+      return event
+    })
     $('#events-calendar').fullCalendar({
-      events: window._events
+      events: eventsarray
     })
   }
   $(window).on('scroll', function (event) {
@@ -35,6 +45,7 @@ $(document).ready(function () {
     }
   })
   if ($('.simple-mde').length) {
+    console.log('SIMPLE MDE PRESENT', $('.simple-mde'))
     var editor = new SimpleMDE({ // eslint-disable-line no-unused-vars
       element: $('.simple-mde')[0],
       forceSync: true,
@@ -65,6 +76,9 @@ $(document).ready(function () {
       })
     })
   })
+  if ($('#blogtime').length) {
+    $('#blogtime').val(moment().tz(userzone).format('MMMM Do YYYY, h:mm:ss a'))
+  }
   $('#nav-toggle').on('click touchstart', function (event) {
     event.preventDefault()
     $('#nav-toggle, .nav-menu').toggleClass('active')

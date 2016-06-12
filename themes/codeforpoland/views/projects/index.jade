@@ -1,30 +1,39 @@
 extends ../layout
 
-mixin sidebarItem(name,subItems)
-  li=name
-          ul
-            each val in subItems
-              li
-                a=val
-
+mixin sidebarItem(name,subItems,selectedItem)
+  li= plural(capitalize(name))
+    ul(data-sidebar=name)
+      if selectedItem
+        li
+          a(href='?') 
+            i.fa.fa-close
+            | Clear Selection
+      each item in subItems
+        li(class=selectedItem===item?'selected':'')
+          a(href="?#{name}=#{item}")= item
 
 block content
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp; 
+      a(href='/projects') Projects
+  .row.page-header
+    .col-sm-12
+      h1.page-title Projects
+  if user && user.isProjectLead()
+    a.btn.btn-secondary(href='/projects/new') New Project
+  .row
+    hr
   .container
     .row
-      .col-sm-12
-        h2 All Projects
-        hr
-    .row
-      //sidebar list
       .col-sm-3.sidebar
-        //parent list
         ul
-          mixin sidebarItem('Keywords',keywords)
-      //Add projects
+          mixin sidebarItem('keyword',keywords,selectedKeyword)
+          mixin sidebarItem('need',needs,selectedNeed)
       .col-sm-9
         .row
         each project in projects
-          // for perfect alignment, need a row on every odd instance of project. (row, col col, row, col col, etc. ) this code will look ok unitl you get a lot of description text on a project. - AB
           .col-sm-6
             .card.project-list-card
                 a(href='/projects/#{project.id}')
@@ -34,3 +43,11 @@ block content
                     a(href='/projects/#{project.id}')
                       =project.name
                   p.card-text= project.description
+                  p.card-keywords
+                    span Keywords
+                    each keyword in project.keywords
+                      a.badge(href="?keyword=#{keyword}")= keyword
+                  p.card-needs
+                    span Needs
+                    each need in project.needs
+                      a.badge(href="?need=#{need}")= need
