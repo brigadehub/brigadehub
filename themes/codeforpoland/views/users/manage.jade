@@ -5,11 +5,6 @@ block content
     window._currentUser = '#{currentuser.username}'
   .page-header
     h3 Manage users and roles
-    form.pull-right(method='POST', action='/users/sync')
-      input(type='hidden', name='_csrf', value=_csrf)
-      button.btn.btn-primary(type='submit')
-        i.fa.fa-github
-        | Fetch Users from #{ brigade.slug }
     a(href='/contact/edit')
       button.btn.btn-default(type='button')
         | Manage contact page
