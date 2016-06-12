@@ -245,7 +245,13 @@ function createUpdateProjectData (project, original, brigade) {
   original.status = project.json.status ? project.json.status.toLowerCase() : 'proposed' // civic.json + civic.dc.json - proposed, ideation, alpha, beta, production, archival
 
   original.thumbnailUrl = project.json.thumbnailUrl || 'http://i.imgur.com/MRgvL1K.png'
+  if (original.thumbnailUrl.indexOf('placeholdit') > -1) {
+    original.thumbnailUrl = 'http://i.imgur.com/MRgvL1K.png'
+  }
   original.bannerUrl = project.json.bannerUrl || 'http://i.imgur.com/MRgvL1K.png'
+  if (original.thumbnailUrl.indexOf('placeholdit') > -1) {
+    original.thumbnailUrl = 'http://i.imgur.com/MRgvL1K.png'
+  }
   original.bornAt = project.json.bornAt || brigade.name
   original.geography = project.json.geography || brigade.location.general
   original.politicalEntity = project.json.politicalEntity || ''
