@@ -25,11 +25,11 @@ block content
             for status in ['proposed', 'discovery', 'alpha', 'beta', 'live', 'prototype', 'mvp' ]
               option(value="#{status}", selected=(status == project.status)) #{status}
       .form-group.row
-        label.col-sm-3.control-label(for='geography') Geography
+        label.col-sm-3.control-label(for='geography') Location
         .col-sm-7
           input.form-control(type='text', name='geography', id='geography', value='#{project.geography}', placeholder='Awesome town, USA')
       .form-group.row
-        label.col-sm-3.control-label(for='politicalEntity') Political Entity
+        label.col-sm-3.control-label(for='politicalEntity') Community Partner
         .col-sm-7
           input.form-control(type='text', name='politicalEntity', id='politicalEntity', value='#{project.politicalEntity}', placeholder='City of Awesome, LLC')
       .form-group.row
@@ -45,21 +45,23 @@ block content
         .col-sm-7
           input.form-control(type='text', name='repository', id='repository', value='#{project.repository}')
       .form-group.row
-        label.col-sm-3.control-label(for='contacts') Contacts
+        label.col-sm-3.control-label(for='team') Project Team
         .col-sm-7
-          input.form-control(type='text', name='contacts', id='contacts', value='#{project.contact}', placeholder='username1, username2, etc.')
-      .form-group.row
-        label.col-sm-3.control-label(for='categories') Project Categories
-        .col-sm-7
-          input.form-control(type='text', name='categories', id='categories', value='#{project.categories}', placeholder='homelessness, transit, etc.')
+          select.form-control.input-tags-target(name='team', id='team', multiple=true, data-role="tagsinput")
+            for member in project.team
+              option(value="#{member.username}", selected=true) #{member.username}
       .form-group.row
         label.col-sm-3.control-label(for='needs') Project Needs
         .col-sm-7
-          input.form-control(type='text', name='needs', id='needs', value='#{project.needs}', placeholder='UX, frontend design, etc.')
+          select.form-control.input-tags-target(name='needs', id='needs', multiple=true, data-role="tagsinput")
+            for need in project.needs
+              option(value="#{need}", selected=true) #{need}
       .form-group.row
         label.col-sm-3.control-label(for='keywords') Project Keywords
         .col-sm-7
-          input.form-control(type='text', name='keywords', id='keywords', value='#{project.keywords}', placeholder='cms, mobile, etc.')
+          select.form-control.input-tags-target(name='keywords', id='keywords', multiple=true, data-role="tagsinput")
+            for keyword in project.keywords
+              option(value="#{keyword}", selected=true) #{keyword}
       .form-group.row
         label.col-sm-3.control-label(for='thumbnailUrl') Project Thumbnail Image URL
         .col-sm-7
@@ -75,11 +77,11 @@ block content
         .col-sm-7.col-sm-offset-3
           img(src="#{project.bannerUrl}")
       .form-group.row
-        label.col-sm-3.control-label(for='content') Profile Content &nbsp;
+        label.col-sm-3.control-label(for='content') Project Profile Content &nbsp;
           a(href='https://guides.github.com/features/mastering-markdown/#syntax')
             img(src='https://cdn.rawgit.com/dcurtis/markdown-mark/master/svg/markdown-mark.svg', width='25')
         .col-sm-7
-          textarea.form-control(name='content', id='content', rows="6")
+          textarea.form-control.simple-mde(name='content', id='content', rows="6")
             |#{project.content}
       .form-group.row
         .col-sm-offset-3.col-sm-4

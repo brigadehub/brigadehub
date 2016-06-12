@@ -1,0 +1,29 @@
+---
+engines:
+  scss-lint:
+    enabled: true
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+  nodesecurity:
+    enabled: true
+ratings:
+  paths:
+  - "**.css"
+  - "**.scss"
+  - "**.js"
+  - "npm-shrinkwrap.json"
+exclude_paths:
+- config/
+- node_modules
+- test/
+- themes/codeforpoland/public/css/vendors
+- themes/codeforpoland/public/js/lib

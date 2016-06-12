@@ -13,12 +13,12 @@ var defaultHeaders = {
 
 var userSchema = new mongoose.Schema({
   username: { type: String, unique: true },
-  email: String,
-  /* password: String,*/
-  github: String,
-  tokens: Array,
-  scopes: Array,
-  postAuthLink: String,
+  email: {type: String, default: ''},
+  /* password: {type:String, default:''},*/
+  github: {type: String, default: ''},
+  tokens: {type: Array, default: []},
+  scopes: {type: Array, default: []},
+  postAuthLink: {type: String, default: ''},
   roles: {
     read: {type: Boolean, default: true},
     blog: {type: Boolean, default: false},
@@ -41,9 +41,7 @@ var userSchema = new mongoose.Schema({
     showcontact: { type: Boolean, default: true },
     position: { type: String, default: '' },
     contactpagerank: { type: Number, default: 1 }
-  },
-  resetPasswordToken: String,
-  resetPasswordExpires: Date
+  }
 })
 
 /**
@@ -83,11 +81,15 @@ userSchema.methods.gravatar = function (size) {
  * Helper method for getting user's authorized to edit the blog.
  */
 userSchema.methods.isAdmin = function () {
-  return (this.roles.superAdmin || this.roles.coreLead)
+  return (this.roles.superAdmin || this.roles.core)
 }
 
 userSchema.methods.isBlogger = function () {
-  return (this.roles.core || this.roles.superAdmin || this.roles.coreLead || this.roles.blog || this.roles.lead)
+  return (this.roles.core || this.roles.superAdmin || this.roles.blog || this.roles.lead)
+}
+
+userSchema.methods.isProjectLead = function () {
+  return (this.roles.core || this.roles.superAdmin || this.roles.lead)
 }
 
 /**

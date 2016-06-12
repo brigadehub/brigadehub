@@ -7,9 +7,14 @@ html
     meta(name='csrf-token', content=_csrf)
     title #{title} - #{brigade.name}
     link(href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic,300,300italic', rel='stylesheet,' type='text/css')
-    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/css/bootstrap.css')
-    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.css')
+    link(rel='stylesheet', href='/css/vendors/bootstrap.css')
+    link(rel='stylesheet', href='/css/vendors/fullcalendar.css')
+    link(rel='stylesheet', href='/css/vendors/bootstrap-tagsinput.css')
     link(rel='stylesheet', href='/css/main.css')
+    script.
+      window.__bh = {
+        version: '#{brigade.buildVersion}'
+      }
   body(data-view="#{view}")
     include partials/header
 
@@ -19,12 +24,15 @@ html
 
     include partials/footer
 
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/js/bootstrap.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.js')
+    script(src='/js/lib/jquery.js')
+    script(src='/js/lib/tether.min.js')
+    script(src='/js/lib/bootstrap.js')
+    script(src='/js/lib/moment.min.js')
+    script(src='/js/lib/fullcalendar.js')
     script(src='/js/lib/simplemde.min.js')
-    script(src='/js/main.js')
+    script(src='/js/bundle.js')
+    script(src='/js/lib/bootstrap-tagsinput.js')
+    script(src='/js/lib/bootstrap3-typeahead.js')
 
     // Google Analytics: change UA-XXXXX-X to be your site's ID
     script.

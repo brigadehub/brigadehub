@@ -1,6 +1,6 @@
 {
   "name": "brigadehub",
-  "version": "1.0.0-alpha.5",
+  "version": "1.0.0-alpha.7",
   "repository": {
     "type": "git",
     "url": "https://github.com/sfbrigade/brigadehub.git"
@@ -16,7 +16,8 @@
     "test:unit": "echo 'no unit test available.'",
     "db:clear": "./scripts/database-clear",
     "db:seed": "./scripts/database-seed",
-    "develop": "nodemon app.js",
+    "develop": "gulp start",
+    "develop:nomongo": "gulp start:nomongo",
     "install:clean": "rm -rf node_modules && npm install",
     "lint": "standard",
     "validate": "npm ls",
@@ -34,6 +35,8 @@
     "async": "^1.5.2",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.14.2",
+    "browserify": "^13.0.1",
+    "colors": "^1.1.2",
     "compression": "^1.6.0",
     "connect-mongo": "^1.1.0",
     "cookie-parser": "^1.4.1",
@@ -45,11 +48,15 @@
     "express-validator": "^2.18.0",
     "faker": "^3.1.0",
     "glob": "^7.0.3",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-watch": "^4.3.6",
     "jade": "^1.11.0",
     "link-header-parser": "0.0.2",
     "lodash": "^4.0.0",
     "lusca": "^1.3.0",
-    "marked": "^0.3.5",
+    "markdown-it": "^6.0.5",
     "method-override": "^2.3.5",
     "moment": "^2.11.1",
     "moment-timezone": "^0.5.3",
@@ -69,7 +76,8 @@
     "serve-favicon": "^2.3.0",
     "slug": "^0.9.1",
     "standard": "^6.0.4",
-    "uuid": "^2.0.1"
+    "uuid": "^2.0.1",
+    "vinyl-source-stream": "^1.1.0"
   },
   "devDependencies": {
     "careful": "^1.0.2",
@@ -93,6 +101,9 @@
       "describe",
       "afterEach",
       "after"
+    ],
+    "ignore": [
+      "**/js/lib/"
     ]
   },
   "config": {
@@ -132,8 +143,9 @@
       "msgSeperatorRequired": "Branch must have an appropriate prefix (feature, hotfix, bugfix, docs). Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#branch-naming-format) for more details."
     },
     "ghooks": {
-      "pre-commit": "npm test && careful",
-      "commit-msg": "validate-commit-msg"
+      "pre-commit": "careful",
+      "commit-msg": "validate-commit-msg",
+      "pre-push": "npm test"
     },
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
