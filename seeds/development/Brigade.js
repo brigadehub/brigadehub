@@ -15,6 +15,11 @@ module.exports = function () {
     heroImage: faker.image.city(1080, 399),
     url: 'http://codeforexample.org',
     github: 'codeforexample',
+    blog: {
+      jekyll: '',
+      wordpress: '',
+      medium: ''
+    },
     redirects: [
       {
         endpoint: '/temp',

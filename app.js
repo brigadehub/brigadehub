@@ -333,7 +333,7 @@ app.post('/blog/manage',
   passportConf.isAuthenticated,
   passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.postBlogManage)
-app.post('/blog/sync',
+app.post('/blog/sync/:type',
   passportConf.isAuthenticated,
   passportConf.checkRoles(['core', 'superAdmin']),
   blogCtrl.postBlogSync)

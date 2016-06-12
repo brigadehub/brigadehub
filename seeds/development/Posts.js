@@ -26,7 +26,12 @@ for (var i = 0; i < 30; i++) {
       wisdom.split(' ').pop(),
       'wisdom'
     ],
-    'published': i < 25
+    'published': i < 25,
+    sync: {
+      jekyll: '',
+      wordpress: '',
+      medium: ''
+    }
   })
 }
 
