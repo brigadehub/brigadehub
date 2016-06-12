@@ -228,7 +228,7 @@ nav.navbar {
         bottom: -10px;
       }
     }
-    .nav-menu, #nav-toggle span, #nav-toggle span:before, #nav-toggle span:after, .account-menu, .login-toggle {
+    .nav-menu, #nav-toggle span, #nav-toggle span:before, #nav-toggle span:after, .account-menu {
       @include animation(all, 0.5s, ease-in-out);
     }
     #nav-toggle.active span {
@@ -328,7 +328,7 @@ nav.navbar {
           i {
             margin-left: 5px;
 
-            @include animation(all, 0.4s, ease-in-out);
+            @include animation(all, 0.8s, ease-in-out);
           }
           &.active {
             i {
@@ -359,7 +359,7 @@ nav.navbar {
         overflow: auto;
 
         height: auto;
-        max-height: 2000px;
+        max-height: 700px;
       }
     }
   }
