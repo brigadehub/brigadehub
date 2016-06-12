@@ -1,6 +1,14 @@
 extends ../layout
 
 block content
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp;
+      a(href='/events') Events
+      | &nbsp;&nbsp;/&nbsp;
+      a(href='/events/manage') Manage
+
   .page-header.row
     h3 Manage Events
   .row
