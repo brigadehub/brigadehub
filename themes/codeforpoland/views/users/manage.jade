@@ -1,6 +1,13 @@
 extends ../layout
 
 block content
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp;
+      a(href='/users') Users
+      | &nbsp;&nbsp;/&nbsp;
+      a(href='/users/manage') Manage
   script.
     window._currentUser = '#{currentuser.username}'
   .page-header

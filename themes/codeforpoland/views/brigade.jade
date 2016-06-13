@@ -1,6 +1,11 @@
 extends layout
 - admin = ('admin'==brigade.location.timezone) ? 'selected' : null;
 block content
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp;
+      a(href='/brigade') Brigade
   .page-header.row
     h3 Brigade Information
   hr
@@ -61,7 +66,7 @@ block content
         button.btn.btn.btn-primary(type='submit')
           i.fa.fa-pencil
           | Update Brigade
-  
+
   .page-header.row
     h3 Sync Content
   hr
