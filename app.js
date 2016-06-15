@@ -264,6 +264,11 @@ app.post('/projects/:projectId/sync',
   passportConf.checkRoles(['lead', 'core', 'superAdmin']),
   passportConf.checkScopes(['user', 'repo']),
   projectsCtrl.postProjectsIDSync)
+app.post('/projects/:projectId/delete',
+  passportConf.isAuthenticated,
+  passportConf.checkRoles(['lead', 'core', 'superAdmin']),
+  passportConf.checkScopes(['user', 'repo']),
+  projectsCtrl.postDeleteProject)
 
 /**
  * Events routes.
