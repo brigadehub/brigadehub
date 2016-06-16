@@ -1,6 +1,16 @@
 extends ../layout
 
 block content
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp;
+      a(href='/events') Events
+      | &nbsp;&nbsp;/&nbsp;
+      | #{event.title}
+      | &nbsp;/&nbsp;
+      a(href='/events/#{event.id}/settings') Settings
+
   .page-header
     h3 Event Settings
     form.row.form-horizontal(action='/events/#{event.id}', method='POST')
