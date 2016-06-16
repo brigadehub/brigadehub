@@ -9,6 +9,13 @@ var projectStatus = {
 extends ../layout
 
 block content
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp;
+      a(href='/projects') Projects
+      | &nbsp;&nbsp;/&nbsp;
+      a(href='/projects/#{project.name}') #{project.name}
   .row
     .col-sm-12
       h1.page-header
