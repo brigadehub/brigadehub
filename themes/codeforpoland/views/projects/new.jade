@@ -1,6 +1,13 @@
 extends ../layout
 
 block content
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp;
+      a(href='/projects') Projects
+      | &nbsp;&nbsp;/&nbsp;
+      a(href='/projects/new') New
   .page-header
     h3 New Project
     form.row.form-horizontal(action='/projects/new', method='POST')
