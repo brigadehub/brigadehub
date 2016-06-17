@@ -34,20 +34,21 @@ block content
       .col-sm-9
         .row
         each project in projects
-          .col-sm-6
-            .card.project-list-card
-                a(href='/projects/#{project.id}')
-                  span.thumbnail(style='background-image:url(#{project.thumbnailUrl});').img-fluid.card-img-top
-                .card-block
-                  h3.card-title
-                    a(href='/projects/#{project.id}')
-                      =project.name
-                  p.card-text= project.description
-                  p.card-keywords
-                    span Keywords
-                    each keyword in project.keywords
-                      a.badge(href="?keyword=#{keyword}")= keyword
-                  p.card-needs
-                    span Needs
-                    each need in project.needs
-                      a.badge(href="?need=#{need}")= need
+          if project.published
+            .col-sm-6
+              .card.project-list-card
+                  a(href='/projects/#{project.id}')
+                    span.thumbnail(style='background-image:url(#{project.thumbnailUrl});').img-fluid.card-img-top
+                  .card-block
+                    h3.card-title
+                      a(href='/projects/#{project.id}')
+                        =project.name
+                    p.card-text= project.description
+                    p.card-keywords
+                      span Keywords
+                      each keyword in project.keywords
+                        a.badge(href="?keyword=#{keyword}")= keyword
+                    p.card-needs
+                      span Needs
+                      each need in project.needs
+                        a.badge(href="?need=#{need}")= need

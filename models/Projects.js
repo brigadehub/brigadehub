@@ -39,7 +39,8 @@ var projectsSchema = new mongoose.Schema({
   data: {type: Array, default: []},
   keywords: {type: Array, default: []}, // simple strings
   links: {type: Array, default: []}, // simple strings
-  videos: {type: Array, default: []}
+  videos: {type: Array, default: []},
+  published: {type: Boolean, default: true}
 })
 
 projectsSchema.statics.fetchGithubRepos = function (brigade, user, cb) {
