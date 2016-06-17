@@ -15,6 +15,13 @@ block content
         img(src='#{project.thumbnailUrl}', height='50')
         | &nbsp;
         =project.name
+      if (user && (user.isAdmin() || user.isProjectLead()))
+        span  
+          form(method='POST', action='/projects/#{project.id}/delete')
+            input(type='hidden', name='_csrf', value=_csrf)
+            button.float.right.btn.btn-primary(type='submit')
+              i(class="fa fa-trash-o" aria-hidden="true")
+              | Delete
   .row
     .col-sm-12
       .banner(style="margin-bottom: 50px;")
@@ -60,7 +67,7 @@ block content
                 span.info.infobox
                   for keyword in project.keywords
                     span(class="label label-warning")= keyword
-
+                    
     //- .col-sm-3
     //-     .see-also
     //-       .links

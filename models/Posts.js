@@ -15,7 +15,7 @@ var postsSchema = new mongoose.Schema({
   description: {type: String, default: ''},
   content: {type: String, default: ''},
   date: {type: String, default: ''},
-  published: {type: Boolean, default: ''},
+  published: {type: Boolean, default: false},
   unix: {type: Number, default: 0},
   sync: {
     jekyll: {type: String, default: ''},
