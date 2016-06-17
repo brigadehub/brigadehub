@@ -13,25 +13,25 @@ mixin sidebarItem(name,subItems,selectedItem)
           a(href="?#{name}=#{item}")= item
 
 block content
-  .row.breadcrumbs
+  .breadcrumbs
     .col-sm-12
       a(href='/')= brigade.name
       | &nbsp;&nbsp;/&nbsp; 
       a(href='/blog') Blog
-  .row.page-header
+  .page-header
     .col-sm-12
       h1.page-title Blog
   if user && user.isBlogger()
     a.btn.btn-secondary(href='/blog/new') New Post
-  .row
+  .la
     hr
   .container
-    .row
+    .la
       .col-sm-3.sidebar
         ul
           mixin sidebarItem('tag',tags,selectedTag)
       .col-sm-9
-        .row
+        .la
           each post in posts
             if post.published
               .col-sm-6
@@ -54,7 +54,7 @@ block content
                       each tag in post.tags
                         a.badge(href="?tag=#{tag}")= tag
         if totalPages > 1
-          .row.col-md-12
+          .col-md-12
             if page > 1 
               a(href=currentUrl+(+page-1)) 
                 i(class="fa fa-arrow-left" aria-hidden="true")
