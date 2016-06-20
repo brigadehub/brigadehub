@@ -2,6 +2,9 @@ extends layout
 
 block content
   #landing-hero(style="background-image:url(" + brigade.heroImage + ");background-position:bottom center;")
+    //Front end work needed for lines 6-7
+    if (checkin)
+      | #{brigade.checkIn.urlLink}
     #landing-message.col-sm-7
       p
         strong= brigade.name
