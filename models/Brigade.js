@@ -5,6 +5,10 @@ var brigadeSchema = new mongoose.Schema({
   slug: {type: String, default: ''},
   heroImage: {type: String, default: ''},
   recoveryEmail: {type: String, default: ''},
+  checkIn: {
+    day: {type: String, default: ''},
+    urlLink: {type: String, default: ''}
+  },
   location: {
     general: {type: String, default: ''},
     specific: {type: String, default: ''},

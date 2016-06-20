@@ -62,6 +62,16 @@ block content
         |http://www.meetup.com/
         input.form-control(type='text', name='meetupurl', id='meetupurl', value='#{brigade.meetup}')
     .form-group
+      label.col-sm-3.control-label(for='meetupurl') Weekly Check-in Day:
+      .col-sm-5
+        select(id="checkinday", name="checkinday")
+          for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+            option(value="#{day}", selected=(day == brigade.checkIn.day)) #{day}
+    .form-group
+      label.col-sm-3.control-label(for='meetupurl') Check-in URL:
+      .col-sm-5
+        input.form-control(type='text', name='checkinurl', id='checkinurl', value='#{brigade.checkIn.urlLink}')
+    .form-group
       .col-sm-offset-3.col-sm-4
         button.btn.btn.btn-primary(type='submit')
           i.fa.fa-pencil
