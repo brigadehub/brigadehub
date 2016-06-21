@@ -40,8 +40,8 @@ exports.index = function (req, res) {
         res.render(res.locals.brigade.theme.slug + '/views/home', {
           view: 'home',
           title: 'Home',
-          checkin: (moment().format('dddd') === res.locals.brigade.checkIn.day),
-          today: (moment().format('MMM DD')),
+          today: (moment().tz(res.locals.brigade.location.timezone).format('MMM DD')),
+          checkin: (moment().tz(res.locals.brigade.location.timezone).format('dddd') === res.locals.brigade.checkIn.day),
           brigade: res.locals.brigade,
           projects: foundProjects.splice(0, NUM_PROJECTS_SHOWN),
           events: foundEvents.slice(0, 3),
