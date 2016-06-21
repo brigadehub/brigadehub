@@ -122,20 +122,41 @@ module.exports = {
     var newProject = new Projects(req.body)
     newProject.id = res.locals.brigade.slug + '-' + req.body.name
     newProject.brigade = res.locals.brigade.slug
-    if (req.body.categories) {
-      newProject.categories = req.body.categories.replace(/\s/g, '').split(',')
-    }
-    if (req.body.contact) {
-      newProject.contact = req.body.contact.replace(/\s/g, '').split(',')
+    newProject.team = []
+    newProject.needs = []
+    newProject.keywords = []
+    if (req.body.team) {
+      if (typeof req.body.team === 'string' && req.body.team.indexOf(',') > -1) {
+        req.body.team.replace(/\s/g, '').split(',').forEach(function (member) {
+          newProject.team.push(member)
+        })
+      } else if (typeof req.body.team === 'string') {
+        newProject.team.push(req.body.team)
+      } else {
+        newProject.team.concat(req.body.team)
+      }
     }
     if (req.body.needs) {
-      newProject.needs = req.body.needs.replace(/\s/g, '').split(',')
+      if (typeof req.body.needs === 'string' && req.body.needs.indexOf(',') > -1) {
+        req.body.needs.replace(/\s/g, '').split(',').forEach(function (need) {
+          newProject.needs.push(need)
+        })
+      } else if (typeof req.body.needs === 'string') {
+        newProject.needs.push(req.body.needs)
+      } else {
+        newProject.needs.concat(req.body.needs)
+      }
     }
     if (req.body.keywords) {
-      newProject.keywords = req.body.keywords.replace(/\s/g, '').split(',')
-    }
-    if (req.body.data) {
-      newProject.data = req.body.data.replace(/\s/g, '').split(',')
+      if (typeof req.body.keywords === 'string' && req.body.keywords.indexOf(',') > -1) {
+        req.body.keywords.replace(/\s/g, '').split(',').forEach(function (keyword) {
+          newProject.keywords.push(keyword)
+        })
+      } else if (typeof req.body.keywords === 'string') {
+        newProject.keywords.push(req.body.keywords)
+      } else {
+        newProject.keywords.concat(req.body.keywords)
+      }
     }
     newProject.save(function (err) {
       if (err) console.error(err)
@@ -210,7 +231,7 @@ module.exports = {
         console.log(req.body)
         thisProject.categories = []
         thisProject.needs = []
-        thisProject.contact = []
+        thisProject.team = []
         thisProject.data = []
         thisProject.keywords = []
         thisProject.name = req.body.title || ''
@@ -224,25 +245,38 @@ module.exports = {
         thisProject.content = req.body.content || ''
         thisProject.thumbnailUrl = req.body.thumbnailUrl || ''
         thisProject.bannerUrl = req.body.bannerUrl || ''
-        if (req.body.categories) {
-          req.body.categories.replace(/\s/g, '').split(',').forEach(function (category) {
-            thisProject.categories.push(category)
-          })
-        }
-        if (req.body.contacts) {
-          req.body.contacts.replace(/\s/g, '').split(',').forEach(function (contact) {
-            thisProject.contact.push(contact)
-          })
+        if (req.body.team) {
+          if (typeof req.body.team === 'string' && req.body.team.indexOf(',') > -1) {
+            req.body.team.replace(/\s/g, '').split(',').forEach(function (member) {
+              thisProject.team.push(member)
+            })
+          } else if (typeof req.body.team === 'string') {
+            thisProject.team.push(req.body.team)
+          } else {
+            thisProject.team.concat(req.body.team)
+          }
         }
         if (req.body.needs) {
-          req.body.needs.replace(/\s/g, '').split(',').forEach(function (need) {
-            thisProject.needs.push(need)
-          })
+          if (typeof req.body.needs === 'string' && req.body.needs.indexOf(',') > -1) {
+            req.body.needs.replace(/\s/g, '').split(',').forEach(function (need) {
+              thisProject.needs.push(need)
+            })
+          } else if (typeof req.body.needs === 'string') {
+            thisProject.needs.push(req.body.needs)
+          } else {
+            thisProject.needs.concat(req.body.needs)
+          }
         }
         if (req.body.keywords) {
-          req.body.keywords.replace(/\s/g, '').split(',').forEach(function (keyword) {
-            thisProject.keywords.push(keyword)
-          })
+          if (typeof req.body.keywords === 'string' && req.body.keywords.indexOf(',') > -1) {
+            req.body.keywords.replace(/\s/g, '').split(',').forEach(function (keyword) {
+              thisProject.keywords.push(keyword)
+            })
+          } else if (typeof req.body.keywords === 'string') {
+            thisProject.keywords.push(req.body.keywords)
+          } else {
+            thisProject.keywords.concat(req.body.keywords)
+          }
         }
         return thisProject.save(function (err) {
           if (err) console.log(err)
