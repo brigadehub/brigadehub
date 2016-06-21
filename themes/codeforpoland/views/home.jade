@@ -2,23 +2,35 @@ extends layout
 
 block content
   #landing-hero(style="background-image:url(" + brigade.heroImage + ");background-position:bottom center;")
-    #landing-message.col-sm-8
+    #landing-message.col-sm-7
       p
         strong= brigade.name
         | &nbsp;#{brigade.copy.tagline}
-    #landing-events.col-sm-4
+    .landing-events.col-sm-5
       div.content
         h5 Upcoming events
         ul.list-group-item
           each event in events
             li.list-group-item
-              a.event-title(href='#{event.url}')  #{event.title}
-                span.label.label-default  #{event.startDate}
+              i.fa.fa-calendar.fa-3x
+              a(href='#{event.url}')
+                span.event-date  #{event.startDate}
+                span.event-title #{event.title}
+  .landing-events-mobile
+    div.content
+      h5 Upcoming events
+      ul.list-group-item
+        each event in events
+          li.list-group-item
+            i.fa.fa-calendar.fa-3x
+            a(href='#{event.url}')
+              span.event-date  #{event.startDate}
+              span.event-title #{event.title}
   hr
-  #landing-stats.row
+  #landing-stats.center-block.row.hidden-md-down
     .col-sm-3
       #landing-stat-1.landing-stat
-        .row
+        .row.text-xs-center.center-block
           .col-sm-5
             img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-forum.png")
           .col-sm-7
@@ -28,7 +40,7 @@ block content
               | Slackers registered
     .col-sm-3
       #landing-stat-2.landing-stat
-        .row
+        .row.text-xs-center.center-block
           .col-sm-5
             img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-ideas.png")
           .col-sm-7
@@ -38,7 +50,7 @@ block content
               | Ideas being discussed
     .col-sm-3
       #landing-stat-3.landing-stat
-        .row
+        .row.text-xs-center.center-block
           .col-sm-5
             img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-citylab.png")
           .col-sm-7
@@ -48,7 +60,7 @@ block content
               | Bay Area Brigades
     .col-sm-3
       #landing-stat-4.landing-stat
-        .row
+        .row.text-xs-center.center-block
           .col-sm-5
             img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-projects.png")
           .col-sm-7
@@ -56,37 +68,37 @@ block content
               strong 19
             p.txt
               | Active Projects
-  hr
-  #landing-ctas.row
-    .col-sm-4
+  hr.hidden-md-down
+  #landing-ctas.row.center-block
+    .col-md-4
       #landing-cta-1.card.landing-cta
-        span.card-img-top(style="background-image:url('https://i.imgur.com/eat2FgN.png');background-position:bottom right;")
+        span.card-img-top(style="background-image:url('https://i.imgur.com/eat2FgN.png');")
         .card-block
           h4.card-title Discuss
           p.card-text Share your idea on the forum telling a story about needs and problems that should be resolved. Join ongoing discussions to help find solutions.
           a.btn.btn-secondary(href="#{brigade.slack}") Join Slack
-    .col-sm-4
+    .col-md-4
       #landing-cta-2.card.landing-cta
-        span.card-img-top(style="background-image:url('https://i.imgur.com/pSBPT2n.png');background-position:bottom center;")
+        span.card-img-top(style="background-image:url('https://i.imgur.com/pSBPT2n.png');")
         .card-block
           h4.card-title Meet Locally
           p.card-text Meet regularly with a group of activists. Discuss needs and ideas together with civil servants and civil society organizations. Boost project development by meeting face to face.
           a.btn.btn-secondary(href="http://www.meetup.com/#{brigade.meetup}") Join us on Meetup
-    .col-sm-4
+    .col-md-4
       #landing-cta-3.card.landing-cta
-        span.card-img-top(style="background-image:url('https://i.imgur.com/7JCmL7b.png');background-position:bottom right;")
+        span.card-img-top(style="background-image:url('https://i.imgur.com/7JCmL7b.png');")
         .card-block
           h4.card-title Build Projects
-          p.card-text Start a new project as its coordinator or join one of the existing multidisciplinary teams. Folllow project development path from the needs analysis to the country wide deployment.
+          p.card-text Start a new project as its coordinator or join one of the existing multidisciplinary teams. Follow project development path from the needs analysis to the country wide deployment.
           a.btn.btn-secondary(href="http://www.github.com/#{brigade.github}") Join Github
   hr
-  #landing-projects.row
+  #landing-projects.row.center-block
     h2.text-xs-center Projects
 
     each project in projects
       // for perfect alignment, need a row on every odd instance of project. (row, col col, row, col col, etc. ) this code will look ok unitl you get a lot of description text on a project. - AB
 
-      .col-sm-2
+      .col-md-4.col-lg-2
         #landing-project-1.landing-project
           img.img-thumbnail(src="#{ project.thumbnailUrl }")
           a(href='/projects/#{project.id}')=project.name
@@ -95,7 +107,7 @@ block content
     .col-sm-12.text-xs-center
       a.btn.btn-secondary(href="projects").center-block All Projects
   hr
-  #landing-blog.row
+  #landing-blog.row.center-block
     h2.text-xs-center  Blog
     for post in posts
       .col-sm-4

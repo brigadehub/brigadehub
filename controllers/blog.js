@@ -2,7 +2,9 @@
 
 var Post = require('../models/Posts')
 var User = require('../models/Users')
-var Markdown = require('markdown-it')
+var markdown = require('markdown-it')
+var mdnh = require('markdown-it-named-headers')
+var md = markdown({ html: true }).use(mdnh)
 var _ = require('lodash')
 
 module.exports = {
@@ -194,8 +196,6 @@ module.exports = {
         res.sendStatus(404)
         return
       }
-      var md = new Markdown()
-
       post.content = md.render(post.content)
       res.render(res.locals.brigade.theme.slug + '/views/blog/post', {
         view: 'blog-post',
@@ -318,11 +318,23 @@ module.exports = {
   },
 
   /**
-   * POST /blog/sync
+   * POST /blog/sync/:type
    * Sync Blog.
    */
   postBlogSync: function (req, res) {
-    res.redirect('blog/manage')
+    var type = req.params.type
+
+    if (type === 'jekyll') {
+      var blogLocation = res.locals.brigade.blog.jekyll
+      // recursively list md files in _posts folder
+      Post.syncJekyll(blogLocation, res.locals.user.tokens[0].accessToken).then(function (results) {
+        req.flash('success', {msg: 'Successfully synced posts from Jekyll!'})
+        res.redirect('/blog/manage')
+      }).catch(function (err) {
+        req.flash('errors', {msg: 'Unable to sync: ' + err})
+        res.redirect('/brigade')
+      })
+    }
   },
   /**
    * POST /blog/:blogID/edit

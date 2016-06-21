@@ -1,13 +1,16 @@
 extends ../layout
 
 block content
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp;
+      a(href='/events') Events
+      | &nbsp;&nbsp;/&nbsp;
+      a(href='/events/manage') Manage
+
   .page-header.row
     h3 Manage Events
-    form.pull-right(method='POST', action='/events/sync')
-      input(type='hidden', name='_csrf', value=_csrf)
-      button.btn.btn-primary(type='submit')
-        i.fa.fa-refresh
-        | Fetch Meetup Events
   .row
     h1 All events
     table.table

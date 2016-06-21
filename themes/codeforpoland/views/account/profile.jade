@@ -1,6 +1,11 @@
 extends ../layout
 
 block content
+  .row.breadcrumbs
+    .col-sm-12
+      a(href='/')= brigade.name
+      | &nbsp;&nbsp;/&nbsp;
+      a(href='/account') Account
   .page-header.row
     h3 Profile Information
 

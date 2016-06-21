@@ -51,6 +51,7 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.copy.tagline = req.body.tagline
       thisBrigade.slack = req.body.slack
       thisBrigade.github = req.body.github.toLowerCase()
+      thisBrigade.blog.jekyll = req.body['blog-jekyll'].toLowerCase()
       thisBrigade.slug = req.body.github.toLowerCase()
       thisBrigade.meetup = req.body.meetupurl
       thisBrigade.copy.description = req.body.description

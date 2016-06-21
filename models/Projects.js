@@ -39,7 +39,8 @@ var projectsSchema = new mongoose.Schema({
   data: {type: Array, default: []},
   keywords: {type: Array, default: []}, // simple strings
   links: {type: Array, default: []}, // simple strings
-  videos: {type: Array, default: []}
+  videos: {type: Array, default: []},
+  published: {type: Boolean, default: true}
 })
 
 projectsSchema.statics.fetchGithubRepos = function (brigade, user, cb) {
@@ -55,8 +56,12 @@ projectsSchema.statics.fetchGithubRepos = function (brigade, user, cb) {
           var civicJsonUrl = repo.contents_url.replace('{+path}', 'civic.json')
           getRepoCivicJson(civicJsonUrl, user, function (err, results) {
             if (err) console.error(err)
-
-            resolve({repo: repo, json: results})
+            var json = results
+            var readmeUrl = repo.contents_url.replace('{+path}', 'README.md')
+            getRepoREADME(readmeUrl, user, function (err, results) {
+              if (err) console.error(err)
+              resolve({repo: repo, json: json, readme: results})
+            })
           })
         })
       }
@@ -198,7 +203,32 @@ function getRepoCivicJson (url, user, callback) {
     callback({msg: 'Status Code not 200', response: response, body: body})
   })
 }
+function getRepoREADME (url, user, callback) {
+  var headers = _.cloneDeep(defaultHeaders)
+  headers['Authorization'] += user.tokens[0].accessToken
+  var options = {
+    url: url,
+    headers: headers
+  }
+  request(options, function (err, response, body) {
+    if (err) return callback(err)
+    if (!err && response.statusCode === 200) {
+      var readme
+      try {
+        var parsed = JSON.parse(body)
+        var rm = new Buffer(parsed.content, 'base64')
+        readme = rm.toString()
+        console.log('readme', readme)
+      } catch (e) {
+        console.warn('Error occured', e)
+      }
+      return callback(null, readme)
+    }
+    callback({msg: 'Status Code not 200', response: response, body: body})
+  })
+}
 function createUpdateProjectData (project, original, brigade) {
+  console.log('readme', project.readme)
   original = original || {}
   project.json = project.json || {}
   project.json.needs = project.json.needs || []
@@ -216,7 +246,13 @@ function createUpdateProjectData (project, original, brigade) {
   original.status = project.json.status ? project.json.status.toLowerCase() : 'proposed' // civic.json + civic.dc.json - proposed, ideation, alpha, beta, production, archival
 
   original.thumbnailUrl = project.json.thumbnailUrl || 'http://i.imgur.com/MRgvL1K.png'
+  if (original.thumbnailUrl.indexOf('placeholdit') > -1) {
+    original.thumbnailUrl = 'http://i.imgur.com/MRgvL1K.png'
+  }
   original.bannerUrl = project.json.bannerUrl || 'http://i.imgur.com/MRgvL1K.png'
+  if (original.thumbnailUrl.indexOf('placeholdit') > -1) {
+    original.thumbnailUrl = 'http://i.imgur.com/MRgvL1K.png'
+  }
   original.bornAt = project.json.bornAt || brigade.name
   original.geography = project.json.geography || brigade.location.general
   original.politicalEntity = project.json.politicalEntity || ''
@@ -232,16 +268,11 @@ function createUpdateProjectData (project, original, brigade) {
   original.license = project.json.license || 'MIT'
   original.homepage = project.json.homepage || project.repo.homepage || project.repo.html_url
   original.repository = project.json.repository || project.repo.html_url
-  original.geography = original.geography || []
-  original.geography = original.geography.concat(project.json.geography)
-  original.geography = _.uniq(original.geography)
+  original.geography = original.geography || brigade.location.general
   original.contact = original.contact || []
   original.partners = original.partners || []
   original.partners = original.partners.concat(project.json.partners)
   original.partners = _.uniq(original.partners)
-  original.data = original.data || []
-  original.data = original.data.concat(project.json.data)
-  original.data = _.uniq(original.data)
   original.keywords = original.keywords || []
   original.keywords = original.keywords.concat(project.json.keywords)
   original.keywords = original.keywords.concat(project.json.tags)
@@ -249,5 +280,6 @@ function createUpdateProjectData (project, original, brigade) {
   original.links = original.links || []
   original.links = original.links.concat(project.json.links)
   original.links = _.uniq(original.links)
+  original.content = original.content && original.content.length ? original.content : project.readme
   return original
 }

@@ -264,6 +264,11 @@ app.post('/projects/:projectId/sync',
   passportConf.checkRoles(['lead', 'core', 'superAdmin']),
   passportConf.checkScopes(['user', 'repo']),
   projectsCtrl.postProjectsIDSync)
+app.post('/projects/:projectId/delete',
+  passportConf.isAuthenticated,
+  passportConf.checkRoles(['lead', 'core', 'superAdmin']),
+  passportConf.checkScopes(['user', 'repo']),
+  projectsCtrl.postDeleteProject)
 
 /**
  * Events routes.
@@ -333,7 +338,7 @@ app.post('/blog/manage',
   passportConf.isAuthenticated,
   passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
   blogCtrl.postBlogManage)
-app.post('/blog/sync',
+app.post('/blog/sync/:type',
   passportConf.isAuthenticated,
   passportConf.checkRoles(['core', 'superAdmin']),
   blogCtrl.postBlogSync)

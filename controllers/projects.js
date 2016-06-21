@@ -3,7 +3,10 @@
  */
 
 var slug = require('slug')
-var Markdown = require('markdown-it')
+var markdown = require('markdown-it')
+var mdnh = require('markdown-it-named-headers')
+var md = markdown({ html: true }).use(mdnh)
+// markdown()
 
 var Projects = require('../models/Projects')
 var Users = require('../models/Users')
@@ -77,7 +80,28 @@ module.exports = {
    * Update all Projects.
    */
   postProjectsManage: function (req, res) {
-    res.redirect('projects/manage')
+    req.flash('success', { msg: 'Success! Projects edited' })
+    var mongooseQuery = {}
+    //  if (!res.locals.user.isAdmin()) {
+    //   //  mongooseQuery.author = res.locals.user.username
+    //  }
+    Projects.find(mongooseQuery, function (err, projects) {
+      if (err) console.error(err)
+      projects.reverse() // so that most recent are first
+      projects.forEach(function (project) {
+        var projectInfo = req.body[project.id]
+        if (projectInfo.delete) {
+          project.remove()
+          return
+        }
+        project.name = projectInfo.name
+        project.published = !!projectInfo.published
+        project.save(function (err) {
+          if (err) throw err
+        })
+      })
+    })
+    return res.redirect('/projects/manage/')
   },
   /**
    * GET /projects/new
@@ -131,7 +155,6 @@ module.exports = {
     }, function (err, foundProject) {
       if (err) console.error(err)
 
-      var md = new Markdown()
       foundProject.content = md.render(foundProject.content)
       if (foundProject.contact.length) {
         Projects.fetchGitHubUsers(foundProject.contact, function (contactList) {
@@ -239,6 +262,21 @@ module.exports = {
     Projects.fetchGithubRepos(res.locals.brigade, req.user, function (results) {
       req.flash('success', { msg: 'Success! You have successfully synced projects from Github.' })
       res.redirect('/projects/manage')
+    })
+  },
+  /**
+   * POST /projects/delete
+   * Delete a project
+   */
+  postDeleteProject: function (req, res) {
+    Projects.remove({id: req.params.projectId}, function (err) {
+      if (err) {
+        console.log(err)
+        return res.redirect('/projects/' + req.params.projectId)
+      } else {
+        req.flash('success', {msg: 'Your project was deleted.'})
+        return res.redirect('/projects/')
+      }
     })
   },
   /**
