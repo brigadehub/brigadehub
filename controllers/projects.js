@@ -133,7 +133,7 @@ module.exports = {
       } else if (typeof req.body.team === 'string') {
         newProject.team.push(req.body.team)
       } else {
-        newProject.team.concat(req.body.team)
+        newProject.team = newProject.team.concat(req.body.team)
       }
     }
     if (req.body.needs) {
@@ -144,7 +144,7 @@ module.exports = {
       } else if (typeof req.body.needs === 'string') {
         newProject.needs.push(req.body.needs)
       } else {
-        newProject.needs.concat(req.body.needs)
+        newProject.needs = newProject.needs.concat(req.body.needs)
       }
     }
     if (req.body.keywords) {
@@ -155,7 +155,7 @@ module.exports = {
       } else if (typeof req.body.keywords === 'string') {
         newProject.keywords.push(req.body.keywords)
       } else {
-        newProject.keywords.concat(req.body.keywords)
+        newProject.keywords = newProject.keywords.concat(req.body.keywords)
       }
     }
     newProject.save(function (err) {
@@ -257,7 +257,7 @@ module.exports = {
           } else if (typeof req.body.team === 'string') {
             thisProject.team.push(req.body.team)
           } else {
-            thisProject.team.concat(req.body.team)
+            thisProject.team = thisProject.team.concat(req.body.team)
           }
         }
         if (req.body.needs) {
@@ -268,7 +268,7 @@ module.exports = {
           } else if (typeof req.body.needs === 'string') {
             thisProject.needs.push(req.body.needs)
           } else {
-            thisProject.needs.concat(req.body.needs)
+            thisProject.needs = thisProject.needs.concat(req.body.needs)
           }
         }
         if (req.body.keywords) {
@@ -279,7 +279,7 @@ module.exports = {
           } else if (typeof req.body.keywords === 'string') {
             thisProject.keywords.push(req.body.keywords)
           } else {
-            thisProject.keywords.concat(req.body.keywords)
+            thisProject.keywords = thisProject.keywords.concat(req.body.keywords)
           }
         }
         return thisProject.save(function (err) {
