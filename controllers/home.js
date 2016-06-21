@@ -16,7 +16,7 @@ exports.index = function (req, res) {
   Events.find({}, function (err, foundEvents) {
     if (err) console.error(err)
     foundEvents = foundEvents.filter(function (event) {
-      return event.start >= moment().unix()
+      return event.end >= moment().unix()
     }).map(function (event) {
       event.startDate = moment.unix(event.start).format('MMM DD')
       return event
@@ -41,6 +41,7 @@ exports.index = function (req, res) {
           view: 'home',
           title: 'Home',
           checkin: (moment().format('dddd') === res.locals.brigade.checkIn.day),
+          today: (moment().format('MMM DD')),
           brigade: res.locals.brigade,
           projects: foundProjects.splice(0, NUM_PROJECTS_SHOWN),
           events: foundEvents.slice(0, 3),

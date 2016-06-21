@@ -1,7 +1,7 @@
 [data-view='home'] {
   @media (max-width: 47.9rem) {
     nav > .container {
-      padding: 0 .9375rem;
+      padding: 0 0.9375rem;
     }
     .container {
       padding: 0;
@@ -13,12 +13,12 @@
 
     height: 400px;
     margin: 0 -1.8750rem;
-    @media (max-width: 780px) {
-      margin: 0;
-    }
 
     color: white;
     background-size: cover;
+    @media (max-width: 780px) {
+      margin: 0;
+    }
     &:before {
       position: absolute;
       z-index: 1;
@@ -55,13 +55,13 @@
       }
     }
     .landing-events {
+      position: absolute;
+      top: 25px;
+      right: 15px;
+      bottom: 25px;
       @media (max-width: 47.9rem) {
         display: none;
       }
-      position: absolute;
-      top: 25px;
-      bottom: 25px;
-      right: 15px;
       @media (max-width: 61.9rem) {
         top: 53px;
       }
@@ -69,20 +69,22 @@
         font-size: 1.5rem;
       }
       .list-group-item {
-        padding: .75rem 0 1.5rem;
+        padding: 0.75rem 0 1.5rem;
         &:last-child {
-          padding: .75rem 0 .25rem;
+          padding: 0.75rem 0 0.25rem;
         }
         a span {
-          margin-top: -5px;
+          // margin-top: -5px;
           display: block;
         }
         a:hover {
-          background-color: rgba(255,255,255,.2);
           text-decoration: none;
+
+          background-color: rgba(255,255,255,0.2);
         }
         i {
           float: left;
+
           padding-right: 10px;
         }
         .event-date {
@@ -92,8 +94,25 @@
         .event-title {
           font-size: 1.4rem;
         }
+        a.btn.btn-secondary.checkin {
+          font-size: 1.5rem;
+
+          width: 100%;
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+          padding-top: 0.5rem;
+          padding-bottom: 0.5rem;
+
+          color: rgba(170,0,1,1);
+          &:hover {
+            background-color: rgba(255,255,255,0.75);
+          }
+        }
         @media (max-width: 61.9rem) {
-          .fa-3x {
+          a.btn.btn-secondary.checkin {
+            font-size: 1.2rem;
+          }
+          .fa-2x {
             font-size: 2rem;
           }
           .event-date {
@@ -109,12 +128,13 @@
       }
       .content {
         padding: 30px;
+
+        color: white;
+        border: 2px solid #ffffff;
+        background: rgba(170,0,1,0.8);
         @media (max-width: 61.9rem) {
           padding: 20px;
         }
-        color: white;
-        background: rgba(170,0,1,0.8);
-        border: 2px solid #ffffff;
       }
       ul {
         padding: 0;
@@ -138,26 +158,30 @@
   @media (max-width: 47.9rem) {
     .landing-events-mobile {
       display: block;
+
+      width: 100%;
+
+      background: rgba(170,0,1,0.8);
       h5 {
         font-size: 1.5rem;
       }
-      background: rgba(170,0,1,0.8);
-      width: 100%;
       .list-group-item {
-        padding: .75rem 0 1.5rem;
+        padding: 0.75rem 0 1.5rem;
         &:last-child {
-          padding: .75rem 0 .25rem;
+          padding: 0.75rem 0 0.25rem;
         }
         a span {
-          margin-top: -5px;
+          // margin-top: -5px;
           display: block;
         }
         a:hover {
-          background-color: rgba(255,255,255,.2);
           text-decoration: none;
+
+          background-color: rgba(255,255,255,0.2);
         }
         i {
           float: left;
+
           padding-right: 10px;
         }
         .event-date {
@@ -167,15 +191,29 @@
         .event-title {
           font-size: 1.4rem;
         }
+        a.btn.btn-secondary.checkin {
+          font-size: 1.5rem;
+
+          width: 100%;
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+          padding-top: 0.5rem;
+          padding-bottom: 0.5rem;
+
+          color: rgba(170,0,1,1);
+          &:hover {
+            background-color: rgba(255,255,255,0.75);
+          }
+        }
         @media (max-width: 335px) {
-          .fa-3x {
-            font-size: 2.5rem;
+          .fa-2x {
+            font-size: 2.25rem;
           }
           .event-date {
             font-size: 1rem;
           }
           .event-title {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
           }
         }
       }
@@ -240,13 +278,13 @@
       width: 338px;
       max-width: 100%;
       height: 211px;
-      @media (max-width: 47.9rem) {
-        width: auto;
-      }
 
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;
+      @media (max-width: 47.9rem) {
+        width: auto;
+      }
     }
   }
   #landing-cta-1 {
