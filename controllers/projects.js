@@ -175,6 +175,10 @@ module.exports = {
       id: req.params.projectId
     }, function (err, foundProject) {
       if (err) console.error(err)
+      if (foundProject === null) {
+        res.redirect('/projects/')
+        return
+      }
 
       foundProject.content = md.render(foundProject.content)
       if (foundProject.contact.length) {
