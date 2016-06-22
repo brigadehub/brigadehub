@@ -54,6 +54,8 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.blog.jekyll = req.body['blog-jekyll'].toLowerCase()
       thisBrigade.slug = req.body.github.toLowerCase()
       thisBrigade.meetup = req.body.meetupurl
+      thisBrigade.checkIn.day = req.body.checkinday
+      thisBrigade.checkIn.urlLink = req.body.checkinurl
       thisBrigade.copy.description = req.body.description
     } else if (req.body['theme-slug']) { // theme updated
       thisBrigade.theme.slug = req.body['theme-slug']
