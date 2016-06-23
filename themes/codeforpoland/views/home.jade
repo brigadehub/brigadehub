@@ -2,6 +2,7 @@ extends layout
 
 block content
   #landing-hero(style="background-image:url(" + brigade.heroImage + ");background-position:bottom center;")
+    //Front end work needed for lines 6-7
     #landing-message.col-sm-7
       p
         strong= brigade.name
@@ -9,23 +10,32 @@ block content
     .landing-events.col-sm-5
       div.content
         h5 Upcoming events
-        ul.list-group-item
-          each event in events
-            li.list-group-item
-              i.fa.fa-calendar.fa-3x
-              a(href='#{event.url}')
-                span.event-date  #{event.startDate}
-                span.event-title #{event.title}
+          ul.list-group-item
+            each event in events
+              if (checkin && today === event.startDate)
+                a.btn.btn-secondary.checkin(href='#{brigade.checkIn.urlLink}')
+                  | Hack Night Check In
+                //- | #{event.endDate}
+              else
+                li.list-group-item
+                  i.fa.fa-calendar.fa-2x
+                  a(href='#{event.url}')
+                    span.event-date  #{event.startDate}
+                    span.event-title #{event.title}
   .landing-events-mobile
     div.content
       h5 Upcoming events
-      ul.list-group-item
-        each event in events
-          li.list-group-item
-            i.fa.fa-calendar.fa-3x
-            a(href='#{event.url}')
-              span.event-date  #{event.startDate}
-              span.event-title #{event.title}
+          ul.list-group-item
+            each event in events
+              if (checkin && today === event.startDate)
+                a.btn.btn-secondary.checkin(href='#{brigade.checkIn.urlLink}')
+                  | Hack Night Check In
+              else
+                li.list-group-item
+                  i.fa.fa-calendar.fa-2x
+                  a(href='#{event.url}')
+                    span.event-date  #{event.startDate}
+                    span.event-title #{event.title}
   hr
   #landing-stats.center-block.row.hidden-md-down
     .col-sm-3

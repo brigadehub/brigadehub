@@ -14,7 +14,7 @@ block content
     if user && user.isAdmin()
       a(href='/projects/new') New Project
     |&nbsp;&nbsp;&nbsp;
-    form.row.form-horizontal(action='/projects/manage', method='POST', id='projectsform')
+    form.row.form-horizontal(action='/projects/manage', method='POST', id='mangageProjectsForm')
       input(type='hidden', name='_csrf', value=_csrf)
       table.table
         thread
