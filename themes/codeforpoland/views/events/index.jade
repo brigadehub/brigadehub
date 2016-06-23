@@ -6,7 +6,7 @@ block content
   .row.breadcrumbs
     .col-sm-12
       a(href='/')= brigade.name
-      | &nbsp;&nbsp;/&nbsp; 
+      | &nbsp;&nbsp;/&nbsp;
       a(href='/events') Events
   .row.page-header
     .col-sm-12
@@ -36,9 +36,9 @@ block content
             tr
               td #{event.title}
               td
-                |Local event time: <span class = event#{i}></span>
+                |User converted time: <span class = event#{i}></span>
                 br
-                |User converted time: #{event.convertedstart}
+                |Local event time: #{event.convertedstart}
               td #{event.host}
               td #{event.location}
               td
