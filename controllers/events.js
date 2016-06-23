@@ -11,11 +11,10 @@ module.exports = {
   getEvents: function (req, res) {
     Events.find({}, function (err, foundEvents) {
       if (err) console.error(err)
-      var userzone = moment.tz.guess()
       var mappedEvents = foundEvents.filter(function (event) {
         return event.start > moment().unix()
       }).map(function (event) {
-        event.convertedstart = moment.unix(event.start).tz(userzone).format('ha z MMMM DD, YYYY')
+        event.convertedstart = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('ha z MMMM DD, YYYY')
         return event
       })
       res.render(res.locals.brigade.theme.slug + '/views/events/index', {
