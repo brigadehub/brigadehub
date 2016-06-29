@@ -55,17 +55,17 @@ block content
         input.form-control(type='text', name='tags', id='tags' value='#{post.tags}')
     .form-group.row
       if(post.published)
-        .col-sm-offset-3.col-sm-2
+        .col-sm-2
         button.btn.btn.btn-primary(type='submit')
           i.fa.fa-pencilr
           | Update Post
       else
         .col-sm-2.col-sm-offset-3
-          button.btn.btn.btn-primary(type='submit', name='published', value='false')
-            i.fa.fa-pencilr
-            | Save Draft
-        .col-sm-2
           button.btn.btn.btn-primary(type='submit', name='published', value='true')
             i.fa.fa-pencilr
             | Publish
+        .col-sm-2
+          button.btn.btn.btn-secondary(type='submit', name='published', value='false')
+            i.fa.fa-pencilr
+            | Save Draft
           

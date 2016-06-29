@@ -14,17 +14,17 @@ block content
     if user && user.isBlogger()
       a.btn.btn-secondary(href='/blog/new') New Post
     |&nbsp;&nbsp;&nbsp;
-    form.row.form-horizontal(action='/blog/manage', method='POST', id='mangageBlogForm')
+    form.row.form-horizontal(action='/blog/manage', method='POST', id='manageBlogForm')
       input(type='hidden', name='_csrf', value=_csrf)
       table.table
         thread
           tr
-            td Published?
-            td Title
-            td Author
-            td Date Published
-            td
-            td Delete?
+            th Published?
+            th Title
+            th Author
+            th Date Published
+            th
+            th Delete?
         tbody
           each post in posts
             tr
@@ -46,8 +46,8 @@ block content
                 a(href='/blog/post/#{post.slug}/edit')
                   span edit
               td
-                input(type='checkbox', name='#{post.id}[delete]' id="delete")
                 i(class="fa fa-trash-o" aria-hidden="true")
+                input(type='checkbox', name='#{post.id}[delete]' id="delete")
 
       .form-group.row
         .col-sm-4

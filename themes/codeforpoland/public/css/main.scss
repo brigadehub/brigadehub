@@ -193,9 +193,9 @@ input {
   font-size: 1rem;
   line-height: 1.5;
 
-  display: block;
+  // display: block; // this was blocking trashcan icon from displaying next to checkbox
+  // width: 100%;  // did it need to be here? (Tracy - June 9, 20016)
 
-  width: 100%;
   padding: 0.375rem 0.75rem;
 
   color: hsl(206, 4%, 35%);
