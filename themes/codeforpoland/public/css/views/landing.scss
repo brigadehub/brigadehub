@@ -292,6 +292,12 @@
       background-position: bottom right;
     }
   }
+  #landing-projects {
+    .btn {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+  }
   #landing-blog {
     .card.post {
       span.thumbnail {
@@ -304,6 +310,10 @@
         background-position: center center;
         background-size: cover;
       }
+    }
+    .btn {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
     }
   }
 }
