@@ -80,7 +80,6 @@ module.exports = {
    * Update all Projects.
    */
   postProjectsManage: function (req, res) {
-    req.flash('success', { msg: 'Success! Projects edited' })
     var mongooseQuery = {}
     //  if (!res.locals.user.isAdmin()) {
     //   //  mongooseQuery.author = res.locals.user.username
@@ -101,6 +100,7 @@ module.exports = {
         })
       })
     })
+    req.flash('success', { msg: 'Success! Projects edited.' })
     return res.redirect('/projects/manage/')
   },
   /**
