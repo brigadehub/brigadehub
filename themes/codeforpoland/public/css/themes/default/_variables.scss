@@ -6,11 +6,12 @@ $brand-success: #60bf60;
 $brand-warning: #ff9800;
 $brand-danger: #de4b33;
 $brand-info: #5bc0dd;
+$brand-red: #d20a11;
 
 // Typography
 // -------------------------
 
-$headings-font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue", "Arial Narrow", Arial, sans-serif;
+$headings-font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue', 'Arial Narrow', Arial, sans-serif;
 
 // Buttons
 // -------------------------
@@ -20,6 +21,7 @@ $btn-success-border: darken($brand-success, 3.2%);
 $btn-warning-border: darken($brand-warning, 3.2%);
 $btn-danger-border: darken($brand-danger, 3.2%);
 $btn-info-border: darken($brand-info, 3.2%);
+$btn-red-border: darken($brand-red, 3.2%);
 
 // Forms
 // -------------------------
@@ -33,15 +35,12 @@ $input-border-focus: #2598f9;
 $state-success-text: #569845;
 $state-success-bg: #dbf5d3;
 $state-success-border: #aed3a5;
-
 $state-info-text: #3a87ad;
 $state-info-bg: #d9edf7;
 $state-info-border: #98cce7;
-
 $state-warning-text: #bf9853;
 $state-warning-bg: #fdf8e2;
 $state-warning-border: #f2daab;
-
 $state-danger-text: #b94a48;
 $state-danger-bg: #f2dede;
 $state-danger-border: #e0b1b8;
