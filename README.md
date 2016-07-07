@@ -169,7 +169,7 @@ Simply run the following:
 docker-compose up
 ```
 
-This will build up a docker app and a dockerized mongodb and connect the two together. The docker compose file also runs nodemon, which will also listen to changes in your code and redeploy those changes in your docker container. 
+This will build up a docker app and a dockerized mongodb and connect the two together. The docker compose file also runs nodemon, which will also listen to changes in your code and redeploy those changes in your docker container.
 
 
 ### Testing
@@ -250,10 +250,11 @@ To see what has changed in recent versions of brigadehub, see the [CHANGELOG](./
 
 ### Core Contributors
 
-- Trent Oswald - Project Lead - ([@therebelrobot](https://github.com/therebelrobot)) <`trentoswald``@``therebelrobot.com`>
+- Todd Seller - Project Lead - [@toddseller](https://github.com/toddseller)
 - Aaron Schachter [@aaronschachter](https://github.com/aaronschachter)
 - Andrew Bacon [@andrewmbacon](https://github.com/andrewmbacon)
-- [@davidcarvel](https://github.com/davidcarvel)
+- David Carvel [@davidcarvel](https://github.com/davidcarvel)
+- David Hincapie [@davidhincapie](https://github.com/davidhincapie)
 - Deborah [@deborahahn](https://github.com/deborahahn)
 - Debbie Espino [@despino](https://github.com/despino)
 - Gisela [@GiselaKay](https://github.com/GiselaKay)
@@ -262,6 +263,7 @@ To see what has changed in recent versions of brigadehub, see the [CHANGELOG](./
 - John Naulty Jr. [@jnaulty](https://github.com/jnaulty)
 - John Gluck [@johngluck65](https://github.com/johngluck65)
 - Jesse Szwedko [@jszwedko Owner](https://github.com/jszwedko Owner)
+- Jessica Parsons [@verythorough](https://github.com/verythorough)
 - Judy5000 [@Judy5000 Owner](https://github.com/Judy5000 Owner)
 - Justin [@Juxtaposeidon](https://github.com/Juxtaposeidon)
 - kanagha [@kanagha](https://github.com/kanagha)
@@ -272,8 +274,8 @@ To see what has changed in recent versions of brigadehub, see the [CHANGELOG](./
 - Phips Peter [@pspeter3](https://github.com/pspeter3)
 - [@rogeliobonilla](https://github.com/rogeliobonilla)
 - Tracy [@spiffysparrow](https://github.com/spiffysparrow)
+- Trent Oswald - Former Project Lead - ([@therebelrobot](https://github.com/therebelrobot)) <`trentoswald``@``therebelrobot.com`>
 - [@Thithi32](https://github.com/Thithi32)
-- Jessica Parsons [@verythorough](https://github.com/verythorough)
 - [@whatdoublechen](https://github.com/whatdoublechen)
 - [@wrendo](https://github.com/wrendo)
 
