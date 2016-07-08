@@ -11,12 +11,17 @@ block content
       div.content
         h5 Upcoming events
           ul.list-group-item
-            each event in events
-              if (checkin && today === event.startDate)
-                a.btn.btn-secondary.checkin(href='#{brigade.checkIn.urlLink}')
-                  | Hack Night Check In
-                //- | #{event.endDate}
-              else
+            if (checkin)
+              a.btn.btn-secondary.checkin(href='#{brigade.checkIn.urlLink}')
+                | Hack Night Check In
+              each event in events.slice(1, 3)
+                li.list-group-item
+                  i.fa.fa-calendar.fa-2x
+                  a(href='#{event.url}')
+                    span.event-date  #{event.startDate}
+                    span.event-title #{event.title}
+            else
+              each event in events
                 li.list-group-item
                   i.fa.fa-calendar.fa-2x
                   a(href='#{event.url}')
@@ -26,11 +31,17 @@ block content
     div.content
       h5 Upcoming events
           ul.list-group-item
-            each event in events
-              if (checkin && today === event.startDate)
-                a.btn.btn-secondary.checkin(href='#{brigade.checkIn.urlLink}')
-                  | Hack Night Check In
-              else
+            if (checkin)
+              a.btn.btn-secondary.checkin(href='#{brigade.checkIn.urlLink}')
+                | Hack Night Check In
+              each event in events.slice(1, 3)
+                li.list-group-item
+                  i.fa.fa-calendar.fa-2x
+                  a(href='#{event.url}')
+                    span.event-date  #{event.startDate}
+                    span.event-title #{event.title}
+            else
+              each event in events
                 li.list-group-item
                   i.fa.fa-calendar.fa-2x
                   a(href='#{event.url}')
