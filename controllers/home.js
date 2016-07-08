@@ -18,7 +18,7 @@ exports.index = function (req, res) {
     foundEvents = foundEvents.filter(function (event) {
       return event.start >= moment().unix()
     }).map(function (event) {
-      event.startDate = moment.unix(event.start).format('MMM DD')
+      event.startDate = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('MMM DD')
       return event
     })
     Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
