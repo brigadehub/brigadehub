@@ -5,13 +5,13 @@ footer
         h3 Partners
     .row.partners-logos
       each sponsor in brigade.sponsors
-          if (!(sponsor.main))
-            .col-md-4
-              a(href=sponsor.link)
-                img(src=sponsor.image, alt=sponsor.name)
-    //- .row.show-partners
-    //-   .col-sm-12
-    //-     a.btn.btn-danger(href='http://codeforpoland.org/partnerzy/') Show all partners
+        if (!(sponsor.main))
+          .col-md-4
+            a(href=sponsor.link)
+              img(src=sponsor.image, alt=sponsor.name)
+  //- .row.show-partners
+  //-   .col-sm-12
+  //-     a.btn.btn-danger(href='http://codeforpoland.org/partnerzy/') Show all partners
   .row.footer-nav
     .col-sm-12
       ul
