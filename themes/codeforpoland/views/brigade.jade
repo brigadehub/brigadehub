@@ -53,6 +53,10 @@ block content
       .col-sm-7
         input.form-control(type='text', name='slack', id='slack', value='#{brigade.slack}')
     .form-group
+      label.col-sm-3.control-label(for='slack') Slack Member Count
+      .col-sm-7
+        input.form-control(type='text', name='slackcount', id='slackcount', value='#{brigade.slackcount}')
+    .form-group
       label.col-sm-3.control-label(for='slack') Github/Jekyll Blog
       .col-sm-7
         input.form-control(type='text', name='blog-jekyll', id='blog-jekyll', value='#{brigade.blog.jekyll}', placeholder='account/repo')
