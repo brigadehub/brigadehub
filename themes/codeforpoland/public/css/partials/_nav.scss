@@ -44,17 +44,15 @@ nav.navbar {
     }
     .navbar-brand {
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: 10%;
+      left: 2%;
 
-      height: 77px;
+      height: 73px;
 
-      transform: translateX(-50%) translateY(-50%);
-
-      @include animation(height, $scroll-transition, ease-in-out);
       @include mobile {
-        left: 10%;
+        left: 0;
       }
+      @include animation(height, $scroll-transition, ease-in-out);
       img {
         height: 100%;
       }
@@ -87,8 +85,6 @@ nav.navbar {
     }
     .navbar-brand {
       img {
-        width: 184px;
-
         transition: height $scroll-transition ease-in-out, margin-bottom $scroll-transition ease-in-out;
       }
     }
@@ -118,7 +114,6 @@ nav.navbar {
     }
     .dropdown-menu {
       top: 36px;
-      right: 30px;
       left: auto;
       a {
         padding: 3px 15px;
@@ -159,7 +154,9 @@ body.scroll {
 
       @include row-nav {
         a.navbar-brand {
-          height: 50px;
+          top: -15%;
+
+          height: 60px;
         }
         .navbar-nav .nav-item {
           height: 50px;
@@ -193,9 +190,6 @@ body.scroll {
 
 // Mobile Navigation
 nav.navbar {
-  @include mobile {
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.4);
-  }
   @include row-nav {
     @include mobile {
       height: 77px;
@@ -318,6 +312,7 @@ nav.navbar {
           .login-icon {
             margin: -15px 15px 1rem 0;
             margin-bottom: 0;
+
             border-bottom: none;
           }
         }
@@ -362,5 +357,8 @@ nav.navbar {
         max-height: 700px;
       }
     }
+  }
+  @include mobile {
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.4);
   }
 }

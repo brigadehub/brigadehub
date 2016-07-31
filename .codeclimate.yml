@@ -25,5 +25,6 @@ exclude_paths:
 - config/
 - node_modules
 - test/
-- themes/codeforpoland/public/css/vendors
-- themes/codeforpoland/public/js/lib
+- "themes/**/public/css/vendors"
+- "themes/**/public/js/lib"
+- "**.min.js"

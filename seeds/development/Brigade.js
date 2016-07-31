@@ -37,7 +37,7 @@ module.exports = function () {
     ],
     theme: {
       slug: 'codeforpoland',
-      logo: 'http://i.imgur.com/v5naij3.png',
+      logo: 'http://i.imgur.com/hvFv1ow.png',
       page: {
         title: false,
         events: true,

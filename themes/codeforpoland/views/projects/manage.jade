@@ -14,7 +14,7 @@ block content
     if user && user.isAdmin()
       a(href='/projects/new') New Project
     |&nbsp;&nbsp;&nbsp;
-    form.row.form-horizontal(action='/projects/manage', method='POST', id='mangageProjectsForm')
+    form.row.form-horizontal(action='/projects/manage', method='POST', id='manageProjectsForm')
       input(type='hidden', name='_csrf', value=_csrf)
       table.table
         thread
@@ -24,7 +24,7 @@ block content
             th Project Repo
             th Project Description
             th Project Homepage
-            th Edit project
+            th 
             th Delete?
         tbody
           each project in projects
@@ -44,8 +44,8 @@ block content
                 td.edit
                   a(href='/projects/#{project.id}/settings') Edit
               td
-                input(type='checkbox', name='#{project.id}[delete]' id="delete")
                 i(class="fa fa-trash-o" aria-hidden="true")
+                input(type='checkbox', name='#{project.id}[delete]' id="delete")
 
       .form-group.row
         .col-sm-4

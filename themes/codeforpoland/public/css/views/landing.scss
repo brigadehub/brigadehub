@@ -103,9 +103,15 @@
           padding-top: 0.5rem;
           padding-bottom: 0.5rem;
 
+          transition: background-color 0.3s;
+
           color: rgba(170,0,1,1);
           &:hover {
-            background-color: rgba(255,255,255,0.75);
+            transition: background-color 0.3s;
+
+            color: #ffffff;
+            border-color: #ffffff;
+            background-color: transparent;
           }
         }
         @media (max-width: 61.9rem) {
@@ -292,6 +298,12 @@
       background-position: bottom right;
     }
   }
+  #landing-projects {
+    .btn {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+  }
   #landing-blog {
     .card.post {
       span.thumbnail {
@@ -304,6 +316,10 @@
         background-position: center center;
         background-size: cover;
       }
+    }
+    .btn {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
     }
   }
 }

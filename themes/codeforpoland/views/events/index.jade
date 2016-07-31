@@ -6,7 +6,7 @@ block content
   .row.breadcrumbs
     .col-sm-12
       a(href='/')= brigade.name
-      | &nbsp;&nbsp;/&nbsp; 
+      | &nbsp;&nbsp;/&nbsp;
       a(href='/events') Events
   .row.page-header
     .col-sm-12
@@ -14,46 +14,36 @@ block content
   if user && user.isAdmin()
     a.btn.btn-secondary(href='/events/new') New Event
   .row
-    .col-sm-12
+    .col-xl-9.col-lg-8
       p
         #events-calendar
-  script.
-    // make this object available to frontend js for rendering in calendar
-    window._events = !{JSON.stringify(events).replace(/<\//g, "<\\/")}
-  .row
-    .col-sm-12
-      h1 Upcoming events list
-      table.table
-        thead
-          tr
-            th Event name
-            th Date & time
-            th Host
-            th Address
-            th
-        tbody
-          each event, i in upcomingevents
-            tr
-              td #{event.title}
-              td
-                |Local event time: <span class = event#{i}></span>
-                br
-                |User converted time: #{event.convertedstart}
-              td #{event.host}
-              td #{event.location}
-              td
-                if (event.url.indexOf('meetup.com') > -1)
-                  a(href='#{event.url}', class="mu-rsvp-btn") RSVP
-                else
-                  a(href='#{event.url}', class="btn btn-danger btn-sm") Link
-  script.
-    ! function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (!d.getElementById(id)) {
-          js = d.createElement(s);
-          js.id = id;
-          js.async = true;
-          js.src = "https://a248.e.akamai.net/secure.meetupstatic.com/s/script/2012676015776998360572/api/mu.btns.js?id=#{brigade.auth.meetup.consumerKey}";
-          fjs.parentNode.insertBefore(js, fjs);
-      }
-    }(document, "script", "mu-bootjs");
+    script.
+      // make this object available to frontend js for rendering in calendar
+      window._events = !{JSON.stringify(events).replace(/<\//g, "<\\/")}
+    .col-xl-3.col-lg-4
+      h2.upcoming-title Upcoming Events
+      .upcoming
+        each event, i in upcomingevents
+          .event-card
+            h5.event-title #{event.title}
+            p.event-date #{event.convertedstart}
+            p.event-text
+              |#{event.host}
+              br
+              |#{event.location}
+            p.event-text
+              if (event.url.indexOf('meetup.com') > -1)
+                a(href='#{event.url}', class="mu-rsvp-btn") RSVP
+              else
+                a(href='#{event.url}', class="btn btn-red btn-sm") Link
+    script.
+      ! function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (!d.getElementById(id)) {
+            js = d.createElement(s);
+            js.id = id;
+            js.async = true;
+            js.src = "https://a248.e.akamai.net/secure.meetupstatic.com/s/script/2012676015776998360572/api/mu.btns.js?id=#{brigade.auth.meetup.consumerKey}";
+            fjs.parentNode.insertBefore(js, fjs);
+        }
+      }(document, "script", "mu-bootjs");

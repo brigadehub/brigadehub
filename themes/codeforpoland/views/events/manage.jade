@@ -5,41 +5,45 @@ block content
     .col-sm-12
       a(href='/')= brigade.name
       | &nbsp;&nbsp;/&nbsp;
-      a(href='/events') Events
+      a(href='/event') Events
       | &nbsp;&nbsp;/&nbsp;
-      a(href='/events/manage') Manage
+      a(href='/event/manage') Manage
 
-  .page-header.row
+  .page-header
     h3 Manage Events
-  .row
-    h1 All events
-    table.table
-      thead
-        tr
-          th Event name
-          th Date & time
-          th Host
-          th Address
-          th
-          th
-            a(href='/events/new').pull-right Add new event
-      tbody
-        each event in allEvents
-          tr
-            td #{event.title}
-            td #{event.localstart}
-            td #{event.host}
-            td #{event.location}
-            td
-              a(href='/events/#{event.id}/settings') Edit
-            td
-              form(method='POST', action='/events/#{event.id}/delete')
-                input(type='hidden', name='_csrf', value=_csrf)
-                button(type='submit')
-                  | Delete
-  .row
-    form.pull-right(method='POST', action='/events/delete')
+    if user && user.isAdmin()
+      a(href='/events/new') Add new event
+    |&nbsp;&nbsp;&nbsp;
+    form.row.form-horizontal(action='/events/manage', method='POST', id='manageEventsForm')
       input(type='hidden', name='_csrf', value=_csrf)
-      button.btn.btn-primary(type='submit')
-        i.fa.fa-trash
-        | Delete All Events
+      table.table
+        thead
+          tr
+            th Event name
+            th Date & time
+            th Host
+            th Address
+            th
+            th Delete?
+        tbody
+          each event in allEvents
+            tr
+              td 
+                input(type='text', name='#{event.id}[title]', value='#{event.title}')
+              td 
+                input(type='text', name='#{event.id}[localstart]', value='#{event.localstart}')
+              td 
+                input(type='text', name='#{event.id}[host]', value='#{event.host}')
+              td 
+                input(type='text', name='#{event.id}[location]', value='#{event.location}')
+              td.edit
+                a(href='/events/#{event.id}/settings') Edit
+              td
+                i(class="fa fa-trash-o" aria-hidden="true")
+                input(type='checkbox', name='#{event.id}[delete]' id="delete")
+
+      .form-group.row
+        .col-sm-4
+          button.btn.btn.btn-primary(type='submit')
+            i.fa.fa-pencilr
+            | Save Changes
