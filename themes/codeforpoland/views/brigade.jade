@@ -72,6 +72,10 @@ block content
           for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
             option(value="#{day}", selected=(day == brigade.checkIn.day)) #{day}
     .form-group
+      label.col-sm-3.control-label(for='brigadecount') Number of brigades in area:
+      .col-sm-5
+        input.form-control(type='text', name='brigadecount', id='brigadecount', value='#{brigade.brigadecount}')
+    .form-group
       label.col-sm-3.control-label(for='checkinurl') Check-in URL:
       .col-sm-5
         input.form-control(type='text', name='checkinurl', id='checkinurl', value='#{brigade.checkIn.urlLink}')
