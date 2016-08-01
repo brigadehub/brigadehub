@@ -24,6 +24,7 @@ exports.index = function (req, res) {
     Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
       if (err) console.error(err)
       var allKeywords = []
+      var projects = 0
       foundProjects.forEach(function (project) {
         project.keywords.forEach(function (keyword) {
           if (allKeywords.indexOf(keyword) < 0) {
@@ -33,6 +34,7 @@ exports.index = function (req, res) {
       })
       Posts.find({}, function (err, foundPosts) {
         if (err) console.error(err)
+        var posts = foundPosts.length
         foundPosts = foundPosts.slice(0, 3).map(function (post) {
           post.date = moment.unix(post.unix).format('MMMM DD, YYYY')
           return post
@@ -42,6 +44,8 @@ exports.index = function (req, res) {
           title: 'Home',
           checkin: (moment().tz(res.locals.brigade.location.timezone).format('dddd') === res.locals.brigade.checkIn.day),
           brigade: res.locals.brigade,
+          projectcount: foundProjects.length,
+          postcount: posts,
           projects: foundProjects.splice(0, NUM_PROJECTS_SHOWN),
           events: foundEvents.slice(0, 3),
           posts: foundPosts
