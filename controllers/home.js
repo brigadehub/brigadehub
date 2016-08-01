@@ -24,7 +24,6 @@ exports.index = function (req, res) {
     Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
       if (err) console.error(err)
       var allKeywords = []
-      var projects = 0
       foundProjects.forEach(function (project) {
         project.keywords.forEach(function (keyword) {
           if (allKeywords.indexOf(keyword) < 0) {
