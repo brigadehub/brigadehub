@@ -33,10 +33,7 @@ exports.index = function (req, res) {
       })
       Posts.find({}, function (err, foundPosts) {
         if (err) console.error(err)
-        foundPosts = foundPosts.slice(0, 3).map(function (post) {
-          post.date = moment.unix(post.unix).format('MMMM DD, YYYY')
-          return post
-        })
+        foundPosts = foundPosts.slice(0, 3)
         res.render(res.locals.brigade.theme.slug + '/views/home', {
           view: 'home',
           title: 'Home',
