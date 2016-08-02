@@ -56,7 +56,7 @@ block content
             img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-forum.png")
           .col-sm-7
             p
-              strong 400
+              strong #{brigade.slackcount}
             p.txt
               | Slackers registered
     .col-sm-3
@@ -66,7 +66,7 @@ block content
             img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-ideas.png")
           .col-sm-7
             p
-              strong 82
+              strong #{postcount}
             p.txt
               | Ideas being discussed
     .col-sm-3
@@ -76,7 +76,7 @@ block content
             img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-citylab.png")
           .col-sm-7
             p
-              strong 4
+              strong #{brigade.brigadecount}
             p.txt
               | Bay Area Brigades
     .col-sm-3
@@ -86,7 +86,7 @@ block content
             img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-projects.png")
           .col-sm-7
             p
-              strong 19
+              strong #{projectcount}
             p.txt
               | Active Projects
   hr.hidden-md-down

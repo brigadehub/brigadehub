@@ -18,6 +18,8 @@ var brigadeSchema = new mongoose.Schema({
   url: {type: String, default: ''},
   github: {type: String, default: ''},
   slack: {type: String, default: 'http://c4a.me/cfsfslack'},
+  slackcount: {type: Number, default: 0},
+  brigadecount: {type: Number, default: 0},
   meetup: {type: String, default: 'Code-for-San-Francisco-Civic-Hack-Night'},
   blog: {
     jekyll: {type: String, default: ''},

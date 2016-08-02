@@ -33,15 +33,15 @@ exports.index = function (req, res) {
       })
       Posts.find({}, function (err, foundPosts) {
         if (err) console.error(err)
-        foundPosts = foundPosts.slice(0, 3).map(function (post) {
-          post.date = moment.unix(post.unix).format('MMMM DD, YYYY')
-          return post
-        })
+        var posts = foundPosts.length
+        foundPosts = foundPosts.slice(0, 3)
         res.render(res.locals.brigade.theme.slug + '/views/home', {
           view: 'home',
           title: 'Home',
           checkin: (moment().tz(res.locals.brigade.location.timezone).format('dddd') === res.locals.brigade.checkIn.day),
           brigade: res.locals.brigade,
+          projectcount: foundProjects.length,
+          postcount: posts,
           projects: foundProjects.splice(0, NUM_PROJECTS_SHOWN),
           events: foundEvents.slice(0, 3),
           posts: foundPosts
