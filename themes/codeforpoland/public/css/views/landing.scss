@@ -247,16 +247,35 @@
       }
     }
   }
+  .centered {
+    margin: 0 auto;
+    padding: 0 1em;
+  }
   #landing-stats {
+    display: flex;
+
+    height: 108px;
+
+    justify-content: space-around;
+    .landing-stat {
+      display: flex;
+
+      flex: 0 0 28%;
+    }
+    .landing-stat:first-child:nth-last-child(4), .landing-stat:first-child:nth-last-child(4) ~ .landing-stat {
+      flex: 0 0 25%;
+    }
     .col-sm-5 {
       position: relative;
 
       height: 108px;
     }
     img {
-      position: absolute;
+      position: relative;
       top: 50%;
       left: 50%;
+
+      display: block;
 
       transform: translateY(-50%) translateX(-50%);
     }
