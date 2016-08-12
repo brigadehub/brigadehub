@@ -48,42 +48,39 @@ block content
                     span.event-date  #{event.startDate}
                     span.event-title #{event.title}
   hr
-  #landing-stats.center-block.row.hidden-md-down
-    .col-sm-3
-      #landing-stat-1.landing-stat
-        .row.text-xs-center.center-block
+  .centered
+    #landing-stats.hidden-md-down
+      .landing-stat
+        .row.text-xs-center
           .col-sm-5
-            img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-forum.png")
+            img(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-forum.png")
           .col-sm-7
             p
               strong #{brigade.slackcount}
             p.txt
               | Slackers registered
-    .col-sm-3
-      #landing-stat-2.landing-stat
-        .row.text-xs-center.center-block
+      .landing-stat
+        .row.text-xs-center
           .col-sm-5
-            img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-ideas.png")
+            img(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-ideas.png")
           .col-sm-7
             p
               strong #{postcount}
             p.txt
               | Ideas being discussed
-    .col-sm-3
-      #landing-stat-3.landing-stat
-        .row.text-xs-center.center-block
+      .landing-stat
+        .row.text-xs-center
           .col-sm-5
-            img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-citylab.png")
+            img(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-citylab.png")
           .col-sm-7
             p
               strong #{brigade.brigadecount}
             p.txt
               | Bay Area Brigades
-    .col-sm-3
-      #landing-stat-4.landing-stat
-        .row.text-xs-center.center-block
+      .landing-stat
+        .row.text-xs-center
           .col-sm-5
-            img.img-fluid(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-projects.png")
+            img(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-projects.png")
           .col-sm-7
             p
               strong #{projectcount}

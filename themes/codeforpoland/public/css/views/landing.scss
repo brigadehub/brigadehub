@@ -247,14 +247,31 @@
       }
     }
   }
+  .centered {
+    margin: 0 auto;
+    padding: 0 1em;
+  }
   #landing-stats {
+    display: flex;
+    justify-content: space-around;
+    height: 108px;
+
+    .landing-stat {
+      display: flex;
+      flex: 0 0 28%;
+    }
+    .landing-stat:first-child:nth-last-child(4),
+    .landing-stat:first-child:nth-last-child(4) ~ .landing-stat {
+      flex: 0 0 25%;
+    }
     .col-sm-5 {
       position: relative;
 
       height: 108px;
     }
     img {
-      position: absolute;
+      display: block;
+      position: relative;
       top: 50%;
       left: 50%;
 
