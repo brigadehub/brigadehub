@@ -87,9 +87,14 @@ exports.postBrigade = function (req, res, next) {
           thisBrigade.sponsors.push(req.body['new-sponsor'])
         }
       }
-      thisBrigade.landingstats = req.body['landingstats'] || []
+      var landingstats = req.body['landingstats'].filter(function(landingstat) {
+        if (!landingstat.delete) {
+          return landingstat
+        }
+      })
+      thisBrigade.landingstats = landingstats
       if (req.body['new-landingstat'].imglink || req.body['new-landingstat'].link || req.body['new-landingstat'].caption || req.body['new-landingstat'].stat) {
-        if (!(req.body['new-landingstat'].imglink) || !(req.body['new-landingstat'].link) || !(req.body['new-landingstat'].caption) || req.body['new-sponsor'].stat) {
+        if (!(req.body['new-landingstat'].imglink) || !(req.body['new-landingstat'].link) || !(req.body['new-landingstat'].caption) || !(req.body['new-landingstat'].stat)) {
           req.flash('errors', { msg: 'Please make sure that all four fields for the stats section are filled out.' })
         } else {
           thisBrigade.landingstats.push(req.body['new-landingstat'])
