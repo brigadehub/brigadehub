@@ -87,7 +87,7 @@ exports.postBrigade = function (req, res, next) {
           thisBrigade.sponsors.push(req.body['new-sponsor'])
         }
       }
-      var landingstats = req.body['landingstats'].filter(function(landingstat) {
+      var landingstats = req.body['landingstats'].filter(function (landingstat) {
         if (!landingstat.delete) {
           return landingstat
         }
