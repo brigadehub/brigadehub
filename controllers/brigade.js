@@ -100,6 +100,10 @@ exports.postBrigade = function (req, res, next) {
           thisBrigade.landingstats.push(req.body['new-landingstat'])
         }
       }
+      var displayedstats = thisBrigade.landingstats.filter(function (landingstat) {
+        return landingstat.display === '1'
+      })
+      thisBrigade.displayedstats = displayedstats
       req.body['externals'] = req.body['externals'] || []
       var links = req.body['externals'].filter(function (link) {
         if (!link.delete) {
