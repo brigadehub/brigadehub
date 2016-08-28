@@ -75,6 +75,66 @@ module.exports = function () {
         image: 'https://i.imgur.com/jdbLl87.png'
       }
     ],
+    landingstats: [
+      {
+        imglink: 'http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-forum.png',
+        link: 'undefined',
+        stat: '554',
+        caption: 'Slackers Registered',
+        display: '1'
+      },
+      {
+        imglink: 'http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-ideas.png',
+        link: '/blog',
+        stat: '31',
+        caption: 'Ideas Being Discussed',
+        display: '1'
+      },
+      {
+        imglink: 'http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-citylab.png',
+        link: 'undefined',
+        stat: '4',
+        caption: 'Bay Area Brigades',
+        display: '1'
+      },
+      {
+        imglink: 'http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-projects.png',
+        link: '/projects',
+        stat: '8',
+        caption: 'Active Projects',
+        display: '1'
+      }
+    ],
+    displayedstats: [
+      {
+        imglink: 'http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-forum.png',
+        link: 'undefined',
+        stat: '554',
+        caption: 'Slackers Registered',
+        display: '1'
+      },
+      {
+        imglink: 'http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-ideas.png',
+        link: '/blog',
+        stat: '31',
+        caption: 'Ideas Being Discussed',
+        display: '1'
+      },
+      {
+        imglink: 'http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-citylab.png',
+        link: 'undefined',
+        stat: '4',
+        caption: 'Bay Area Brigades',
+        display: '1'
+      },
+      {
+        imglink: 'http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-projects.png',
+        link: '/projects',
+        stat: '8',
+        caption: 'Active Projects',
+        display: '1'
+      }
+    ],
     auth: {
       github: {
         clientId: process.env.GITHUB_ID,
