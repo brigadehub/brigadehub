@@ -50,42 +50,23 @@ block content
   hr
   .centered
     #landing-stats.hidden-md-down
-      .landing-stat
-        .row.text-xs-center
-          .col-sm-5
-            img(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-forum.png")
-          .col-sm-7
-            p
-              strong #{brigade.slackcount}
-            p.txt
-              | Slackers registered
-      .landing-stat
-        .row.text-xs-center
-          .col-sm-5
-            img(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-ideas.png")
-          .col-sm-7
-            p
-              strong #{postcount}
-            p.txt
-              | Ideas being discussed
-      .landing-stat
-        .row.text-xs-center
-          .col-sm-5
-            img(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-citylab.png")
-          .col-sm-7
-            p
-              strong #{brigade.brigadecount}
-            p.txt
-              | Bay Area Brigades
-      .landing-stat
-        .row.text-xs-center
-          .col-sm-5
-            img(src="http://kodujdlapolski.pl/wp-content/themes/kdp/images/stats-projects.png")
-          .col-sm-7
-            p
-              strong #{projectcount}
-            p.txt
-              | Active Projects
+      each displayedstat in brigade.displayedstats.slice(0, 4)
+        if (displayedstat.link !== "undefined")
+          a.landing-stat(href=displayedstat.link)
+            .row.text-xs-center
+              .col-sm-5
+                img(src=displayedstat.imglink)
+              .col-sm-7
+                p.stat #{displayedstat.stat}
+                p.txt #{displayedstat.caption}
+        else
+          .landing-stat
+            .row.text-xs-center
+              .col-sm-5
+                img(src=displayedstat.imglink)
+              .col-sm-7
+                p.stat #{displayedstat.stat}
+                p.txt #{displayedstat.caption}
   hr.hidden-md-down
   #landing-ctas.row.center-block
     .col-md-4

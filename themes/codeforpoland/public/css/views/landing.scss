@@ -257,10 +257,22 @@
     height: 108px;
 
     justify-content: space-around;
+    a {
+      color: #373a3c;
+
+      transition: box-shadow 0.4s;
+
+      &:hover {
+        box-shadow: 0 0 5px #e4e4e4;
+
+        transition: box-shadow 0.4s;
+      }
+    }
     .landing-stat {
       display: flex;
 
-      flex: 0 0 28%;
+      flex: 0 0 33%;
+
     }
     .landing-stat:first-child:nth-last-child(4), .landing-stat:first-child:nth-last-child(4) ~ .landing-stat {
       flex: 0 0 25%;
@@ -279,13 +291,10 @@
 
       transform: translateY(-50%) translateX(-50%);
     }
-    strong {
+    .stat {
       font-size: 72px;
       font-weight: 700;
       line-height: 80%;
-
-      margin-top: -5px;
-      margin-bottom: 5px;
 
       color: #d20a11;
     }
