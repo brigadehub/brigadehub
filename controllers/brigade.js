@@ -50,6 +50,8 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.heroImage = req.body.heroImage || 'https://i.imgur.com/m7omd0N.jpg'
       thisBrigade.copy.tagline = req.body.tagline
       thisBrigade.slack = req.body.slack
+      thisBrigade.slackcount = req.body.slackcount || 0
+      thisBrigade.brigadecount = req.body.brigadecount || 0
       thisBrigade.github = req.body.github.toLowerCase()
       thisBrigade.blog.jekyll = req.body['blog-jekyll'].toLowerCase()
       thisBrigade.slug = req.body.github.toLowerCase()
@@ -85,6 +87,23 @@ exports.postBrigade = function (req, res, next) {
           thisBrigade.sponsors.push(req.body['new-sponsor'])
         }
       }
+      var landingstats = req.body['landingstats'].filter(function (landingstat) {
+        if (!landingstat.delete) {
+          return landingstat
+        }
+      })
+      thisBrigade.landingstats = landingstats
+      if (req.body['new-landingstat'].imglink || req.body['new-landingstat'].link || req.body['new-landingstat'].caption || req.body['new-landingstat'].stat) {
+        if (!(req.body['new-landingstat'].imglink) || !(req.body['new-landingstat'].link) || !(req.body['new-landingstat'].caption) || !(req.body['new-landingstat'].stat)) {
+          req.flash('errors', { msg: 'Please make sure that all four fields for the stats section are filled out.' })
+        } else {
+          thisBrigade.landingstats.push(req.body['new-landingstat'])
+        }
+      }
+      var displayedstats = thisBrigade.landingstats.filter(function (landingstat) {
+        return landingstat.display === '1'
+      })
+      thisBrigade.displayedstats = displayedstats
       req.body['externals'] = req.body['externals'] || []
       var links = req.body['externals'].filter(function (link) {
         if (!link.delete) {

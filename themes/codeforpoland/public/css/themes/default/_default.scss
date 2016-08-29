@@ -4,7 +4,6 @@
 .btn {
   border-radius: 0;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.11), 1px 1px 0 rgba(255, 255, 255, 0.21) inset;
-
   &:focus {
     outline: none;
   }
@@ -16,6 +15,21 @@
 
 .btn-default, .btn-default:focus {
   background-image: linear-gradient(to bottom, #ffffff 60%, #f8f8f8 100%);
+}
+
+.btn-red {
+  transition: background-color 0.5s;
+
+  color: #ffffff;
+  border-color: $brand-red;
+  background-color: $brand-red;
+  &:hover {
+    transition: background-color 0.3s;
+
+    color: $brand-red;
+    border-color: $brand-red;
+    background-color: #ffffff;
+  }
 }
 
 // Forms
@@ -39,13 +53,13 @@
 .navbar-default {
   border: 0;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-
   .navbar-nav {
     > li > a {
       font-size: 12px;
       font-weight: 500;
-      text-transform: uppercase;
+
       transition: all 0.2s linear;
+      text-transform: uppercase;
     }
   }
 }

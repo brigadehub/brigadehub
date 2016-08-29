@@ -16,9 +16,9 @@ exports.index = function (req, res) {
   Events.find({}, function (err, foundEvents) {
     if (err) console.error(err)
     foundEvents = foundEvents.filter(function (event) {
-      return event.end >= moment().unix()
+      return event.start >= moment().unix()
     }).map(function (event) {
-      event.startDate = moment.unix(event.start).format('MMM DD')
+      event.startDate = moment.unix(event.start).tz(res.locals.brigade.location.timezone).format('MMM DD')
       return event
     })
     Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
@@ -33,16 +33,15 @@ exports.index = function (req, res) {
       })
       Posts.find({}, function (err, foundPosts) {
         if (err) console.error(err)
-        foundPosts = foundPosts.slice(0, 3).map(function (post) {
-          post.date = moment.unix(post.unix).format('MMMM DD, YYYY')
-          return post
-        })
+        var posts = foundPosts.length
+        foundPosts = foundPosts.slice(0, 3)
         res.render(res.locals.brigade.theme.slug + '/views/home', {
           view: 'home',
           title: 'Home',
-          today: (moment().tz(res.locals.brigade.location.timezone).format('MMM DD')),
           checkin: (moment().tz(res.locals.brigade.location.timezone).format('dddd') === res.locals.brigade.checkIn.day),
           brigade: res.locals.brigade,
+          projectcount: foundProjects.length,
+          postcount: posts,
           projects: foundProjects.splice(0, NUM_PROJECTS_SHOWN),
           events: foundEvents.slice(0, 3),
           posts: foundPosts

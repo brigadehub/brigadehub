@@ -103,9 +103,15 @@
           padding-top: 0.5rem;
           padding-bottom: 0.5rem;
 
+          transition: background-color 0.3s;
+
           color: rgba(170,0,1,1);
           &:hover {
-            background-color: rgba(255,255,255,0.75);
+            transition: background-color 0.3s;
+
+            color: #ffffff;
+            border-color: #ffffff;
+            background-color: transparent;
           }
         }
         @media (max-width: 61.9rem) {
@@ -241,26 +247,54 @@
       }
     }
   }
+  .centered {
+    margin: 0 auto;
+    padding: 0 1em;
+  }
   #landing-stats {
+    display: flex;
+
+    height: 108px;
+
+    justify-content: space-around;
+    a {
+      color: #373a3c;
+
+      transition: box-shadow 0.4s;
+
+      &:hover {
+        box-shadow: 0 0 5px #e4e4e4;
+
+        transition: box-shadow 0.4s;
+      }
+    }
+    .landing-stat {
+      display: flex;
+
+      flex: 0 0 33%;
+
+    }
+    .landing-stat:first-child:nth-last-child(4), .landing-stat:first-child:nth-last-child(4) ~ .landing-stat {
+      flex: 0 0 25%;
+    }
     .col-sm-5 {
       position: relative;
 
       height: 108px;
     }
     img {
-      position: absolute;
+      position: relative;
       top: 50%;
       left: 50%;
 
+      display: block;
+
       transform: translateY(-50%) translateX(-50%);
     }
-    strong {
+    .stat {
       font-size: 72px;
       font-weight: 700;
       line-height: 80%;
-
-      margin-top: -5px;
-      margin-bottom: 5px;
 
       color: #d20a11;
     }
@@ -292,6 +326,12 @@
       background-position: bottom right;
     }
   }
+  #landing-projects {
+    .btn {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+  }
   #landing-blog {
     .card.post {
       span.thumbnail {
@@ -304,6 +344,10 @@
         background-position: center center;
         background-size: cover;
       }
+    }
+    .btn {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
     }
   }
 }

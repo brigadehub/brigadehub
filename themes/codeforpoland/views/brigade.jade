@@ -53,6 +53,10 @@ block content
       .col-sm-7
         input.form-control(type='text', name='slack', id='slack', value='#{brigade.slack}')
     .form-group
+      label.col-sm-3.control-label(for='slack') Slack Member Count
+      .col-sm-7
+        input.form-control(type='text', name='slackcount', id='slackcount', value='#{brigade.slackcount}')
+    .form-group
       label.col-sm-3.control-label(for='slack') Github/Jekyll Blog
       .col-sm-7
         input.form-control(type='text', name='blog-jekyll', id='blog-jekyll', value='#{brigade.blog.jekyll}', placeholder='account/repo')
@@ -67,6 +71,10 @@ block content
         select(id="checkinday", name="checkinday")
           for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
             option(value="#{day}", selected=(day == brigade.checkIn.day)) #{day}
+    .form-group
+      label.col-sm-3.control-label(for='brigadecount') Number of brigades in area:
+      .col-sm-5
+        input.form-control(type='text', name='brigadecount', id='brigadecount', value='#{brigade.brigadecount}')
     .form-group
       label.col-sm-3.control-label(for='checkinurl') Check-in URL:
       .col-sm-5
@@ -123,28 +131,28 @@ block content
           .col-sm-4.checkbox
             label
               input.title(id="show-title", name="show-title", type="checkbox", checked=(brigade.theme.page.title ? "checked" : undefined))
-              | Show Brigade Name
+              | &nbsp;&nbsp;Show Brigade Name
           .col-sm-4.checkbox
             label
               input.events(id="show-events", name="show-events", type="checkbox", checked=(brigade.theme.page.events ? "checked" : undefined))
-              | Show Events Pages
+              | &nbsp;&nbsp;Show Events Pages
           .col-sm-4.checkbox
             label
               input.projects(id="show-projects", name="show-projects", type="checkbox", checked=(brigade.theme.page.projects ? "checked" : undefined))
-              | Show Projects Pages
+              | &nbsp;&nbsp;Show Projects Pages
         .row
           .col-sm-4.checkbox
             label
               input.blog(id="show-blog", name="show-blog", type="checkbox", checked=(brigade.theme.page.blog ? "checked" : undefined))
-              | Show Blog Pages
+              | &nbsp;&nbsp;Show Blog Pages
           .col-sm-4.checkbox
             label
               input.about(id="show-about", name="show-about", type="checkbox", checked=(brigade.theme.page.about ? "checked" : undefined))
-              | Show About Page
+              | &nbsp;&nbsp;Show About Page
           .col-sm-4.checkbox
             label
               input.login(id="show-login", name="show-login", type="checkbox", checked=(brigade.theme.page.login ? "checked" : undefined))
-              | Show Login Page
+              | &nbsp;&nbsp;Show Login Page
       .form-group
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')
@@ -220,7 +228,7 @@ block content
                     i.static.fa.fa-pencil
                     i.update.hidden.fa.fa-close
                   label.delete-checkbox(for='sponsors-#{index}-delete')
-                    input.hidden(type='checkbox', name='sponsors[#{index}][delete]', id='sponsors-#{index}-delete')
+                    input.hidden(type='submit', name='sponsors[#{index}][delete]', id='sponsors-#{index}-delete')
                     span.btn.btn-danger(type='button')
                       i.fa.fa-trash
                 td
@@ -232,6 +240,58 @@ block content
                 input.form-control(name='new-sponsor[link]', id='new-sponsor-link', value='', placeholder='Destination Link')
               td
                 input.form-control(name='new-sponsor[image]', id='new-sponsor-image', value='', placeholder='Sponsor image')
+              td
+                button.btn.btn-primary(type='submit') Save Changes
+      h3 Brigade Landing Statistics
+        small  (Max 4 Stats Displayed)
+      .row.row-body
+        table.table
+          thead
+            tr
+              th Image Link
+              th Link To
+              th Stat
+              th Caption
+              th Actions
+              th Display
+          tbody
+            each landingstat, index in brigade.landingstats
+              tr
+                td
+                  span.static=landingstat.imglink
+                  input.update.hidden.form-control(type='text', name='landingstats[#{index}][imglink]', id='landingstat-link-imglink', value='#{landingstat.imglink}')
+                td
+                  span.static=landingstat.link
+                  input.update.hidden.form-control(type='text', name='landingstats[#{index}][link]', id='landingstat-link-link', value='#{landingstat.link}')
+                td
+                  span.static=landingstat.stat
+                  input.update.hidden.form-control(type='text', name='landingstats[#{index}][stat]', id='landingstat-link-stat', value='#{landingstat.stat}')
+                td
+                  span.static=landingstat.caption
+                  input.update.hidden.form-control(type='text', name='landingstats[#{index}][caption]', id='landingstat-link-caption', value='#{landingstat.caption}')
+                td
+                  button.edit-settings-row.btn.btn-primary(type='button')
+                    i.static.fa.fa-pencil
+                    i.update.hidden.fa.fa-close
+                  label.delete-checkbox(for='landingstats-#{index}-delete')
+                    input.hidden(type='submit', name='landingstats[#{index}][delete]', id='landingstats-#{index}-delete')
+                    span.btn.btn-danger(type='button')
+                      i.fa.fa-trash
+                td
+                  label(for='landingstats-#{index}-display') Yes&nbsp;&nbsp;
+                    input(type='radio', name='landingstats[#{index}][display]', id='landingstats-#{index}-display', value='1', checked=landingstat.display==='1')
+                  label(for='landingstats-#{index}-not_displayed') No&nbsp;&thinsp;&thinsp;
+                    input(type='radio', name='landingstats[#{index}][display]', id='landingstats-#{index}-not_displayed', value='0', checked=landingstat.display==='0')
+           tr
+              td
+                input.form-control(name='new-landingstat[imglink]', id='new-landingstat-imglink', value='', placeholder='Image Link')
+              td
+                input.form-control(name='new-landingstat[link]', id='new-landingstat-link', value='', placeholder='Destination Link')
+              td
+                input.form-control(name='new-landingstat[stat]', id='new-landingstat-stat', value='', placeholder='Stat')
+              td
+                input.form-control(name='new-landingstat[caption]', id='new-landingstat-caption', value='', placeholder='Caption')
+                input.hidden(type='radio', name='new-landingstat[display]', value='0', checked)
               td
                 button.btn.btn-primary(type='submit') Save Changes
     .row.row-title

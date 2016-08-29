@@ -1,6 +1,6 @@
 {
   "name": "brigadehub",
-  "version": "1.0.0-alpha.9",
+  "version": "1.0.0-alpha.11",
   "repository": {
     "type": "git",
     "url": "https://github.com/sfbrigade/brigadehub.git"
@@ -94,7 +94,7 @@
     "mongodb": "^2.1.7",
     "nightwatch": "latest",
     "nodemon": "^1.9.1",
-    "phantomjs-prebuilt": "latest",
+    "phantomjs-prebuilt": "2.1.11",
     "seedling": "0.0.10",
     "selenium-standalone": "latest",
     "validate-commit-msg": "^2.6.1"
