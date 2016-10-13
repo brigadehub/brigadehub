@@ -1,5 +1,5 @@
 
-var mongodb = require('mongodb')
+// var mongodb = require('mongodb')
 
 exports.up = function (db, next) {
   var events = db.collection('events')
