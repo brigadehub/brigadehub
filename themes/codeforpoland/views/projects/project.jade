@@ -23,7 +23,7 @@ block content
         | &nbsp;
         =project.name
       if (user && (user.isAdmin() || user.isProjectLead()))
-        span  
+        span
           form(method='POST', action='/projects/#{project.id}/delete')
             input(type='hidden', name='_csrf', value=_csrf)
             button.float.right.btn.btn-primary(type='submit')
@@ -42,6 +42,8 @@ block content
             .meta-body
               .meta.meta-description.clearfix
                 span= project.description
+              .meta.meta-status.clearfix(class=(project.active?'hidden':''))
+                span INACTIVE PROJECT
               .meta.meta-status.clearfix
                 span Status
                 span.info(data-status='#{project.status}')= project.status
@@ -74,31 +76,3 @@ block content
                 span.info.infobox
                   for keyword in project.keywords
                     span(class="label label-warning")= keyword
-                    
-    //- .col-sm-3
-    //-     .see-also
-    //-       .links
-    //-         .card
-    //-           a(href="#")
-    //-             img(src="http://placehold.it/400x400?text=other+project").card-img-top.img-fluid
-    //-           .card-block
-    //-             .card-title
-    //-               a(href="#") Other Project A
-    //-             .card-text
-    //-               p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    //-         .card
-    //-           a(href="#")
-    //-             img(src="http://placehold.it/400x400?text=other+project").card-img-top.img-fluid
-    //-           .card-block
-    //-             .card-title
-    //-               a(href="#") Other Project A
-    //-             .card-text
-    //-               p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    //-         .card
-    //-           a(href="#")
-    //-             img(src="http://placehold.it/400x400?text=other+project").card-img-top.img-fluid
-    //-           .card-block
-    //-             .card-title
-    //-               a(href="#") Other Project A
-    //-             .card-text
-    //-               p Lorem ipsum dolor sit amet, consectetur adipiscing elit.

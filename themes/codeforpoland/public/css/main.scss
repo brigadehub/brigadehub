@@ -155,7 +155,7 @@ nav + .container {
   }
 }
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .delete-checkbox {

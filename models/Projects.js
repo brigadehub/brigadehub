@@ -12,6 +12,7 @@ var projectsSchema = new mongoose.Schema({
 
   /* Standard BetaNYC civic.json, used by CFAPI */
 
+  active: { type: Boolean, default: false },
   status: {type: String, default: ''}, // civic.json + civic.dc.json - proposed, ideation, alpha, beta, production, archival
   thumbnailUrl: {type: String, default: 'http://i.imgur.com/MRgvL1K.png'},
   bannerUrl: {type: String, default: 'http://i.imgur.com/MRgvL1K.png'},

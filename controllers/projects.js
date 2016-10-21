@@ -44,8 +44,15 @@ module.exports = {
           }
         })
       })
+      const totalProjects = foundProjects.length
       Projects.find(mongooseQuery, function (err, foundProjects) {
         if (err) console.error(err)
+        if (!req.query.showall) {
+          foundProjects = foundProjects.filter((project) => {
+            console.log(project)
+            return project.active
+          })
+        }
         res.render(res.locals.brigade.theme.slug + '/views/projects/index', {
           view: 'project-list',
           title: 'Projects',
@@ -54,7 +61,9 @@ module.exports = {
           selectedKeyword: req.query.keyword,
           selectedNeed: req.query.need,
           keywords: allKeywords.sort(),
-          needs: allNeeds.sort()
+          needs: allNeeds.sort(),
+          showingInactive: req.query.showall,
+          totalProjects: totalProjects
         })
       })
     })
@@ -95,13 +104,18 @@ module.exports = {
         }
         project.name = projectInfo.name
         project.published = !!projectInfo.published
+        project.active = !!projectInfo.active
         project.save(function (err) {
-          if (err) throw err
+          if (err) {
+            console.error(err)
+            req.flash('errors', {msg: 'An Error occured while saving your projects.'})
+            return res.redirect('/projects/manage')
+          }
+          req.flash('success', { msg: 'Success! Projects edited.' })
+          return res.redirect('/projects/manage/')
         })
       })
     })
-    req.flash('success', { msg: 'Success! Projects edited.' })
-    return res.redirect('/projects/manage/')
   },
   /**
    * GET /projects/new
@@ -158,11 +172,15 @@ module.exports = {
         newProject.keywords = newProject.keywords.concat(req.body.keywords)
       }
     }
-    newProject.save(function (err) {
-      if (err) console.error(err)
+    newProject.save(function (err, newProject) {
+      if (err) {
+        console.error(err)
+        req.flash('errors', {msg: 'An Error occured while creating your project.'})
+        return res.redirect('/projects/new')
+      }
+      req.flash('success', {msg: 'Success! You have created a project.'})
+      res.redirect(`/projects/${newProject.slug}`)
     })
-    req.flash('success', {msg: 'Success! You have created a project.'})
-    res.redirect('/projects/new')
   },
 
   /**
@@ -240,6 +258,8 @@ module.exports = {
         thisProject.keywords = []
         thisProject.name = req.body.title || ''
         thisProject.id = slug(thisProject.name)
+        thisProject.active = req.body.active || false
+        console.log(req.body.active)
         thisProject.status = req.body.status || ''
         thisProject.politicalEntity = req.body.politicalEntity || ''
         thisProject.geography = req.body.geography || ''
