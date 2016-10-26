@@ -25,7 +25,7 @@ gulp.task('launch:compile', function () {
 
 gulp.task('launch:node', function () {
   return nodemon({
-    tasks: ['launch:compile'] ,
+    tasks: ['launch:compile'],
     script: './cache/app.js',
     ignore: ['node_modules/*', 'cache/*']
   })
