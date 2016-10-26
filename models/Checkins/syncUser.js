@@ -1,7 +1,7 @@
 module.exports = function syncUser (doc, user) {
   return new Promise((resolve, reject) => {
     if (!user.username) user.username = doc.username // handle new account creation
-    user.name = doc.name
+    user.profile.name = doc.name || user.profile.name
     user.teams.projects = [
       ...user.teams.projects,
       doc.projects

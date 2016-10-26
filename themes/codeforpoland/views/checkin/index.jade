@@ -8,9 +8,38 @@ block content
       a(href='/checkin') Check In
   .row.page-header
     .col-sm-12
-      h1.page-title Hack Night Check In
+      h1.page-title 
+        i.fa.fa-map-marker
+        | &nbsp;Hack Night Check In
   .row
     hr
   .container
     .row
-      | Test Content here
+      p Welcome to Hack Night! We recieve funding based on attendence, please help us out by checking in!
+      .row
+        hr
+      if user.username
+        .row.strong
+          | Checking in as&nbsp;
+          if user.profile.picture && user.profile.picture.length
+            img.avatar(src=user.profile.picture, alt=user.username)
+          if user.profile.name && user.profile.name.length
+            =user.profile.name
+            | &nbsp;(
+            =user.username
+            | )
+          else
+            =user.username
+        .row
+          | Not&nbsp;
+          =user.profile.name || user.username
+          | ?&nbsp;
+          a(href='/logout?redirect=/checkin') Logout
+        .row
+          hr
+        .row
+          include userForm 
+      else
+        .row
+          include anonForm 
+        

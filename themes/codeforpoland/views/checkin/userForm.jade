@@ -1,0 +1,43 @@
+form(action='/checkin', method='post')
+  input(type='hidden', name='_csrf', value=_csrf)
+  input(type='hidden', name='name', value=user.profile.name)
+  input(type='hidden', name='username', value=user.username)
+  input(type='hidden', name='email', value=user.email)
+  if user.roles.lead
+    .form-group.row
+      label.col-sm-3.control-label(for='teams') Here working on:
+      .col-sm-7
+        select.form-control.input-tags-target(name='teams', id='teams', multiple=true, data-role="tagsinput")
+          for team in user.teams.lead
+            option(value="#{team}", selected=true) #{team}
+          for team in user.teams.project
+            option(value="#{team}", selected=true) #{team}  
+    .form-group.row
+      label.col-sm-3.control-label(for='mailingList') Subscribe to Newsletter?
+      .col-sm-7
+        input.form-control(type='checkbox', name='mailingList', id='mailingList', value='mailingList', checked=user.mailingList)
+    .form-group.row
+      label.col-sm-3.control-label(for='skills') My skills:
+      .col-sm-7
+        select.form-control.input-tags-target(name='skills', id='skills', multiple=true, data-role="tagsinput")
+          for skill in user.skills
+            option(value="#{skill}", selected=true) #{skill}
+    if user.teams.lead.length
+      for team in user.teams.lead
+        hr
+        h3=team
+        .form-group.row
+          label.col-sm-3.control-label(for='expectedAttendance') Expected Attendance
+          .col-sm-7
+            input.form-control(type='number', name='expectedAttendance', id='expectedAttendance', value='expectedAttendance')
+        .form-group.row
+          label.col-sm-3.control-label(for='reserve') Which location would you like to reserve?
+          .col-sm-7
+            select(id="reserve", name="reserve")
+              option(selected) Select a location...
+              for location in locations
+                option(value=location) #{location}
+            | <br/><br/>
+  button.btn.btn-primary(type=submit)
+    i.fa.fa-map-marker
+    | Check in!
