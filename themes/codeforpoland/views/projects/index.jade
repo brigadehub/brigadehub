@@ -1,22 +1,28 @@
 extends ../layout
 
-mixin sidebarItem(name,subItems,selectedItem)
-  li= plural(capitalize(name))
+mixin sidebarItem(name,subItems,selectedItem,showingInactive)
+  li
+    strong=plural(capitalize(name))
+    br
     ul(data-sidebar=name)
       if selectedItem
         li
-          a(href='?') 
+          a(href='?'+(showingInactive?'&showall=true':''))
             i.fa.fa-close
             | Clear Selection
+        br
+      br
       each item in subItems
         li(class=selectedItem===item?'selected':'')
-          a(href="?#{name}=#{item}")= item
+          a(href="?#{name}=#{item}"+(showingInactive?'&showall=true':''))= item
+      br
+      br
 
 block content
   .row.breadcrumbs
     .col-sm-12
       a(href='/')= brigade.name
-      | &nbsp;&nbsp;/&nbsp; 
+      | &nbsp;&nbsp;/&nbsp;
       a(href='/projects') Projects
   .row.page-header
     .col-sm-12
@@ -28,9 +34,30 @@ block content
   .container
     .row
       .col-sm-3.sidebar
-        ul
-          mixin sidebarItem('keyword',keywords,selectedKeyword)
-          mixin sidebarItem('need',needs,selectedNeed)
+        span
+          | Showing&nbsp;
+          strong=projects.length
+          | &nbsp;#{showingInactive?'':'active'} projects
+          br
+          | out of&nbsp;
+          strong=totalProjects
+          | &nbsp;total
+        br
+        br
+        a(href="/projects/?showall=true"+(selectedKeyword?'&keyword=#{selectedKeyword}':'')+(selectedNeed?'&need=#{selectedNeed}':''), class=(showingInactive?'hidden':''))
+          button.btn.btn-secondary Show inactive projects
+        a(href="/projects/?"+(selectedKeyword?'&keyword=#{selectedKeyword}':'')+(selectedNeed?'&need=#{selectedNeed}':''), class=(showingInactive?'':'hidden'))
+          button.btn.btn-secondary Hide inactive projects
+        br
+        br
+        hr
+        br
+        span Filter your search:
+        br
+        br
+        ul(data-sidebar='true')
+          mixin sidebarItem('keyword',keywords,selectedKeyword,showingInactive)
+          mixin sidebarItem('need',needs,selectedNeed,showingInactive)
       .col-sm-9
         .row
         each project in projects
@@ -43,6 +70,8 @@ block content
                     h3.card-title
                       a(href='/projects/#{project.id}')
                         =project.name
+                        br
+                        span.badge.activity(class=(project.active?'active':'inactive'))=(project.active?'Active':'Inactive')
                     p.card-text= project.description
                     p.card-keywords
                       span Keywords

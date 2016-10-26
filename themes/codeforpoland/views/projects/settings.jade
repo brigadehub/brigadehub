@@ -28,6 +28,10 @@ block content
         .col-sm-7
           input.form-control(type='text', name='description', id='description', value='#{project.description}', placeholder='This project is the best thing ever.')
       .form-group.row
+        label.col-sm-3.control-label(for='active') Active Project?
+        .col-sm-7
+          input(type='checkbox', name='active', id='active', checked=project.active)
+      .form-group.row
         label.col-sm-3.control-label(for='status') Status
         .col-sm-7
           select.form-control(id="status", name="status")
