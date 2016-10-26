@@ -50,6 +50,7 @@ var projectsCtrl = require('./controllers/projects')
 var contactCtrl = require('./controllers/contact')
 var usersCtrl = require('./controllers/user')
 var brigadeCtrl = require('./controllers/brigade')
+var checkinCtrl = require('./controllers/checkin')
 
 /*
  * Helpers
@@ -226,6 +227,13 @@ app.post('/brigade',
   passportConf.checkRoles(['superAdmin']),
   passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
   brigadeCtrl.postBrigade)
+
+/**
+ * Meta Routes
+ */
+
+app.get('/checkin', checkinCtrl.getCheckin)
+app.post('/checkin', checkinCtrl.postCheckin)
 
 /**
  * Project routes.

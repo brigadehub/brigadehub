@@ -14,11 +14,15 @@ var defaultHeaders = {
 var userSchema = new mongoose.Schema({
   username: { type: String, unique: true },
   email: {type: String, default: ''},
-  /* password: {type:String, default:''},*/
+  lastCheckin: {type: Date},
+  mailingList: {type: Boolean, default: false},
+  referredBy: {type: String, default: ''},
+  skills: {type: Array, default: []},
   github: {type: String, default: ''},
   tokens: {type: Array, default: []},
   scopes: {type: Array, default: []},
   postAuthLink: {type: String, default: ''},
+
   roles: {
     read: {type: Boolean, default: true},
     blog: {type: Boolean, default: false},
@@ -29,6 +33,7 @@ var userSchema = new mongoose.Schema({
     superAdmin: {type: Boolean, default: false}
   },
   teams: {
+    lead: { type: Array, default: [] },
     project: { type: Array, default: [] },
     core: { type: Array, default: [] }
   },
