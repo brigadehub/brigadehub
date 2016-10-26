@@ -48,6 +48,9 @@ var brigadeSchema = new mongoose.Schema({
   landingstats: {type: Array, default: []},
   displayedstats: {type: Array, default: []},
   auth: {
+    segment: {
+      writeKey: {type: String, default: ''}
+    },
     github: {
       clientId: {type: String, default: ''},
       clientSecret: {type: String, default: ''}
@@ -61,6 +64,7 @@ var brigadeSchema = new mongoose.Schema({
       consumerSecret: {type: String, default: ''}
     },
     google: {
+      analyticsId: {type: String, default: ''},
       clientId: {type: String, default: ''},
       clientSecret: {type: String, default: ''}
     },

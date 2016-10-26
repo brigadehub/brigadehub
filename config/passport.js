@@ -75,6 +75,13 @@ passport.use(new GitHubStrategy({
               user.save(function (err) {
                 if (err) console.error(err)
                 req.flash('info', { msg: 'GitHub authorization provided.' })
+                req.analytics.track({
+                  userId: user.username,
+                  event: 'User Logged In',
+                  properties: {
+                    roles: JSON.stringify(user.roles)
+                  }
+                })
                 done(err, user)
               })
             })
@@ -86,6 +93,13 @@ passport.use(new GitHubStrategy({
           if (existingUser) {
             // think about updating?
             console.log('no req.user, and user exists')
+            req.analytics.track({
+              userId: existingUser.username,
+              event: 'User Logged In',
+              properties: {
+                roles: JSON.stringify(existingUser.roles)
+              }
+            })
             return done(null, existingUser)
           }
           console.log("no req.user, and user doesn't exist")
@@ -122,6 +136,13 @@ passport.use(new GitHubStrategy({
             }
             user.save(function (err) {
               if (err) console.error(err)
+              req.analytics.track({
+                userId: user.username,
+                event: 'User Signed Up',
+                properties: {
+                  roles: JSON.stringify(user.roles)
+                }
+              })
               done(err, user)
             })
           })
