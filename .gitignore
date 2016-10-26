@@ -35,3 +35,7 @@ main.css.map
 .jshintignore
 phantomjsdriver.log
 bundle.js
+
+# Babel-node cache for development
+cache
+.gulp-cache

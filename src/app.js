@@ -1,33 +1,33 @@
 /**
  * Check Node Version FIRST
  */
-require('node-version-checker')
+import 'node-version-checker'
+import 'colors'
 
 /**
  * Module dependencies.
  */
-var express = require('express')
-var _ = require('lodash')
-var cookieParser = require('cookie-parser')
-var compress = require('compression')
-var favicon = require('serve-favicon')
-var session = require('express-session')
-var bodyParser = require('body-parser')
-var logger = require('morgan')
-var errorHandler = require('errorhandler')
-var lusca = require('lusca')
-var methodOverride = require('method-override')
-var MongoStore = require('connect-mongo/es5')(session)
-var flash = require('express-flash')
-var mongoose = require('mongoose')
-var passport = require('passport')
-var expressValidator = require('express-validator')
-var sass = require('node-sass-middleware')
-var path = require('path')
-var requireDir = require('require-dir')
-var pkg = require('./package.json')
-require('colors')
-/* var _ = require('lodash') */
+import express from 'express'
+import _ from 'lodash'
+import cookieParser from 'cookie-parser'
+import compress from 'compression'
+import favicon from 'serve-favicon'
+import session from 'express-session'
+import bodyParser from 'body-parser'
+import logger from 'morgan'
+import errorHandler from 'errorhandler'
+import lusca from 'lusca'
+import methodOverride from 'method-override'
+import MongoStoreConnect from 'connect-mongo/es5'
+const MongoStore = MongoStoreConnect(session)
+import flash from 'express-flash'
+import mongoose from 'mongoose'
+import passport from 'passport'
+import expressValidator from 'express-validator'
+import sass from 'node-sass-middleware'
+import path from 'path'
+import requireDir from 'require-dir'
+import pkg from '../package.json'
 
 console.log("                      \u2590\u2593\u2580\u2593\u2580\u2593\u2580\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593              \u2584\u2584\u2584                 \r\n                      \u2590\u2593\u2584\u2593\u2584\u2593\u2584\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593            \u2584\u2593\u2593\u2593                 \r\n              \u2593\u2593\u2593\u2593\u2593   \u2590\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593           \u2553\u2593\u2593\u2593   \u2552\u2593\u2593\u2584\u2584          \r\n          \u2584\u2593\u2593\u2593\u2593\u2593\u2593     \u2590\u2593\u2593\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2593\u2593\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2593\u2593\u2593          \u2554\u2593\u2593\u2593     \u2580\u2588\u2593\u2593\u2593\u2593\u2584\u2584      \r\n      \u2584\u2584\u2593\u2593\u2593\u2593\u2588\u2580\u2518       \u2590\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593          \u2590\u2593\u2593         \u2584\u2593\u2593\u2588         \u2559\u2580\u2588\u2593\u2593\u2593\u2593\u2584\u2584  \r\n    \u2593\u2593\u2593\u2593\u2593\u2593\u2593           \u2590\u2593\u2593\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2593\u2593          \u2590\u2593\u2593        \u2584\u2593\u2593\u2588              \u2559\u2593\u2593\u2593\u2593\u2593\u2593\r\n      \u2580\u2588\u2593\u2593\u2593\u2593\u2593\u2584        \u2590\u2593\u2593\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2593\u2593          \u2590\u2593\u2593       \u2584\u2593\u2593\u2588            ;\u2584\u2593\u2593\u2593\u2593\u2588\u2580\u2559 \r\n          \u2580\u2588\u2593\u2593\u2593\u2593\u2593\u2584    \u2590\u2593\u2593\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2593\u2593\u2593      \u2584\u2593\u2593\u2588         ,\u2584\u2593\u2593\u2593\u2593\u2588\u2580\u2580     \r\n              \u2593\u2593\u2593\u2593\u258C   \u2590\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593     \u2584\u2593\u2593\u2588         \u2590\u2593\u2593\u2593\u2580\u2580.        \r\n                      \u2590\u2593\u2593\u2593\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2593\u2593\u2593    \u2584\u2593\u2593\u2588            \u00AC            \r\n                      \u2590\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593   \u2588\u2580\u2580                          \r\n __                                      __          __               __        \r\n/\\ \\             __                     /\\ \\        /\\ \\             /\\ \\       \r\n\\ \\ \\____  _ __ /\\_\\     __      __     \\_\\ \\     __\\ \\ \\___   __  __\\ \\ \\____  \r\n \\ \\ '__`\\/\\`'__\\/\\ \\  /'_ `\\  /'__`\\   /'_` \\  /'__`\\ \\  _ `\\/\\ \\/\\ \\\\ \\ '__`\\ \r\n  \\ \\ \\L\\ \\ \\ \\/ \\ \\ \\/\\ \\L\\ \\/\\ \\L\\.\\_/\\ \\L\\ \\/\\  __/\\ \\ \\ \\ \\ \\ \\_\\ \\\\ \\ \\L\\ \\\r\n   \\ \\_,__/\\ \\_\\  \\ \\_\\ \\____ \\ \\__/.\\_\\ \\___,_\\ \\____\\\\ \\_\\ \\_\\ \\____/ \\ \\_,__/\r\n    \\/___/  \\/_/   \\/_/\\/___L\\ \\/__/\\/_/\\/__,_ /\\/____/ \\/_/\\/_/\\/___/   \\/___/ \r\n                         /\\____/                                                \r\n                         \\_/__/      ")
 console.log('[Brigadehub]'.yellow + ' v' + pkg.version)
@@ -89,7 +89,7 @@ var User = require('./models/Users')
  * Express configuration.
  */
 app.set('port', process.env.PORT || 5465)
-app.set('views', path.join(__dirname, 'themes'))
+app.set('views', path.resolve(__dirname, '../src/themes'))
 app.locals.capitalize = function (value) {
   return value.charAt(0).toUpperCase() + value.slice(1)
 }
@@ -462,8 +462,8 @@ Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
 })
 function startServer () {
   app.use(sass({
-    src: path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'),
-    dest: path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'),
+    src: path.resolve(__dirname, '../src/themes/' + brigadeDetails.theme.slug + '/public'),
+    dest: path.resolve(__dirname, '../src/themes/' + brigadeDetails.theme.slug + '/public'),
     debug: true,
     sourceMap: true,
     outputStyle: 'expanded'
@@ -478,11 +478,9 @@ function startServer () {
     }
     next()
   })
-  app.use(favicon(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public', 'favicon.png')))
-  app.use(express.static(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'), { maxAge: 31557600000 }))
+  app.use(favicon(path.resolve(__dirname, '../src/themes/' + brigadeDetails.theme.slug + '/public', 'favicon.png')))
+  app.use(express.static(path.resolve(__dirname, '../src/themes/' + brigadeDetails.theme.slug + '/public'), { maxAge: 31557600000 }))
   app.listen(app.get('port'), function () {
     console.log('[Brigadehub]'.yellow + ' Server listening on port', app.get('port'))
   })
 }
-
-module.exports = app
