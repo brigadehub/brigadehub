@@ -4,7 +4,6 @@ const Users = require('../Users')
 
 const schema = require('./schema')
 const syncUser = require('./syncUser')
-const createUser = require('./createUser')
 
 var checkinSchema = new mongoose.Schema(schema)
 
