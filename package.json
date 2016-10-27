@@ -32,6 +32,7 @@
     "build:docker:untag": "echo 'docker rmi sfbrigade/brigadehub:release'"
   },
   "dependencies": {
+    "analytics-node": "^2.1.0",
     "async": "^1.5.2",
     "babel-cli": "^6.18.0",
     "babel-plugin-transform-runtime": "^6.15.0",
