@@ -12,9 +12,6 @@ block content
     window._currentUser = '#{currentuser.username}'
   .page-header
     h3 Manage users and roles
-    a(href='/contact/edit')
-      button.btn.btn-default(type='button')
-        | Manage contact page
     a(href='/users/new')
       button.btn.btn-default.pull-right(type='button')
         | Add New User
@@ -23,35 +20,38 @@ block content
       table.table
         thead
           tr
+            th.avatar
             th username
             th name
             th email
-            th Blog
-            th Projects
-            th Project Lead
-            th Core
-            th Super Admin
+            th.select Blog
+            th.select Projects
+            th.select Project Lead
+            th.select Core
+            th.select Super Admin
             th github ID
         tbody
         form.pull-right(method='POST', action='/users/manage')
           input(type='hidden', name='_csrf', value=_csrf)
           each user in users
             tr
+              td.avatar
+                img(src=user.profile.picture, alt=user.username)
               td.username= user.username
               td.name= user.profile.name
               td.email= user.email
-              td
+              td.select
                 input(type='checkbox', name='#{user.username}[blogRole]', checked=user.roles.blog)
-              td
+              td.select
                 input(type='checkbox', name='#{user.username}[projectRole]', checked=user.roles.project)
-              td
+              td.select
                 input(type='checkbox', name='#{user.username}[projectLeadRole]', checked=user.roles.lead)
-              td
+              td.select
                 if (currentuser.roles.core || currentuser.roles.superAdmin)
                   input(type='checkbox', name='#{user.username}[coreRole]', checked=user.roles.core)
                 else
                   input(type='checkbox', name='#{user.username}[coreRole]', checked=user.roles.core, onclick="this.checked=!this.checked")
-              td
+              td.select
                 if (currentuser.roles.superAdmin)
                   input(type='checkbox', name='#{user.username}[superAdmin]', checked=user.roles.superAdmin, class="adminButton")
                 else

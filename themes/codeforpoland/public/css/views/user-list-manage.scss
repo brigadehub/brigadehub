@@ -1,3 +1,18 @@
 [data-view='user-list-manage'] {
-
+  table {
+    table-layout:fixed;
+  }
+  th.avatar, td.avatar{
+    width:40px;
+    padding:5px;
+    min-width:0px;
+    max-width:40px;
+    img {
+      height:30px;
+      width:30px;
+    }
+  }
+  th.select, td.select {
+    text-align:center;
+  }
 }
