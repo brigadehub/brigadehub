@@ -455,7 +455,7 @@ app.use(errorHandler())
 Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
   if (err) throw err
   if (!results.length) {
-    var defaultBrigadeData = require('./seeds/development/Brigade')()[0]
+    var defaultBrigadeData = require('../seeds/development/Brigade')()[0]
     defaultBrigadeData.slug = process.env.BRIGADE
     brigadeDetails = defaultBrigadeData
     var defaultBrigade = new Brigade(defaultBrigadeData)

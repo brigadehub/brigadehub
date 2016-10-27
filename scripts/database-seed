@@ -4,8 +4,8 @@ var goosestrap = require('goosestrap');
 var path = require('path');
 var glob = require('glob')
 
-require('../dotenv.js')()
-var models = path.resolve("./models/*")
+require('../src/dotenv.js')()
+var models = path.resolve("./src/models/*")
 var db = goosestrap(process.env.MONGODB ||  process.env.MONGOLAB_URI, models);
 
 
