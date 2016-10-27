@@ -32,6 +32,7 @@
     "build:docker:untag": "echo 'docker rmi sfbrigade/brigadehub:release'"
   },
   "dependencies": {
+    "analytics-node": "^2.1.0",
     "async": "^1.5.2",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.14.2",
