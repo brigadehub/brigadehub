@@ -8,7 +8,7 @@ module.exports = function getCheckin (req, res, next) {
     title: 'Check in',
     view: 'checkin',
     brigade: res.locals.brigade,
-    user: res.locals.user || {},
+    user: res.locals.user,
     locations: defaultLocations,
     skills: defaultSkills,
     referredBy: defaultReferredBy

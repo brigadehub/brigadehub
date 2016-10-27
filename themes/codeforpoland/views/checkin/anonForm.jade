@@ -1,0 +1,33 @@
+form(action='/checkin', method='post')
+  input(type='hidden', name='_csrf', value=_csrf)
+  .form-group.row
+    label.col-sm-3.control-label(for='name') Name
+    .col-sm-7
+      input.form-control(type='text', name='name', id='name')
+  .form-group.row
+    label.col-sm-3.control-label(for='email') Email
+    .col-sm-7
+      input.form-control(type='text', name='email', id='email')
+  .form-group.row
+    label.col-sm-3.control-label(for='username') Github Username
+    .col-sm-7
+      input.form-control(type='text', name='username', id='username')
+  .form-group.row
+    label.col-sm-3.control-label(for='mailingList') Subscribe to Newsletter?
+    .col-sm-7
+      input(type='checkbox', name='mailingList', id='mailingList', value='mailingList')
+  .form-group.row
+    label.col-sm-3.control-label(for='skills') My skills (comma separated)
+    .col-sm-7
+      select.form-control.input-tags-target(name='skills', id='skills', multiple=true, data-role="tagsinput")
+  .form-group.row
+    label.col-sm-3.control-label(for='referredBy') How did you hear about us?
+    .col-sm-7
+      select(id="referredBy", name="referredBy")
+        option(selected)
+        for reference in referredBy
+          option(value=reference) #{reference}
+      | <br/><br/>
+  button.btn.btn-primary(type=submit)
+    i.fa.fa-map-marker
+    | Check in!

@@ -18,7 +18,7 @@ block content
       p Welcome to Hack Night! We recieve funding based on attendence, please help us out by checking in!
       .row
         hr
-      if user.username
+      if user
         .row.strong
           | Checking in as&nbsp;
           if user.profile.picture && user.profile.picture.length
