@@ -9,11 +9,14 @@ var checkinSchema = new mongoose.Schema(schema)
 
 checkinSchema.post('save', function (doc, next) {
   // check username presence + for corresponding user
-  if (!doc.username || !doc.username.length) return next()
-  Users.findOne({ username: doc.username }, (err, user) => {
+  if (!doc.githubUsername || !doc.githubUsername.length) return next()
+  Users.findOne({ username: doc.githubUsername }, (err, user) => {
     if (err) throw err
     if (!user) user = new Users()
-    syncUser(doc, user).then(next)
+    syncUser(doc, user).then(next).catch((err)=>{
+      console.log(err)
+      next()
+    })
   })
 })
 

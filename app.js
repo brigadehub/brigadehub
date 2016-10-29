@@ -148,8 +148,23 @@ app.use(lusca({
   xframe: 'SAMEORIGIN',
   xssProtection: true
 }))
+function shouldSaveReturnToPath (path){
+  if (
+    path.indexOf('/css/') < 0 &&
+    path.indexOf('/js/') < 0 &&
+    path.indexOf('/fonts/') < 0 &&
+    path.indexOf('/img/') < 0 &&
+    path.indexOf('/auth/') < 0 &&
+    path.indexOf('/login') < 0 &&
+    path.indexOf('/logout') < 0
+  ) return true
+  return false
+}
 app.use(function (req, res, next) {
   // check postAuthLink and see if going to auth callback
+  if (shouldSaveReturnToPath(req.path)) {
+    req.session.returnTo = req.path
+  }
   if (req.user && req.user.postAuthLink && req.user.postAuthLink.length) {
     console.log('req.user.postAuthLink present!', req.user.postAuthLink)
     if (
@@ -434,7 +449,7 @@ app.get('/auth/github/elevate', passportConf.elevateScope)
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function (req, res) {
   console.log('new github callback!', req.user.postAuthLink)
   req.user.postAuthLink = req.user.postAuthLink || ''
-  res.redirect(req.user.postAuthLink.length ? req.user.postAuthLink : '/')
+  res.redirect(req.session.returnTo || (req.user.postAuthLink.length ? req.user.postAuthLink : '/'))
 })
 app.get('/auth/meetup', passport.authenticate('meetup', { scope: ['basic', 'rsvp'] }))
 app.get('/auth/meetup/callback', passport.authenticate('meetup', { failureRedirect: '/account' }), function (req, res) {

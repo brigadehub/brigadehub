@@ -7,8 +7,5 @@ module.exports = {
   mailingList: { type: Boolean, default: false },
   referredBy: { type: String, default: '' },
   skills: { type: Array, default: [] },
-  lead: {
-    expectedAttendance: { type: Number, default: 0 },
-    reserve: { type: String, default: '' }
-  }
+  lead: { type: Object, default: {} }
 }
