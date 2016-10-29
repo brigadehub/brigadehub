@@ -148,7 +148,7 @@ app.use(lusca({
   xframe: 'SAMEORIGIN',
   xssProtection: true
 }))
-function shouldSaveReturnToPath (path){
+function shouldSaveReturnToPath (path) {
   if (
     path.indexOf('/css/') < 0 &&
     path.indexOf('/js/') < 0 &&

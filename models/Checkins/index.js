@@ -13,7 +13,7 @@ checkinSchema.post('save', function (doc, next) {
   Users.findOne({ username: doc.githubUsername }, (err, user) => {
     if (err) throw err
     if (!user) user = new Users()
-    syncUser(doc, user).then(next).catch((err)=>{
+    syncUser(doc, user).then(next).catch((err) => {
       console.log(err)
       next()
     })
