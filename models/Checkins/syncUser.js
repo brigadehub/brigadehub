@@ -10,12 +10,12 @@ module.exports = function syncUser (doc, user) {
     user.teams.project = _.difference(user.teams.project, user.teams.lead)
     user.lastCheckin = doc.date
     user.email = doc.email
-    user.mailingList = doc.mailingList
+    user.mailingList = user.mailingList || doc.mailingList
     user.referredBy = doc.referredBy || user.referredBy
     user.skills = doc.skills
     user.save((err) => {
       if (err) return reject(err)
-      resolve(doc)
+      resolve(null, doc)
     })
   })
 }

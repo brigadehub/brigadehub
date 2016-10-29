@@ -20,7 +20,9 @@ module.exports = function getCheckin (req, res, next) {
   formResponse.lead = lead
   const checkin = new Checkins(formResponse)
   checkin.save((err, checkin) => {
+    console.log('checked in!', err)
     if (err) {
+      console.error(err)
       req.flash('error', { msg: 'An error occured while checkin in. Please notify a core team member.' })
       return res.redirect('/checkin')
     }
