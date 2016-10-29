@@ -26,6 +26,11 @@ var sass = require('node-sass-middleware')
 var path = require('path')
 var requireDir = require('require-dir')
 var pkg = require('./package.json')
+
+// Segment server-side tracking
+var Analytics = require('analytics-node')
+var analytics // placeholder for instantiated client
+
 require('colors')
 /* var _ = require('lodash') */
 
@@ -135,6 +140,12 @@ app.use(function (req, res, next) {
     if (!results.length) throw new Error('BRIGADE NOT IN DATABASE')
     res.locals = res.locals || {}
     res.locals.brigade = results[0]
+    // bootstrap segment tracking
+    if (!analytics && res.locals.brigade.auth.segment.writeKey.length) {
+      analytics = new Analytics(res.locals.brigade.auth.segment.writeKey)
+    }
+    req.analytics = analytics || { track: () => {}, page: () => {}, identify: () => {}, group: () => {}, alias: () => {} }
+
     res.locals.brigade.buildVersion = pkg.version
     helpers.tokenLoader(passport, res.locals.brigade.auth)
     next()

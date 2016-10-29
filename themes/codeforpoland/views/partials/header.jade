@@ -37,6 +37,10 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
                   a.dropdown-item(href='/users/manage')
                     i.fa.fa-users
                     | Manage Users
+                if user.roles.core || user.roles.superAdmin
+                  a.dropdown-item(href='/contact/edit')
+                    i.fa.fa-envelope-o
+                    | Manage Contact Page
                 if user.roles.superAdmin
                   a.dropdown-item(href='/brigade')
                     i.fa.fa-home
