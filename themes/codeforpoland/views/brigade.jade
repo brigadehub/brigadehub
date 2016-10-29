@@ -384,6 +384,16 @@ block content
         .col-sm-7
           input.form-control(type='meetup-client-secret', name='meetup-client-secret', secret='meetup-client-secret', value='#{brigade.auth.meetup.consumerSecret}')
     .row
+      h4 Tracking Keys
+      .form-group
+        label.col-sm-3.control-label(for='google-analytics-id') Google Analytics ID
+        .col-sm-7
+          input.form-control(type='google-analytics-id', name='google-analytics-id', id='google-analytics-id', value='#{brigade.auth.google.analyticsId}', placeholder='UA-XXXXX-X')
+      .form-group
+        label.col-sm-3.control-label(for='segment-write-key') Segment Write Key
+        .col-sm-7
+          input.form-control(type='segment-write-key', name='segment-write-key', secret='segment-write-key', value='#{brigade.auth.segment.writeKey}', placeholder='03714example5703a830b0d0fe230f24')
+    .row
       h4 Contact form email credentials
       .form-group
         label.col-sm-3.control-label(for='emailuser') Brigade email
