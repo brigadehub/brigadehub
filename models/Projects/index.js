@@ -7,21 +7,20 @@ const fetchGithubRepos = require('./fetchGithubRepos')
 var projectsSchema = new mongoose.Schema(schema)
 
 projectsSchema.statics.fetchGithubRepos = fetchGithubRepos
-projectsSchema.pre('save', function(project, next) {
-  const saveUsersCalls = []
-  if(project.leads && project.leads.length) {
-
+projectsSchema.pre('save', function (project, next) {
+  // const saveUsersCalls = []
+  if (project.leads && project.leads.length) {
   }
   next(null, project)
 })
-projectsSchema.post('find', function(projects, next) {
+projectsSchema.post('find', function (projects, next) {
   const fetchMemberCalls = []
-  for (index in projects) {
+  for (let index in projects) {
     const project = projects[index]
     fetchMemberCalls.push(fetchMembers(project, index))
   }
   Promise.all(fetchMemberCalls).then((results) => {
-    for (resultIndex in results) {
+    for (let resultIndex in results) {
       const result = results[resultIndex]
       projects[result.index].leads = result.leads
       projects[result.index].members = result.members
@@ -30,25 +29,24 @@ projectsSchema.post('find', function(projects, next) {
   }).catch((err) => {
     next(err)
   })
-});
-projectsSchema.post('findOne', function(project, next) {
-  const thisSlug = project.id
-  fetchMembers(project).then(function(results){
+})
+projectsSchema.post('findOne', function (project, next) {
+  fetchMembers(project).then(function (results) {
     project.leads = results.leads
     project.members = results.members
     next(null, project)
   }).catch((err) => {
     next(err)
   })
-});
+})
 function fetchMembers (project, index) {
   return new Promise((resolve, reject) => {
     Users.find({ 'teams.project': project.id }, (err, members) => {
       if (err) return reject(err)
-      console.log( project.id,'members', members.length)
+      console.log(project.id, 'members', members.length)
       Users.find({ 'teams.lead': project.id }, (err, leads) => {
-        if (err) return next(err)
-        console.log( project.id,'leads', leads.length)
+        if (err) return reject(err)
+        console.log(project.id, 'leads', leads.length)
         resolve({leads: leads, members: members, index: index})
       })
     })
