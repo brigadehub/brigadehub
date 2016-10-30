@@ -7,9 +7,9 @@ block content
       | &nbsp;&nbsp;/&nbsp;
       a(href='/projects') Projects
       | &nbsp;&nbsp;/&nbsp;
-      a(href='/projects/#{project.name}') #{project.name}
+      a(href='/projects/#{project.id}') #{project.name}
       | &nbsp;&nbsp;/&nbsp;
-      a(href='/projects/#{project.name}/settings') Settings
+      a(href='/projects/#{project.id}/settings') Settings
   .page-header
     h3 Project Settings
     form.row.form-horizontal(action='/projects/#{project.id}', method='POST')
