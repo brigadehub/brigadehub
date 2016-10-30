@@ -16,7 +16,7 @@ html
       window.__bh = {
         version: '#{brigade.buildVersion}'
       }
-  body(data-view="#{view}")
+  body(data-view="#{view}", onbeforeunload='window.clearInterval(window.polling)')
     include partials/header
 
     .container

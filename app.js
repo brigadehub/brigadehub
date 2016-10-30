@@ -56,6 +56,8 @@ var contactCtrl = require('./controllers/contact')
 var usersCtrl = require('./controllers/user')
 var brigadeCtrl = require('./controllers/brigade')
 var checkinCtrl = require('./controllers/checkin')
+var dashboardCtrl = require('./controllers/dashboard')
+var APIctrl = require('./controllers/api')
 
 /*
  * Helpers
@@ -89,7 +91,6 @@ mongoose.connection.on('error', function (err) {
  * Check Model Settings in db
  */
 var Brigade = require('./models/Brigade')
-var User = require('./models/Users')
 
 /**
  * Express configuration.
@@ -160,12 +161,13 @@ app.use(lusca({
   xssProtection: true
 }))
 function shouldSaveReturnToPath (path) {
-  if (
+  if ( // blacklist redirectTo URLs
     path.indexOf('/css/') < 0 &&
     path.indexOf('/js/') < 0 &&
     path.indexOf('/fonts/') < 0 &&
     path.indexOf('/img/') < 0 &&
     path.indexOf('/auth/') < 0 &&
+    path.indexOf('/api/') < 0 &&
     path.indexOf('/login') < 0 &&
     path.indexOf('/logout') < 0
   ) return true
@@ -174,38 +176,14 @@ function shouldSaveReturnToPath (path) {
 app.use(function (req, res, next) {
   // check postAuthLink and see if going to auth callback
   if (shouldSaveReturnToPath(req.path)) {
+    console.log('returnTo', req.path)
     req.session.returnTo = req.path
-  }
-  if (req.user && req.user.postAuthLink && req.user.postAuthLink.length) {
-    console.log('req.user.postAuthLink present!', req.user.postAuthLink)
-    if (
-      !(/auth\/github\/callback/i.test(req.path)) &&
-      !(/auth\/github\/elevate/i.test(req.path))
-
-    ) {
-      console.log('path not callback or elevate!', req.path)
-      return User.findById(req.user.id, function (err, user) {
-        if (err) console.error(err)
-        user.postAuthLink = req.user.postAuthLink = ''
-        user.save(function (err) {
-          if (err) console.error(err)
-          res.locals.user = req.user
-          next()
-        })
-      })
-    }
   }
   res.locals.user = req.user
   next()
 })
 app.use(function (req, res, next) {
   req.previousURL = req.header('Referer') || '/'
-  next()
-})
-app.use(function (req, res, next) {
-  if (/api/i.test(req.path)) {
-    req.session.returnTo = req.path
-  }
   next()
 })
 
@@ -236,6 +214,12 @@ app.post('/contact/message/new',
   contactCtrl.postContactMessage)
 
 /**
+ *  API routes
+ */
+
+app.get('/api/models/:model', APIctrl.get.models)
+
+/**
  * Meta Routes
  */
 
@@ -253,6 +237,11 @@ app.post('/brigade',
   passportConf.checkRoles(['superAdmin']),
   passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
   brigadeCtrl.postBrigade)
+app.get('/brigade/dashboard',
+  passportConf.isAuthenticated,
+  passportConf.checkRoles(['superAdmin']),
+  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
+  dashboardCtrl.getDashboard)
 
 /**
  * Meta Routes
@@ -458,9 +447,8 @@ app.get('/auth/github', passport.authenticate('github', {
 }))
 app.get('/auth/github/elevate', passportConf.elevateScope)
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function (req, res) {
-  console.log('new github callback!', req.user.postAuthLink)
-  req.user.postAuthLink = req.user.postAuthLink || ''
-  res.redirect(req.session.returnTo || (req.user.postAuthLink.length ? req.user.postAuthLink : '/'))
+  console.log('new github callback!', req.session.returnTo)
+  res.redirect(req.session.returnTo || '/')
 })
 app.get('/auth/meetup', passport.authenticate('meetup', { scope: ['basic', 'rsvp'] }))
 app.get('/auth/meetup/callback', passport.authenticate('meetup', { failureRedirect: '/account' }), function (req, res) {

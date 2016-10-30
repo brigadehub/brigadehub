@@ -14,7 +14,9 @@ var defaultHeaders = {
 var userSchema = new mongoose.Schema({
   username: { type: String, unique: true },
   email: {type: String, default: ''},
-  lastCheckin: {type: Date},
+  createdAt: {type: Date, default: ''},
+  lastLoggedIn: {type: Date, default: ''},
+  lastCheckin: {type: Date, default: ''},
   mailingList: {type: Boolean, default: false},
   referredBy: {type: String, default: ''},
   skills: {type: Array, default: []},

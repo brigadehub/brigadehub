@@ -8,6 +8,7 @@ module.exports = function syncUser (doc, user) {
     user.teams.project = user.teams.project.concat(doc.teams)
     user.teams.project = _.uniq(user.teams.project)
     user.teams.project = _.difference(user.teams.project, user.teams.lead)
+    user.createdAt = doc.date
     user.lastCheckin = doc.date
     user.email = doc.email
     user.mailingList = user.mailingList || doc.mailingList

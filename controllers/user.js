@@ -56,7 +56,9 @@ module.exports = {
    * Log out.
    */
   getLogout: function (req, res) {
+    console.log(req.session.returnTo)
     req.logout()
+    console.log(req.session.returnTo)
     res.redirect(req.session.returnTo || '/')
   },
 
