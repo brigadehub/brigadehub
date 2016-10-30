@@ -49,10 +49,10 @@ module.exports = {
         if (err) console.error(err)
         if (!req.query.showall) {
           foundProjects = foundProjects.filter((project) => {
-            console.log(project)
             return project.active
           })
         }
+        console.log(foundProjects[0].leads)
         res.render(res.locals.brigade.theme.slug + '/views/projects/index', {
           view: 'project-list',
           title: 'Projects',
@@ -76,6 +76,7 @@ module.exports = {
     Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
       if (err) console.error(err)
       console.log(foundProjects)
+
       res.render(res.locals.brigade.theme.slug + '/views/projects/manage', {
         view: 'project-list-manage',
         title: 'Manage Projects',
@@ -253,7 +254,6 @@ module.exports = {
         console.log(req.body)
         thisProject.categories = []
         thisProject.needs = []
-        thisProject.team = []
         thisProject.data = []
         thisProject.keywords = []
         thisProject.name = req.body.title || ''
@@ -269,17 +269,8 @@ module.exports = {
         thisProject.content = req.body.content || ''
         thisProject.thumbnailUrl = req.body.thumbnailUrl || ''
         thisProject.bannerUrl = req.body.bannerUrl || ''
-        if (req.body.team) {
-          if (typeof req.body.team === 'string' && req.body.team.indexOf(',') > -1) {
-            req.body.team.replace(/\s/g, '').split(',').forEach(function (member) {
-              thisProject.team.push(member)
-            })
-          } else if (typeof req.body.team === 'string') {
-            thisProject.team.push(req.body.team)
-          } else {
-            thisProject.team = thisProject.team.concat(req.body.team)
-          }
-        }
+        thisProject.leads = req.body.leads || []
+        thisProject.members = req.body.members || []
         if (req.body.needs) {
           if (typeof req.body.needs === 'string' && req.body.needs.indexOf(',') > -1) {
             req.body.needs.replace(/\s/g, '').split(',').forEach(function (need) {

@@ -29,6 +29,7 @@ var userSchema = new mongoose.Schema({
     superAdmin: {type: Boolean, default: false}
   },
   teams: {
+    lead: { type: Array, default: [] },
     project: { type: Array, default: [] },
     core: { type: Array, default: [] }
   },
