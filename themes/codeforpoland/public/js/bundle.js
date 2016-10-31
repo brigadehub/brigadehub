@@ -5334,7 +5334,8 @@ $(document).ready(function () {
         {
           hint: true,
           highlight: true,
-          minLength: 2
+          minLength: 2,
+          trimValue: true
         }
       ]
     })
