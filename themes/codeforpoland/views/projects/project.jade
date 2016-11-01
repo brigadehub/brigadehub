@@ -61,11 +61,20 @@ block content
                 span Maintained by
                 span.info= project.bornAt
               .meta.meta-team.clearfix
-                span Team
+                span 
+                  | Project Lead
+                  if project.leads.length > 1
+                    | s
                 span.info.infobox
-                  for member in project.team
-                    a(href='#').meta-teammember
-                      img(src='#{member.avatar}')
+                  for lead in project.leads
+                    a(href='https://github.com/#{lead.username}', target="_blank").meta-teammember
+                      img(src='#{lead.profile.picture}')
+              .meta.meta-team.clearfix
+                span Project Members
+                span.info.infobox
+                  for member in project.members
+                    a(href='https://github.com/#{member.username}', target="_blank").meta-teammember
+                      img(src='#{member.profile.picture}')
               .meta.meta-needs.clearfix
                 span Current Needs
                 span.info.infobox
