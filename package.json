@@ -121,6 +121,7 @@
         "feature",
         "hotfix",
         "release",
+        "refactor",
         "bugfix",
         "docs"
       ],
