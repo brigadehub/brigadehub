@@ -3,7 +3,7 @@ sudo: false
 services:
 - mongodb
 node_js:
-- '4'
+- '6'
 install:
 - npm install --no-shrinkwrap
 notifications:

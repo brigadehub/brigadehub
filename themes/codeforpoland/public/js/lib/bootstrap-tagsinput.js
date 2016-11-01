@@ -80,7 +80,6 @@
 
       // Trim value
       if (typeof item === "string") {
-        console.log('trimming', item)
         item = $.trim(item);
       }
 
