@@ -17,7 +17,7 @@ for (var i = 0; i < 30; i++) {
     'title': wisdom + i,
     'author': ['fakeUser', 'spiffysparrow', 'happyPoster'][Math.floor(Math.random() * 3)],
     'url': '',
-    'image': 'http://i.imgur.com/MRgvL1K.png',
+    'image': 'http://i.imgur.com/2lHqtJ7.png',
     'description': faker.lorem.sentence(30),
     'content': '# Example post\n\nThis is a test post\n\n- one\n- two\n\ntest | test2\n---- | -----\ntester | tester2\n\n',
     'date': 'Wed Mar 30 2016 18:51:00 GMT-0700 (PDT)',
