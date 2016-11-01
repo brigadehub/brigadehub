@@ -4,7 +4,7 @@ block content
   .row.breadcrumbs
     .col-sm-12
       a(href='/')= brigade.name
-      | &nbsp;&nbsp;/&nbsp; 
+      | &nbsp;&nbsp;/&nbsp;
       a(href='/contact') Contact
   .row.page-header
     .col-sm-12
@@ -15,7 +15,7 @@ block content
     .col-sm-9
       .row
       each user in users
-        .col-sm-6
+        .col-sm-6.contacts
           .row
             .col-sm-3
                 img(src="#{user.profile.picture}", width='80')
@@ -27,17 +27,17 @@ block content
               if user.profile.position
                 p #{user.profile.position}
               else
-                p position placeholder
+                p #{brigade.name} Member
               if (user.profile.showcontact && user.email)
                 p
                   a(href="mailto: #{user.email}") email
-    .col-sm-3
-      h2 See Also
-      img(src="http://lorempixel.com/g/240/240/")
-      p
-        a(href="#") Visualization Budget Lodz
-      p We visualize the budget of the city of Lodz
-      img(src="http://lorempixel.com/g/240/240/")
+    //- .col-sm-3
+    //-   h2 See Also
+    //-   img(src="http://lorempixel.com/g/240/240/")
+    //-   p
+    //-     a(href="#") Visualization Budget Lodz
+    //-   p We visualize the budget of the city of Lodz
+    //-   img(src="http://lorempixel.com/g/240/240/")
   hr
   .row
     h5.text-xs-center Send a message to the brigade:

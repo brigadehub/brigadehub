@@ -155,7 +155,7 @@ nav + .container {
   }
 }
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .delete-checkbox {
@@ -208,6 +208,11 @@ input {
 .bootstrap-tagsinput {
   width: 100%;
 }
+.strong {
+  font-weight:bold !important;
+}
+
+
 // Import view specific styles
 
 @import 'views/account-settings';
@@ -217,6 +222,7 @@ input {
 @import 'views/blog-post-new';
 @import 'views/blog-post';
 @import 'views/brigade-manage';
+@import 'views/checkin';
 @import 'views/contact-edit';
 @import 'views/contact';
 @import 'views/event-list-manage';

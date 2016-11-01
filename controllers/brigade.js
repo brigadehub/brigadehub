@@ -137,6 +137,8 @@ exports.postBrigade = function (req, res, next) {
       thisBrigade.auth.github.clientSecret = req.body['github-client-secret']
       thisBrigade.auth.meetup.consumerKey = req.body['meetup-client-id']
       thisBrigade.auth.meetup.consumerSecret = req.body['meetup-client-secret']
+      thisBrigade.auth.google.analyticsId = req.body['google-analytics-id']
+      thisBrigade.auth.segment.writeKey = req.body['segment-write-key']
       thisBrigade.auth.email.user = req.body['emailuser']
       thisBrigade.auth.email.password = req.body['emailpass']
     }

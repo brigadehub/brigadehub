@@ -29,6 +29,8 @@
     }
   }
   ul[data-sidebar]{
+    margin: 0;
+    padding: 0;
     li{
       display:inline-block;
       padding:2.5px;
@@ -40,6 +42,16 @@
   }
   .project-list-card {
     width:100%;
+    h3 {
+      .badge {
+        background-color: #808080;
+        border: none;
+        font-size: 12px;
+        &.active {
+          background-color:#d9a441;
+        }
+      }
+    }
     span.thumbnail {
       display:block;
       width:370px;

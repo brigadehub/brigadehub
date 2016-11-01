@@ -19,12 +19,13 @@ block content
       table.table
         thread
           tr
-            th Published?
+            th Published
+            th Active
             th Project Name
             th Project Repo
             th Project Description
             th Project Homepage
-            th 
+            th
             th Delete?
         tbody
           each project in projects
@@ -34,6 +35,11 @@ block content
                   input(type='checkbox', checked, name='#{project.id}[published]', id='published')
                 else
                   input(type='checkbox', name='#{project.id}[published]', id='published')
+              td
+                if project.active
+                  input(type='checkbox', checked, name='#{project.id}[active]', id='active')
+                else
+                  input(type='checkbox', name='#{project.id}[active]', id='active')
               td
                 input(type='text', name='#{project.id}[name]', value='#{project.name}')
                 td.id
