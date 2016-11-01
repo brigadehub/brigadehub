@@ -1,4 +1,5 @@
 var mongoose = require('mongoose')
+var _ = require('lodash')
 var Users = require('../Users')
 
 const schema = require('./schema')
@@ -7,19 +8,37 @@ const fetchGithubRepos = require('./fetchGithubRepos')
 var projectsSchema = new mongoose.Schema(schema)
 
 projectsSchema.statics.fetchGithubRepos = fetchGithubRepos
-projectsSchema.pre('save', function (project, next) {
-  // const saveUsersCalls = []
+projectsSchema.pre('save', function (next) {
+  const project = this
+  const saveContributorsCalls = []
   if (project.leads && project.leads.length) {
+    for (let leadIndex in project.leads) {
+      const lead = project.leads[leadIndex]
+      saveContributorsCalls.push(saveContributor('lead', project, lead))
+    }
   }
-  next(null, project)
+  if (project.members && project.members.length) {
+    for (let memberIndex in project.members) {
+      const member = project.members[memberIndex]
+      saveContributorsCalls.push(saveContributor('project', project, member))
+    }
+  }
+  Promise.all(saveContributorsCalls).then(function (results) {
+    if (project.leads) delete project.leads
+    if (project.members) delete project.members
+    next()
+  }).catch((err) => {
+    console.error(err)
+    next(err)
+  })
 })
 projectsSchema.post('find', function (projects, next) {
-  const fetchMemberCalls = []
+  const fetchContributorCalls = []
   for (let index in projects) {
     const project = projects[index]
-    fetchMemberCalls.push(fetchMembers(project, index))
+    fetchContributorCalls.push(fetchContributors(project, index))
   }
-  Promise.all(fetchMemberCalls).then((results) => {
+  Promise.all(fetchContributorCalls).then((results) => {
     for (let resultIndex in results) {
       const result = results[resultIndex]
       projects[result.index].leads = result.leads
@@ -31,7 +50,7 @@ projectsSchema.post('find', function (projects, next) {
   })
 })
 projectsSchema.post('findOne', function (project, next) {
-  fetchMembers(project).then(function (results) {
+  fetchContributors(project).then(function (results) {
     project.leads = results.leads
     project.members = results.members
     next(null, project)
@@ -39,15 +58,26 @@ projectsSchema.post('findOne', function (project, next) {
     next(err)
   })
 })
-function fetchMembers (project, index) {
+function fetchContributors (project, index) {
   return new Promise((resolve, reject) => {
     Users.find({ 'teams.project': project.id }, (err, members) => {
       if (err) return reject(err)
-      console.log(project.id, 'members', members.length)
       Users.find({ 'teams.lead': project.id }, (err, leads) => {
         if (err) return reject(err)
-        console.log(project.id, 'leads', leads.length)
         resolve({leads: leads, members: members, index: index})
+      })
+    })
+  })
+}
+function saveContributor (type, project, contributorUsername) {
+  return new Promise((resolve, reject) => {
+    Users.findOne({ username: contributorUsername }, (err, member) => {
+      if (err) return reject(err)
+      member.teams[type].push(project.id)
+      member.teams[type] = _.uniq(member.teams[type])
+      member.save(function (err, member) {
+        if (err) return reject(err)
+        resolve(member)
       })
     })
   })
@@ -60,7 +90,7 @@ projectsSchema.statics.fetchGitHubUsers = function (users, cb) {
   function getUser (username) {
     return new Promise(function (resolve, reject) {
       Users.findOne({'username': username}, function (err, foundUser) {
-        if (err) console.log(err)
+        if (err) console.error(err)
         if (foundUser) {
           resolve(foundUser)
         } else {

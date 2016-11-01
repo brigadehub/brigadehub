@@ -52,7 +52,6 @@ module.exports = {
             return project.active
           })
         }
-        console.log(foundProjects[0].leads)
         res.render(res.locals.brigade.theme.slug + '/views/projects/index', {
           view: 'project-list',
           title: 'Projects',
@@ -75,7 +74,6 @@ module.exports = {
   getProjectsManage: function (req, res) {
     Projects.find({brigade: res.locals.brigade.slug}, function (err, foundProjects) {
       if (err) console.error(err)
-      console.log(foundProjects)
 
       res.render(res.locals.brigade.theme.slug + '/views/projects/manage', {
         view: 'project-list-manage',
@@ -229,7 +227,7 @@ module.exports = {
    */
   getProjectsIDSettings: function (req, res) {
     Projects.find({'id': req.params.projectId}, function (err, foundProject) {
-      if (err) console.log(err)
+      if (err) console.error(err)
       Users.find({}, function (err, allUsers) {
         if (err) console.error(err)
         res.render(res.locals.brigade.theme.slug + '/views/projects/settings', {
@@ -248,55 +246,55 @@ module.exports = {
    */
   postProjectsIDSettings: function (req, res) {
     Projects.find({'id': req.params.projectId}, function (err, foundProject) {
-      if (err) console.log(err)
-      var thisProject = foundProject[0]
-      if (thisProject) {
-        console.log(req.body)
-        thisProject.categories = []
-        thisProject.needs = []
-        thisProject.data = []
-        thisProject.keywords = []
-        thisProject.name = req.body.title || ''
-        thisProject.id = slug(thisProject.name)
-        thisProject.active = req.body.active || false
-        console.log(req.body.active)
-        thisProject.status = req.body.status || ''
-        thisProject.politicalEntity = req.body.politicalEntity || ''
-        thisProject.geography = req.body.geography || ''
-        thisProject.homepage = req.body.homepage || ''
-        thisProject.repository = req.body.repository || ''
-        thisProject.description = req.body.description || ''
-        thisProject.content = req.body.content || ''
-        thisProject.thumbnailUrl = req.body.thumbnailUrl || ''
-        thisProject.bannerUrl = req.body.bannerUrl || ''
-        thisProject.leads = req.body.leads || []
-        thisProject.members = req.body.members || []
+      if (err) console.error(err)
+      var project = foundProject[0]
+      if (project) {
+        project.categories = []
+        project.needs = []
+        project.data = []
+        project.keywords = []
+        project.name = req.body.title || ''
+        project.id = slug(project.name)
+        project.active = req.body.active || false
+        project.status = req.body.status || ''
+        project.politicalEntity = req.body.politicalEntity || ''
+        project.geography = req.body.geography || ''
+        project.homepage = req.body.homepage || ''
+        project.repository = req.body.repository || ''
+        project.description = req.body.description || ''
+        project.content = req.body.content || ''
+        project.thumbnailUrl = req.body.thumbnailUrl || ''
+        project.bannerUrl = req.body.bannerUrl || ''
+        project.leads = req.body.leads || []
+        if (typeof project.leads === 'string') project.leads = [project.leads]
+        project.members = req.body.members || []
+        if (typeof project.members === 'string') project.members = [project.members]
         if (req.body.needs) {
           if (typeof req.body.needs === 'string' && req.body.needs.indexOf(',') > -1) {
             req.body.needs.replace(/\s/g, '').split(',').forEach(function (need) {
-              thisProject.needs.push(need)
+              project.needs.push(need)
             })
           } else if (typeof req.body.needs === 'string') {
-            thisProject.needs.push(req.body.needs)
+            project.needs.push(req.body.needs)
           } else {
-            thisProject.needs = thisProject.needs.concat(req.body.needs)
+            project.needs = project.needs.concat(req.body.needs)
           }
         }
         if (req.body.keywords) {
           if (typeof req.body.keywords === 'string' && req.body.keywords.indexOf(',') > -1) {
             req.body.keywords.replace(/\s/g, '').split(',').forEach(function (keyword) {
-              thisProject.keywords.push(keyword)
+              project.keywords.push(keyword)
             })
           } else if (typeof req.body.keywords === 'string') {
-            thisProject.keywords.push(req.body.keywords)
+            project.keywords.push(req.body.keywords)
           } else {
-            thisProject.keywords = thisProject.keywords.concat(req.body.keywords)
+            project.keywords = project.keywords.concat(req.body.keywords)
           }
         }
-        return thisProject.save(function (err) {
-          if (err) console.log(err)
+        return project.save(function (err) {
+          if (err) console.error(err)
           req.flash('success', { msg: 'Success! You have updated your project.' })
-          res.redirect('/projects/' + thisProject.id + '/settings')
+          res.redirect('/projects/' + project.id + '/settings')
         })
       }
       req.flash('errors', { msg: 'Could not find project with id ' + req.params.projectId })
@@ -320,7 +318,7 @@ module.exports = {
   postDeleteProject: function (req, res) {
     Projects.remove({id: req.params.projectId}, function (err) {
       if (err) {
-        console.log(err)
+        console.error(err)
         return res.redirect('/projects/' + req.params.projectId)
       } else {
         req.flash('success', {msg: 'Your project was deleted.'})
