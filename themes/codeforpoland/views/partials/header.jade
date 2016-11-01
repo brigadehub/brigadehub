@@ -19,38 +19,44 @@ nav.navbar.navbar-light.bg-faded.navbar-fixed-top
                 else
                   img(src='#{user.gravatar(32)}')
               .dropdown-menu
+                if user.roles.project && user.teams.project.length !== 0
+                  a.dropdown-item.header Projects
+                  each project in user.teams.project
+                    a.dropdown-item(href='/projects/'+project)=project
                 if user.roles.blog || user.roles.lead || user.roles.core || user.roles.superAdmin
+                  if user.roles.project && user.teams.project.length !== 0
+                    a.dropdown-item.divider
                   a.dropdown-item.header Management
-                if user.roles.blog || user.roles.lead || user.roles.core || user.roles.superAdmin
-                  a.dropdown-item(href='/blog/manage')
-                    i.fa.fa-th
-                    | Manage Blog Posts
                 if user.roles.core || user.roles.superAdmin
-                  a.dropdown-item(href='/events/manage')
-                    i.fa.fa-calendar
-                    | Manage Events
+                  a.dropdown-item(href='/brigade/dashboard')
+                    i.fa.fa-tachometer
+                    | Admin Dashboard
+                if user.roles.superAdmin
+                  a.dropdown-item(href='/brigade')
+                    i.fa.fa-home
+                    | Manage Brigade
+                if user.roles.core || user.roles.superAdmin
+                  a.dropdown-item(href='/users/manage')
+                    i.fa.fa-users
+                    | Manage Users
                 if user.roles.lead || user.roles.core || user.roles.superAdmin
                   a.dropdown-item(href='/projects/manage')
                     i.fa.fa-wrench
                     | Manage Projects
                 if user.roles.core || user.roles.superAdmin
-                  a.dropdown-item(href='/users/manage')
-                    i.fa.fa-users
-                    | Manage Users
+                  a.dropdown-item(href='/events/manage')
+                    i.fa.fa-calendar
+                    | Manage Events
+                if user.roles.blog || user.roles.lead || user.roles.core || user.roles.superAdmin
+                  a.dropdown-item(href='/blog/manage')
+                    i.fa.fa-th
+                    | Manage Blog Posts
                 if user.roles.core || user.roles.superAdmin
                   a.dropdown-item(href='/contact/edit')
                     i.fa.fa-envelope-o
                     | Manage Contact Page
-                if user.roles.superAdmin
-                  a.dropdown-item(href='/brigade')
-                    i.fa.fa-home
-                    | Manage Brigade
-                if user.roles.project && user.teams.project.length !== 0
+                if (user.roles.project && user.teams.project.length !== 0) || (user.roles.blog || user.roles.lead || user.roles.core || user.roles.superAdmin)
                   a.dropdown-item.divider
-                  a.dropdown-item.header Projects
-                  each project in user.teams.project
-                    a.dropdown-item(href='/projects/'+project)=project
-                a.dropdown-item.divider
                 a.dropdown-item.header Account
                 a.dropdown-item(href='/account')
                   i.fa.fa-cog

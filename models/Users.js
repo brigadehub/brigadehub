@@ -14,11 +14,17 @@ var defaultHeaders = {
 var userSchema = new mongoose.Schema({
   username: { type: String, unique: true },
   email: {type: String, default: ''},
-  /* password: {type:String, default:''},*/
+  createdAt: {type: Date, default: ''},
+  lastLoggedIn: {type: Date, default: ''},
+  lastCheckin: {type: Date, default: ''},
+  mailingList: {type: Boolean, default: false},
+  referredBy: {type: String, default: ''},
+  skills: {type: Array, default: []},
   github: {type: String, default: ''},
   tokens: {type: Array, default: []},
   scopes: {type: Array, default: []},
   postAuthLink: {type: String, default: ''},
+
   roles: {
     read: {type: Boolean, default: true},
     blog: {type: Boolean, default: false},
