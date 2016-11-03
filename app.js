@@ -4,6 +4,13 @@
 require('node-version-checker')
 
 /**
+ *  Set up RELATIVE REQUIRE PATHING
+ *  e.g. require('models/Posts')
+ *       instead of require('../../../../../models/Posts')
+ */
+require('app-module-path/register')
+
+/**
  * Module dependencies.
  */
 var express = require('express')
@@ -45,19 +52,21 @@ var DB_INSTANTIATED
  * Default path: .env
  */
 require('./dotenv.js')()
+
 /**
  * Controllers (route handlers).
  */
-var homeCtrl = require('./controllers/home')
 var eventsCtrl = require('./controllers/events')
 var blogCtrl = require('./controllers/blog')
 var projectsCtrl = require('./controllers/projects')
 var contactCtrl = require('./controllers/contact')
-var usersCtrl = require('./controllers/user')
 var brigadeCtrl = require('./controllers/brigade')
 var checkinCtrl = require('./controllers/checkin')
 var dashboardCtrl = require('./controllers/dashboard')
 var APIctrl = require('./controllers/api')
+
+const controllers = requireDir('./controllers', {recurse: true})
+const middleware = requireDir('./middleware', {recurse: true})
 
 /*
  * Helpers
@@ -65,11 +74,6 @@ var APIctrl = require('./controllers/api')
 var helpers = requireDir('./helpers')
 
 var brigadeDetails
-
-/**
- * API keys and Passport configuration.
- */
-var passportConf = require('./config/passport')
 
 /**
  * Create Express server.
@@ -145,7 +149,13 @@ app.use(function (req, res, next) {
     if (!analytics && res.locals.brigade.auth.segment.writeKey.length) {
       analytics = new Analytics(res.locals.brigade.auth.segment.writeKey)
     }
-    req.analytics = analytics || { track: () => {}, page: () => {}, identify: () => {}, group: () => {}, alias: () => {} }
+    req.analytics = analytics || {
+      track: () => {},
+      page: () => {},
+      identify: () => {},
+      group: () => {},
+      alias: () => {}
+    }
 
     res.locals.brigade.buildVersion = pkg.version
     helpers.tokenLoader(passport, res.locals.brigade.auth)
@@ -169,8 +179,9 @@ function shouldSaveReturnToPath (path) {
     path.indexOf('/auth/') < 0 &&
     path.indexOf('/api/') < 0 &&
     path.indexOf('/login') < 0 &&
+    path.indexOf('/favico') < 0 &&
     path.indexOf('/logout') < 0
-  ) return true
+    ) return true
   return false
 }
 app.use(function (req, res, next) {
@@ -188,30 +199,79 @@ app.use(function (req, res, next) {
 })
 
 /**
- * Primary app routes.
+ *  Dynamically Generated Routes
  */
-app.get('/', homeCtrl.index)
-app.get('/login', usersCtrl.getLogin)
-app.post('/login', usersCtrl.postLogin)
-app.get('/login/edit',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  usersCtrl.getLoginEdit)
-app.post('/login/edit',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  usersCtrl.postLoginEdit)
-app.get('/logout', usersCtrl.getLogout)
+
+/**
+ * Static param routes.
+ */
+const dynamicRoutes = {}
+for (let ctrlFolderName in controllers) {
+  const ctrlFolder = controllers[ctrlFolderName]
+  if (_.isObject(ctrlFolder)) {
+    for (let ctrlName in ctrlFolder) {
+      const ctrl = ctrlFolder[ctrlName]
+      if (ctrl.endpoint) {
+        if (ctrl.endpoint.indexOf(':') > -1) {
+          const endpointArray = ctrl.endpoint.split(':')
+          const dynamicLevel = endpointArray.length - 1
+          dynamicRoutes[dynamicLevel] = dynamicRoutes[dynamicLevel] || []
+          dynamicRoutes[dynamicLevel].push(ctrl)
+        } else {
+          constructEndpoint(ctrl, app)
+        }
+      }
+    }
+  }
+}
+
+/**
+ *  Dynamic param routes
+ */
+
+for (let dynamicLevel in dynamicRoutes) {
+  const ctrls = dynamicRoutes[dynamicLevel]
+  for (let ctrlIndex in ctrls) {
+    const ctrl = ctrls[ctrlIndex]
+    if (ctrl.endpoint) {
+      constructEndpoint(ctrl, app)
+    }
+  }
+}
+
+/**
+ * constructEndpoint - Instantiate express routes
+ *
+ * @param  {Object} ctrl controller object
+ * @param  {Object} app  Express Application
+ */
+function constructEndpoint (ctrl, app) {
+  let ctrlParams = [ctrl.endpoint]
+  if (ctrl.authenticated) ctrlParams.push(middleware.passport.isAuthenticated)
+  if (ctrl.roles) ctrlParams.push(middleware.passport.checkRoles(ctrl.roles))
+  if (ctrl.scopes) ctrlParams.push(middleware.passport.checkScopes(ctrl.scopes))
+
+  // set other middleware
+  ctrl.middleware = ctrl.middleware.map(function (mwName) {
+    return middleware[mwName]
+  })
+  ctrlParams = ctrlParams.concat(ctrl.middleware)
+
+  // set final controller
+  ctrlParams.push(ctrl.controller)
+
+  // apply configuration and run on express
+  app[ctrl.method].apply(app, ctrlParams)
+}
+
+/**
+ *  Resume normal routes
+ */
+
 app.get('/contact', contactCtrl.getContact)
 app.post('/contact', contactCtrl.postContact)
-app.get('/contact/edit',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  contactCtrl.getContactEdit)
-app.post('/contact/message/new',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  contactCtrl.postContactMessage)
+app.get('/contact/edit', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), contactCtrl.getContactEdit)
+app.post('/contact/message/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), contactCtrl.postContactMessage)
 
 /**
  *  API routes
@@ -223,25 +283,9 @@ app.get('/api/models/:model', APIctrl.get.models)
  * Meta Routes
  */
 
-app.get('/account', passportConf.isAuthenticated, usersCtrl.getAccount)
-app.post('/account/profile', passportConf.isAuthenticated, usersCtrl.postUpdateProfile)
-app.post('/account/delete', passportConf.isAuthenticated, usersCtrl.postDeleteAccount)
-
-app.get('/brigade',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  brigadeCtrl.getBrigade)
-app.post('/brigade',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  brigadeCtrl.postBrigade)
-app.get('/brigade/dashboard',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  dashboardCtrl.getDashboard)
+app.get('/brigade', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), brigadeCtrl.getBrigade)
+app.post('/brigade', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), brigadeCtrl.postBrigade)
+app.get('/brigade/dashboard', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), dashboardCtrl.getDashboard)
 
 /**
  * Meta Routes
@@ -254,198 +298,61 @@ app.post('/checkin', checkinCtrl.postCheckin)
  * Project routes.
  */
 app.get('/projects', projectsCtrl.getProjects)
-app.get('/projects/manage',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['lead', 'core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo']),
-  projectsCtrl.getProjectsManage)
-app.post('/projects/manage',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['lead', 'core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo']),
-  projectsCtrl.postProjectsManage)
-app.post('/projects/sync',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  projectsCtrl.postProjectsSync)
-app.get('/projects/new', passportConf.isAuthenticated, projectsCtrl.getProjectsNew)
-app.post('/projects/new', passportConf.isAuthenticated, projectsCtrl.postProjectsNew)
+app.get('/projects/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.getProjectsManage)
+app.post('/projects/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.postProjectsManage)
+app.post('/projects/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), projectsCtrl.postProjectsSync)
+app.get('/projects/new', middleware.passport.isAuthenticated, projectsCtrl.getProjectsNew)
+app.post('/projects/new', middleware.passport.isAuthenticated, projectsCtrl.postProjectsNew)
 app.get('/projects/:projectId', projectsCtrl.getProjectsID)
-app.post('/projects/:projectId',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['lead', 'core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo']),
-  projectsCtrl.postProjectsIDSettings)
-app.get('/projects/:projectId/settings',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['lead', 'core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo']),
-  projectsCtrl.getProjectsIDSettings)
-app.post('/projects/:projectId/sync',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['lead', 'core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo']),
-  projectsCtrl.postProjectsIDSync)
-app.post('/projects/:projectId/delete',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['lead', 'core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo']),
-  projectsCtrl.postDeleteProject)
+app.post('/projects/:projectId', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.postProjectsIDSettings)
+app.get('/projects/:projectId/settings', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.getProjectsIDSettings)
+app.post('/projects/:projectId/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.postProjectsIDSync)
+app.post('/projects/:projectId/delete', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.postDeleteProject)
 
 /**
  * Events routes.
  */
 app.get('/events', eventsCtrl.getEvents)
-app.get('/events/manage',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  eventsCtrl.getEventsManage)
-app.post('/events/manage',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  eventsCtrl.postEventsManage)
-app.post('/events/sync',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  eventsCtrl.postEventsSync)
-app.get('/events/new',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  eventsCtrl.getEventsNew)
-app.post('/events/new',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  eventsCtrl.postEventsNew)
-app.post('/events/delete',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  eventsCtrl.postDeleteAllEvents)
+app.get('/events/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.getEventsManage)
+app.post('/events/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsManage)
+app.post('/events/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsSync)
+app.get('/events/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.getEventsNew)
+app.post('/events/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsNew)
+app.post('/events/delete', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postDeleteAllEvents)
 app.get('/events/:eventId', eventsCtrl.getEventsID)
-app.post('/events/:eventId',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  eventsCtrl.postEventsIDSettings)
-app.get('/events/:eventId/settings',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  eventsCtrl.getEventsIDSettings)
-app.post('/events/:eventId/sync',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  eventsCtrl.postEventsIDSync)
-app.post('/events/:eventId/delete',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  eventsCtrl.postDeleteEvent)
+app.post('/events/:eventId', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsIDSettings)
+app.get('/events/:eventId/settings', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.getEventsIDSettings)
+app.post('/events/:eventId/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsIDSync)
+app.post('/events/:eventId/delete', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postDeleteEvent)
 
 /**
  * Blog routes.
  */
 app.get('/blog', blogCtrl.getBlog)
-app.get('/blog/manage',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
-  blogCtrl.getBlogManage)
-app.post('/blog/manage',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
-  blogCtrl.postBlogManage)
-app.post('/blog/sync/:type',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  blogCtrl.postBlogSync)
-app.get('/blog/new',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
-  blogCtrl.getBlogNew)
-app.post('/blog/new',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
-  blogCtrl.postBlogNew)
+app.get('/blog/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.getBlogManage)
+app.post('/blog/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.postBlogManage)
+app.post('/blog/sync/:type', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), blogCtrl.postBlogSync)
+app.get('/blog/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.getBlogNew)
+app.post('/blog/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.postBlogNew)
 app.get('/blog/post/:blogId', blogCtrl.getBlogID)
-app.post('/blog/post/:blogId',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
-  blogCtrl.postBlogIDEdit)
-app.get('/blog/post/:blogId/edit',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
-  blogCtrl.getBlogIDEdit)
-app.post('/blog/:blogId/sync',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']),
-  blogCtrl.postBlogIDSync)
+app.post('/blog/post/:blogId', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.postBlogIDEdit)
+app.get('/blog/post/:blogId/edit', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.getBlogIDEdit)
+app.post('/blog/:blogId/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.postBlogIDSync)
 
-app.post('/blog/post/:blogId/delete', passportConf.isAuthenticated, blogCtrl.postBlogIDDelete)
-app.get('/author/:authorId', passportConf.isAuthenticated, blogCtrl.getAuthorId)
+app.post('/blog/post/:blogId/delete', middleware.passport.isAuthenticated, blogCtrl.postBlogIDDelete)
+app.get('/author/:authorId', middleware.passport.isAuthenticated, blogCtrl.getAuthorId)
 
 /**
  * Users routes.
  */
-app.get('/users', usersCtrl.getUsers)
-app.get('/users/manage',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  usersCtrl.getUsersManage)
-app.post('/users/manage',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  usersCtrl.postUsersManage)
-app.post('/users/sync',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  usersCtrl.postUsersSync)
-app.get('/users/new',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  usersCtrl.getUsersNew)
-app.post('/users/new',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  usersCtrl.postUsersNew)
-app.get('/users/:userId', usersCtrl.getUsersID)
-app.post('/users/:userId',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  usersCtrl.postUsersIDSettings)
-app.get('/users/:userId/settings',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  usersCtrl.getUsersIDSettings)
-app.post('/users/:userId/sync',
-  passportConf.isAuthenticated,
-  passportConf.checkRoles(['core', 'superAdmin']),
-  passportConf.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']),
-  usersCtrl.postUsersIDSync)
 
 /**
  * OAuth authentication routes. (Sign in)
  */
 app.get('/auth/github', passport.authenticate('github', {
-  scope: [
-    'user',
-    'public_repo'
-  ]
+  scope: [ 'user', 'public_repo' ]
 }))
-app.get('/auth/github/elevate', passportConf.elevateScope)
+app.get('/auth/github/elevate', middleware.passport.elevateScope)
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function (req, res) {
   console.log('new github callback!', req.session.returnTo)
   res.redirect(req.session.returnTo || '/')
@@ -455,7 +362,6 @@ app.get('/auth/meetup/callback', passport.authenticate('meetup', { failureRedire
   res.redirect(req.session.returnTo || '/account')
 })
 
-app.get('/auth/disconnect/:service', passportConf.isAuthenticated, usersCtrl.disconnectService)
 /**
  * Error Handler.
  */

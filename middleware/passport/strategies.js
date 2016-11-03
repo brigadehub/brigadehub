@@ -4,9 +4,9 @@ var request = require('request')
 var LocalStrategy = require('passport-local').Strategy
 var GitHubStrategy = require('passport-github').Strategy
 var MeetupStrategy = require('passport-meetup').Strategy
-var defaultHeaders = require('../config/defaultGithubAPIHeaders')
 
-var User = require('../models/Users')
+var defaultHeaders = require('config/defaultGithubAPIHeaders')
+var User = require('models/Users')
 
 passport.serializeUser(function (user, done) {
   done(null, user.id)
@@ -211,88 +211,3 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function (email, pass
     })
   })
 }))
-
-/**
- * OAuth Strategy Overview
- *
- * - User is already logged in.
- *   - Check if there is an existing account with a provider id.
- *     - If there is, return an error message. (Account merging not supported)
- *     - Else link new OAuth account with currently logged-in user.
- * - User is not logged in.
- *   - Check if it's a returning user.
- *     - If returning user, sign in and we are done.
- *     - Else check if there is an existing account with user's email.
- *       - If there is, return an error message.
- *       - Else create a new account.
- */
-
-/**
- * Login Required middleware.
- */
-exports.isAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated()) {
-    return next()
-  }
-  res.redirect('/login')
-}
-
-/**
- * Authorization Required middleware.
- */
-exports.isAuthorized = function (req, res, next) {
-  var provider = req.path.split('/').slice(-1)[0]
-
-  if (_.find(req.user.tokens, { kind: provider })) {
-    next()
-  } else {
-    res.redirect('/auth/' + provider)
-  }
-}
-
-/* Check User role against provided roles */
-exports.checkRoles = function (roles) {
-  return function (req, res, next) {
-    var valid = false
-    _.forEach(roles, function (role) {
-      if (req.user.roles[role]) {
-        valid = true
-      }
-    })
-    if (!valid) {
-      req.flash('errors', { msg: 'You are not authorized to view this page.' })
-      var backURL = req.header('Referer') || '/'
-      return res.redirect(backURL)
-    }
-    next()
-  }
-}
-/* Check Github Scopes against provided scopes */
-exports.checkScopes = function (scopes) {
-  return function (req, res, next) {
-    var valid = true
-    _.forEach(scopes, function (scope) {
-      if (req.user.scopes.indexOf(scope) < 0) {
-        valid = false
-      }
-    })
-    if (!valid) {
-      // Needs Additional scopes. Save url, auth more.
-      return User.findById(req.user.id, function (err, user) {
-        if (err) console.error(err)
-        user.postAuthLink = req.url
-        user.save(function (err) {
-          if (err) console.error(err)
-          var scopesString = scopes.join(',')
-          res.redirect('/auth/github/elevate?scopes=' + scopesString)
-        })
-      })
-    }
-    next()
-  }
-}
-
-exports.elevateScope = function (req, res, next) {
-  var scopes = req.query.scopes.split(',')
-  return passport.authenticate('github', { scope: scopes })(req, res, next)
-}
