@@ -36,7 +36,7 @@ module.exports = function () {
       }
     ],
     theme: {
-      slug: 'codeforpoland',
+      slug: 'brigadehub-public-c4sf',
       logo: 'http://i.imgur.com/hvFv1ow.png',
       page: {
         title: false,
