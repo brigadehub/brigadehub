@@ -96,7 +96,7 @@ var Brigade = require('./models/Brigade')
  * Express configuration.
  */
 app.set('port', process.env.PORT || 5465)
-app.set('views', path.join(__dirname, 'themes'))
+app.set('views', path.join(__dirname, 'node_modules'))
 app.locals.capitalize = function (value) {
   return value.charAt(0).toUpperCase() + value.slice(1)
 }
@@ -106,7 +106,7 @@ app.locals.plural = function (value) {
   }
   return value + 's'
 }
-app.set('view engine', 'jade')
+app.set('view engine', 'pug')
 app.use(compress())
 
 app.use(logger('dev'))
@@ -484,8 +484,8 @@ Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
 })
 function startServer () {
   app.use(sass({
-    src: path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'),
-    dest: path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'),
+    src: path.join(__dirname, 'node_modules/' + brigadeDetails.theme.slug + '/public'),
+    dest: path.join(__dirname, 'node_modules/' + brigadeDetails.theme.slug + '/public'),
     debug: true,
     sourceMap: true,
     outputStyle: 'expanded'
@@ -500,8 +500,8 @@ function startServer () {
     }
     next()
   })
-  app.use(favicon(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public', 'favicon.png')))
-  app.use(express.static(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'), { maxAge: 31557600000 }))
+  app.use(favicon(path.join(__dirname, 'node_modules/' + brigadeDetails.theme.slug + '/public', 'favicon.png')))
+  app.use(express.static(path.join(__dirname, 'node_modules/' + brigadeDetails.theme.slug + '/public'), { maxAge: 31557600000 }))
   app.listen(app.get('port'), function () {
     console.log('[Brigadehub]'.yellow + ' Server listening on port', app.get('port'))
   })
