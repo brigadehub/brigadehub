@@ -35,6 +35,7 @@
     "analytics-node": "^2.1.0",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.14.2",
+    "brigadehub-public-c4sf": "^0.1.2",
     "colors": "^1.1.2",
     "compression": "^1.6.0",
     "connect-mongo": "^1.1.0",
