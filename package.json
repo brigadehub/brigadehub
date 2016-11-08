@@ -66,6 +66,7 @@
     "method-override": "^2.3.5",
     "moment": "^2.11.1",
     "moment-timezone": "^0.5.3",
+    "mongodb-migrate": "^2.0.1",
     "mongoose": "^4.3.5",
     "morgan": "^1.6.1",
     "node-sass-middleware": "^0.9.7",
