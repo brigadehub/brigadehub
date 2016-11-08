@@ -9,6 +9,8 @@
     "node": ">=6"
   },
   "scripts": {
+    "postinstall": "npm run db:migrate up",
+    "prestart": "npm install",
     "start": "gulp build && node app.js",
     "pretest": "npm run lint",
     "test": "npm run test:unit",
@@ -17,7 +19,7 @@
     "db:clear": "./scripts/database-clear",
     "db:seed": "./scripts/database-seed",
     "db:migrate": "db-migrate --config config/database.json",
-    "develop": "gulp start",
+    "develop": "npm install && gulp start",
     "develop:nomongo": "gulp start:nomongo",
     "install:clean": "rm -rf node_modules && npm install",
     "lint": "standard",
