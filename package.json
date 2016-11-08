@@ -16,6 +16,7 @@
     "test:unit": "echo 'no unit test available.'",
     "db:clear": "./scripts/database-clear",
     "db:seed": "./scripts/database-seed",
+    "db:migrate": "db-migrate --config config/database.json",
     "develop": "gulp start",
     "develop:nomongo": "gulp start:nomongo",
     "install:clean": "rm -rf node_modules && npm install",
@@ -33,6 +34,8 @@
   },
   "dependencies": {
     "analytics-node": "^2.1.0",
+    "app-module-path": "^2.1.0",
+    "async": "^1.5.2",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.14.2",
     "brigadehub-public-c4sf": "^0.1.2",
@@ -72,7 +75,7 @@
     "passport-meetup": "^1.0.0",
     "pug": "^2.0.0-beta6",
     "request": "^2.67.0",
-    "require-dir": "^0.3.0",
+    "require-dir": "https://registry.npmjs.org/require-dir/-/require-dir-0.3.0.tgz",
     "selectn": "1.0.9",
     "serve-favicon": "^2.3.0",
     "slug": "^0.9.1",
@@ -82,6 +85,8 @@
     "careful": "^1.0.2",
     "chai": "^3.4.1",
     "cz-conventional-changelog": "^1.1.6",
+    "db-migrate": "^0.10.0-beta.20",
+    "db-migrate-mongodb": "^1.1.4",
     "ghooks": "^1.2.1",
     "goosestrap": "^1.0.0",
     "mocha": "^2.3.4",
@@ -103,7 +108,8 @@
       "after"
     ],
     "ignore": [
-      "**/js/lib/"
+      "**/js/lib/",
+      "migrations/"
     ]
   },
   "config": {
@@ -115,6 +121,7 @@
         "feature",
         "hotfix",
         "release",
+        "refactor",
         "bugfix",
         "docs"
       ],

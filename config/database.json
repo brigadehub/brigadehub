@@ -1,0 +1,5 @@
+{
+  "defaultEnv": {"ENV": "NODE_ENV"},
+  "develop": {"ENV": "MONGODB"},
+  "production": {"ENV": "MONGODB"}
+}
