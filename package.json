@@ -113,7 +113,8 @@
       "after"
     ],
     "ignore": [
-      "**/js/lib/"
+      "**/js/lib/",
+      "migrations/"
     ]
   },
   "config": {
