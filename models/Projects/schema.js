@@ -6,8 +6,8 @@ module.exports = {
 
   active: { type: Boolean, default: false },
   status: {type: String, default: ''}, // civic.json + civic.dc.json - proposed, ideation, alpha, beta, production, archival
-  thumbnailUrl: {type: String, default: 'http://i.imgur.com/MRgvL1K.png'},
-  bannerUrl: {type: String, default: 'http://i.imgur.com/MRgvL1K.png'},
+  thumbnailUrl: {type: String, default: 'http://i.imgur.com/2lHqtJ7.png'},
+  bannerUrl: {type: String, default: 'http://i.imgur.com/2lHqtJ7.png'},
   bornAt: {type: String, default: ''},
   geography: {type: String, default: ''},
   politicalEntity: {type: String, default: ''},
