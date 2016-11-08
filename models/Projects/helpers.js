@@ -95,13 +95,13 @@ module.exports.createUpdateProjectData = function createUpdateProjectData (proje
   original.brigade = brigade.slug // this is the slug - civic.sf.json + civic.dc.json
   original.status = project.json.status ? project.json.status.toLowerCase() : 'proposed' // civic.json + civic.dc.json - proposed, ideation, alpha, beta, production, archival
 
-  original.thumbnailUrl = project.json.thumbnailUrl || 'http://i.imgur.com/MRgvL1K.png'
+  original.thumbnailUrl = project.json.thumbnailUrl || 'http://i.imgur.com/2lHqtJ7.png'
   if (original.thumbnailUrl.indexOf('placeholdit') > -1) {
-    original.thumbnailUrl = 'http://i.imgur.com/MRgvL1K.png'
+    original.thumbnailUrl = 'http://i.imgur.com/2lHqtJ7.png'
   }
-  original.bannerUrl = project.json.bannerUrl || 'http://i.imgur.com/MRgvL1K.png'
+  original.bannerUrl = project.json.bannerUrl || 'http://i.imgur.com/2lHqtJ7.png'
   if (original.thumbnailUrl.indexOf('placeholdit') > -1) {
-    original.thumbnailUrl = 'http://i.imgur.com/MRgvL1K.png'
+    original.thumbnailUrl = 'http://i.imgur.com/2lHqtJ7.png'
   }
   original.bornAt = project.json.bornAt || brigade.name
   original.geography = project.json.geography || brigade.location.general
