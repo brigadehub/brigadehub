@@ -60,6 +60,7 @@ projectsSchema.post('findOne', function (project, next) {
 })
 function fetchContributors (project, index) {
   return new Promise((resolve, reject) => {
+    if (!project) return resolve({leads: [], members: [], index: index})
     Users.find({ 'teams.project': project.id }, (err, members) => {
       if (err) return reject(err)
       Users.find({ 'teams.lead': project.id }, (err, leads) => {
