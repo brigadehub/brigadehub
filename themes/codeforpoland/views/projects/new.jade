@@ -1,6 +1,26 @@
 extends ../layout
 
 block content
+  style(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css")
+  style(rel="stylesheet").
+    .avatar {
+      width:30px;
+      filter: grayscale(100%) brightness(200%);
+    }
+    .dropdown-menu label.checkbox {
+      padding:5px;
+    }
+    .dropdown-menu a {
+      text-decoration:none;
+      color:#555;
+      cursor:pointer;
+    }
+    .dropdown-menu .checkbox input[type="checkbox"] {
+      display:none;
+    }
+    .dropdown-menu .checkbox input[type="checkbox"]:checked + img {
+      filter: grayscale(0%) brightness(100%);
+    }
   .row.breadcrumbs
     .col-sm-12
       a(href='/')= brigade.name
@@ -51,9 +71,17 @@ block content
         .col-sm-7
           input.form-control(type='text', name='repository', id='repository')
       .form-group.row
-        label.col-sm-3.control-label(for='team') Project Team
+        label.col-sm-3.control-label(for='members') Project Leads
         .col-sm-7
-          select.form-control.input-tags-target(name='team', id='team', multiple=true, data-role="tagsinput")
+          select.form-control.leads-select(name='leads', id='leads', multiple=true)
+            for lead in users
+              option(value=lead.username, data-img=lead.profile.picture, selected=(lead.id === user.id)) #{lead.profile.name} (#{lead.username})
+      .form-group.row
+        label.col-sm-3.control-label(for='members') Project Members
+        .col-sm-7
+          select.form-control.members-select(name='members', id='members', multiple=true)
+            for member in users
+              option(value=member.username, data-img=member.profile.picture) #{member.profile.name} (#{member.username})
       .form-group.row
         label.col-sm-3.control-label(for='needs') Project Needs
         .col-sm-7
@@ -80,5 +108,20 @@ block content
         .col-sm-offset-3.col-sm-4
           button.btn.btn.btn-primary(type='submit')
             i.fa.fa-pencil
-            | Save Project
+            | Save New Project
   a(href='/projects') Back
+  
+block script
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js")
+  script.
+    $(document).ready(function() {
+      var teamSelectSettings = {
+        enableHTML: true,
+        optionLabel: function(element) {
+            return '<img class="avatar" src="'+$(element).attr('data-img')+'"> '+$(element).text()
+        }
+      }
+      $('.leads-select').multiselect(teamSelectSettings)
+      $('.members-select').multiselect(teamSelectSettings)
+    })
