@@ -7,6 +7,11 @@ module.exports = function (roles) {
       if (req.user.roles[role]) {
         valid = true
       }
+      if (role === 'lead') {
+        if (req.user.teams.lead.length > -1) {
+          valid = true
+        }
+      }
     })
     if (!valid) {
       req.flash('errors', { msg: 'You are not authorized to view this page.' })

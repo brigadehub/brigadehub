@@ -263,6 +263,7 @@ module.exports = {
         project.data = []
         project.keywords = []
         project.name = req.body.title || ''
+        project.oldId = project.id
         project.id = slug(project.name)
         project.active = req.body.active || false
         project.status = req.body.status || ''
