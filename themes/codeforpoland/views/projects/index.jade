@@ -27,8 +27,7 @@ block content
   .row.page-header
     .col-sm-12
       h1.page-title Projects
-  if user && user.isProjectLead()
-    a.btn.btn-secondary(href='/projects/new') New Project
+        a.btn.btn-secondary.pull-right(href='/projects/new') Create New Project
   .row
     hr
   .container
