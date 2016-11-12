@@ -121,10 +121,14 @@ module.exports = {
    * New Projects.
    */
   getProjectsNew: function (req, res) {
-    res.render(res.locals.brigade.theme.slug + '/views/projects/new', {
-      view: 'project-new',
-      title: 'New Projects',
-      brigade: res.locals.brigade
+    Users.find({}, function (err, allUsers) {
+      if (err) console.error(err)
+      res.render(res.locals.brigade.theme.slug + '/views/projects/new', {
+        view: 'project-new',
+        users: allUsers,
+        title: 'New Project',
+        brigade: res.locals.brigade
+      })
     })
   },
   /**
@@ -132,53 +136,58 @@ module.exports = {
    * Submit New Projects.
    */
   postProjectsNew: function (req, res) {
-    var newProject = new Projects(req.body)
-    newProject.id = res.locals.brigade.slug + '-' + req.body.name
-    newProject.brigade = res.locals.brigade.slug
-    newProject.team = []
-    newProject.needs = []
-    newProject.keywords = []
-    if (req.body.team) {
-      if (typeof req.body.team === 'string' && req.body.team.indexOf(',') > -1) {
-        req.body.team.replace(/\s/g, '').split(',').forEach(function (member) {
-          newProject.team.push(member)
-        })
-      } else if (typeof req.body.team === 'string') {
-        newProject.team.push(req.body.team)
-      } else {
-        newProject.team = newProject.team.concat(req.body.team)
-      }
-    }
+    var project = new Projects(req.body)
+    project.name = req.body.title || ''
+    project.id = slug(project.name)
+    project.brigade = res.locals.brigade.slug
+    project.categories = []
+    project.needs = []
+    project.data = []
+    project.keywords = []
+    project.active = req.body.active || false
+    project.status = req.body.status || ''
+    project.politicalEntity = req.body.politicalEntity || ''
+    project.geography = req.body.geography || ''
+    project.homepage = req.body.homepage || ''
+    project.repository = req.body.repository || ''
+    project.description = req.body.description || ''
+    project.content = req.body.content || ''
+    project.thumbnailUrl = req.body.thumbnailUrl || ''
+    project.bannerUrl = req.body.bannerUrl || ''
+    project.leads = req.body.leads || []
+    if (typeof project.leads === 'string') project.leads = [project.leads]
+    project.members = req.body.members || []
+    if (typeof project.members === 'string') project.members = [project.members]
     if (req.body.needs) {
       if (typeof req.body.needs === 'string' && req.body.needs.indexOf(',') > -1) {
         req.body.needs.replace(/\s/g, '').split(',').forEach(function (need) {
-          newProject.needs.push(need)
+          project.needs.push(need)
         })
       } else if (typeof req.body.needs === 'string') {
-        newProject.needs.push(req.body.needs)
+        project.needs.push(req.body.needs)
       } else {
-        newProject.needs = newProject.needs.concat(req.body.needs)
+        project.needs = project.needs.concat(req.body.needs)
       }
     }
     if (req.body.keywords) {
       if (typeof req.body.keywords === 'string' && req.body.keywords.indexOf(',') > -1) {
         req.body.keywords.replace(/\s/g, '').split(',').forEach(function (keyword) {
-          newProject.keywords.push(keyword)
+          project.keywords.push(keyword)
         })
       } else if (typeof req.body.keywords === 'string') {
-        newProject.keywords.push(req.body.keywords)
+        project.keywords.push(req.body.keywords)
       } else {
-        newProject.keywords = newProject.keywords.concat(req.body.keywords)
+        project.keywords = project.keywords.concat(req.body.keywords)
       }
     }
-    newProject.save(function (err, newProject) {
+    project.save(function (err, newProject) {
       if (err) {
         console.error(err)
         req.flash('errors', {msg: 'An Error occured while creating your project.'})
         return res.redirect('/projects/new')
       }
       req.flash('success', {msg: 'Success! You have created a project.'})
-      res.redirect(`/projects/${newProject.slug}`)
+      res.redirect(`/projects/${project.id}`)
     })
   },
 
@@ -254,6 +263,7 @@ module.exports = {
         project.data = []
         project.keywords = []
         project.name = req.body.title || ''
+        project.oldId = project.id
         project.id = slug(project.name)
         project.active = req.body.active || false
         project.status = req.body.status || ''
