@@ -37,6 +37,8 @@ module.exports = function () {
     ],
     theme: {
       slug: 'brigadehub-public-c4sf',
+      public: 'c4sf',
+      admin: 'c4sf',
       logo: 'http://i.imgur.com/hvFv1ow.png',
       page: {
         title: false,
