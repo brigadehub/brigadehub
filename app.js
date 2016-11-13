@@ -133,7 +133,6 @@ function startServer () {
   redirectBlacklist = redirectBlacklist.sort()
   redirectBlacklist = _.uniq(redirectBlacklist)
 
-
   const publicControllers = requireDir(`${publicThemeLocation}/controllers`, {recurse: true})
   const adminControllers = requireDir(`${adminThemeLocation}/controllers`, {recurse: true})
   /**
