@@ -11,7 +11,7 @@
   "scripts": {
     "postinstall": "npm run db:migrate up",
     "prestart": "npm install",
-    "start": "gulp build && node app.js",
+    "start": "node app.js",
     "pretest": "npm run lint",
     "test": "npm run test:unit",
     "test:e2e": "nightwatch",
