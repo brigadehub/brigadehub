@@ -67,9 +67,11 @@ const controllers = requireDir('./controllers', {recurse: true})
 const middleware = requireDir('./middleware', {recurse: true})
 
 /*
- * Helpers
+ * helpers to add to req
  */
 var helpers = requireDir('./helpers')
+var models = require('./models')
+var config = requireDir('./config')
 
 var brigadeDetails
 
@@ -132,8 +134,6 @@ function startServer () {
   redirectBlacklist = _.uniq(redirectBlacklist)
 
 
-  console.log(JSON.stringify(redirectBlacklist, null, ' '))
-
   const publicControllers = requireDir(`${publicThemeLocation}/controllers`, {recurse: true})
   const adminControllers = requireDir(`${adminThemeLocation}/controllers`, {recurse: true})
   /**
@@ -181,6 +181,9 @@ function startServer () {
   }
   /* Attach brigade info to req */
   app.use(function (req, res, next) {
+    req.models = models
+    req.helpers = helpers
+    req.config = config
     Brigade.find({}, function (err, results) {
       if (err) throw err
       if (!results.length) throw new Error('BRIGADE NOT IN DATABASE')
@@ -238,9 +241,9 @@ function startServer () {
    */
 
   const dynamicRoutes = {}
-  buildOutEndpoints (controllers, app, dynamicRoutes)
-  buildOutEndpoints (publicControllers, app, dynamicRoutes)
-  buildOutEndpoints (adminControllers, app, dynamicRoutes)
+  buildOutEndpoints(controllers, app, dynamicRoutes)
+  buildOutEndpoints(publicControllers, app, dynamicRoutes)
+  buildOutEndpoints(adminControllers, app, dynamicRoutes)
   buildOutDynamicEndpoints(dynamicRoutes, app)
   /**
    *  Resume normal routes
@@ -260,7 +263,6 @@ function startServer () {
   /**
    * Meta Routes
    */
-
 
   // /**
   //  * Meta Routes
@@ -390,7 +392,7 @@ function constructEndpoint (ctrl, app) {
   app[ctrl.method].apply(app, ctrlParams)
 }
 
-function buildOutEndpoints (ctrlList, app, dynamicRoutes){
+function buildOutEndpoints (ctrlList, app, dynamicRoutes) {
   /**
    * Static param routes.
    */
@@ -413,7 +415,7 @@ function buildOutEndpoints (ctrlList, app, dynamicRoutes){
     }
   }
 }
-function buildOutDynamicEndpoints(dynamicRoutes, app) {
+function buildOutDynamicEndpoints (dynamicRoutes, app) {
   /**
    *  Dynamic param routes
    */
@@ -429,22 +431,21 @@ function buildOutDynamicEndpoints(dynamicRoutes, app) {
 }
 
 function listAllFiles (dir, filelist) {
-  var path = path || require('path');
-  var fs = fs || require('fs'),
-      files = fs.readdirSync(dir);
-  filelist = filelist || [];
-  files.forEach(function(file) {
+  var path = path || require('path')
+  var fs = fs || require('fs')
+  var files = fs.readdirSync(dir)
+  filelist = filelist || []
+  files.forEach(function (file) {
     if (fs.statSync(path.join(dir, file)).isDirectory()) {
-      filelist = listAllFiles(path.join(dir, file), filelist);
+      filelist = listAllFiles(path.join(dir, file), filelist)
+    } else {
+      filelist.push(file)
     }
-    else {
-      filelist.push(file);
-    }
-  });
-  return filelist;
+  })
+  return filelist
 }
-function isPublicFile(url, fileList){
-  for (fileIndex in fileList) {
+function isPublicFile (url, fileList) {
+  for (let fileIndex in fileList) {
     if (url.indexOf(fileList[fileIndex]) > -1) return true
   }
   return false
