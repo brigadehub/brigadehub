@@ -99,9 +99,9 @@ var Brigade = require('./models/Brigade')
 /**
  * Check if brigade exists before starting Express server.
  */
-Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
+Brigade.findOne({}, function (err, results) {
   if (err) throw err
-  if (!results.length) {
+  if (!results) {
     var defaultBrigadeData = require('./seeds/development/Brigade')()[0]
     defaultBrigadeData.slug = process.env.BRIGADE
     brigadeDetails = defaultBrigadeData
@@ -113,7 +113,7 @@ Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
     })
   } else {
     DB_INSTANTIATED = true
-    brigadeDetails = results[0]
+    brigadeDetails = results
     startServer()
   }
 })
@@ -183,11 +183,11 @@ function startServer () {
     req.models = models
     req.helpers = helpers
     req.config = config
-    Brigade.find({}, function (err, results) {
+    Brigade.findOne({}, function (err, results) {
       if (err) throw err
-      if (!results.length) throw new Error('BRIGADE NOT IN DATABASE')
+      if (!results) throw new Error('BRIGADE NOT IN DATABASE')
       res.locals = res.locals || {}
-      res.locals.brigade = results[0]
+      res.locals.brigade = results
       // bootstrap segment tracking
       if (!analytics && res.locals.brigade.auth.segment.writeKey.length) {
         analytics = new Analytics(res.locals.brigade.auth.segment.writeKey)
