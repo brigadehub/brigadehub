@@ -28,6 +28,8 @@ var brigadeSchema = new mongoose.Schema({
   },
   redirects: {type: Array, default: []},
   theme: {
+    public: {type: String, default: ''},
+    admin: {type: String, default: ''},
     slug: {type: String, default: ''},
     logo: {type: String, default: ''},
     page: {
