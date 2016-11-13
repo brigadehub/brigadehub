@@ -33,6 +33,7 @@ var sass = require('node-sass-middleware')
 var path = require('path')
 var requireDir = require('require-dir')
 var pkg = require('./package.json')
+var isUrl = require('is-url')
 
 // Segment server-side tracking
 var Analytics = require('analytics-node')
@@ -60,18 +61,17 @@ var eventsCtrl = require('./controllers/events')
 var blogCtrl = require('./controllers/blog')
 var projectsCtrl = require('./controllers/projects')
 var contactCtrl = require('./controllers/contact')
-var brigadeCtrl = require('./controllers/brigade')
-var checkinCtrl = require('./controllers/checkin')
-var dashboardCtrl = require('./controllers/dashboard')
 var APIctrl = require('./controllers/api')
 
 const controllers = requireDir('./controllers', {recurse: true})
 const middleware = requireDir('./middleware', {recurse: true})
 
 /*
- * Helpers
+ * helpers to add to req
  */
 var helpers = requireDir('./helpers')
+var models = require('./models')
+var config = requireDir('./config')
 
 var brigadeDetails
 
@@ -97,146 +97,273 @@ mongoose.connection.on('error', function (err) {
 var Brigade = require('./models/Brigade')
 
 /**
- * Express configuration.
+ * Check if brigade exists before starting Express server.
  */
-app.set('port', process.env.PORT || 5465)
-app.set('views', path.join(__dirname, 'themes'))
-app.locals.capitalize = function (value) {
-  return value.charAt(0).toUpperCase() + value.slice(1)
-}
-app.locals.plural = function (value) {
-  if (value[value.length - 1] === 's') {
-    return value + 'es'
+Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
+  if (err) throw err
+  if (!results.length) {
+    var defaultBrigadeData = require('./seeds/development/Brigade')()[0]
+    defaultBrigadeData.slug = process.env.BRIGADE
+    brigadeDetails = defaultBrigadeData
+    var defaultBrigade = new Brigade(defaultBrigadeData)
+    defaultBrigade.save(function (err) {
+      if (err) throw err
+      DB_INSTANTIATED = true
+      startServer()
+    })
+  } else {
+    DB_INSTANTIATED = true
+    brigadeDetails = results[0]
+    startServer()
   }
-  return value + 's'
-}
-app.set('view engine', 'jade')
-app.use(compress())
+})
+function startServer () {
+  const publicThemeLocation = path.join(__dirname, 'node_modules', `brigadehub-public-${brigadeDetails.theme.public}`)
+  const adminThemeLocation = path.join(__dirname, 'node_modules', `brigadehub-admin-${brigadeDetails.theme.admin}`)
 
-app.use(logger('dev'))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(expressValidator())
-app.use(methodOverride())
-app.use(cookieParser())
-app.use(session({
-  resave: true,
-  saveUninitialized: true,
-  secret: process.env.SESSION_SECRET,
-  store: new MongoStore({
-    url: process.env.MONGODB || process.env.MONGOLAB_URI,
-    autoReconnect: true
-  })
-}))
-/* Check if db is connected */
-app.use(checkDB)
-function checkDB (req, res, next) {
-  if (!DB_INSTANTIATED) {
-    return setTimeout(function () {
-      checkDB(req, res, next)
-    }, 500)
+  const publicFileList = listAllFiles(`${publicThemeLocation}/public`)
+  const adminFileList = listAllFiles(`${adminThemeLocation}/public`)
+  let redirectBlacklist = [
+    'api/',
+    'auth/',
+    'login',
+    'logout'
+  ]
+  redirectBlacklist = redirectBlacklist.concat(publicFileList).concat(adminFileList)
+  redirectBlacklist = redirectBlacklist.sort()
+  redirectBlacklist = _.uniq(redirectBlacklist)
+
+  const publicControllers = requireDir(`${publicThemeLocation}/controllers`, {recurse: true})
+  const adminControllers = requireDir(`${adminThemeLocation}/controllers`, {recurse: true})
+  /**
+   * Express configuration.
+   */
+  app.set('port', process.env.PORT || 5465)
+  app.set('views', path.join(__dirname, 'node_modules'))
+  app.locals.capitalize = function (value) {
+    return value.charAt(0).toUpperCase() + value.slice(1)
   }
-  next()
-}
-/* Attach brigade info to req */
-app.use(function (req, res, next) {
-  Brigade.find({}, function (err, results) {
-    if (err) throw err
-    if (!results.length) throw new Error('BRIGADE NOT IN DATABASE')
-    res.locals = res.locals || {}
-    res.locals.brigade = results[0]
-    // bootstrap segment tracking
-    if (!analytics && res.locals.brigade.auth.segment.writeKey.length) {
-      analytics = new Analytics(res.locals.brigade.auth.segment.writeKey)
+  app.locals.plural = function (value) {
+    if (value[value.length - 1] === 's') {
+      return value + 'es'
     }
-    req.analytics = analytics || {
-      track: () => {},
-      page: () => {},
-      identify: () => {},
-      group: () => {},
-      alias: () => {}
-    }
+    return value + 's'
+  }
+  app.locals.isUrl = isUrl
+  app.set('view engine', 'pug')
+  app.use(compress())
 
-    res.locals.brigade.buildVersion = pkg.version
-    helpers.tokenLoader(passport, res.locals.brigade.auth)
+  app.use(logger('dev'))
+  app.use(bodyParser.json())
+  app.use(bodyParser.urlencoded({ extended: true }))
+  app.use(expressValidator())
+  app.use(methodOverride())
+  app.use(cookieParser())
+  app.use(session({
+    resave: true,
+    saveUninitialized: true,
+    secret: process.env.SESSION_SECRET,
+    store: new MongoStore({
+      url: process.env.MONGODB || process.env.MONGOLAB_URI,
+      autoReconnect: true
+    })
+  }))
+  /* Check if db is connected */
+  app.use(checkDB)
+  function checkDB (req, res, next) {
+    if (!DB_INSTANTIATED) {
+      return setTimeout(function () {
+        checkDB(req, res, next)
+      }, 500)
+    }
     next()
-  })
-})
-app.use(passport.initialize())
-app.use(passport.session())
-app.use(flash())
-app.use(lusca({
-  csrf: true,
-  xframe: 'SAMEORIGIN',
-  xssProtection: true
-}))
-function shouldSaveReturnToPath (path) {
-  if ( // blacklist redirectTo URLs
-    path.indexOf('/css/') < 0 &&
-    path.indexOf('/js/') < 0 &&
-    path.indexOf('/fonts/') < 0 &&
-    path.indexOf('/img/') < 0 &&
-    path.indexOf('/auth/') < 0 &&
-    path.indexOf('/api/') < 0 &&
-    path.indexOf('/login') < 0 &&
-    path.indexOf('/favico') < 0 &&
-    path.indexOf('/logout') < 0
-    ) return true
-  return false
-}
-app.use(function (req, res, next) {
-  // check postAuthLink and see if going to auth callback
-  if (shouldSaveReturnToPath(req.path)) {
-    console.log('returnTo', req.path)
-    req.session.returnTo = req.path
   }
-  res.locals.user = req.user
-  next()
-})
-app.use(function (req, res, next) {
-  req.previousURL = req.header('Referer') || '/'
-  next()
-})
-
-/**
- *  Dynamically Generated Routes
- */
-
-/**
- * Static param routes.
- */
-const dynamicRoutes = {}
-for (let ctrlFolderName in controllers) {
-  const ctrlFolder = controllers[ctrlFolderName]
-  if (_.isObject(ctrlFolder)) {
-    for (let ctrlName in ctrlFolder) {
-      const ctrl = ctrlFolder[ctrlName]
-      if (ctrl.endpoint) {
-        if (ctrl.endpoint.indexOf(':') > -1) {
-          const endpointArray = ctrl.endpoint.split(':')
-          const dynamicLevel = endpointArray.length - 1
-          dynamicRoutes[dynamicLevel] = dynamicRoutes[dynamicLevel] || []
-          dynamicRoutes[dynamicLevel].push(ctrl)
-        } else {
-          constructEndpoint(ctrl, app)
+  /* Attach brigade info to req */
+  app.use(function (req, res, next) {
+    req.models = models
+    req.helpers = helpers
+    req.config = config
+    Brigade.find({}, function (err, results) {
+      if (err) throw err
+      if (!results.length) throw new Error('BRIGADE NOT IN DATABASE')
+      res.locals = res.locals || {}
+      res.locals.brigade = results[0]
+      // bootstrap segment tracking
+      if (!analytics && res.locals.brigade.auth.segment.writeKey.length) {
+        analytics = new Analytics(res.locals.brigade.auth.segment.writeKey)
+      }
+      req.analytics = analytics || {
+        track: () => {
+        },
+        page: () => {
+        },
+        identify: () => {
+        },
+        group: () => {
+        },
+        alias: () => {
         }
       }
-    }
-  }
-}
 
-/**
- *  Dynamic param routes
- */
-
-for (let dynamicLevel in dynamicRoutes) {
-  const ctrls = dynamicRoutes[dynamicLevel]
-  for (let ctrlIndex in ctrls) {
-    const ctrl = ctrls[ctrlIndex]
-    if (ctrl.endpoint) {
-      constructEndpoint(ctrl, app)
+      res.locals.brigade.buildVersion = pkg.version
+      res.theme = res.theme || {}
+      res.theme.public = `brigadehub-public-${brigadeDetails.theme.public}`
+      res.theme.admin = `brigadehub-admin-${brigadeDetails.theme.admin}`
+      helpers.tokenLoader(passport, res.locals.brigade.auth)
+      next()
+    })
+  })
+  app.use(passport.initialize())
+  app.use(passport.session())
+  app.use(flash())
+  app.use(lusca({
+    csrf: true,
+    xframe: 'SAMEORIGIN',
+    xssProtection: true
+  }))
+  app.use(function (req, res, next) {
+    // check postAuthLink and see if going to auth callback
+    if (!isPublicFile(req.path, redirectBlacklist)) {
+      console.log('returnTo', req.path)
+      req.session.returnTo = req.path
     }
-  }
+    res.locals.user = req.user
+    next()
+  })
+  app.use(function (req, res, next) {
+    req.previousURL = req.header('Referer') || '/'
+    next()
+  })
+
+  /**
+   *  Dynamically Generated Routes
+   */
+
+  const dynamicRoutes = {}
+  buildOutEndpoints(controllers, app, dynamicRoutes)
+  buildOutEndpoints(publicControllers, app, dynamicRoutes)
+  buildOutEndpoints(adminControllers, app, dynamicRoutes)
+  buildOutDynamicEndpoints(dynamicRoutes, app)
+  /**
+   *  Resume normal routes
+   */
+
+  app.get('/contact', contactCtrl.getContact)
+  app.post('/contact', contactCtrl.postContact)
+  app.get('/contact/edit', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), contactCtrl.getContactEdit)
+  app.post('/contact/message/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), contactCtrl.postContactMessage)
+
+  /**
+   *  API routes
+   */
+
+  app.get('/api/models/:model', APIctrl.get.models)
+
+  /**
+   * Meta Routes
+   */
+
+  // /**
+  //  * Meta Routes
+  //  */
+  //
+  // app.get('/checkin', checkinCtrl.getCheckin)
+  // app.post('/checkin', checkinCtrl.postCheckin)
+
+  /**
+   * Project routes.
+   */
+  app.get('/projects', projectsCtrl.getProjects)
+  app.get('/projects/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.getProjectsManage)
+  app.post('/projects/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.postProjectsManage)
+  app.post('/projects/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), projectsCtrl.postProjectsSync)
+  app.get('/projects/new', middleware.passport.isAuthenticated, projectsCtrl.getProjectsNew)
+  app.post('/projects/new', middleware.passport.isAuthenticated, projectsCtrl.postProjectsNew)
+  app.get('/projects/:projectId', projectsCtrl.getProjectsID)
+  app.post('/projects/:projectId', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.postProjectsIDSettings)
+  app.get('/projects/:projectId/settings', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.getProjectsIDSettings)
+  app.post('/projects/:projectId/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.postProjectsIDSync)
+  app.post('/projects/:projectId/delete', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.postDeleteProject)
+
+  /**
+   * Events routes.
+   */
+  app.get('/events', eventsCtrl.getEvents)
+  app.get('/events/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.getEventsManage)
+  app.post('/events/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsManage)
+  app.post('/events/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsSync)
+  app.get('/events/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.getEventsNew)
+  app.post('/events/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsNew)
+  app.post('/events/delete', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postDeleteAllEvents)
+  app.get('/events/:eventId', eventsCtrl.getEventsID)
+  app.post('/events/:eventId', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsIDSettings)
+  app.get('/events/:eventId/settings', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.getEventsIDSettings)
+  app.post('/events/:eventId/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsIDSync)
+  app.post('/events/:eventId/delete', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postDeleteEvent)
+
+  /**
+   * Blog routes.
+   */
+  app.get('/blog', blogCtrl.getBlog)
+  app.get('/blog/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.getBlogManage)
+  app.post('/blog/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.postBlogManage)
+  app.post('/blog/sync/:type', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), blogCtrl.postBlogSync)
+  app.get('/blog/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.getBlogNew)
+  app.post('/blog/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.postBlogNew)
+  app.get('/blog/post/:blogId', blogCtrl.getBlogID)
+  app.post('/blog/post/:blogId', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.postBlogIDEdit)
+  app.get('/blog/post/:blogId/edit', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.getBlogIDEdit)
+  app.post('/blog/:blogId/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.postBlogIDSync)
+
+  app.post('/blog/post/:blogId/delete', middleware.passport.isAuthenticated, blogCtrl.postBlogIDDelete)
+  app.get('/author/:authorId', middleware.passport.isAuthenticated, blogCtrl.getAuthorId)
+
+  /**
+   * Users routes.
+   */
+
+  /**
+   * OAuth authentication routes. (Sign in)
+   */
+  app.get('/auth/github', passport.authenticate('github', {
+    scope: [ 'user', 'public_repo' ]
+  }))
+  app.get('/auth/github/elevate', middleware.passport.elevateScope)
+  app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function (req, res) {
+    console.log('new github callback!', req.session.returnTo)
+    res.redirect(req.session.returnTo || '/')
+  })
+  app.get('/auth/meetup', passport.authenticate('meetup', { scope: ['basic', 'rsvp'] }))
+  app.get('/auth/meetup/callback', passport.authenticate('meetup', { failureRedirect: '/account' }), function (req, res) {
+    res.redirect(req.session.returnTo || '/account')
+  })
+
+  /**
+   * Error Handler.
+   */
+  app.use(errorHandler())
+  app.use(sass({
+    src: path.join(publicThemeLocation, 'public'),
+    dest: path.join(publicThemeLocation, 'public'),
+    debug: true,
+    sourceMap: true,
+    outputStyle: 'expanded'
+  }))
+  app.use(function (req, res, next) {
+    if (_.filter(res.locals.brigade.redirects, {endpoint: req.path}).length) {
+      var redirect = _.filter(res.locals.brigade.redirects, {endpoint: req.path})[0]
+      if (redirect.type === 'permanent') {
+        return res.redirect(301, redirect.destination)
+      }
+      return res.redirect(redirect.destination)
+    }
+    next()
+  })
+  app.use(favicon(path.join(publicThemeLocation, 'public', 'favicon.png')))
+  app.use(express.static(path.join(publicThemeLocation, 'public'), { maxAge: 31557600000 }))
+  app.listen(app.get('port'), function () {
+    console.log('[Brigadehub]'.yellow + ' Server listening on port', app.get('port'))
+  })
 }
 
 /**
@@ -264,153 +391,63 @@ function constructEndpoint (ctrl, app) {
   app[ctrl.method].apply(app, ctrlParams)
 }
 
-/**
- *  Resume normal routes
- */
-
-app.get('/contact', contactCtrl.getContact)
-app.post('/contact', contactCtrl.postContact)
-app.get('/contact/edit', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), contactCtrl.getContactEdit)
-app.post('/contact/message/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), contactCtrl.postContactMessage)
-
-/**
- *  API routes
- */
-
-app.get('/api/models/:model', APIctrl.get.models)
-
-/**
- * Meta Routes
- */
-
-app.get('/brigade', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), brigadeCtrl.getBrigade)
-app.post('/brigade', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), brigadeCtrl.postBrigade)
-app.get('/brigade/dashboard', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), dashboardCtrl.getDashboard)
-
-/**
- * Meta Routes
- */
-
-app.get('/checkin', checkinCtrl.getCheckin)
-app.post('/checkin', checkinCtrl.postCheckin)
-
-/**
- * Project routes.
- */
-app.get('/projects', projectsCtrl.getProjects)
-app.get('/projects/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.getProjectsManage)
-app.post('/projects/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.postProjectsManage)
-app.post('/projects/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), projectsCtrl.postProjectsSync)
-app.get('/projects/new', middleware.passport.isAuthenticated, projectsCtrl.getProjectsNew)
-app.post('/projects/new', middleware.passport.isAuthenticated, projectsCtrl.postProjectsNew)
-app.get('/projects/:projectId', projectsCtrl.getProjectsID)
-app.post('/projects/:projectId', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.postProjectsIDSettings)
-app.get('/projects/:projectId/settings', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.getProjectsIDSettings)
-app.post('/projects/:projectId/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.postProjectsIDSync)
-app.post('/projects/:projectId/delete', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.postDeleteProject)
-
-/**
- * Events routes.
- */
-app.get('/events', eventsCtrl.getEvents)
-app.get('/events/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.getEventsManage)
-app.post('/events/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsManage)
-app.post('/events/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsSync)
-app.get('/events/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.getEventsNew)
-app.post('/events/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsNew)
-app.post('/events/delete', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postDeleteAllEvents)
-app.get('/events/:eventId', eventsCtrl.getEventsID)
-app.post('/events/:eventId', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsIDSettings)
-app.get('/events/:eventId/settings', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.getEventsIDSettings)
-app.post('/events/:eventId/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsIDSync)
-app.post('/events/:eventId/delete', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postDeleteEvent)
-
-/**
- * Blog routes.
- */
-app.get('/blog', blogCtrl.getBlog)
-app.get('/blog/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.getBlogManage)
-app.post('/blog/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.postBlogManage)
-app.post('/blog/sync/:type', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), blogCtrl.postBlogSync)
-app.get('/blog/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.getBlogNew)
-app.post('/blog/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.postBlogNew)
-app.get('/blog/post/:blogId', blogCtrl.getBlogID)
-app.post('/blog/post/:blogId', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.postBlogIDEdit)
-app.get('/blog/post/:blogId/edit', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.getBlogIDEdit)
-app.post('/blog/:blogId/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.postBlogIDSync)
-
-app.post('/blog/post/:blogId/delete', middleware.passport.isAuthenticated, blogCtrl.postBlogIDDelete)
-app.get('/author/:authorId', middleware.passport.isAuthenticated, blogCtrl.getAuthorId)
-
-/**
- * Users routes.
- */
-
-/**
- * OAuth authentication routes. (Sign in)
- */
-app.get('/auth/github', passport.authenticate('github', {
-  scope: [ 'user', 'public_repo' ]
-}))
-app.get('/auth/github/elevate', middleware.passport.elevateScope)
-app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function (req, res) {
-  console.log('new github callback!', req.session.returnTo)
-  res.redirect(req.session.returnTo || '/')
-})
-app.get('/auth/meetup', passport.authenticate('meetup', { scope: ['basic', 'rsvp'] }))
-app.get('/auth/meetup/callback', passport.authenticate('meetup', { failureRedirect: '/account' }), function (req, res) {
-  res.redirect(req.session.returnTo || '/account')
-})
-
-/**
- * Error Handler.
- */
-app.use(errorHandler())
-
-/**
- * Check if brigade exists before starting Express server.
- */
-Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
-  if (err) throw err
-  if (!results.length) {
-    var defaultBrigadeData = require('./seeds/development/Brigade')()[0]
-    defaultBrigadeData.slug = process.env.BRIGADE
-    brigadeDetails = defaultBrigadeData
-    var defaultBrigade = new Brigade(defaultBrigadeData)
-    defaultBrigade.save(function (err) {
-      if (err) throw err
-      DB_INSTANTIATED = true
-      startServer()
-    })
-  } else {
-    DB_INSTANTIATED = true
-    brigadeDetails = results[0]
-    startServer()
-  }
-})
-function startServer () {
-  app.use(sass({
-    src: path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'),
-    dest: path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'),
-    debug: true,
-    sourceMap: true,
-    outputStyle: 'expanded'
-  }))
-  app.use(function (req, res, next) {
-    if (_.filter(res.locals.brigade.redirects, {endpoint: req.path}).length) {
-      var redirect = _.filter(res.locals.brigade.redirects, {endpoint: req.path})[0]
-      if (redirect.type === 'permanent') {
-        return res.redirect(301, redirect.destination)
+function buildOutEndpoints (ctrlList, app, dynamicRoutes) {
+  /**
+   * Static param routes.
+   */
+  for (let ctrlFolderName in ctrlList) {
+    const ctrlFolder = ctrlList[ctrlFolderName]
+    if (_.isObject(ctrlFolder)) {
+      for (let ctrlName in ctrlFolder) {
+        const ctrl = ctrlFolder[ctrlName]
+        if (ctrl.endpoint) {
+          if (ctrl.endpoint.indexOf(':') > -1) {
+            const endpointArray = ctrl.endpoint.split(':')
+            const dynamicLevel = endpointArray.length - 1
+            dynamicRoutes[dynamicLevel] = dynamicRoutes[dynamicLevel] || []
+            dynamicRoutes[dynamicLevel].push(ctrl)
+          } else {
+            constructEndpoint(ctrl, app)
+          }
+        }
       }
-      return res.redirect(redirect.destination)
     }
-    next()
+  }
+}
+function buildOutDynamicEndpoints (dynamicRoutes, app) {
+  /**
+   *  Dynamic param routes
+   */
+  for (let dynamicLevel in dynamicRoutes) {
+    const ctrls = dynamicRoutes[dynamicLevel]
+    for (let ctrlIndex in ctrls) {
+      const ctrl = ctrls[ctrlIndex]
+      if (ctrl.endpoint) {
+        constructEndpoint(ctrl, app)
+      }
+    }
+  }
+}
+
+function listAllFiles (dir, filelist) {
+  var path = path || require('path')
+  var fs = fs || require('fs')
+  var files = fs.readdirSync(dir)
+  filelist = filelist || []
+  files.forEach(function (file) {
+    if (fs.statSync(path.join(dir, file)).isDirectory()) {
+      filelist = listAllFiles(path.join(dir, file), filelist)
+    } else {
+      filelist.push(file)
+    }
   })
-  app.use(favicon(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public', 'favicon.png')))
-  app.use(express.static(path.join(__dirname, 'themes/' + brigadeDetails.theme.slug + '/public'), { maxAge: 31557600000 }))
-  app.listen(app.get('port'), function () {
-    console.log('[Brigadehub]'.yellow + ' Server listening on port', app.get('port'))
-  })
+  return filelist
+}
+function isPublicFile (url, fileList) {
+  for (let fileIndex in fileList) {
+    if (url.indexOf(fileList[fileIndex]) > -1) return true
+  }
+  return false
 }
 
 module.exports = app
