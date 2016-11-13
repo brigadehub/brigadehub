@@ -99,7 +99,7 @@ var Brigade = require('./models/Brigade')
 /**
  * Check if brigade exists before starting Express server.
  */
-Brigade.find({slug: process.env.BRIGADE}, function (err, results) {
+Brigade.findOne({}, function (err, results) {
   if (err) throw err
   if (!results.length) {
     var defaultBrigadeData = require('./seeds/development/Brigade')()[0]
@@ -183,7 +183,7 @@ function startServer () {
     req.models = models
     req.helpers = helpers
     req.config = config
-    Brigade.find({}, function (err, results) {
+    Brigade.findOne({}, function (err, results) {
       if (err) throw err
       if (!results.length) throw new Error('BRIGADE NOT IN DATABASE')
       res.locals = res.locals || {}
