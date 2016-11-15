@@ -1,7 +1,7 @@
 //
 // // var faker = require('faker')
 //
-// module.exports = [
+module.exports = [
 //   {
 //     'username': 'fakeUser',
 //     'email': 'fakeness@gmail.com',
@@ -37,4 +37,4 @@
 //       'coreLead': false
 //     }
 //   }
-// ]
+]
