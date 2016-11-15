@@ -24,7 +24,7 @@ module.exports = {
       page = req.query.page
     }
     var user = res.locals.user
-    Post.find({}, function (err, posts) {
+    Post.find({ published: true }, function (err, posts) {
       if (err) console.error(err)
       var tags = _.uniq(_.flatMap(posts, 'tags'))
       Post.find(mongooseQuery, function (err, posts) {

@@ -11,6 +11,7 @@ function generateWisdom () {
 var testPosts = []
 
 for (var i = 0; i < 30; i++) {
+  var date = faker.date.past()
   var wisdom = generateWisdom()
   testPosts.push({
     'slug': wisdom.toLowerCase().replace(/\s+/g, '-'),
@@ -20,8 +21,8 @@ for (var i = 0; i < 30; i++) {
     'image': 'http://i.imgur.com/2lHqtJ7.png',
     'description': faker.lorem.sentence(30),
     'content': '# Example post\n\nThis is a test post\n\n- one\n- two\n\ntest | test2\n---- | -----\ntester | tester2\n\n',
-    'date': 'Wed Mar 30 2016 18:51:00 GMT-0700 (PDT)',
-    'unix': 1459389060,
+    'date': date,
+    'unix': date.getTime() / 1000,
     'tags': [
       wisdom.split(' ').pop(),
       'wisdom'
