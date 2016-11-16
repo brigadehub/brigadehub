@@ -14,7 +14,7 @@ var postsSchema = new mongoose.Schema({
   image: {type: String, default: 'http://i.imgur.com/2lHqtJ7.png'},
   description: {type: String, default: ''},
   content: {type: String, default: ''},
-  date: {type: String, default: ''},
+  date: {type: Date},
   published: {type: Boolean, default: false},
   unix: {type: Number, default: 0},
   sync: {
