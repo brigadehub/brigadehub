@@ -127,7 +127,8 @@ function startServer () {
     'api/',
     'auth/',
     'login',
-    'logout'
+    'logout',
+    'favicon'
   ]
   redirectBlacklist = redirectBlacklist.concat(publicFileList).concat(adminFileList)
   redirectBlacklist = redirectBlacklist.sort()

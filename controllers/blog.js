@@ -6,6 +6,8 @@ var markdown = require('markdown-it')
 var mdnh = require('markdown-it-named-headers')
 var md = markdown({ html: true }).use(mdnh)
 var _ = require('lodash')
+var moment = require('moment')
+var slugify = require('slugify')
 
 module.exports = {
   /**
@@ -37,6 +39,7 @@ module.exports = {
           // most users only see published posts
           posts = _.filter(posts, function (post) { return post.published })
         }
+        posts = _.sortBy(posts, 'date')
         posts = posts.reverse()
         var postStart = (page - 1) * POSTS_PER_PAGE
         var totalPages = Math.ceil(posts.length / POSTS_PER_PAGE)
@@ -94,30 +97,30 @@ module.exports = {
    * Update all Blog.
    */
   postBlogManage: function (req, res) {
-    req.flash('success', { msg: 'Success! Posts edited' })
-    var mongooseQuery = {}
-    if (!res.locals.user.isAdmin()) {
-      mongooseQuery.author = res.locals.user.username
-    }
-    Post.find(mongooseQuery, function (err, posts) {
-      if (err) console.error(err)
-      posts.reverse() // so that most recent are first
-      posts.forEach(function (post) {
-        var postInfo = req.body[post.id]
-        if (postInfo.delete) {
-          post.remove()
-          return
-        }
-        post.title = postInfo.title
-        post.published = !!postInfo.published
-        post.author = postInfo.author
-        post.date = postInfo.date
-        post.save(function (err) {
-          if (err) throw err
-        })
-      })
-    })
-    return res.redirect('/blog/manage/')
+    // req.flash('success', { msg: 'Success! Posts edited' })
+    // var mongooseQuery = {}
+    // if (!res.locals.user.isAdmin()) {
+    //   mongooseQuery.author = res.locals.user.username
+    // }
+    // Post.find(mongooseQuery, function (err, posts) {
+    //   if (err) console.error(err)
+    //   posts.reverse() // so that most recent are first
+    //   posts.forEach(function (post) {
+    //     var postInfo = req.body[post.id]
+    //     if (postInfo.delete) {
+    //       post.remove()
+    //       return
+    //     }
+    //     post.title = postInfo.title
+    //     post.published = !!postInfo.published
+    //     post.author = postInfo.author
+    //     post.date = postInfo.date
+    //     post.save(function (err) {
+    //       if (err) throw err
+    //     })
+    //   })
+    // })
+    // return res.redirect('/blog/manage/')
   },
   /**
    * GET /blog/new
@@ -130,13 +133,12 @@ module.exports = {
     }
     User.find({}, function (err, users) {
       if (err) console.error(err)
-      let usernames = users.map(function (user) { return user.username })
       res.render(res.locals.brigade.theme.slug + '/views/blog/new', {
         view: 'blog-post-new',
         title: 'New Blog',
         brigade: res.locals.brigade,
         user: res.locals.user,
-        usernames: usernames,
+        users: users,
         plaintextcontent: req.session.blogpostplaintextcontent,
         uniqueId: uniqueId
       })
@@ -147,26 +149,31 @@ module.exports = {
    * Submit New Blog.
    */
   postBlogNew: function (req, res) {
-    let blogpost = new Post({
+    console.log(req.body)
+    let blogpost = {
+      slug: slugify(req.body.title),
       title: req.body.title,
       author: req.body.author,
-      url: '/blog/post/' + req.body.url,
       image: req.body.image,
       description: req.body.description,
       content: req.body.content,
-      date: req.body.date,
-      unix: req.body.unix,
-      tags: req.body.tags,
+      date: new Date(moment(req.body.date, 'MM/DD/YYYY').format()),
       published: req.body.published
-    })
-    if (req.body.tags.indexOf(',') > -1) {
-      req.body.tags = req.body.tags.split(',')
-      blogpost.tags = req.body.tags.map(function (tag) {
-        return tag.trim()
-      })
     }
-    var defaultUrl = req.body.title.toLowerCase().replace(/\s+/g, '-')
-    blogpost.slug = defaultUrl
+
+    if (req.body.url) blogpost.url = req.body.url
+    if (req.body.tags.length) {
+      if (req.body.tags.indexOf(',') > -1) {
+        req.body.tags = req.body.tags.split(',')
+        blogpost.tags = req.body.tags.map(function (tag) {
+          return tag.trim()
+        })
+      } else {
+        blogpost.tags = [req.body.tags]
+      }
+    }
+    blogpost = new Post(blogpost)
+
     blogpost.save(function (err) {
       if (err) {
         req.session.blogpostplaintextcontent = req.body.content

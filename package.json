@@ -41,7 +41,7 @@
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.14.2",
     "brigadehub-admin-c4sf": "0.0.4",
-    "brigadehub-public-c4sf": "^0.1.6",
+    "brigadehub-public-c4sf": "^0.1.9",
     "colors": "^1.1.2",
     "compression": "^1.6.0",
     "connect-mongo": "^1.1.0",
@@ -85,6 +85,7 @@
     "selectn": "1.0.9",
     "serve-favicon": "^2.3.0",
     "slug": "^0.9.1",
+    "slugify": "^1.0.2",
     "supertest": "^2.0.1"
   },
   "devDependencies": {

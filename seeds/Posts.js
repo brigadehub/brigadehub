@@ -21,8 +21,7 @@ for (var i = 0; i < 30; i++) {
     'image': 'http://i.imgur.com/2lHqtJ7.png',
     'description': faker.lorem.sentence(30),
     'content': '# Example post\n\nThis is a test post\n\n- one\n- two\n\ntest | test2\n---- | -----\ntester | tester2\n\n',
-    'date': date,
-    'unix': date.getTime() / 1000,
+    'date': new Date(date),
     'tags': [
       wisdom.split(' ').pop(),
       'wisdom'
