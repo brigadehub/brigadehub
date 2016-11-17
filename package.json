@@ -41,7 +41,7 @@
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.14.2",
     "brigadehub-admin-c4sf": "0.0.4",
-    "brigadehub-public-c4sf": "^0.1.8",
+    "brigadehub-public-c4sf": "^0.1.9",
     "colors": "^1.1.2",
     "compression": "^1.6.0",
     "connect-mongo": "^1.1.0",
