@@ -271,7 +271,7 @@ module.exports = {
       if (typeof req.body.tags === 'string') {
         post.tags = [req.body.tags]
       }
-      post.tags = post.tags.map(tag => tag.trim())
+      post.tags = post.tags.map((tag) => tag.trim())
       console.log(post.tags)
       post.save(function (err) {
         if (err) {
