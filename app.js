@@ -102,7 +102,7 @@ var Brigade = require('./models/Brigade')
 Brigade.findOne({}, function (err, results) {
   if (err) throw err
   if (!results) {
-    var defaultBrigadeData = require('./seeds/development/Brigade')()[0]
+    var defaultBrigadeData = require('./seeds/Brigade')()[0]
     defaultBrigadeData.slug = process.env.BRIGADE
     brigadeDetails = defaultBrigadeData
     var defaultBrigade = new Brigade(defaultBrigadeData)
@@ -128,7 +128,20 @@ function startServer () {
     'auth/',
     'login',
     'logout',
-    'favicon'
+    'favicon',
+    '.css',
+    '.js',
+    '.min',
+    '.map',
+    '.eot',
+    '.svg',
+    '.ttf',
+    '.woff',
+    '.woff2',
+    '.otf',
+    '.jpg',
+    '.png',
+    '.scss'
   ]
   redirectBlacklist = redirectBlacklist.concat(publicFileList).concat(adminFileList)
   redirectBlacklist = redirectBlacklist.sort()
