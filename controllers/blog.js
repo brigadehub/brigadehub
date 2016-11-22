@@ -133,7 +133,7 @@ module.exports = {
     }
     User.find({}, function (err, users) {
       if (err) console.error(err)
-      res.render(res.locals.brigade.theme.slug + '/views/blog/new', {
+      res.render(res.locals.brigade.theme.slug + '/views/blog/new-edit', {
         view: 'blog-post-new',
         title: 'New Blog',
         brigade: res.locals.brigade,
@@ -157,10 +157,9 @@ module.exports = {
       image: req.body.image,
       description: req.body.description,
       content: req.body.content,
-      date: new Date(moment(req.body.date, 'MM/DD/YYYY').format()),
+      date: moment(req.body.date, 'MM/DD/YYYY').toDate(),
       published: req.body.published
     }
-
     if (req.body.url) blogpost.url = req.body.url
     if (req.body.tags.length) {
       if (req.body.tags.indexOf(',') > -1) {
@@ -222,17 +221,20 @@ module.exports = {
     Post.find({slug: req.params.blogId}, function (err, post) {
       if (err) throw err
       post = post[0]
+      console.log(post.date)
+      post = post.toJSON()
+      post.date = moment(post.date).format('MM/DD/YYYY')
+      console.log(post.date, moment(post.date).format('MM/DD/YYYY'))
       User.find({}, function (err, users) {
         if (err) console.log(err)
-        var usernames = users.map(function (user) { return user.username })
-        res.render(res.locals.brigade.theme.slug + '/views/blog/edit', {
+        res.render(res.locals.brigade.theme.slug + '/views/blog/new-edit', {
           view: 'blog-post-edit',
           blogId: req.params.blogId,
-          title: 'Edit Blog',
+          title: 'Edit Blog Post',
           brigade: res.locals.brigade,
           user: res.locals.user,
           post: post,
-          usernames: usernames
+          users: users
         })
       })
     })
@@ -263,23 +265,20 @@ module.exports = {
       post.image = req.body.image
       post.description = req.body.description
       post.content = req.body.content
-      post.date = req.body.date
-      post.unix = req.body.unix
+      post.date = moment(req.body.date, 'MM/DD/YYYY').toDate()
+      post.published = req.body.published
       post.tags = req.body.tags
-      if (req.body.tags.indexOf(',') > -1) {
-        req.body.tags = req.body.tags.split(',')
-        post.tags = req.body.tags.map(function (tag) {
-          return tag.trim()
-        })
+      if (typeof req.body.tags === 'string') {
+        post.tags = [req.body.tags]
       }
+      post.tags = post.tags.map((tag) => tag.trim())
       console.log(post.tags)
       post.save(function (err) {
         if (err) {
-          req.session.blogpostplaintextcontent = post.content
+          console.error(err)
           req.flash('errors', { msg: err.message })
           return res.redirect(req.session.returnTo || '/blog/post/' + req.params.blogId + '/edit')
         } else {
-          req.session.blogpostplaintextcontent = null
           req.flash('success', { msg: 'Success! Blog post updated' })
           return res.redirect('/blog/post/' + post.slug)
         }
