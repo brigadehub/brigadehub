@@ -75,7 +75,7 @@ function saveContributor (type, project, contributorUsername) {
     Users.findOne({ username: contributorUsername }, (err, member) => {
       if (err) return reject(err)
       member.teams[type].push(project.id)
-      member.teams[type] = _.without(member.teams[type], project.oldId)
+      if (project.oldId !== project.id) member.teams[type] = _.without(member.teams[type], project.oldId)
       member.teams[type] = _.uniq(member.teams[type])
       member.save(function (err, member) {
         if (err) return reject(err)
