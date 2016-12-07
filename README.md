@@ -2,7 +2,7 @@
 
 # BrigadeHub
 
-[![Build Status](https://travis-ci.org/sfbrigade/brigadehub.svg?branch=edge)](https://travis-ci.org/sfbrigade/brigadehub)
+[![Build Status](https://travis-ci.org/brigadehub/brigadehub.svg?branch=edge)](https://travis-ci.org/brigadehub/brigadehub)
 [![npm](https://img.shields.io/npm/v/brigadehub.svg?maxAge=2592000)](https://www.npmjs.com/package/brigadehub)
 [![Slack Status](https://sfbrigade-slackin.herokuapp.com/badge.svg)](https://sfbrigade-slackin.herokuapp.com/)
 [![OSS Manifesto](https://img.shields.io/badge/OSS-Manifesto-purple.svg?style=flat)](http://ossmanifesto.org/)
@@ -11,7 +11,7 @@
 
 ### Table of Contents
 
-- [Overview](#simplify-your-brigades-website-maintenence)
+- [Overview](#simplify-your-brigades-website-maintenance)
 - [Inspirations](#inspirations)
 - [Installation and Usage](#installation-and-usage)
   - [Prerequisites](#prerequisites)
@@ -26,13 +26,13 @@
 - [Contributing](#contributing)
 - [License](#license)
 
-### Simplify your brigade's website maintenence
+### Simplify your brigade's website maintenance
 
-BrigadeHub is an **alpha** work in progress of a Code for America Brigade website/portal. This is being built to consolidate the efforts of maintaining a brigade website into a single location, and to allow other non-developer brigade leadership to update content as needed.
+BrigadeHub is an **alpha** stage data portal for Code for America Brigades. It's being built to consolidate the efforts of maintaining a brigade's information into a single location, to distribute the task of content creation across the various non-technical brigade roles, and to enhance the experience of both members and admins of local volunteer brigades.
 
 ***brigadehub, while deployed for Code for San Francisco, has not yet been optimized for wide adoption yet. If you deploy this to your production brigade site, you do so at your own risk.***
 
-For a complete top-down view of the roadmap, take a look at our active ***[Roadmap Wiki](https://github.com/sfbrigade/brigadehub/wiki/Roadmap)***
+For a complete top-down view of the roadmap, take a look at our active ***[Roadmap Wiki](https://github.com/brigadehub/brigadehub/wiki/Roadmap)***
 
 In short, BrigadeHub is designed to meet some very specific goals:
 
@@ -45,8 +45,9 @@ In short, BrigadeHub is designed to meet some very specific goals:
 - Allow non-developers to update website info at-will
 - Allow developers to hack and customize as desired
 - Allow brigades to launch with a single non-dev step to their own environment (most likely Heroku)
+- Allow brigades to communicate with each other more effectively
 
-This project is originally based on [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter), and that's where most of the deploy documents come from, but the codebase has been heavily modified to meet our needs. We're striving to match [feross/standard](https://github.com/feross/standard) javascript styling, though the original boilerplate didn't conform to that, so it's a wip.
+This project is originally based on [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter), but the codebase has been heavily modified to meet our needs. We're striving to match [feross/standard](https://github.com/feross/standard) javascript styling, though the original boilerplate didn't conform to that, so it's a wip.
 
 Inspirations
 ------------
@@ -123,13 +124,16 @@ here is another great tutorial for complete beginners - [Getting Started With No
 
 ```bash
 # Get the latest snapshot
-git clone https://github.com/sfbrigade/brigadehub.git
+git clone https://github.com/brigadehub/brigadehub.git
 
 # Change directory
 cd brigadehub
 
 # Install NPM dependencies
 npm install
+
+# Copy the .env variables to your own file
+cp .env.example .env
 
 # If needed, start mongodb in a separate tab
 mongod
@@ -222,7 +226,7 @@ npm selenium:stop
 
 ***brigadehub, while deployed for Code for San Francisco, has not yet been optimized for wide adoption yet. If you deploy this to your production brigade site, you do so at your own risk.***
 
-If you are outside Code for San Francisco and you want to get a version of brigadehub up for your brigade, fork sfbrigade/brigadehub into your own brigade's organization. Updates should be done using upstream fetches. Contributing back should be done via Pull Request back to this repository :)
+If you are outside Code for San Francisco and you want to get a version of brigadehub up for your brigade, fork brigadehub/brigadehub into your own brigade's organization. Updates should be done using upstream fetches. Contributing back should be done via Pull Request back to this repository :)
 
 These instructions will be updated as the project emerges from the Alpha-release haze :P
 
@@ -241,7 +245,7 @@ ghdc="open Applications/GitHub\ Desktop.app/Contents/MacOS/GitHub\ Desktop"
 And instead of opening your client from an alias in applications
 
 1. open a terminal,
-1. cd to the sfbrigadehub repo root
+1. cd to the brigadehubhub repo root
 1. run your alias
 
 ### Changelog
@@ -250,7 +254,8 @@ To see what has changed in recent versions of brigadehub, see the [CHANGELOG](./
 
 ### Core Contributors
 
-- Todd Seller - Project Lead - [@toddseller](https://github.com/toddseller)
+- Oz Haven - Project Lead - ([@therebelrobot](https://github.com/therebelrobot)) <`github``@``therebelrobot.com`>
+- Todd Seller - Project Co-Lead - [@toddseller](https://github.com/toddseller)
 - Aaron Schachter [@aaronschachter](https://github.com/aaronschachter)
 - Andrew Bacon [@andrewmbacon](https://github.com/andrewmbacon)
 - David Carvel [@davidcarvel](https://github.com/davidcarvel)
@@ -274,7 +279,6 @@ To see what has changed in recent versions of brigadehub, see the [CHANGELOG](./
 - Phips Peter [@pspeter3](https://github.com/pspeter3)
 - [@rogeliobonilla](https://github.com/rogeliobonilla)
 - Tracy [@spiffysparrow](https://github.com/spiffysparrow)
-- Trent Oswald - Former Project Lead - ([@therebelrobot](https://github.com/therebelrobot)) <`trentoswald``@``therebelrobot.com`>
 - [@Thithi32](https://github.com/Thithi32)
 - [@whatdoublechen](https://github.com/whatdoublechen)
 - [@wrendo](https://github.com/wrendo)
@@ -285,7 +289,7 @@ To see what has changed in recent versions of brigadehub, see the [CHANGELOG](./
 
 ### Other questions
 
-Feel free to chat with the brigadehub core team (and many other users) on `sfbrigade` Slack in the `#brigadehub` channel ([join here](http://c4sf.me/slack)), on IRC in the [#sfbrigade](irc://irc.freenode.net/sfbrigade) channel on Freenode, or via opening a new Github Issue here in the repo.
+Feel free to chat with the brigadehub core team (and many other users) on `brigadehub` Slack in the `#brigadehub` channel ([join here](http://c4sf.me/slack)), on IRC in the [#brigadehub](irc://irc.freenode.net/brigadehub) channel on Freenode, or via opening a new Github Issue here in the repo.
 
 ## Contributing
 
@@ -293,4 +297,4 @@ Refer to our [`CONTRIBUTING.md`](/.github/CONTRIBUTING.md) doc.
 
 ## License
 
-This can be found in [brigadehub's wiki](https://github.com/sfbrigade/brigadehub/wiki/License) as well.
+This can be found in [brigadehub's wiki](https://github.com/brigadehub/brigadehub/wiki/License) as well.

@@ -45,7 +45,7 @@ require('colors')
 console.log("                      \u2590\u2593\u2580\u2593\u2580\u2593\u2580\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593              \u2584\u2584\u2584                 \r\n                      \u2590\u2593\u2584\u2593\u2584\u2593\u2584\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593            \u2584\u2593\u2593\u2593                 \r\n              \u2593\u2593\u2593\u2593\u2593   \u2590\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593           \u2553\u2593\u2593\u2593   \u2552\u2593\u2593\u2584\u2584          \r\n          \u2584\u2593\u2593\u2593\u2593\u2593\u2593     \u2590\u2593\u2593\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2593\u2593\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2593\u2593\u2593          \u2554\u2593\u2593\u2593     \u2580\u2588\u2593\u2593\u2593\u2593\u2584\u2584      \r\n      \u2584\u2584\u2593\u2593\u2593\u2593\u2588\u2580\u2518       \u2590\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593          \u2590\u2593\u2593         \u2584\u2593\u2593\u2588         \u2559\u2580\u2588\u2593\u2593\u2593\u2593\u2584\u2584  \r\n    \u2593\u2593\u2593\u2593\u2593\u2593\u2593           \u2590\u2593\u2593\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2593\u2593          \u2590\u2593\u2593        \u2584\u2593\u2593\u2588              \u2559\u2593\u2593\u2593\u2593\u2593\u2593\r\n      \u2580\u2588\u2593\u2593\u2593\u2593\u2593\u2584        \u2590\u2593\u2593\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2580\u2593\u2593          \u2590\u2593\u2593       \u2584\u2593\u2593\u2588            ;\u2584\u2593\u2593\u2593\u2593\u2588\u2580\u2559 \r\n          \u2580\u2588\u2593\u2593\u2593\u2593\u2593\u2584    \u2590\u2593\u2593\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2593\u2593\u2593      \u2584\u2593\u2593\u2588         ,\u2584\u2593\u2593\u2593\u2593\u2588\u2580\u2580     \r\n              \u2593\u2593\u2593\u2593\u258C   \u2590\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593     \u2584\u2593\u2593\u2588         \u2590\u2593\u2593\u2593\u2580\u2580.        \r\n                      \u2590\u2593\u2593\u2593\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2584\u2593\u2593\u2593    \u2584\u2593\u2593\u2588            \u00AC            \r\n                      \u2590\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593   \u2588\u2580\u2580                          \r\n __                                      __          __               __        \r\n/\\ \\             __                     /\\ \\        /\\ \\             /\\ \\       \r\n\\ \\ \\____  _ __ /\\_\\     __      __     \\_\\ \\     __\\ \\ \\___   __  __\\ \\ \\____  \r\n \\ \\ '__`\\/\\`'__\\/\\ \\  /'_ `\\  /'__`\\   /'_` \\  /'__`\\ \\  _ `\\/\\ \\/\\ \\\\ \\ '__`\\ \r\n  \\ \\ \\L\\ \\ \\ \\/ \\ \\ \\/\\ \\L\\ \\/\\ \\L\\.\\_/\\ \\L\\ \\/\\  __/\\ \\ \\ \\ \\ \\ \\_\\ \\\\ \\ \\L\\ \\\r\n   \\ \\_,__/\\ \\_\\  \\ \\_\\ \\____ \\ \\__/.\\_\\ \\___,_\\ \\____\\\\ \\_\\ \\_\\ \\____/ \\ \\_,__/\r\n    \\/___/  \\/_/   \\/_/\\/___L\\ \\/__/\\/_/\\/__,_ /\\/____/ \\/_/\\/_/\\/___/   \\/___/ \r\n                         /\\____/                                                \r\n                         \\_/__/      ")
 console.log('[Brigadehub]'.yellow + ' v' + pkg.version)
 
-var DB_INSTANTIATED
+process.env.DB_INSTANTIATED = ''
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -80,44 +80,10 @@ var brigadeDetails
  */
 var app = express()
 
-/**
- * Connect to MongoDB.
- */
-mongoose.connect(process.env.MONGODB || process.env.MONGOLAB_URI, function (err) {
-  if (err) throw new Error(err)
-})
-mongoose.connection.on('error', function (err) {
-  console.log('There was an error while trying to connect!')
-  throw new Error(err)
-})
+helpers.bootstrapDatabase(startServer)
 
-/**
- * Check Model Settings in db
- */
-var Brigade = require('./models/Brigade')
-
-/**
- * Check if brigade exists before starting Express server.
- */
-Brigade.findOne({}, function (err, results) {
-  if (err) throw err
-  if (!results) {
-    var defaultBrigadeData = require('./seeds/Brigade')()[0]
-    defaultBrigadeData.slug = process.env.BRIGADE
-    brigadeDetails = defaultBrigadeData
-    var defaultBrigade = new Brigade(defaultBrigadeData)
-    defaultBrigade.save(function (err) {
-      if (err) throw err
-      DB_INSTANTIATED = true
-      startServer()
-    })
-  } else {
-    DB_INSTANTIATED = true
-    brigadeDetails = results
-    startServer()
-  }
-})
-function startServer () {
+function startServer (brigade) {
+  brigadeDetails = brigade
   const publicThemeLocation = path.join(__dirname, 'node_modules', `brigadehub-public-${brigadeDetails.theme.public}`)
   const adminThemeLocation = path.join(__dirname, 'node_modules', `brigadehub-admin-${brigadeDetails.theme.admin}`)
 
@@ -185,7 +151,7 @@ function startServer () {
   /* Check if db is connected */
   app.use(checkDB)
   function checkDB (req, res, next) {
-    if (!DB_INSTANTIATED) {
+    if (process.env.DB_INSTANTIATED === '') {
       return setTimeout(function () {
         checkDB(req, res, next)
       }, 500)
@@ -272,65 +238,6 @@ function startServer () {
    */
 
   app.get('/api/models/:model', APIctrl.get.models)
-
-  /**
-   * Meta Routes
-   */
-
-  // /**
-  //  * Meta Routes
-  //  */
-  //
-  // app.get('/checkin', checkinCtrl.getCheckin)
-  // app.post('/checkin', checkinCtrl.postCheckin)
-
-  /**
-   * Project routes.
-   */
-  app.get('/projects', projectsCtrl.getProjects)
-  app.get('/projects/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.getProjectsManage)
-  app.post('/projects/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.postProjectsManage)
-  app.post('/projects/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), projectsCtrl.postProjectsSync)
-  app.get('/projects/new', middleware.passport.isAuthenticated, projectsCtrl.getProjectsNew)
-  app.post('/projects/new', middleware.passport.isAuthenticated, projectsCtrl.postProjectsNew)
-  app.get('/projects/:projectId', projectsCtrl.getProjectsID)
-  app.post('/projects/:projectId', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.postProjectsIDSettings)
-  app.get('/projects/:projectId/settings', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.getProjectsIDSettings)
-  app.post('/projects/:projectId/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.postProjectsIDSync)
-  app.post('/projects/:projectId/delete', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['lead', 'core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo']), projectsCtrl.postDeleteProject)
-
-  /**
-   * Events routes.
-   */
-  app.get('/events', eventsCtrl.getEvents)
-  app.get('/events/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.getEventsManage)
-  app.post('/events/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsManage)
-  app.post('/events/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsSync)
-  app.get('/events/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.getEventsNew)
-  app.post('/events/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsNew)
-  app.post('/events/delete', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postDeleteAllEvents)
-  app.get('/events/:eventId', eventsCtrl.getEventsID)
-  app.post('/events/:eventId', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsIDSettings)
-  app.get('/events/:eventId/settings', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.getEventsIDSettings)
-  app.post('/events/:eventId/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postEventsIDSync)
-  app.post('/events/:eventId/delete', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), middleware.passport.checkScopes(['user', 'repo', 'admin:org', 'admin:repo_hook', 'admin:org_hook']), eventsCtrl.postDeleteEvent)
-
-  /**
-   * Blog routes.
-   */
-  app.get('/blog', blogCtrl.getBlog)
-  app.get('/blog/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.getBlogManage)
-  app.post('/blog/manage', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.postBlogManage)
-  app.post('/blog/sync/:type', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), blogCtrl.postBlogSync)
-  app.get('/blog/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.getBlogNew)
-  app.post('/blog/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.postBlogNew)
-  app.get('/blog/post/:blogId', blogCtrl.getBlogID)
-  app.post('/blog/post/:blogId', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.postBlogIDEdit)
-  app.get('/blog/post/:blogId/edit', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.getBlogIDEdit)
-  app.post('/blog/:blogId/sync', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin', 'coreLead', 'blog', 'lead']), blogCtrl.postBlogIDSync)
-
-  app.post('/blog/post/:blogId/delete', middleware.passport.isAuthenticated, blogCtrl.postBlogIDDelete)
-  app.get('/author/:authorId', middleware.passport.isAuthenticated, blogCtrl.getAuthorId)
 
   /**
    * Users routes.

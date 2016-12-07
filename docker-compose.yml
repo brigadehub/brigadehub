@@ -5,7 +5,7 @@ db:
 
 app:
   build: .
-  command: npm run develop
+  command: npm start
   volumes:
     - .:/usr/src/app
     - /usr/src/app/node_modules
