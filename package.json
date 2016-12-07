@@ -1,6 +1,6 @@
 {
   "name": "brigadehub",
-  "version": "1.0.0-alpha.17",
+  "version": "1.0.0-alpha.19",
   "repository": {
     "type": "git",
     "url": "https://github.com/sfbrigade/brigadehub.git"
@@ -18,7 +18,7 @@
     "test:unit": "echo 'no unit test available.'",
     "db:clear": "./scripts/database-clear",
     "db:seed": "./scripts/database-seed",
-    "db:migrate": "db-migrate --config config/database.json",
+    "db:migrate": "./scripts/database-bootstrap && db-migrate --config config/database.json",
     "develop": "npm install && gulp start",
     "develop:nomongo": "gulp start:nomongo",
     "install:clean": "rm -rf node_modules && npm install",
@@ -40,8 +40,8 @@
     "async": "^1.5.2",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.14.2",
-    "brigadehub-admin-c4sf": "0.0.4",
-    "brigadehub-public-c4sf": "^0.1.11",
+    "brigadehub-admin-c4sf": "0.0.5",
+    "brigadehub-public-c4sf": "^0.1.12",
     "colors": "^1.1.2",
     "compression": "^1.6.0",
     "connect-mongo": "^1.1.0",
