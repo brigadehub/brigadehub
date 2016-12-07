@@ -1,6 +1,6 @@
 {
   "name": "brigadehub",
-  "version": "1.0.0-alpha.17",
+  "version": "1.0.0-alpha.19",
   "dependencies": {
     "abbrev": {
       "version": "1.0.7",
