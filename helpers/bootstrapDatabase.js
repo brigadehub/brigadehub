@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 module.exports = function (cb) {
+  let brigadeDetails
   mongoose.connect(process.env.MONGODB || process.env.MONGOLAB_URI, function (err) {
     if (err) throw new Error(err)
   })

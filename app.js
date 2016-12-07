@@ -26,7 +26,6 @@ var lusca = require('lusca')
 var methodOverride = require('method-override')
 var MongoStore = require('connect-mongo/es5')(session)
 var flash = require('express-flash')
-var mongoose = require('mongoose')
 var passport = require('passport')
 var expressValidator = require('express-validator')
 var sass = require('node-sass-middleware')
@@ -57,9 +56,6 @@ require('./dotenv.js')()
 /**
  * Controllers (route handlers).
  */
-var eventsCtrl = require('./controllers/events')
-var blogCtrl = require('./controllers/blog')
-var projectsCtrl = require('./controllers/projects')
 var contactCtrl = require('./controllers/contact')
 var APIctrl = require('./controllers/api')
 
@@ -83,6 +79,7 @@ var app = express()
 helpers.bootstrapDatabase(startServer)
 
 function startServer (brigade) {
+  var Brigade = require('./models/Brigade')
   brigadeDetails = brigade
   const publicThemeLocation = path.join(__dirname, 'node_modules', `brigadehub-public-${brigadeDetails.theme.public}`)
   const adminThemeLocation = path.join(__dirname, 'node_modules', `brigadehub-admin-${brigadeDetails.theme.admin}`)
