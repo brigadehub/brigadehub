@@ -13,6 +13,26 @@
 - [[`bd551842d8`](https://github.com/brigadehub/brigadehub/commit/bd551842d8145dd6ac880beeb74b9e403ed8a313)] - **lint:**  standard compliance (Trent Oswald)
 
 
+# v1.0.0-alpha.18 - Sharp Fish | published *2016-12-06T21:51:23Z*
+
+## 2016-12-06, Version v1.0.0-alpha.18
+### Notable Changes
+
+- Stability and theme version updates
+
+### Commits
+- [[`432bd0760c`](https://github.com/brigadehub/brigadehub/commit/432bd0760ccfdfdd98637205236eea0a9da9340a)] - **theme:**  updated public theme version (Trent Oswald)
+- [[`521e94816c`](https://github.com/brigadehub/brigadehub/commit/521e94816c14111f2fd3ceb1b60996fe07f3bf44)] - **blog:**  various styling and model fixes to blog (Trent Oswald)
+- [[`5914169aaa`](https://github.com/brigadehub/brigadehub/commit/5914169aaa7ba0c131527bf9d25ec6a035435c2f)] - **lint:**  standard compliance (Trent Oswald)
+- [[`f30aec54a6`](https://github.com/brigadehub/brigadehub/commit/f30aec54a61f065b283fe3495d9795d72f421b00)] - **theme:**  updated theme version (Trent Oswald)
+- [[`321f5c1805`](https://github.com/brigadehub/brigadehub/commit/321f5c180521b3bd9836b54fcbea3a1c67a98f23)] - **theme:**  Update public theme version (Todd Seller)
+- [[`7de3a378e3`](https://github.com/brigadehub/brigadehub/commit/7de3a378e3bae3f4e1bf2c10730c53d2b9e439b4)] - **blog:**  fixed blog issues (Trent Oswald)
+- [[`87114e55a4`](https://github.com/brigadehub/brigadehub/commit/87114e55a402c24a9f86dcafbb5df455c4d0bf4b)] - **deps:**  updated public theme version (Trent Oswald)
+- [[`0cd6bcb00f`](https://github.com/brigadehub/brigadehub/commit/0cd6bcb00fc1fd79bd1f58b56266247496ca5b67)] - **lint:**  standard compliance (Trent Oswald)
+- [[`2ffd32a8a8`](https://github.com/brigadehub/brigadehub/commit/2ffd32a8a899c87477faa7617e3d31e79286c0a0)] - **theme-update:**  Updates public theme (Todd Seller)
+- [[`4cc1416824`](https://github.com/brigadehub/brigadehub/commit/4cc14168244367c4c4269259d89e29e4de722f21)] - **projects:**  fixed pre-save finction for project members (Trent Oswald)
+
+
 # v1.0.0-alpha.17 - Beautiful Cheetah | published *2016-12-06T22:02:00Z*
 
 ## 2016-12-06, Version v1.0.0-alpha.17
@@ -96,27 +116,6 @@
 - [[`649d53228d`](https://github.com/brigadehub/brigadehub/commit/649d53228d2a87c7a7afe43b5ca2d6f8c3700a77)] - **version:**  bumped to 1.0.0-alpha.12 (Trent Oswald)
 - [[`11892cbce4`](https://github.com/brigadehub/brigadehub/commit/11892cbce43522f7a7cc421bd73323f35b8233e5)] - **version:**  bumped to 1.0.0-alpha.13 (Trent Oswald)
 
-
-# v1.0.0-alpha.18 - Sharp Fish | published *2016-12-06T21:51:23Z*
-
-## 2016-12-06, Version v1.0.0-alpha.18
-### Notable Changes
-
-- Stability and theme version updates
-
-### Commits
-- [[`432bd0760c`](https://github.com/brigadehub/brigadehub/commit/432bd0760ccfdfdd98637205236eea0a9da9340a)] - **theme:**  updated public theme version (Trent Oswald)
-- [[`521e94816c`](https://github.com/brigadehub/brigadehub/commit/521e94816c14111f2fd3ceb1b60996fe07f3bf44)] - **blog:**  various styling and model fixes to blog (Trent Oswald)
-- [[`5914169aaa`](https://github.com/brigadehub/brigadehub/commit/5914169aaa7ba0c131527bf9d25ec6a035435c2f)] - **lint:**  standard compliance (Trent Oswald)
-- [[`f30aec54a6`](https://github.com/brigadehub/brigadehub/commit/f30aec54a61f065b283fe3495d9795d72f421b00)] - **theme:**  updated theme version (Trent Oswald)
-- [[`321f5c1805`](https://github.com/brigadehub/brigadehub/commit/321f5c180521b3bd9836b54fcbea3a1c67a98f23)] - **theme:**  Update public theme version (Todd Seller)
-- [[`7de3a378e3`](https://github.com/brigadehub/brigadehub/commit/7de3a378e3bae3f4e1bf2c10730c53d2b9e439b4)] - **blog:**  fixed blog issues (Trent Oswald)
-- [[`87114e55a4`](https://github.com/brigadehub/brigadehub/commit/87114e55a402c24a9f86dcafbb5df455c4d0bf4b)] - **deps:**  updated public theme version (Trent Oswald)
-- [[`0cd6bcb00f`](https://github.com/brigadehub/brigadehub/commit/0cd6bcb00fc1fd79bd1f58b56266247496ca5b67)] - **lint:**  standard compliance (Trent Oswald)
-- [[`2ffd32a8a8`](https://github.com/brigadehub/brigadehub/commit/2ffd32a8a899c87477faa7617e3d31e79286c0a0)] - **theme-update:**  Updates public theme (Todd Seller)
-- [[`4cc1416824`](https://github.com/brigadehub/brigadehub/commit/4cc14168244367c4c4269259d89e29e4de722f21)] - **projects:**  fixed pre-save finction for project members (Trent Oswald)
-
-
 # v1.0.0-alpha.12 - Friendly Fox | published *2016-11-01T18:36:46Z*
 
 ## 2016-11-01, Version v1.0.0-alpha.12
@@ -125,7 +124,7 @@
 - Bumped underlying Node version to v6 for ES6 features
 - Active/inactive flag for projects
 - Segment / Google Analytics tracking tokens in manage brigade
-- Checkin! 
+- Checkin!
 - Admin panel for monitoring checkin!
 - Project teams are now saved and consolidated
 

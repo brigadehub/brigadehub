@@ -15,4 +15,5 @@ module.exports = function () {
     console.warn('.env file not found. Defaulting to sample. Please copy .env.example to .env and populate with your own credentials.')
     dotenv.load({ path: '.env.example' })
   }
+  return true
 }
