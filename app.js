@@ -56,7 +56,6 @@ require('./dotenv.js')()
 /**
  * Controllers (route handlers).
  */
-var contactCtrl = require('./controllers/contact')
 var APIctrl = require('./controllers/api')
 
 const controllers = requireDir('./controllers', {recurse: true})
@@ -221,14 +220,6 @@ function startServer (brigade) {
   buildOutEndpoints(publicControllers, app, dynamicRoutes)
   buildOutEndpoints(adminControllers, app, dynamicRoutes)
   buildOutDynamicEndpoints(dynamicRoutes, app)
-  /**
-   *  Resume normal routes
-   */
-
-  app.get('/contact', contactCtrl.getContact)
-  app.post('/contact', contactCtrl.postContact)
-  app.get('/contact/edit', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), contactCtrl.getContactEdit)
-  app.post('/contact/message/new', middleware.passport.isAuthenticated, middleware.passport.checkRoles(['core', 'superAdmin']), contactCtrl.postContactMessage)
 
   /**
    *  API routes
