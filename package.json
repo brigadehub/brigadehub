@@ -9,30 +9,16 @@
     "node": ">=6 <7"
   },
   "scripts": {
-    "postinstall": "npm run db:migrate up",
-    "prestart": "npm install",
-    "start": "node app.js",
-    "pretest": "npm run lint",
-    "test": "npm run test:unit",
-    "test:e2e": "nightwatch",
-    "test:unit": "echo 'no unit test available.'",
-    "db:clear": "./scripts/database-clear",
-    "db:seed": "./scripts/database-seed",
-    "db:migrate": "./scripts/database-bootstrap && db-migrate --config config/database.json",
-    "develop": "npm install && gulp start",
-    "develop:nomongo": "gulp start:nomongo",
-    "install:clean": "rm -rf node_modules && npm install",
-    "lint": "standard",
-    "validate": "npm ls",
-    "selenium:install": "selenium-standalone install",
-    "selenium:start": "selenium-standalone start&",
-    "selenium:stop": "pkill -f selenium-standalone",
-    "build:docker": "docker build -t sfbrigade/brigadehub .",
-    "build:docker:run": "docker run -d --name brigadehub -p 80:5465 -e MONGODB=mongodb://192.168.99.100:27017/brigadehub-docker sfbrigade/brigadehub",
-    "build:docker:images": "docker images sfbrigade/brigadehub",
-    "build:docker:tag": "echo 'docker tag hash sfbrigade/brigadehub:release'",
-    "build:docker:push": "docker push sfbrigade/brigadehub",
-    "build:docker:untag": "echo 'docker rmi sfbrigade/brigadehub:release'"
+    "install": "echo 'make install'",
+    "db-migrate": "db-migrate",
+    "gulp": "gulp",
+    "nightwatch": "nightwatch",
+    "nodemon": "nodemon",
+    "selenium-standalone": "selenium-standalone",
+    "standard": "standard",
+    "start": "make start",
+    "test": "make test",
+    "yarn": "yarn"
   },
   "dependencies": {
     "analytics-node": "^2.1.0",
@@ -41,7 +27,7 @@
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.14.2",
     "brigadehub-admin-c4sf": "0.0.6",
-    "brigadehub-core": "^1.0.0-alpha.2",
+    "brigadehub-core": "1.0.0-alpha.3",
     "brigadehub-public-c4sf": "^0.1.13",
     "colors": "^1.1.2",
     "compression": "^1.6.0",
@@ -87,7 +73,8 @@
     "serve-favicon": "^2.3.0",
     "slug": "^0.9.1",
     "slugify": "^1.0.2",
-    "supertest": "^2.0.1"
+    "supertest": "^2.0.1",
+    "yarn": "^0.17.10"
   },
   "devDependencies": {
     "careful": "^1.0.2",
@@ -99,11 +86,11 @@
     "mongodb": "^2.1.7",
     "mongoose-seed": "^0.3.1",
     "nightwatch": "latest",
-    "nodemon": "^1.9.1",
+    "nodemon": "^1.11.0",
     "phantomjs-prebuilt": "2.1.11",
     "seedling": "0.0.10",
     "selenium-standalone": "latest",
-    "standard": "https://registry.npmjs.org/standard/-/standard-6.0.8.tgz",
+    "standard": "^8.6.0",
     "validate-commit-msg": "^2.6.1"
   },
   "standard": {
