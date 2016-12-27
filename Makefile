@@ -18,6 +18,11 @@ start/develop/mongo:
 lint:
 	npm run standard
 
+link:
+	npm link brigadehub-public-c4sf
+	npm link brigadehub-admin-c4sf
+	npm link brigadehub-core
+
 test:
 	@echo make lint
 	@$(MAKE) lint
@@ -67,8 +72,7 @@ db/migrate/down:
 	npm run db-migrate -- --config $(COREPATH)/config/database.json --migrations-dir $(COREPATH)/migrations down
 
 install:
-	npm install yarn
-	npm run yarn
+	npm install
 	@echo make db/migrate/up
 	@$(MAKE) db/migrate/up
 
@@ -95,4 +99,4 @@ build/docker/push:
 build/docker/untag:
 	echo "docker rmi brigadehub/$(PACKAGENAME):release"
 
-.PHONY: start lint test db install build
+.PHONY: start lint test db install build link

@@ -1,0 +1,19 @@
+{
+  "name": "Brigadehub",
+  "description": "Focus on what your community needs, not your website 💻",
+  "website": "http://brigadehub.github.io",
+  "success_url": "/login",
+  "addons": [
+    "papertrail",
+   {
+      "plan": "mongolab",
+      "as": "MONGODB"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "scripts": {
+    "postdeploy": "make db/bootstrap"
+  }
+}
