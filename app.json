@@ -12,8 +12,5 @@
   ],
   "env": {
     "NODE_ENV": "production"
-  },
-  "scripts": {
-    "postdeploy": "make db/bootstrap"
   }
 }
