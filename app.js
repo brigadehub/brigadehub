@@ -1,6 +1,6 @@
 const core = require('brigadehub-core')
 var pkg = require('./package.json')
-var brigade = require('./brigade')
+var brigade = require('./brigade')()[0]
 
 const bhConfig = {
   dotenv: require('./dotenv')(),

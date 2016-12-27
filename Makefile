@@ -2,8 +2,6 @@ COREPATH ?= ./node_modules/brigadehub-core
 PACKAGENAME ?= brigadehub
 
 start:
-	@echo make db/bootstrap
-	@$(MAKE) db/bootstrap
 	node app.js
 
 start/develop:
