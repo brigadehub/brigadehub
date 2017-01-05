@@ -6,6 +6,7 @@ module.exports = function () {
   try {
     var stats = fs.lstatSync(path.join(__dirname, '/.env'))
     if (stats.isFile()) {
+      console.log('loading .env')
       dotenv.load({ path: '.env' })
     } else {
       throw new Error('.env is not a file!')
