@@ -1,2 +1,2 @@
 FROM node:6-onbuild
-MAINTAINER Ozzy Haven (@therebelrobot) <dockerhub@therebelrobot.com>
+MAINTAINER Oz Haven (@therebelrobot) <dockerhub@therebelrobot.com>

@@ -1,12 +1,15 @@
 {
   "name": "brigadehub",
-  "version": "1.0.0-alpha.19",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sfbrigade/brigadehub.git"
+    "url": "https://github.com/brigadehub/brigadehub.git"
   },
   "engines": {
     "node": ">=6 <7"
+  },
+  "bin": {
+    "brigadehub-suite": "make start"
   },
   "scripts": {
     "install": "echo 'make install'",
@@ -107,50 +110,9 @@
     ]
   },
   "config": {
-    "validate-commit-msg": {
-      "helpMessage": "Commit message \n\n\t%s\nis not following this project's commit standards. Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#default-commit-message-format) for more details."
-    },
-    "careful": {
-      "prefixes": [
-        "feature",
-        "hotfix",
-        "release",
-        "refactor",
-        "bugfix",
-        "docs"
-      ],
-      "suggestions": {
-        "features": "feature",
-        "feat": "feature",
-        "fix": "bugfix",
-        "bug": "bugfix",
-        "releases": "release",
-        "doc": "docs"
-      },
-      "skip": [
-        "demo",
-        "develop"
-      ],
-      "disallowed": [
-        "edge",
-        "master"
-      ],
-      "banned": [
-        "wip"
-      ],
-      "seperator": "/",
-      "msgBranchBanned": "Branch name %s banned from push usage. Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#branch-naming-format) for more details.",
-      "msgPrefixNotAllowed": "Branch must have an appropriate prefix (feature, hotfix, bugfix, docs). Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#branch-naming-format) for more details.",
-      "msgSeperatorRequired": "Branch must have an appropriate prefix (feature, hotfix, bugfix, docs). Please refer to the contribution wiki (https://github.com/sfbrigade/brigadehub/wiki/Contributing#branch-naming-format) for more details."
-    },
     "ghooks": {
-      "pre-commit": "careful",
-      "commit-msg": "validate-commit-msg",
       "pre-push": "npm test"
-    },
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "license": "ISC"
+  "license": "MIT"
 }

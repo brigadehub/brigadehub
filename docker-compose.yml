@@ -14,6 +14,6 @@ app:
   links:
     - db
   environment:
-    MONGODB: mongodb://db:27017/brigadehub-docker
-    GITHUB_ID: githubid
-    GITHUB_SECRET: githubsecret
+    MONGODB: mongodb://db:27017/brigadehub-suite
+    GITHUB_ID:
+    GITHUB_SECRET:
