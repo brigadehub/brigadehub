@@ -1,258 +1,384 @@
-<img src="/assets/rasterized/logo-banner-color-white.png" />
+<img src="https://cdn.rawgit.com/brigadehub/brigadehub/develop/assets/rasterized/logo-banner-color-white.png" alt="Brigadehub"/>
 
-# BrigadeHub
+---
 
+[![TrustOSS Compliant](http://trustoss.org/badge_version.svg)](http://trustoss.org)
 [![Build Status](https://travis-ci.org/brigadehub/brigadehub.svg?branch=edge)](https://travis-ci.org/brigadehub/brigadehub)
 [![npm](https://img.shields.io/npm/v/brigadehub.svg?maxAge=2592000)](https://www.npmjs.com/package/brigadehub)
 [![Slack Status](https://sfbrigade-slackin.herokuapp.com/badge.svg)](https://sfbrigade-slackin.herokuapp.com/)
-[![OSS Manifesto](https://img.shields.io/badge/OSS-Manifesto-purple.svg?style=flat)](http://ossmanifesto.org/)
 [![Keep A Changelog](https://img.shields.io/badge/Keep%20A-Changelog-blue.svg?style=flat)](http://keepachangelog.com/)
 [![JS Standard](https://img.shields.io/badge/JS-Standard-yellow.svg?style=flat)](https://github.com/feross/standard)
 
 ### Table of Contents
 
-- [Overview](#simplify-your-brigades-website-maintenance)
-- [Inspirations](#inspirations)
-- [Installation and Usage](#installation-and-usage)
-  - [Prerequisites](#prerequisites)
-  - [Install](#install)
-  - [Usage](#usage)
-- [Testing](#testing)
-- [Deploy (not recommended yet)](#deploy)
+- [In a Nutshell](#in-a-nutshell)
+- [Ways to Use](#ways-to-use)
+  - [Suite](#suite)
+    - [Production Install](#production-installation)
+    - [Development Install](#development-installation)
+  - [Admin Gateway](#admin-gateway)
+    - [Production Install](#production-installation)
+    - [Development Install](#development-installation)
+  - [Mini](#mini)
+    - [Production Install](#production-installation)
+    - [Development Install](#development-installation)
+- [Usage](#usage)
+  - [Core API](#core-api)
+  - [Admin Theme](#admin-theme)
+  - [Public Theme](#public-theme)
 - [Troubleshooting](#troubleshooting)
-- [Changelog](#changelog)
-- [Core Contributors](#core-contributors)
-- [Resources](#resources)
 - [Contributing](#contributing)
+- [Changelog](#changelog)
+- [Contributors](#contributors)
+- [Inspirations](#inspirations)
+- [Additional Resources](#resources)
 - [License](#license)
 
-### Simplify your brigade's website maintenance
+### In a nutshell
 
-BrigadeHub is an **alpha** stage data portal for Code for America Brigades. It's being built to consolidate the efforts of maintaining a brigade's information into a single location, to distribute the task of content creation across the various non-technical brigade roles, and to enhance the experience of both members and admins of local volunteer brigades.
+BrigadeHub is an **beta** stage data portal for volunteer coding organizations. While being built for Code for America Brigades, it can be be used for any project-based coding organization. It's being built to consolidate the efforts of maintaining a brigade's information into a single location, to distribute the task of content creation across the various non-technical brigade roles, and to enhance the experience of both members and admins of these unique organizations.
 
-***brigadehub, while deployed for Code for San Francisco, has not yet been optimized for wide adoption yet. If you deploy this to your production brigade site, you do so at your own risk.***
-
-For a complete top-down view of the roadmap, take a look at our active ***[Roadmap Wiki](https://github.com/brigadehub/brigadehub/wiki/Roadmap)***
+For a complete top-down view of the roadmap, take a look at our active ***[Roadmap Wiki](https://github.com/brigadehub/brigadehub/wiki/Roadmap)*** (currently being worked on).
 
 In short, BrigadeHub is designed to meet some very specific goals:
 
-- Be the external face for the brigade
-- Show Leadership / Contact info / member bios
-- Brigade Blogging
-- Show upcoming events and calendars through Meetup and Google Calendar API integration
-- Give new users a place to onboard through tight integration with Github oauth and expandable API integrations
-- Display and market active projects through Github API integration
-- Allow non-developers to update website info at-will
-- Allow developers to hack and customize as desired
-- Allow brigades to launch with a single non-dev step to their own environment (most likely Heroku)
-- Allow brigades to communicate with each other more effectively
+- Provide out-of-the-box utilities for organization admins:
+  - Public facing website, with contact page, blog, project profiles and more
+  - Admin dashboard
+  - Robust content management permissioning and distribution
+- Be easy to install and upkeep. You shouldn't have to dedicate a team just for your website anymore, nor should you need to know how to code to update your site.
+- Be modular, extensible, and hackable. Brigadehub Core provides a simple REST API for minimal deployment if you already have your infrastructure in place.
+- Allow brigades to communicate with each other quickly and effectively
 
-This project is originally based on [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter), but the codebase has been heavily modified to meet our needs. We're striving to match [feross/standard](https://github.com/feross/standard) javascript styling, though the original boilerplate didn't conform to that, so it's a wip.
+### Ways to use
 
-Inspirations
-------------
+There are three different ways of interacting with/using Brigadehub:
 
-Similar projects have been conceived and implemented previously, most prominently by [CodeForPhilly](https://codeforphilly.org/) in the form of [Laddr](https://github.com/CfABrigadePhiladelphia/laddr). The reason we're building a parallel system is for a few reasons:
+- **Suite**: out of the box solution, best if you have no current site solution and don't want to deal with any coding. Swap out themes as you like with community-built solutions.
+- **Admin Gateway**: Minimal API with a GUI admin gateway, best if you already have a website and want a way of dynamically generating the content of it. You'll need to read up on the Core API to tie it into your frontend, but once deployed, the data can be maintained by non-coders.
+- **Mini**: This is just a REST API interface. Best if you already have an interface built out and just want to leverage the dataset of Brigadehub.
 
-- a system that isn't based in PHP, and didn't require a custom Linux VM to run
-- to utilize the cross-discipline talents of Node.js developers, who generally can move from front-back end quickly
-- a one-click deploy system, preferably to Heroku, that would make deployment of a new hub effortless
-- a platform tightly coupled with the Github API, for oauth, handling permissioning and adminning of the github repos easily
-- a system that easily lent itself to additional onboarding steps for new members.
+Depending on the needs of your organization, you'll want to decide which will work best for you.
 
-Another project which this is pulling inspiration from is [CodeForAtlanta](http://www.codeforatlanta.org/)'s [Connector](https://github.com/codeforatlanta/connector). [Chime](https://github.com/chimecms/chime) was also a CMS that had similar goals, but focused on local governments, rather than brigades.
+#### Suite
 
-### Installation and usage
+**Brigadehub Suite** is the flagship install of Brigadehub, and is more or less a ***brigade-in-a-box***. It installs three components: **Core**, **Admin Theme**, and **Public Theme**. It's deployed in such a way that you should never *need* to touch the code, but if you *want* to, it's a simple matter. It provides Admin tools to manage your brigade information, and a slick frontend to display the info you're managing. Your frontend developers can dynamically pull the data about your brigade via the Core API if they have external tools that need the same data. And you can rest assured that we'll be working on patches and updates over time to make this the most secure and stable platform ever.
 
-There are two methods of install at the moment: via [cloning the source repo](#source) or [docker](#docker). The prerequisites for each change depending on which you choose to use.
+###### Production Install
 
-<table>
-	<tbody>
-		<tr>
-			<td>
-				<a href="#source">
-					<img height="125" src="http://i.imgur.com/QBu6ZWo.png" alt="source"/>
-				</a>
-			</td>
-			<td>
-				<a style="padding:30px;display:inline-block" href="#docker">
-					<img src="http://i.imgur.com/MM5RT5W.png" height="125" alt="docker"/>
-				</a>
-			</td>
-		</tr>
-	</tbody>
-<table>
+<details><summary><img src="http://saasiter.com/img/services/heroku.png" height="25" /> Heroku (click to open)</summary><p>
+Heroku sports this handy one-click-install feature, which will handle most of the configuration for you. Base the install off [brigadehub/brigadehub](https://github.com/brigadehub/brigadehub), and you're good to go (the button below does that ⬇)
 
-#### Source
-##### Prerequisites
+[![Brigadehub Suite Heroku Install](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https%3A%2F%2Fgithub.com%2Fbrigadehub%2Fbrigadehub%2Ftree%2Fmaster)
 
-- Command Line Tools
- - <img src="http://deluge-torrent.org/images/apple-logo.gif" height="17">&nbsp;**Mac OS X:**
-   - [Xcode](https://itunes.apple.com/us/app/xcode/id497799835?mt=12) (or **OS X 10.9 Mavericks**: `xcode-select --install`)
-    - [HomeBrew](http://brew.sh) `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
- - <img src="http://dc942d419843af05523b-ff74ae13537a01be6cfec5927837dcfe.r14.cf1.rackcdn.com/wp-content/uploads/windows-8-50x50.jpg" height="17">&nbsp;**Windows:** [Visual Studio](http://www.visualstudio.com/downloads/download-visual-studio-vs#d-express-windows-8)
- - <img src="https://lh5.googleusercontent.com/-2YS1ceHWyys/AAAAAAAAAAI/AAAAAAAAAAc/0LCb_tsTvmU/s46-c-k/photo.jpg" height="17">&nbsp;**Ubuntu** / <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Logo_Linux_Mint.png" height="17">&nbsp;**Linux Mint:** `sudo apt-get install build-essential`
- - <img src="http://i1-news.softpedia-static.com/images/extra/LINUX/small/slw218news1.png" height="17">&nbsp;**Fedora**: `sudo dnf groupinstall "Development Tools"`
- - <img src="https://en.opensuse.org/images/b/be/Logo-geeko_head.png" height="17">&nbsp;**OpenSUSE:** `sudo zypper install --type pattern devel_basis`
-- [MongoDB](https://www.mongodb.org/downloads)
-  - <img src="http://deluge-torrent.org/images/apple-logo.gif" height="17">&nbsp;**Mac OS X:** `brew install mongodb`
-  - run by typing in `mongod`
-  - If you get a permissions error when running, you may need to make additional changes to your system post install:
-    - type in `whoami` and note the username of the computer you're working on
-    - `sudo mkdir /data /data/db`
-    - `sudo chown USERNAME:staff /data /data/db`
-    - You should be able to now run `mongod` without a permissions error.
-- [Node.js](http://nodejs.org) v4+
-  - **Standard Install**
-    - Download the binary from the [Node.js website](http://nodejs.org) that corresponds to your system
-    - Follow the accompanying installation instructions to install
-  - **via [NVM](https://github.com/creationix/nvm)**
-    - *NVM gives you the a few extra nice-to-haves that makes development in Node a lot easier:
-      - User Sandboxing
-      - No need for `sudo`
-      - Ability to run parallel versions of Node separate from each other
-    - Uninstall any previously installed Node versions (if you don't already have `nvm` installed)
-    - Install NVM using the script found on the [nvm repo](https://github.com/creationix/nvm)), or the following: `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash && echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bashrc && echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.bashrc && . $HOME/.bashrc && nvm install 6 && nvm alias default 6 && nvm use 6`
+</p></details><br/>
 
+<details><summary><img src="https://pbs.twimg.com/profile_images/378800000124779041/fbbb494a7eef5f9278c6967b6072ca3e_normal.png" height="25" /> Docker (click to open)</summary><p>
+***Pre-requisites***
 
-**Note:** If you are new to Node or Express, I recommend to watch
-[Node.js and Express 101](https://www.youtube.com/watch?v=BN0JlMZCtNU)
-screencast by Alex Ford that teaches Node and Express from scratch. Alternatively,
-here is another great tutorial for complete beginners - [Getting Started With Node.js, Express, MongoDB](http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/).
+- [Docker Engine](https://docs.docker.com/engine/installation/)
+- A running mongo instance, via docker or otherwise
 
-##### Install (source)
+***Installation and Running***
 
 ```bash
-# Get the latest snapshot
-git clone https://github.com/brigadehub/brigadehub.git
+docker pull brigadehub/suite
+docker run -d --expose=8080:desiredport -e MONGODB='mongodb://location.of.mongo:27017/brigadehub-suite' -e PORT=desiredport brigadehub/suite
+```
 
-# Change directory
+</p></details><br/>
+
+<details><summary><img src="https://www.npmjs.com/static/images/touch-icons/favicon-32x32.png" height="25" /> NPM CLI (click to open)</summary><p>
+***Pre-requisites***
+
+- [Node 6+](https://nodejs.org/en/)
+- A running mongo instance
+
+***Installation and Running***
+```bash
+npm install -g brigadehub
+PORT=desiredport MONGODB_URI=mongodb://location.of.mongo:27017/brigadehub-suite brigadehub-suite
+```
+</p></details><br/>
+
+<details><summary><img src="http://lepbase.org/wp-content/themes/lepbase-dot-org/images/code-icon.png" height="25" /> Source (click to open)</summary><p>
+***Pre-requisites***
+
+- Git
+- [Node 6+](https://nodejs.org/en/)
+- A running mongo instance
+
+***Installation and Running***
+```bash
+git clone https://github.com/brigadehub/brigadehub
 cd brigadehub
-
-# Install NPM dependencies
-npm install
-
-# Copy the .env variables to your own file
-cp .env.example .env
-
-# If needed, start mongodb in a separate tab
-mongod
+make install
+PORT=desiredport MONGODB_URI=mongodb://location.of.mongo:27017/brigadehub-suite make start
 ```
+</p></details>
 
-#### Usage
+###### Development Install
 
-To run the server in production, run:
+<details><summary><img src="http://lepbase.org/wp-content/themes/lepbase-dot-org/images/code-icon.png" height="25" /> Source (click to open)</summary><p>
+To work on Brigadehub Suite as a developer, you need to clone and link internally all four portions of the suite. Fork all 4 repos into your desired organization or account, and work from those, making sure to update from upstream periodically.
+
+***Pre-requisites***
+
+- Git
+- [Node 6+](https://nodejs.org/en/)
+- A running mongo instance
+
+***Installation and Running***
 
 ```bash
-npm start
+git clone https://github.com/brigadehub/brigadehub
+git clone https://github.com/brigadehub/core
+git clone https://github.com/brigadehub/theme-public-c4sf
+git clone https://github.com/brigadehub/theme-admin-c4sf
 ```
 
-or if starting for local development:
+In separate terminals, run the following:
 
 ```bash
-npm run develop
+cd theme-public-c4sf
+make install
+make link
 ```
 
-#### Docker
-
-##### Prerequisites
-
-###### Mac and Windows
-- [Docker Toolbox](https://www.docker.com/products/docker-toolbox)
-
-###### Linux
-- [Docker Engine](https://docs.docker.com/engine)
-- [Docker Compose](https://docs.docker.com/compose)
-
-
-##### Running
-
-Simply run the following:
-
-```
-docker-compose up
+```bash
+cd theme-admin-c4sf
+make install
+make link
 ```
 
-This will build up a docker app and a dockerized mongodb and connect the two together. The docker compose file also runs nodemon, which will also listen to changes in your code and redeploy those changes in your docker container.
-
-
-### Testing
-#### Linting
-
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
-
-For details on our linting / js coding style, visit [`feross/standard'](https://github.com/feross/standard). Linting occurs automatically on commit, but you can run it manually by running:
-
-```
-npm run lint
+```bash
+cd core
+make install
+make link
 ```
 
-#### Unit tests
-
-Unit tests are being run via [`tap`](). Any file with the `*.tap.js` naming scheme will be run in unit tests. We are sorely lacking on unit testing, so anyone willing to take these on are very welcome. Unit tests are run automatically on commit, but you can run them manually anytime by running:
-
-```
-npm run test:unit
-```
-
-To run linting and unit tests together, you can run `npm test`.
-
-#### End to end (e2e) tests
-
-For end-to-end testing, we are using a Selenium standalone server, PhantomJS headless browser, and Nightwatch. Since end to end tests involve testing all aspects of the application, including UI interactions, all three of these services need to be running simultaneously to the development server.
-
-##### Installing Selenium
-
-```
-npm run selenium:install
+```bash
+cd brigadehub
+make install
+make link
+MONGODB_URI=mongodb://location.of.mongo:27017/brigadehub-suite make start/develop
 ```
 
-##### Runnning e2e tests
+Any changes made in core, theme-public-c4sf, and theme-admin-c4sf will restart the server in brigadehub, and allow you to preview the changes. When you're done with your changes, make sure the tests pass via `make test`, and create a pull request from the appropriate repo.
 
-When you are ready to run e2e tests, you'll need to run the following commands in separate terminals:
+</p></details>
 
-- `npm run selenium:start`
-- `npm run develop`
-- `npm run test:e2e`
+#### Admin Gateway
 
-To stop the selenium server after the tests, run `npm run selenium:stop`.
+**Brigadehub Admin Gateway** installs two components: **Core** and **Admin Theme**. Your frontend developers can dynamically pull the data about your brigade via the Core API, but you as an administrator should never need to touch the code. This is a good option if you already have a site and want to augment it with brigadehub data.
 
-If for some reason, you need to stop the selenium server
+###### Production Install
+
+<details><summary><img src="http://saasiter.com/img/services/heroku.png" height="25" /> Heroku (click to open)</summary><p>
+Heroku sports this handy one-click-install feature, which will handle most of the configuration for you. Base the install off [brigadehub/admin-gateway](https://github.com/brigadehub/admin-gateway), and you're good to go (the button below does that ⬇)
+
+[![Brigadehub Admin Gateway Heroku Install](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https%3A%2F%2Fgithub.com%2Fbrigadehub%2Fadmin-gateway%2Ftree%2Fmaster)
+</p></details><br/>
+
+<details><summary><img src="https://pbs.twimg.com/profile_images/378800000124779041/fbbb494a7eef5f9278c6967b6072ca3e_normal.png" height="25" /> Docker (click to open)</summary><p>
+***Pre-requisites***
+
+- [Docker Engine](https://docs.docker.com/engine/installation/)
+- A running mongo instance, via docker or otherwise
+
+***Installation and Running***
+
+```bash
+docker pull brigadehub/admin-gateway
+docker run -d --expose=8080:desiredport -e MONGODB='mongodb://location.of.mongo:27017/brigadehub-admin-gateway' -e PORT=desiredport brigadehub/admin-gateway
 ```
-npm selenium:stop
+
+</p></details><br/>
+
+<details><summary><img src="https://www.npmjs.com/static/images/touch-icons/favicon-32x32.png" height="25" /> NPM CLI (click to open)</summary><p>
+***Pre-requisites***
+
+- [Node 6+](https://nodejs.org/en/)
+- A running mongo instance
+
+***Installation and Running***
+```bash
+npm install -g brigadehub-admin-gateway
+brigadehub-admin-gateway --port desiredport --mongodb mongodb://location.of.mongo:27017/brigadehub-admin-gateway
+```
+</p></details><br/>
+
+<details><summary><img src="http://lepbase.org/wp-content/themes/lepbase-dot-org/images/code-icon.png" height="25" /> Source (click to open)</summary><p>
+***Pre-requisites***
+
+- Git
+- [Node 6+](https://nodejs.org/en/)
+- A running mongo instance
+
+***Installation and Running***
+```bash
+git clone https://github.com/brigadehub/admin-gateway
+cd admin-gateway
+make install
+PORT=desiredport MONGODB_URI=mongodb://location.of.mongo:27017/brigadehub-admin-gateway make start
+```
+</p></details>
+
+###### Development Install
+
+<details><summary><img src="http://lepbase.org/wp-content/themes/lepbase-dot-org/images/code-icon.png" height="25" /> Source (click to open)</summary><p>
+To work on Brigadehub Admin Gateway as a developer, you need to clone and link internally all three portions of the install. Fork all 3 repos into your desired organization or account, and work from those, making sure to update from upstream periodically.
+
+***Pre-requisites***
+
+- Git
+- [Node 6+](https://nodejs.org/en/)
+- A running mongo instance
+
+***Installation and Running***
+
+```bash
+git clone https://github.com/brigadehub/admin-gateway
+git clone https://github.com/brigadehub/core
+git clone https://github.com/brigadehub/theme-admin-c4sf
 ```
 
-### Deploy
+In separate terminals, run the following:
 
-***brigadehub, while deployed for Code for San Francisco, has not yet been optimized for wide adoption yet. If you deploy this to your production brigade site, you do so at your own risk.***
-
-If you are outside Code for San Francisco and you want to get a version of brigadehub up for your brigade, fork brigadehub/brigadehub into your own brigade's organization. Updates should be done using upstream fetches. Contributing back should be done via Pull Request back to this repository :)
-
-These instructions will be updated as the project emerges from the Alpha-release haze :P
-
-### Troubleshooting
-
-*Using a SCM client with Mac OS*
-
-There are issues, because of the way Mac OS and Node work together, or don't.  [Here's an example of people having problems](https://github.com/gtramontina/ghooks/issues/40)
-
-The most effective way of solving this, besides learning how to use the git CLI, would be to create an alias in your .bash_profile
-
-Something like this
+```bash
+cd theme-admin-c4sf
+make install
+make link
 ```
-ghdc="open Applications/GitHub\ Desktop.app/Contents/MacOS/GitHub\ Desktop"
+
+```bash
+cd core
+make install
+make link
 ```
-And instead of opening your client from an alias in applications
 
-1. open a terminal,
-1. cd to the brigadehubhub repo root
-1. run your alias
+```bash
+cd admin-gateway
+make install
+make link
+MONGODB_URI=mongodb://location.of.mongo:27017/brigadehub-admin-gateway make start/develop
+```
 
-### Changelog
+Any changes made in core and theme-admin-c4sf will restart the server in admin-gateway, and allow you to preview the changes. When you're done with your changes, make sure the tests pass via `make test`, and create a pull request from the appropriate repo.
 
-To see what has changed in recent versions of brigadehub, see the [CHANGELOG](./.github/CHANGELOG.md).
+</p></details>
 
-### Core Contributors
+#### Mini
+
+**Brigadehub Mini** installs only one component: **Core**. No Frontends will be deployed with this install, exposing only the authentication routes and REST APIs. This is an advanced setting, and should be only done if you already have a site and admin portal to manage on your own. All features are accessible via REST API (GraphQL to come soon)
+
+###### Production Install
+
+<details><summary><img src="http://saasiter.com/img/services/heroku.png" height="25" /> Heroku (click to open)</summary><p>
+Heroku sports this handy one-click-install feature, which will handle most of the configuration for you. Base the install off [brigadehub/mini](https://github.com/brigadehub/mini), and you're good to go (the button below does that ⬇)
+
+[![Brigadehub Admin Gateway Heroku Install](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https%3A%2F%2Fgithub.com%2Fbrigadehub%2Fmini%2Ftree%2Fmaster)
+</p></details><br/>
+
+<details><summary><img src="https://pbs.twimg.com/profile_images/378800000124779041/fbbb494a7eef5f9278c6967b6072ca3e_normal.png" height="25" /> Docker (click to open)</summary><p>
+***Pre-requisites***
+
+- [Docker Engine](https://docs.docker.com/engine/installation/)
+- A running mongo instance, via docker or otherwise
+
+***Installation and Running***
+
+```bash
+docker pull brigadehub/mini
+docker run -d --expose=8080:desiredport -e MONGODB='mongodb://location.of.mongo:27017/brigadehub-mini' -e PORT=desiredport brigadehub/mini
+```
+</p></details><br/>
+
+<details><summary><img src="https://www.npmjs.com/static/images/touch-icons/favicon-32x32.png" height="25" /> NPM CLI (click to open)</summary><p>
+***Pre-requisites***
+
+- [Node 6+](https://nodejs.org/en/)
+- A running mongo instance
+
+***Installation and Running***
+```bash
+npm install -g brigadehub-mini
+brigadehub-mini --port desiredport --mongodb mongodb://location.of.mongo:27017/brigadehub-mini
+```
+</p></details><br/>
+
+<details><summary><img src="http://lepbase.org/wp-content/themes/lepbase-dot-org/images/code-icon.png" height="25" /> Source (click to open)</summary><p>
+***Pre-requisites***
+
+- Git
+- [Node 6+](https://nodejs.org/en/)
+- A running mongo instance
+
+***Installation and Running***
+```bash
+git clone https://github.com/brigadehub/mini
+cd mini
+make install
+PORT=desiredport MONGODB_URI=mongodb://location.of.mongo:27017/brigadehub-mini make start
+```
+</p></details>
+
+###### Development Install
+
+<details><summary><img src="http://lepbase.org/wp-content/themes/lepbase-dot-org/images/code-icon.png" height="25" /> Source (click to open)</summary><p>
+To work on Brigadehub Mini as a developer, you need to clone and link internally both portions of the install. Fork both repos into your desired organization or account, and work from those, making sure to update from upstream periodically.
+
+***Pre-requisites***
+
+- Git
+- [Node 6+](https://nodejs.org/en/)
+- A running mongo instance
+
+***Installation and Running***
+
+```bash
+git clone https://github.com/brigadehub/mini
+git clone https://github.com/brigadehub/theme-admin-c4sf
+```
+
+In separate terminals, run the following:
+
+```bash
+cd core
+make install
+make link
+```
+
+```bash
+cd mini
+make install
+make link
+MONGODB_URI=mongodb://location.of.mongo:27017/brigadehub-mini make start/develop
+```
+
+Any changes made in core and theme-admin-c4sf will restart the server in mini, and allow you to preview the changes. When you're done with your changes, make sure the tests pass via `make test`, and create a pull request from the appropriate repo.
+
+</p></details>
+
+#### [Usage](#usage)
+##### [Core API](#core-api)
+*Core API Documentation is being worked on*
+##### [Admin Theme](#admin-theme)
+*Admin Theme Documentation is being worked on*
+##### [Public Theme](#public-theme)
+*Public Theme Documentation is being worked on*
+#### [Troubleshooting](#troubleshooting)
+*If you come upon issues while installing or using Brigadehub (any install), open an issue here in Github. If it occurs enough times, it'll make it here into Troubleshooting*
+#### [Contributing](#contributing)
+
+Brigadehub works from a fork/PR methodology. If you would like to contribute, check the github issues and see if someone is working on the issue already. If not, comment in the issue that you are working on it (or create a new issue if it's not already there), then fork the repo and submit a PR when your work is complete. Claimed issues without update on the issue itself or via linked PR after 30 days will be unassigned and reopened for others to work on.
+
+#### [Changelog](#changelog)
+The changelog for Brigadehub (and each of its components) resides in the appropriate repos ***Releases*** tab.
+
+#### [Contributors](#contributors)
+
+Brigadehub is a Code for San Francisco Infrastructure project, and has been brought about by the generous work of the following individuals. If you make a contribution to Brigadehub (e.g. when opening a PR), feel free to add yourself to this list in addition to your changes. If you are contributing in a non-code fashion, open an issue to have your name added.
 
 - Oz Haven - Project Lead - ([@therebelrobot](https://github.com/therebelrobot)) <`github``@``therebelrobot.com`>
 - Todd Seller - Project Co-Lead - [@toddseller](https://github.com/toddseller)
@@ -283,18 +409,24 @@ To see what has changed in recent versions of brigadehub, see the [CHANGELOG](./
 - [@whatdoublechen](https://github.com/whatdoublechen)
 - [@wrendo](https://github.com/wrendo)
 
-### Resources
+#### Inspirations
 
-*will be adding resources soon*
+Similar projects have been conceived and implemented previously ([Laddr](https://github.com/CfABrigadePhiladelphia/laddr), [Connector](https://github.com/codeforatlanta/connector), [Chime](https://github.com/chimecms/chime ), etc.), but for one reason or another didn't meet the needs of Code for San Francisco and many other brigades. Brigadehub hopes to bridge those infrastructure gaps.
 
-### Other questions
+#### [Additional Resources](#resources)
 
-Feel free to chat with the brigadehub core team (and many other users) on `brigadehub` Slack in the `#brigadehub` channel ([join here](http://c4sf.me/slack)), on IRC in the [#brigadehub](irc://irc.freenode.net/brigadehub) channel on Freenode, or via opening a new Github Issue here in the repo.
+Have additional resources that could benefit those using Brigadehub? Open a Github Issue and let us know!
 
-## Contributing
+#### [License](#license)
 
-Refer to our [`CONTRIBUTING.md`](/.github/CONTRIBUTING.md) doc.
+[MIT](https://tldrlegal.com/license/mit-license)
 
-## License
+The MIT License (MIT)
 
-This can be found in [brigadehub's wiki](https://github.com/brigadehub/brigadehub/wiki/License) as well.
+Copyright (c) 2016-2017 Code for San Francisco
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
