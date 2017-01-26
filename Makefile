@@ -1,5 +1,5 @@
 COREPATH ?= ./node_modules/brigadehub-core
-PACKAGENAME ?= brigadehub-suite
+PACKAGENAME ?= suite
 
 start:
 	node app.js
