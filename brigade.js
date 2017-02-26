@@ -13,7 +13,7 @@ module.exports = function () {
       geo: ''
     },
     heroImage: faker.image.city(1080, 399),
-    url: 'http://codeforexample.org',
+    url: process.env.GITHUB_CALLBACK_HOST || 'http://localhost:5465',
     github: 'codeforexample',
     blog: {
       jekyll: '',
