@@ -141,14 +141,14 @@ In separate terminals, run the following:
 
 ```bash
 cd theme-public-c4sf
-make install
-make link
+npm install
+npm link
 ```
 
 ```bash
 cd theme-admin-c4sf
-make install
-make link
+npm install
+npm link
 ```
 
 ```bash
@@ -247,8 +247,8 @@ In separate terminals, run the following:
 
 ```bash
 cd theme-admin-c4sf
-make install
-make link
+npm install
+npm link
 ```
 
 ```bash
