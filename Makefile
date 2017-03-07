@@ -72,6 +72,7 @@ db/migrate/down:
 	npm run db-migrate -- --config $(COREPATH)/config/database.json --migrations-dir $(COREPATH)/migrations down
 
 install:
+	if [ ! -f .env ]; then cp .env.example .env; fi;
 	npm install
 	@echo make db/migrate/up
 	@$(MAKE) db/migrate/up
