@@ -71,12 +71,14 @@ db/migrate/down:
 	@$(MAKE) db/bootstrap
 	npm run db-migrate -- --config $(COREPATH)/config/database.json --migrations-dir $(COREPATH)/migrations down
 
-install:
-	if [ ! -f .env ]; then cp .env.example .env; fi;
+install: .env
 	npm install
 	@echo make db/migrate/up
 	@$(MAKE) db/migrate/up
 
+.env:
+	cp .env.example .env
+	
 install/clean:
 	rm -rf node_modules
 	@echo make install
@@ -100,4 +102,4 @@ build/docker/push:
 build/docker/untag:
 	echo "docker rmi brigadehub/$(PACKAGENAME):release"
 
-.PHONY: start lint test db install build link
+.PHONY: start lint test db install build link .env
