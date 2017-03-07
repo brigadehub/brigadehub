@@ -102,4 +102,4 @@ build/docker/push:
 build/docker/untag:
 	echo "docker rmi brigadehub/$(PACKAGENAME):release"
 
-.PHONY: start lint test db install build link .env
+.PHONY: start lint test db install build link
