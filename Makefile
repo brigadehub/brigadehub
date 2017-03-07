@@ -71,11 +71,14 @@ db/migrate/down:
 	@$(MAKE) db/bootstrap
 	npm run db-migrate -- --config $(COREPATH)/config/database.json --migrations-dir $(COREPATH)/migrations down
 
-install:
+install: .env
 	npm install
 	@echo make db/migrate/up
 	@$(MAKE) db/migrate/up
 
+.env:
+	cp .env.example .env
+	
 install/clean:
 	rm -rf node_modules
 	@echo make install
