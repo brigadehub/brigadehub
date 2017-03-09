@@ -42,7 +42,4 @@
 ### Checklist
 
 - [ ] This PR passes Linting tests (see below)
-- [ ] This PR does not contain merge conflicts with `develop` (see below)
-- [ ] This PR does not contain:
-  - Additional Dependencies in `package.json` that are not used
-  - Frontend JS in Jade templates (unless absolutely necessary)
+- [ ] This PR does not contain merge conflicts with `master` (see below)
