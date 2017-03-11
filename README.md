@@ -1,4 +1,4 @@
-<img src="https://cdn.rawgit.com/brigadehub/brigadehub/develop/assets/rasterized/logo-banner-color-white.png" alt="Brigadehub"/>
+<img src="https://cdn.rawgit.com/brigadehub/brigadehub/master/assets/rasterized/logo-banner-color-white.png" alt="Brigadehub"/>
 
 ---
 
