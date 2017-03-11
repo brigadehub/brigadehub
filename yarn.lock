@@ -1169,9 +1169,9 @@ breakable@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/breakable/-/breakable-1.0.0.tgz#784a797915a38ead27bad456b5572cb4bbaa78c1"
 
-brigadehub-admin-c4sf@0.1.11-rc1:
-  version "0.1.11-rc1"
-  resolved "https://registry.yarnpkg.com/brigadehub-admin-c4sf/-/brigadehub-admin-c4sf-0.1.11-rc1.tgz#f394f2fd07aca410fd023a0877a9b40f7422f0cb"
+brigadehub-admin-c4sf@0.1.12:
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/brigadehub-admin-c4sf/-/brigadehub-admin-c4sf-0.1.12.tgz#bd6b6d2f473395ea161845bc165550aef4fb0a90"
   dependencies:
     analytics-node "^2.1.0"
     app-module-path "^2.1.0"
@@ -1221,6 +1221,7 @@ brigadehub-admin-c4sf@0.1.11-rc1:
     passport-local "^1.0.0"
     passport-meetup "^1.0.0"
     pug "^2.0.0-beta6"
+    repo-exists "^2.0.0"
     request "^2.67.0"
     require-dir "https://registry.npmjs.org/require-dir/-/require-dir-0.3.0.tgz"
     selectn "1.0.9"
@@ -1231,9 +1232,9 @@ brigadehub-admin-c4sf@0.1.11-rc1:
     vinyl-source-stream "^1.1.0"
     yarn "^0.17.10"
 
-brigadehub-core@0.1.5-rc2:
-  version "0.1.5-rc2"
-  resolved "https://registry.yarnpkg.com/brigadehub-core/-/brigadehub-core-0.1.5-rc2.tgz#c779f4fb95f6c187e33ef5dd5a770297023b0a02"
+brigadehub-core@0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/brigadehub-core/-/brigadehub-core-0.1.6.tgz#4a9eb0bcbb6e48cf0c47b236868ea2c08671af81"
   dependencies:
     "@f/get-prop" "^1.1.1"
     analytics-node "^2.1.0"
@@ -1294,9 +1295,9 @@ brigadehub-core@0.1.5-rc2:
     supertest "^2.0.1"
     through "^2.3.8"
 
-brigadehub-public-c4sf@0.3.10-rc1:
-  version "0.3.10-rc1"
-  resolved "https://registry.yarnpkg.com/brigadehub-public-c4sf/-/brigadehub-public-c4sf-0.3.10-rc1.tgz#13ac0fc182f46de9da9299622eced5c377f8e6fd"
+brigadehub-public-c4sf@0.3.11:
+  version "0.3.11"
+  resolved "https://registry.yarnpkg.com/brigadehub-public-c4sf/-/brigadehub-public-c4sf-0.3.11.tgz#60014cbe5b626ff8e4346a819b02ea76711011b4"
   dependencies:
     analytics-node "^2.1.0"
     app-module-path "^2.1.0"
@@ -6738,6 +6739,12 @@ repeating@^2.0.0:
 replace-ext@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/replace-ext/-/replace-ext-0.0.1.tgz#29bbd92078a739f0bcce2b4ee41e837953522924"
+
+repo-exists@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/repo-exists/-/repo-exists-2.0.0.tgz#ef4566066348c447aa2baa7f153748bbd75ca585"
+  dependencies:
+    gh-got "^1.0.3"
 
 request-capture-har@^1.1.4:
   version "1.1.4"

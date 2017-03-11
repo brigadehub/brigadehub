@@ -94,7 +94,7 @@ docker run -d --expose=8080:desiredport -e MONGODB='mongodb://location.of.mongo:
 <details><summary><img src="https://www.npmjs.com/static/images/touch-icons/favicon-32x32.png" height="25" /> NPM CLI (click to open)</summary><p>
 ***Pre-requisites***
 
-- [Node 6+](https://nodejs.org/en/)
+- [Node 6.x](https://nodejs.org/en/)
 - A running mongo instance
 - [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
@@ -109,7 +109,7 @@ PORT=desiredport MONGODB_URI=mongodb://location.of.mongo:27017/brigadehub-suite 
 ***Pre-requisites***
 
 - Git
-- [Node 6+](https://nodejs.org/en/)
+- [Node 6.x](https://nodejs.org/en/)
 - A running mongo instance
 - [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
@@ -130,7 +130,7 @@ To work on Brigadehub Suite as a developer, you need to clone and link internall
 ***Pre-requisites***
 
 - Git
-- [Node 6+](https://nodejs.org/en/)
+- [Node 6.x](https://nodejs.org/en/)
 - A running mongo instance
 - [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
@@ -204,7 +204,7 @@ docker run -d --expose=8080:desiredport -e MONGODB='mongodb://location.of.mongo:
 <details><summary><img src="https://www.npmjs.com/static/images/touch-icons/favicon-32x32.png" height="25" /> NPM CLI (click to open)</summary><p>
 ***Pre-requisites***
 
-- [Node 6+](https://nodejs.org/en/)
+- [Node 6.x](https://nodejs.org/en/)
 - A running mongo instance
 - [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
@@ -219,7 +219,7 @@ brigadehub-admin-gateway --port desiredport --mongodb mongodb://location.of.mong
 ***Pre-requisites***
 
 - Git
-- [Node 6+](https://nodejs.org/en/)
+- [Node 6.x](https://nodejs.org/en/)
 - A running mongo instance
 - [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
@@ -240,7 +240,7 @@ To work on Brigadehub Admin Gateway as a developer, you need to clone and link i
 ***Pre-requisites***
 
 - Git
-- [Node 6+](https://nodejs.org/en/)
+- [Node 6.x](https://nodejs.org/en/)
 - A running mongo instance
 - [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
@@ -306,7 +306,7 @@ docker run -d --expose=8080:desiredport -e MONGODB='mongodb://location.of.mongo:
 <details><summary><img src="https://www.npmjs.com/static/images/touch-icons/favicon-32x32.png" height="25" /> NPM CLI (click to open)</summary><p>
 ***Pre-requisites***
 
-- [Node 6+](https://nodejs.org/en/)
+- [Node 6.x](https://nodejs.org/en/)
 - A running mongo instance
 - [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
@@ -321,7 +321,7 @@ brigadehub-mini --port desiredport --mongodb mongodb://location.of.mongo:27017/b
 ***Pre-requisites***
 
 - Git
-- [Node 6+](https://nodejs.org/en/)
+- [Node 6.x](https://nodejs.org/en/)
 - A running mongo instance
 - [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
@@ -342,7 +342,7 @@ To work on Brigadehub Mini as a developer, you need to clone and link internally
 ***Pre-requisites***
 
 - Git
-- [Node 6+](https://nodejs.org/en/)
+- [Node 6.x](https://nodejs.org/en/)
 - A running mongo instance
 - [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
@@ -392,19 +392,29 @@ The changelog for Brigadehub (and each of its components) resides in the appropr
 
 Brigadehub is a Code for San Francisco Infrastructure project, and has been brought about by the generous work of the following individuals. If you make a contribution to Brigadehub (e.g. when opening a PR), feel free to add yourself to this list in addition to your changes. If you are contributing in a non-code fashion, open an issue to have your name added.
 
+##### Current Contributors
+
 - Oz Haven - Project Lead - ([@therebelrobot](https://github.com/therebelrobot)) <`github``@``therebelrobot.com`>
+- Bas Sondag - [@BasSondag](https://github.com/BasSondag)
+- Perry Taylor - [@pltaylor](https://github.com/pltaylor)
+
+##### Pre-Beta Contributors
+
 - Todd Seller - Project Co-Lead - [@toddseller](https://github.com/toddseller)
+- David Hincapie [@davidhincapie](https://github.com/davidhincapie)
+- John Gluck [@johngluck65](https://github.com/johngluck65)
+
+##### Pre-Alpha Contributors
+
 - Aaron Schachter [@aaronschachter](https://github.com/aaronschachter)
 - Andrew Bacon [@andrewmbacon](https://github.com/andrewmbacon)
 - David Carvel [@davidcarvel](https://github.com/davidcarvel)
-- David Hincapie [@davidhincapie](https://github.com/davidhincapie)
 - Deborah [@deborahahn](https://github.com/deborahahn)
 - Debbie Espino [@despino](https://github.com/despino)
 - Gisela [@GiselaKay](https://github.com/GiselaKay)
 - Leo Lau [@hawflau](https://github.com/hawflau)
 - Jason Durant [@jaydurant](https://github.com/jaydurant)
 - John Naulty Jr. [@jnaulty](https://github.com/jnaulty)
-- John Gluck [@johngluck65](https://github.com/johngluck65)
 - Jesse Szwedko [@jszwedko Owner](https://github.com/jszwedko Owner)
 - Jessica Parsons [@verythorough](https://github.com/verythorough)
 - Judy5000 [@Judy5000 Owner](https://github.com/Judy5000 Owner)
