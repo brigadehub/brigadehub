@@ -61,6 +61,8 @@ There are three different ways of interacting with/using Brigadehub:
 
 Depending on the needs of your organization, you'll want to decide which will work best for you.
 
+*Note: Unless otherwise specified, links like `location.of.mongo` and `path/to/file` do not represent the actual link you need to use in your enviroment, and should be replaced with the appropriate locations.*
+
 #### Suite
 
 **Brigadehub Suite** is the flagship install of Brigadehub, and is more or less a ***brigade-in-a-box***. It installs three components: **Core**, **Admin Theme**, and **Public Theme**. It's deployed in such a way that you should never *need* to touch the code, but if you *want* to, it's a simple matter. It provides Admin tools to manage your brigade information, and a slick frontend to display the info you're managing. Your frontend developers can dynamically pull the data about your brigade via the Core API if they have external tools that need the same data. And you can rest assured that we'll be working on patches and updates over time to make this the most secure and stable platform ever.
@@ -94,10 +96,11 @@ docker run -d --expose=8080:desiredport -e MONGODB='mongodb://location.of.mongo:
 
 - [Node 6+](https://nodejs.org/en/)
 - A running mongo instance
+- [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
 ***Installation and Running***
 ```bash
-npm install -g brigadehub
+yarn global add brigadehub
 PORT=desiredport MONGODB_URI=mongodb://location.of.mongo:27017/brigadehub-suite brigadehub-suite
 ```
 </p></details><br/>
@@ -108,13 +111,14 @@ PORT=desiredport MONGODB_URI=mongodb://location.of.mongo:27017/brigadehub-suite 
 - Git
 - [Node 6+](https://nodejs.org/en/)
 - A running mongo instance
+- [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
 ***Installation and Running***
 ```bash
 git clone https://github.com/brigadehub/brigadehub
 cd brigadehub
 make install
-PORT=desiredport MONGODB_URI=mongodb://location.of.mongo:27017/brigadehub-suite make start
+make start
 ```
 </p></details>
 
@@ -128,6 +132,7 @@ To work on Brigadehub Suite as a developer, you need to clone and link internall
 - Git
 - [Node 6+](https://nodejs.org/en/)
 - A running mongo instance
+- [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
 ***Installation and Running***
 
@@ -142,14 +147,14 @@ In separate terminals, run the following:
 
 ```bash
 cd theme-public-c4sf
-npm install
-npm link
+make install
+make link
 ```
 
 ```bash
 cd theme-admin-c4sf
-npm install
-npm link
+make install
+make link
 ```
 
 ```bash
@@ -162,7 +167,7 @@ make link
 cd brigadehub
 make install
 make link
-MONGODB_URI=mongodb://location.of.mongo:27017/brigadehub-suite make start/develop
+make start/develop
 ```
 
 Any changes made in core, theme-public-c4sf, and theme-admin-c4sf will restart the server in brigadehub, and allow you to preview the changes. When you're done with your changes, make sure the tests pass via `make test`, and create a pull request from the appropriate repo.
@@ -201,10 +206,11 @@ docker run -d --expose=8080:desiredport -e MONGODB='mongodb://location.of.mongo:
 
 - [Node 6+](https://nodejs.org/en/)
 - A running mongo instance
+- [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
 ***Installation and Running***
 ```bash
-npm install -g brigadehub-admin-gateway
+yarn global add brigadehub-admin-gateway
 brigadehub-admin-gateway --port desiredport --mongodb mongodb://location.of.mongo:27017/brigadehub-admin-gateway
 ```
 </p></details><br/>
@@ -215,13 +221,14 @@ brigadehub-admin-gateway --port desiredport --mongodb mongodb://location.of.mong
 - Git
 - [Node 6+](https://nodejs.org/en/)
 - A running mongo instance
+- [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
 ***Installation and Running***
 ```bash
 git clone https://github.com/brigadehub/admin-gateway
 cd admin-gateway
 make install
-PORT=desiredport MONGODB_URI=mongodb://location.of.mongo:27017/brigadehub-admin-gateway make start
+make start
 ```
 </p></details>
 
@@ -235,6 +242,7 @@ To work on Brigadehub Admin Gateway as a developer, you need to clone and link i
 - Git
 - [Node 6+](https://nodejs.org/en/)
 - A running mongo instance
+- [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
 ***Installation and Running***
 
@@ -248,8 +256,8 @@ In separate terminals, run the following:
 
 ```bash
 cd theme-admin-c4sf
-npm install
-npm link
+make install
+make link
 ```
 
 ```bash
@@ -262,7 +270,7 @@ make link
 cd admin-gateway
 make install
 make link
-MONGODB_URI=mongodb://location.of.mongo:27017/brigadehub-admin-gateway make start/develop
+make start/develop
 ```
 
 Any changes made in core and theme-admin-c4sf will restart the server in admin-gateway, and allow you to preview the changes. When you're done with your changes, make sure the tests pass via `make test`, and create a pull request from the appropriate repo.
@@ -300,10 +308,11 @@ docker run -d --expose=8080:desiredport -e MONGODB='mongodb://location.of.mongo:
 
 - [Node 6+](https://nodejs.org/en/)
 - A running mongo instance
+- [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
 ***Installation and Running***
 ```bash
-npm install -g brigadehub-mini
+yarn global add brigadehub-mini
 brigadehub-mini --port desiredport --mongodb mongodb://location.of.mongo:27017/brigadehub-mini
 ```
 </p></details><br/>
@@ -314,13 +323,14 @@ brigadehub-mini --port desiredport --mongodb mongodb://location.of.mongo:27017/b
 - Git
 - [Node 6+](https://nodejs.org/en/)
 - A running mongo instance
+- [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
 ***Installation and Running***
 ```bash
 git clone https://github.com/brigadehub/mini
 cd mini
 make install
-PORT=desiredport MONGODB_URI=mongodb://location.of.mongo:27017/brigadehub-mini make start
+make start
 ```
 </p></details>
 
@@ -334,6 +344,7 @@ To work on Brigadehub Mini as a developer, you need to clone and link internally
 - Git
 - [Node 6+](https://nodejs.org/en/)
 - A running mongo instance
+- [Yarn](https://yarnpkg.com/en/) - For installation and package management (replaces NPM in this project)
 
 ***Installation and Running***
 
@@ -354,7 +365,7 @@ make link
 cd mini
 make install
 make link
-MONGODB_URI=mongodb://location.of.mongo:27017/brigadehub-mini make start/develop
+make start/develop
 ```
 
 Any changes made in core and theme-admin-c4sf will restart the server in mini, and allow you to preview the changes. When you're done with your changes, make sure the tests pass via `make test`, and create a pull request from the appropriate repo.

@@ -7,21 +7,29 @@ start:
 start/develop:
 	@echo make install
 	@$(MAKE) install
-	npm run nodemon -- app.js
+	yarn run nodemon -- app.js
 
 start/develop/mongo:
 	@echo make install
 	@$(MAKE) install
 	mongod -d
-	npm run nodemon -- app.js
+	yarn run nodemon -- app.js
 
 lint:
-	npm run standard
+	yarn run standard
 
 link:
-	npm link brigadehub-public-c4sf
-	npm link brigadehub-admin-c4sf
-	npm link brigadehub-core
+	yarn link brigadehub-public-c4sf
+	yarn link brigadehub-admin-c4sf
+	yarn link brigadehub-core
+
+upstream/set:
+	git remote add upstream https://github.com/brigadehub/brigadehub.git
+
+upstream/sync:
+	git fetch upstream
+	git checkout master
+	git merge upstream/master
 
 test:
 	@echo make lint
@@ -42,10 +50,10 @@ test/e2e:
 	echo 'no end-to-end tests available.'
 
 test/e2e/selenium/install:
-	npm run selenium-standalone install
+	yarn run selenium-standalone install
 
 test/e2e/selenium/start:
-	npm run selenium-standalone start&
+	yarn run selenium-standalone start&
 
 test/e2e/selenium/stop:
 	pkill -f selenium-standalone
@@ -64,21 +72,21 @@ db/bootstrap:
 db/migrate/up:
 	@echo make db/bootstrap
 	@$(MAKE) db/bootstrap
-	npm run db-migrate -- --config $(COREPATH)/config/database.json --migrations-dir $(COREPATH)/migrations up
+	yarn run db-migrate -- --config $(COREPATH)/config/database.json --migrations-dir $(COREPATH)/migrations up
 
 db/migrate/down:
 	@echo make db/bootstrap
 	@$(MAKE) db/bootstrap
-	npm run db-migrate -- --config $(COREPATH)/config/database.json --migrations-dir $(COREPATH)/migrations down
+	yarn run db-migrate -- --config $(COREPATH)/config/database.json --migrations-dir $(COREPATH)/migrations down
 
 install: .env
-	npm install
+	yarn install
 	@echo make db/migrate/up
 	@$(MAKE) db/migrate/up
 
 .env:
 	cp .env.example .env
-	
+
 install/clean:
 	rm -rf node_modules
 	@echo make install
@@ -102,4 +110,4 @@ build/docker/push:
 build/docker/untag:
 	echo "docker rmi brigadehub/$(PACKAGENAME):release"
 
-.PHONY: start lint test db install build link
+.PHONY: start lint test db install build link upstream

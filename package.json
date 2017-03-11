@@ -12,7 +12,6 @@
     "brigadehub-suite": "make start"
   },
   "scripts": {
-    "install": "echo 'make install'",
     "db-migrate": "db-migrate",
     "gulp": "gulp",
     "nightwatch": "nightwatch",
@@ -29,9 +28,9 @@
     "async": "^1.5.2",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.14.2",
-    "brigadehub-admin-c4sf": "^0.1.11",
-    "brigadehub-core": "^0.1.5",
-    "brigadehub-public-c4sf": "^0.3.10",
+    "brigadehub-admin-c4sf": "0.1.11-rc1",
+    "brigadehub-core": "0.1.5-rc2",
+    "brigadehub-public-c4sf": "0.3.10-rc1",
     "colors": "^1.1.2",
     "compression": "^1.6.0",
     "connect-mongo": "^1.1.0",
