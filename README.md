@@ -5,7 +5,8 @@
 [![TrustOSS Compliant](http://trustoss.org/badge_version.svg)](http://trustoss.org)
 [![Build Status](https://travis-ci.org/brigadehub/brigadehub.svg?branch=edge)](https://travis-ci.org/brigadehub/brigadehub)
 [![npm](https://img.shields.io/npm/v/brigadehub.svg?maxAge=2592000)](https://www.npmjs.com/package/brigadehub)
-[![Slack Status](https://sfbrigade-slackin.herokuapp.com/badge.svg)](https://sfbrigade-slackin.herokuapp.com/)
+[![Gitter](https://img.shields.io/gitter/room/brigadehub/Lobby.svg)](https://gitter.im/brigadehub/Lobby)
+[![IRC](https://camo.githubusercontent.com/2fecf7a682dcdd4c2be514294ef18a6ef5773942/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f636861742d6f6e2532304952432d677265656e2e737667)](http://webchat.freenode.net/?channels=#brigadehub)
 [![Keep A Changelog](https://img.shields.io/badge/Keep%20A-Changelog-blue.svg?style=flat)](http://keepachangelog.com/)
 [![JS Standard](https://img.shields.io/badge/JS-Standard-yellow.svg?style=flat)](https://github.com/feross/standard)
 
