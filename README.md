@@ -136,41 +136,76 @@ To work on Brigadehub Suite as a developer, you need to clone and link internall
 
 ***Installation and Running***
 
+First, clone the following repositories into your own account, either your organization's org or your personal account:
+
+- [brigadehub/brigadehub](https://github.com/brigadehub/brigadehub)
+- [brigadehub/core](https://github.com/brigadehub/core)
+- [brigadehub/theme-public-c4sf](https://github.com/brigadehub/theme-public-c4sf)
+- [brigadehub/theme-admin-c4sf](https://github.com/brigadehub/theme-admin-c4sf)
+
+Once you've forked all four, clone the repos locally (replacing `your-account` with the appropriate org/account name):
+
 ```bash
-git clone https://github.com/brigadehub/brigadehub
-git clone https://github.com/brigadehub/core
-git clone https://github.com/brigadehub/theme-public-c4sf
-git clone https://github.com/brigadehub/theme-admin-c4sf
+git clone https://github.com/your-account/brigadehub
+git clone https://github.com/your-account/core
+git clone https://github.com/your-account/theme-public-c4sf
+git clone https://github.com/your-account/theme-admin-c4sf
 ```
 
 In separate terminals, run the following:
 
 ```bash
 cd theme-public-c4sf
+make upstream/set
 make install
 make link
 ```
 
 ```bash
 cd theme-admin-c4sf
+make upstream/set
 make install
 make link
 ```
 
 ```bash
 cd core
+make upstream/set
 make install
 make link
 ```
 
 ```bash
 cd brigadehub
+make upstream/set
 make install
 make link
 make start/develop
 ```
 
 Any changes made in core, theme-public-c4sf, and theme-admin-c4sf will restart the server in brigadehub, and allow you to preview the changes. When you're done with your changes, make sure the tests pass via `make test`, and create a pull request from the appropriate repo.
+
+***Sync Changes with Upstream***
+
+To pull the most recent changes from `upstream/master`, run the following command:
+
+```
+make upstream/sync
+```
+
+This will fetch the upstream `master` branch and merge those changes into your local `master` branch.
+
+***Push Changes Upstream***
+
+To push your development changes back to the main brigadehub repo, push your changes up to your branch, and make a Pull Request into the upstream repository's `master` branch. Please include the following information in your pull request:
+
+- A description of the problem you are addressing (or feature being added)
+- A link to the related Github Issue (if applicable)
+- If making changes to UI, screenshots of the changes presented
+- List any deprecations that may be presented
+- If you are a new contributor, your name, github handle, and (optionally) website for the maintainers list
+
+Please keep in mind that application changes are subject to review and revision, and may be rejected at the project maintainers discretion.
 
 </p></details>
 
@@ -246,34 +281,68 @@ To work on Brigadehub Admin Gateway as a developer, you need to clone and link i
 
 ***Installation and Running***
 
+First, clone the following repositories into your own account, either your organization's org or your personal account:
+
+- [brigadehub/admin-gateway](https://github.com/brigadehub/admin-gateway)
+- [brigadehub/core](https://github.com/brigadehub/core)
+- [brigadehub/theme-admin-c4sf](https://github.com/brigadehub/theme-admin-c4sf)
+
+Once you've forked all three, clone the repos locally (replacing `your-account` with the appropriate org/account name):
+
 ```bash
-git clone https://github.com/brigadehub/admin-gateway
-git clone https://github.com/brigadehub/core
-git clone https://github.com/brigadehub/theme-admin-c4sf
+git clone https://github.com/your-account/admin-gateway
+git clone https://github.com/your-account/core
+git clone https://github.com/your-account/theme-admin-c4sf
 ```
 
 In separate terminals, run the following:
 
 ```bash
 cd theme-admin-c4sf
+make upstream/set
 make install
 make link
 ```
 
 ```bash
 cd core
+make upstream/set
 make install
 make link
 ```
 
 ```bash
 cd admin-gateway
+make upstream/set
 make install
 make link
 make start/develop
 ```
 
 Any changes made in core and theme-admin-c4sf will restart the server in admin-gateway, and allow you to preview the changes. When you're done with your changes, make sure the tests pass via `make test`, and create a pull request from the appropriate repo.
+
+***Sync Changes with Upstream***
+
+To pull the most recent changes from `upstream/master`, run the following command:
+
+```
+make upstream/sync
+```
+
+This will fetch the upstream `master` branch and merge those changes into your local `master` branch.
+
+***Push Changes Upstream***
+
+To push your development changes back to the main brigadehub repo, push your changes up to your branch, and make a Pull Request into the upstream repository's `master` branch. Please include the following information in your pull request:
+
+- A description of the problem you are addressing (or feature being added)
+- A link to the related Github Issue (if applicable)
+- If making changes to UI, screenshots of the changes presented
+- List any deprecations that may be presented
+- If you are a new contributor, your name, github handle, and (optionally) website for the maintainers list
+
+Please keep in mind that application changes are subject to review and revision, and may be rejected at the project maintainers discretion.
+
 
 </p></details>
 
@@ -348,21 +417,30 @@ To work on Brigadehub Mini as a developer, you need to clone and link internally
 
 ***Installation and Running***
 
+First, clone the following repositories into your own account, either your organization's org or your personal account:
+
+- [brigadehub/mini](https://github.com/brigadehub/mini)
+- [brigadehub/core](https://github.com/brigadehub/core)
+
+Once you've forked both repos, clone the repos locally (replacing `your-account` with the appropriate org/account name):
+
 ```bash
-git clone https://github.com/brigadehub/mini
-git clone https://github.com/brigadehub/theme-admin-c4sf
+git clone https://github.com/your-account/mini
+git clone https://github.com/your-account/theme-admin-c4sf
 ```
 
 In separate terminals, run the following:
 
 ```bash
 cd core
+make upstream/set
 make install
 make link
 ```
 
 ```bash
 cd mini
+make upstream/set
 make install
 make link
 make start/develop
@@ -370,11 +448,35 @@ make start/develop
 
 Any changes made in core and theme-admin-c4sf will restart the server in mini, and allow you to preview the changes. When you're done with your changes, make sure the tests pass via `make test`, and create a pull request from the appropriate repo.
 
+
+***Sync Changes with Upstream***
+
+To pull the most recent changes from `upstream/master`, run the following command:
+
+```
+make upstream/sync
+```
+
+This will fetch the upstream `master` branch and merge those changes into your local `master` branch.
+
+***Push Changes Upstream***
+
+To push your development changes back to the main brigadehub repo, push your changes up to your branch, and make a Pull Request into the upstream repository's `master` branch. Please include the following information in your pull request:
+
+- A description of the problem you are addressing (or feature being added)
+- A link to the related Github Issue (if applicable)
+- If making changes to UI, screenshots of the changes presented
+- List any deprecations that may be presented
+- If you are a new contributor, your name, github handle, and (optionally) website for the maintainers list
+
+Please keep in mind that application changes are subject to review and revision, and may be rejected at the project maintainers discretion.
+
+
 </p></details>
 
 #### [Usage](#usage)
 ##### [Core API](#core-api)
-*Core API Documentation is being worked on*
+*Core API Documentation can be found on [gitbook](https://brigadehub.gitbooks.io/core-api/)
 ##### [Admin Theme](#admin-theme)
 *Admin Theme Documentation is being worked on*
 ##### [Public Theme](#public-theme)
