@@ -1169,9 +1169,9 @@ breakable@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/breakable/-/breakable-1.0.0.tgz#784a797915a38ead27bad456b5572cb4bbaa78c1"
 
-brigadehub-admin-c4sf@0.1.12:
-  version "0.1.12"
-  resolved "https://registry.yarnpkg.com/brigadehub-admin-c4sf/-/brigadehub-admin-c4sf-0.1.12.tgz#bd6b6d2f473395ea161845bc165550aef4fb0a90"
+brigadehub-admin-c4sf@0.1.13:
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/brigadehub-admin-c4sf/-/brigadehub-admin-c4sf-0.1.13.tgz#2c516946986e31529c3105c4502e0ea814d645ea"
   dependencies:
     analytics-node "^2.1.0"
     app-module-path "^2.1.0"
@@ -1232,9 +1232,9 @@ brigadehub-admin-c4sf@0.1.12:
     vinyl-source-stream "^1.1.0"
     yarn "^0.17.10"
 
-brigadehub-core@0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/brigadehub-core/-/brigadehub-core-0.1.6.tgz#4a9eb0bcbb6e48cf0c47b236868ea2c08671af81"
+brigadehub-core@0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/brigadehub-core/-/brigadehub-core-0.1.7.tgz#40889f0b9a84afc653214ed646b6e14e78a2cc20"
   dependencies:
     "@f/get-prop" "^1.1.1"
     analytics-node "^2.1.0"
@@ -1295,9 +1295,9 @@ brigadehub-core@0.1.6:
     supertest "^2.0.1"
     through "^2.3.8"
 
-brigadehub-public-c4sf@0.3.11:
-  version "0.3.11"
-  resolved "https://registry.yarnpkg.com/brigadehub-public-c4sf/-/brigadehub-public-c4sf-0.3.11.tgz#60014cbe5b626ff8e4346a819b02ea76711011b4"
+brigadehub-public-c4sf@0.3.12:
+  version "0.3.12"
+  resolved "https://registry.yarnpkg.com/brigadehub-public-c4sf/-/brigadehub-public-c4sf-0.3.12.tgz#88a4bb933aade611be362cbcef7dd23dfec0f45f"
   dependencies:
     analytics-node "^2.1.0"
     app-module-path "^2.1.0"
