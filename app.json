@@ -12,6 +12,7 @@
   ],
   "env": {
     "NODE_ENV": "production",
-    "JWT_SECRET": "Change this to be a secure passphrase (e.g c0d3for$anFr@n)"
+    "JWT_SECRET": "Change this to be a secure passphrase (e.g c0d3for$anFr@n)",
+    "NODE_MODULES_CACHE": false
   }
 }
