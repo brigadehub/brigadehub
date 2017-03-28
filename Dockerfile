@@ -9,7 +9,9 @@ COPY ./ ./suite
 WORKDIR ./suite
 
 # More deps for working locally
-RUN npm rebuild
+RUN npm prune --production
+RUN npm rebuild --production
+RUN npm install
 
 EXPOSE 5555
 

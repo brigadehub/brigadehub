@@ -4,6 +4,12 @@ PACKAGENAME ?= suite
 start:
 	node app.js
 
+start/docker:
+	@echo make install/docker
+	@$(MAKE) install/docker
+	@echo make start
+	@$(MAKE) start
+
 start/develop:
 	@echo make install
 	@$(MAKE) install
@@ -80,9 +86,15 @@ db/migrate/down:
 	yarn run db-migrate -- --config $(COREPATH)/config/database.json --migrations-dir $(COREPATH)/migrations down
 
 install: .env
+	npm install -g yarn
 	yarn install
 	@echo make db/migrate/up
 	@$(MAKE) db/migrate/up
+
+install/docker: .env
+	npm prune --production
+	npm rebuild --production
+	npm install
 
 .env:
 	cp .env.example .env

@@ -5,15 +5,14 @@ db:
 
 app:
   build: .
-  command: npm start
+  command: make start/docker
   volumes:
-    - .:/usr/src/app
-    - /usr/src/app/node_modules
+    - .:/suite
   ports:
-    - "5465:5465"
+    - "5555:5555"
   links:
     - db
   environment:
-    MONGODB_URI: mongodb://db:27017/brigadehub-suite
+    MONGODB_URI: mongodb://db:27017/brigadehub
     GITHUB_ID:
     GITHUB_SECRET:
